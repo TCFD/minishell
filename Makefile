@@ -5,27 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/03 10:50:48 by zbp15             #+#    #+#              #
-#    Updated: 2023/06/16 16:34:59 by tboldrin         ###   ########.fr        #
+#    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
+#    Updated: 2023/06/16 16:36:11 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	pipex
-CFLAGS		=	-Wall -Wextra -Werror -pthread -ggdb -O0
+NAME		=	minishell
+CFLAGS		=	-Wall -Wextra -Werror
+PFLAGES		=	-lreadline
 CC			=	cc 
 CLEANF 		=	@(rm -f *.o)
 OBJ 		=	${SRCS:.c=.o}
 OBJ_B		=	${SRCS_B:.c=.o}
 
 
-SRCS 		=	main.c \
-				pipex.c \
-				childs.c
+SRCS 		=	maintest.c
 
-SRCS_B		=	main_bonus.c \
-				pipex_bonus.c \
-				childs_bonus.c \
-				utils_bonus.c
+INCLUDE = INCLUDES
 
 # Couleurs
 BOLD		=	"\033[1m"
@@ -40,27 +36,27 @@ all : $(NAME)
 	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME) : $(OBJ)
-	@make -s -C ./libft
-	@mv libft/libft.a .
+	@make -s -C $(INCLUDE)/
+	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
-	@make -s clean -C ./libft
+	@make -s clean -C $(INCLUDE)/
 	@$(CLEANF)
 	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
 
 
 bonus : $(OBJ_B)
-	@make -s -C ./libft
-	@mv libft/libft.a .
+	@make -s -C $(INCLUDE)/
+	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
 	@$(CC) $(CFLAGS) $(OBJ_B) libft.a -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 fclean : clean
-	@make fclean -s -C ./libft
+	@make fclean -s -C $(INCLUDE)/
 	@rm -f libft.a
 	@rm -f $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) deleted.$(RESET)

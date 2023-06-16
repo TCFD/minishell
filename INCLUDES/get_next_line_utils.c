@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/02/17 13:56:30 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:11:44 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	*ft_join(char *s1, char *s2)
 		new_str[idx_count + s1_len] = s2[idx_count];
 		idx_count++ ;
 	}
+	free(s1);
+	free(s2);
 	new_str[idx_count + s1_len] = '\0';
 	return (new_str);
 }
