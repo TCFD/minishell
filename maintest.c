@@ -66,8 +66,6 @@ void handle_sigusr1()
 {
 	char	*prompt;
 
-	ft_printf("TEST\n");
-
     printf("\n");
 	rl_on_new_line();
 	prompt = display_user_prompt();
@@ -88,11 +86,11 @@ int main()
 	signal(SIGINT, handle_ctrl_l);
 	signal(SIGUSR1, handle_sigusr1);
 
+	user = display_user_prompt();
+
 	while (1)
 	{
-		//user = display_user_prompt();
-		//write(STDOUT_FILENO, user, ft_strlen(user));
-		//free(user);
+		write(STDOUT_FILENO, user, ft_strlen(user));
 		input = readline("\033[34m $> \033[0m");
 		if (strcmp(input, "exit") == 0)
 		{
@@ -104,5 +102,6 @@ int main()
 		free(input);
 	}
 	rl_clear_history();
+	free(user);
 	return (0);
 }
