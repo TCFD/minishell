@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 17:06:41 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 17:19:28 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ char	**create_options(char *cmd_name, char **all_args)
 	return (all_options);
 }
 
-
-
 char	*is_path_unset(char *command_name)
 {
 	char	**path_split;
@@ -53,22 +51,23 @@ char	*is_path_unset(char *command_name)
 	idx = 0;
 	while (idx < d_len(path_split))
 	{
-		
+		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
+		path = ft_join(path, ft_strdup(command_name));
+		if (access(path, F_OK | X_OK) == 0)
+			return (path);
+		free(path);
 		idx++ ;
 	}
-	
+	return (command_name);
 }
 
 
 
 char	*create_path(char *command_name)
-{
-	char	*path;
-	
+{	
 	if (ft_strchr(command_name, '/'))
 		return (command_name);
-	path = ft_join(ft_strdup("/bin/"), command_name);
-	return (path);
+	return (is_path_unset(command_name));
 }
 
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
@@ -82,6 +81,5 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	cmdopt->command_path = create_path(all_args[0]);
 	if (all_args[1])
 		cmdopt->option = create_options(cmdopt->command_name, all_args + 1);
-	is_path_unset(cmdopt->command_name);
 	free(all_args);
 }

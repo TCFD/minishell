@@ -6,15 +6,54 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 14:42:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 18:37:31 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	bf_prd(char *str, int d, char *color)
+{
+	char	*str_cara;
+	char	*color_strdup;
+	int		idx_str;
+	int		idx;
+
+	color_strdup = ft_strdup(color);
+	idx_str = 0;
+	write(1, color_strdup, ft_strlen(color));
+	free(color_strdup);
+	while (str[idx_str])
+	{
+		idx = 0;
+		while (idx < d)
+			idx++ ;
+		str_cara = (char*)malloc(2 * sizeof(char));
+		str_cara[0] = str[idx_str];
+		str_cara[1] = '\0';
+		write(1, str_cara, 1);
+		free(str_cara);
+		idx_str++ ;
+	}
+	color_strdup = ft_strdup("\033[0m");
+	write(1, color_strdup, ft_strlen(color_strdup));
+	free(color_strdup);
+}
+
+void	welcome_to_minishell(void)
+{
+	int		dl;
+
+	dl = 10000000;
+	bf_prd("\n\n\t\t>     ~ \033[32;21mWELCOME TO MINISHELL\033[0m\033[32;1m ~", dl, GREEN);
+	bf_prd("\n\t\t>", dl, GREEN);
+	bf_prd("\n\t\t>   Made by : tboldrin && rciaze", dl, GREEN);
+	ft_printf("\n\n\n");
+}
+
 char	*ccn(char *str, char *color)
 {
-	ft_printf("%s%s%s ", color, str, NC);
+	ft_printf("%s%s%s\n", color, str, NC);
 	return (str);
 }
 
