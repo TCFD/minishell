@@ -1,8 +1,16 @@
-#include "minishell.h"
-#include <signal.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   maintest.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
+/*   Updated: 2023/06/17 15:54:28 by wolf             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// ----
+#include "minishell.h"
 
 // ----
 char	*getenv_check(char *str)
@@ -15,83 +23,46 @@ char	*getenv_check(char *str)
 	return (found_it);
 }
 
-// ----
-char	*ccn(char *str, char *color)
+void	print_options(t_cmd_and_opt *cmdopt)
 {
-	ft_printf("%s%s%s ", color, str, NC);
-	return (str);
-}
+	int	idx;
 
-char	*stick_color(char *str, char *color)
-{
-	char	*new_str;
-
-	new_str = ft_join(color, str);
-	new_str = ft_join(new_str, ft_strdup(NC));
-	return (new_str);
-}
-
-// ----
-char	*display_user_prompt()
-{
-	char	*result;
-	char	*user;
-	char	cwd[1024];
-
-	if (!(user = getenv("USER")))
-		return (NULL);
-	user = stick_color(ft_join(ft_strdup(user), ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return (NULL);
-	result = ft_join(ft_strdup(cwd + ft_len(user) + 5), ft_strdup(" $ "));
-	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
-	result = ft_join(user, result);
-	return (result);
-}
-
-void handle_ctrl_c()
-{
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	write(1, "\n", 1);
-	display_user_prompt();
-
-}
-
-void handle_sigusr1()
-{
-    printf("\n");
-	rl_on_new_line();
-    rl_redisplay();
-	display_user_prompt();
-
-}
-
-void sigint_handler()
-{
-	char	*prompt;
-
-	rl_redisplay();
+	idx = 0;
+	if (!cmdopt->option)
+	{
+		ft_printf("\n");
+		return ;
+	}
+	while (cmdopt->option[idx])
+	{
+		ft_printf("\"%s\" ", cmdopt->option[idx]);
+		idx++ ;
+	}
 	ft_printf("\n");
-	rl_replace_line("", 0);
-	prompt = display_user_prompt();
-	ft_printf("%s", prompt);
-	free(prompt);
 }
 
-int main()
+int	main(void)
 {
-    char	*prompt;
-    char	*input;
+	t_cmd_and_opt	cmdopt;
+	char			*prompt;
+	char			*input;
 
 	signal(SIGINT, sigint_handler);
 	prompt = display_user_prompt();
-    while ((input = readline(prompt)) != NULL)
+	while ((input = readline(prompt)) != NULL && ft_strncmp(input, "exit", 4) != 0)
 	{
+		init_cmdopt(&cmdopt);
 		if (input[0])
+		{
+			create_command(input, &cmdopt);
+			ft_printf("command name : %s\n", cmdopt.command_name);
+			ft_printf("options      : ");
+			print_options(&cmdopt);
 			add_history(input);
+		}
 		free(input);
-    }
-    free(prompt);
-    return (0);
+		free_cmdopt(&cmdopt);
+	}
+	free(prompt);
+	return (0);
 }

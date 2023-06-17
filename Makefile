@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/17 13:02:52 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/17 14:37:34 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,13 @@ OBJ 		=	${SRCS:.c=.o}
 OBJ_B		=	${SRCS_B:.c=.o}
 
 
-SRCS 		=	maintest.c
+SRCS 		=	len_utils.c		\
+				signals_utils.c	 \
+				parsing_utils.c	  \
+				free_utils.c	   \
+				prompt_utils.c      \
+				init_utils.c		 \
+				maintest.c
 
 INCLUDE = INCLUDES
 
