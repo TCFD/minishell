@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 18:24:18 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 19:57:41 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "INCLUDES/libft.h"
+# include "pipex/pipex_bonus.h"
 # include <signal.h>
 # include <errno.h>
 # include <sys/types.h>
@@ -38,6 +39,7 @@ typedef struct s_command_and_option
 }t_cmd_and_opt;
 
 char	**create_options(char *cmd_name, char **all_args);
+char	**double_a_realloc(char **array, char *new_elmt);
 char	*getenv_check(char *str);
 char	*display_user_prompt(void);
 char	*ccn(char *str, char *color);
@@ -57,5 +59,6 @@ void	execute_command(t_cmd_and_opt *cmdopt);
 void	bf_prd(char *str, int d, char *color);
 int		d_len(char **str);
 int		t_len(char ***str);
+int    use_pipex(char  *command);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:38:34 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/14 17:19:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/17 19:32:01 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
+char	*ft_substr_gnl(char *s, int start, int len)
 {
 	int 	i;
 	int 	j;
@@ -22,7 +22,7 @@ char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
 	len2 = ft_strlen(s);
 	if (!s)
 		return (NULL);
-	if (len == 0 || (size_t) start > len2)
+	if (len == 0 || start > len2)
 		return (free((void *)s), NULL);
 	if (len > len2 - start)
 		len = len2 - start;

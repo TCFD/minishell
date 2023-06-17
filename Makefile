@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/17 16:15:52 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/17 20:12:55 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,19 +16,20 @@ PFLAGES		=	-lreadline
 CC			=	cc 
 CLEANF 		=	@(rm -f *.o)
 OBJ 		=	${SRCS:.c=.o}
-OBJ_B		=	${SRCS_B:.c=.o}
 
 
 SRCS 		=	len_utils.c		\
 				signals_utils.c	 \
 				parsing_utils.c	  \
 				free_utils.c	   \
-				prompt_utils.c      \
+				prompt_utils.c		\
 				init_utils.c		 \
 				execute_utils.c		  \
+				realloc_utils.c		   \
 				maintest.c
 
 INCLUDE = INCLUDES
+PIPEX   = pipex
 
 # Couleurs
 BOLD		=	"\033[1m"
@@ -44,26 +45,21 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)/
+	@make -s -C $(PIPEX)/
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex_bonus.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
 	@make -s clean -C $(INCLUDE)/
+	@make -s clean -C $(PIPEX)/
 	@$(CLEANF)
 	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
 
-
-bonus : $(OBJ_B)
-	@make -s -C $(INCLUDE)/
-	@mv $(INCLUDE)/libft.a .
-	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ_B) libft.a -o $(NAME)
-	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
-
 fclean : clean
-	@make fclean -s -C $(INCLUDE)/
+	@make -s fclean -C $(INCLUDE)/
+	@make -s fclean -C $(PIPEX)/
 	@rm -f libft.a
 	@rm -f $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) deleted.$(RESET)

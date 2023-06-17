@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 17:19:28 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 19:59:19 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*is_path_unset(char *command_name)
 	}
 	return (command_name);
 }
-
-
 
 char	*create_path(char *command_name)
 {	

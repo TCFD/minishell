@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:22:53 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/14 17:05:06 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/17 19:26:58 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-int	main(int ac, char **av, char **envp)
+int	main_pipex(int ac, char **av, char **envp)
 {
 	t_struct	*my_s;
 	int			i;

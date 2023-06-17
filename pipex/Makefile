@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 10:50:48 by zbp15             #+#    #+#              #
-#    Updated: 2023/06/16 16:34:59 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/06/17 19:37:33 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,7 @@ NAME		=	pipex
 CFLAGS		=	-Wall -Wextra -Werror -pthread -ggdb -O0
 CC			=	cc 
 CLEANF 		=	@(rm -f *.o)
-OBJ 		=	${SRCS:.c=.o}
 OBJ_B		=	${SRCS_B:.c=.o}
-
-
-SRCS 		=	main.c \
-				pipex.c \
-				childs.c
 
 SRCS_B		=	main_bonus.c \
 				pipex_bonus.c \
@@ -39,33 +33,23 @@ all : $(NAME)
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
 	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ_B)
 	@make -s -C ./libft
 	@mv libft/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a -o $(NAME)
-	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
+	@ar rc pipex_bonus.a $(OBJ_B)
 
 clean :
 	@make -s clean -C ./libft
 	@$(CLEANF)
 	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
 
-
-bonus : $(OBJ_B)
-	@make -s -C ./libft
-	@mv libft/libft.a .
-	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ_B) libft.a -o $(NAME)
-	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
-
 fclean : clean
 	@make fclean -s -C ./libft
 	@rm -f libft.a
+	@rm pipex_bonus.a
 	@rm -f $(NAME)
-	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) deleted.$(RESET)
 
 re : fclean all
 
-
-.PHONY : all re clean fclean 
+.PHONY : all re clean fclean

@@ -6,13 +6,11 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 17:18:36 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 19:42:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void	run_execve(t_cmd_and_opt *cmdopt)
 {
@@ -37,10 +35,6 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	{
 		if (waitpid(pid, &status, 0) == -1)
 			exit(EXIT_FAILURE);
-		/* if (WIFEXITED(status)) 
-			printf("Le processus fils s'est terminé avec le code de sortie : %d\n", WEXITSTATUS(status));
-		else if (WIFSIGNALED(status)) 
-			printf("Le processus fils s'est terminé à la suite du signal : %d\n", WTERMSIG(status)); */
 	}
 }
 
@@ -54,16 +48,17 @@ char	*brut_name(char *command_np)
 	brut_command_name = ft_cpy(str_split[d_len(str_split) - 1], 0);
 	free_d_array(str_split);
 	return (brut_command_name);
-	
 }
-
 
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
 	if (!cmdopt->command_name)
 		return ;
-	if (ft_strncmp(cmdopt->command_name, "ls", 2) == 0)
-		run_execve(cmdopt);
-	if (ft_strncmp(cmdopt->command_name, "pwd", 3) == 0)
-		run_execve(cmdopt);
+	if (ft_strncmp(cmdopt->command_name, "echo", 4) == 0)
+		//------fonction spéciale reproduce_echo(char *str)
+		return ;
+	if (ft_strncmp(cmdopt->command_name, "cd", 2) == 0)
+		//------fonction spéciale reproduce_cd(char *path)
+		return ;
+	run_execve(cmdopt);
 }

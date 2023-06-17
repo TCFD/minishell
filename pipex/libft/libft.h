@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:15:43 by rciaze            #+#    #+#             */
-/*   Updated: 2023/02/03 16:24:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/17 19:32:06 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_putnbr2(unsigned int n);
 int		ft_print_hexa(unsigned int n, char *base);
 int		how_many_digits3(unsigned int n);
 char	**attribution(char const *s, char **str, t_split my_struct);
-char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
+char	*ft_substr_gnl(char *s, int start, int len);
 size_t	ft_strlen_gnl(const char *str);
 char	*get_next_line(int fd);
 char	*ft_strdup_gnl(const char *s);
