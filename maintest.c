@@ -3,7 +3,6 @@
 #include <unistd.h>
 
 // ----
-char	*input;
 
 // ----
 char	*getenv_check(char *str)
@@ -23,38 +22,32 @@ char	*ccn(char *str, char *color)
 	return (str);
 }
 
+char	*stick_color(char *str, char *color)
+{
+	char	*new_str;
+
+	new_str = ft_join(color, str);
+	new_str = ft_join(new_str, ft_strdup(NC));
+	return (new_str);
+}
+
 // ----
-void	display_user_prompt()
+char	*display_user_prompt()
 {
 	char	*result;
 	char	*user;
 	char	cwd[1024];
 
 	if (!(user = getenv("USER")))
-		return ;
-
-	user = ft_join(ft_strdup(user), ft_strdup("@minishell42:"));
-	ccn(user, "\033[32;1m");
+		return (NULL);
+	user = stick_color(ft_join(ft_strdup(user), ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return ;
-	result = ft_join(ft_strdup(cwd + 2 + ft_len(user)), ft_strdup(""));
-	result = ft_join(ft_strdup("~"), result);
-	ccn(result, BLUE);
-	ccn("$>", GREEN);
-	free(user);
-	free(result);
+		return (NULL);
+	result = ft_join(ft_strdup(cwd + ft_len(user) + 5), ft_strdup(" $ "));
+	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
+	result = ft_join(user, result);
+	return (result);
 }
-
-// ----
-void handle_ctrl_l()
-{
-	rl_clear_history();
-    rl_on_new_line();
-    rl_redisplay();
-    kill(getpid(), SIGUSR1); // Envoie le signal SIGUSR1 au processus
-}
-
-// ----
 
 void handle_ctrl_c()
 {
@@ -74,30 +67,31 @@ void handle_sigusr1()
 
 }
 
-// ----
+void sigint_handler()
+{
+	char	*prompt;
+
+	rl_redisplay();
+	ft_printf("\n");
+	rl_replace_line("", 0);
+	prompt = display_user_prompt();
+	ft_printf("%s", prompt);
+	free(prompt);
+}
+
 int main()
 {
-	// Installation du gestionnaire de signal pour Ctrl+L
+    char	*prompt;
+    char	*input;
 
-	signal(SIGUSR1, handle_ctrl_l);
-	signal(SIGINT, handle_ctrl_c);
-	while (1)
+	signal(SIGINT, sigint_handler);
+	prompt = display_user_prompt();
+    while ((input = readline(prompt)) != NULL)
 	{
-		display_user_prompt();
-		//write(STDOUT_FILENO, user, ft_strlen(user));
-		input = readline("");
-		if (strcmp(input, "exit") == 0)
-		{
-			free(input);
-			return (1);
-		}
-		// On va Traiter l'entrée ici...
 		if (input[0])
 			add_history(input);
-		if (input[0] == '\0')
-			write(1, "\n", 1);
 		free(input);
-	}
-	rl_clear_history();
-	return (0);
+    }
+    free(prompt);
+    return (0);
 }
