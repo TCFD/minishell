@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/17 14:37:34 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/17 16:15:52 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS 		=	len_utils.c		\
 				free_utils.c	   \
 				prompt_utils.c      \
 				init_utils.c		 \
+				execute_utils.c		  \
 				maintest.c
 
 INCLUDE = INCLUDES

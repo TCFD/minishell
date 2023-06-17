@@ -6,31 +6,69 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 15:36:56 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 17:06:41 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**create_options(char **all_args)
+char	**create_options(char *cmd_name, char **all_args)
 {
 	char	**all_options;
 	int		idx;
 
-	all_options = malloc((d_len(all_args) + 1) * sizeof(char *));
+	all_options = malloc((d_len(all_args) + 2) * sizeof(char *));
 	if (!all_options)
 		return (NULL);
+	all_options[0] = malloc((ft_strlen(cmd_name) + 1) * sizeof(char));
+	if (!all_options[0])
+		return (free(all_options), NULL);
+	all_options[0] = cmd_name;
 	idx = 0;
 	while (idx < d_len(all_args))
 	{
-		all_options[idx] = malloc((ft_strlen(all_args[idx]) + 1) * sizeof(char));
-		if (!all_options[idx])
+		all_options[idx + 1] = malloc((ft_strlen(all_args[idx]) + 1) * sizeof(char));
+		if (!all_options[idx + 1])
 			return (NULL);
-		all_options[idx] = ft_cpy(all_args[idx], 1);
+		all_options[idx + 1] = ft_cpy(all_args[idx], 1);
 		idx++ ;
 	}
-	all_options[idx] = NULL;
+	all_options[idx + 1] = NULL;
 	return (all_options);
+}
+
+
+
+char	*is_path_unset(char *command_name)
+{
+	char	**path_split;
+	char	*env_path;
+	char	*path;
+	int		idx;
+
+	env_path = getenv("PATH");
+	if (!env_path)
+		return (command_name);
+	path_split = ft_split(env_path, ':');
+	idx = 0;
+	while (idx < d_len(path_split))
+	{
+		
+		idx++ ;
+	}
+	
+}
+
+
+
+char	*create_path(char *command_name)
+{
+	char	*path;
+	
+	if (ft_strchr(command_name, '/'))
+		return (command_name);
+	path = ft_join(ft_strdup("/bin/"), command_name);
+	return (path);
 }
 
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
@@ -40,8 +78,10 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!input[0])
 		return ;
 	all_args = ft_split(input, ' ');
-	cmdopt->command_name = all_args[0];
+	cmdopt->command_name = brut_name(all_args[0]);
+	cmdopt->command_path = create_path(all_args[0]);
 	if (all_args[1])
-		cmdopt->option = create_options(all_args + 1);
+		cmdopt->option = create_options(cmdopt->command_name, all_args + 1);
+	is_path_unset(cmdopt->command_name);
 	free(all_args);
 }

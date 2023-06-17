@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 15:54:28 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/17 16:35:10 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ int	main(void)
 		if (input[0])
 		{
 			create_command(input, &cmdopt);
-			ft_printf("command name : %s\n", cmdopt.command_name);
-			ft_printf("options      : ");
-			print_options(&cmdopt);
 			add_history(input);
 		}
+		execute_command(&cmdopt);
 		free(input);
 		free_cmdopt(&cmdopt);
 	}
