@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 18:37:31 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/19 13:39:04 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	welcome_to_minishell(void)
 {
 	int		dl;
 
-	dl = 10000000;
-	bf_prd("\n\n\t\t>     ~ \033[32;21mWELCOME TO MINISHELL\033[0m\033[32;1m ~", dl, GREEN);
+	dl = 100000000;
+	bf_prd("\n\n\t\t>     ~ WELCOME TO MINISHELL ~", dl, GREEN);
 	bf_prd("\n\t\t>", dl, GREEN);
 	bf_prd("\n\t\t>   Made by : tboldrin && rciaze", dl, GREEN);
 	ft_printf("\n\n\n");

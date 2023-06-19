@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 20:16:34 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/19 13:33:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(void)
 	char			*prompt;
 	char			*input;
 
-	//welcome_to_minishell();
+	welcome_to_minishell();
 	signal(SIGINT, sigint_handler);
 	prompt = display_user_prompt();
 	while ((input = readline(prompt)) != NULL && ft_strncmp(input, "exit", 4) != 0)
