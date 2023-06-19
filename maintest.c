@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 18:25:14 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:34:42 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ char	*getenv_check(char *str)
 	return (found_it);
 }
 
-void	exit_func(t_cmd_and_opt *cmdopt, char *prompt, char *input)
+void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
 	free_cmdopt(cmdopt);
 	free(input);
-	free(prompt);
 	rl_clear_history();
 }
-
 
 void	abcdef(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
@@ -38,7 +36,7 @@ void	abcdef(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	{
 		init_cmdopt(cmdopt);
 		if (ft_strncmp(input, "exit", 4) == 0)
-			return  (exit_func(cmdopt, prompt, input));
+			return  (exit_func(cmdopt, input));
 		if (input[0])
 		{
 			create_command(input, cmdopt);
