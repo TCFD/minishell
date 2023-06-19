@@ -11,8 +11,6 @@ COMPILED := 0
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
-	$(eval COMPILED=$(shell echo $$(($(COMPILED)+1))))
-	@echo "[$(GREEN)$(shell echo "scale=2;($(COMPILED) / $(words $(SRCS)) * 100)" | bc)%$(NC)] : $<"
 
 all: $(NAME)
 
