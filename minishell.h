@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 19:17:59 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:35:18 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	**create_options(char *cmd_name, char **all_args);
 char	**double_a_realloc(char **array, char *new_elmt);
 char	*getenv_check(char *str);
 char	*display_user_prompt(void);
-char	*ccn(char *str, char *color);
 char	*stick_color(char *str, char *color);
 char	*create_path(char *command_name);
 char	*brut_name(char *command_np);
