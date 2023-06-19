@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 19:57:41 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/19 16:27:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void	bf_prd(char *str, int d, char *color);
 int		d_len(char **str);
 int		t_len(char ***str);
 int    use_pipex(char  *command);
+int	check_correct_quotes(t_cmd_and_opt *cmdopt);
 
 #endif
