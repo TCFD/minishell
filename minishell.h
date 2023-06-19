@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 19:57:41 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/19 19:17:59 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*is_path_unset(char *command_name);
 void	create_command(char	*input, t_cmd_and_opt *cmdopt);
 void	welcome_to_minishell(void);
 void	sigint_handler();
+void	cd_remake(t_cmd_and_opt *cmdopt);
 void	free_d_array(char **str);
 void	free_t_array(char ***str);
 void	free_cmdopt(t_cmd_and_opt *cmdopt);
@@ -57,6 +58,7 @@ void	init_cmdopt(t_cmd_and_opt *cmdopt);
 void	run_execve(t_cmd_and_opt *cmdopt);
 void	execute_command(t_cmd_and_opt *cmdopt);
 void	bf_prd(char *str, int d, char *color);
+int		check_if_same(char *s1, char *s2);
 int		d_len(char **str);
 int		t_len(char ***str);
 int    use_pipex(char  *command);

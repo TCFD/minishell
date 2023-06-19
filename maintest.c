@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 18:34:42 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:10:00 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	abcdef(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			add_history(input);
 		}
 		execute_command(cmdopt);
+		prompt = display_user_prompt();
 		free(input);
 		free_cmdopt(cmdopt);
 		input = readline(prompt);

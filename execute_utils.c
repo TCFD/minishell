@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 18:32:19 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:20:21 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		//------fonction spéciale reproduce_echo(char *str)
 		return ;
 	if (ft_strncmp(cmdopt->command_name, "cd", 2) == 0)
-		//------fonction spéciale reproduce_cd(char *path)
-		return ;
+		return (cd_remake(cmdopt));
 	run_execve(cmdopt);
 }

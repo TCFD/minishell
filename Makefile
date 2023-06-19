@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/17 20:12:55 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/19 19:05:56 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS 		=	len_utils.c		\
 				init_utils.c		 \
 				execute_utils.c		  \
 				realloc_utils.c		   \
+				cd_utils.c				\
 				maintest.c
 
 INCLUDE = INCLUDES
