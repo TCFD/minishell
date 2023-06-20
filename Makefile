@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/19 17:07:45 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/20 15:29:43 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -g
 PFLAGES		=	-lreadline
 CC			=	cc 
-CLEANF 		=	@(rm -f *.o)
+CLEANF 		=	@(rm -f *.o quotes_stuff/*.o)
 OBJ 		=	${SRCS:.c=.o}
 
 
@@ -50,7 +50,7 @@ $(NAME) : $(OBJ)
 	@make -s -C $(PIPEX)/
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex_bonus.a $(PFLAGES) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
