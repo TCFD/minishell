@@ -2,7 +2,7 @@ GREEN=\033[0;32m
 NC=\033[0m
 
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 CC = gcc
 
 SRCS := $(wildcard *.c)
@@ -15,7 +15,6 @@ COMPILED := 0
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "\033[0;34m$(CURDIR)$(NC)"
 	ar rc $(NAME) $(OBJS)
 
 clean :

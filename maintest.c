@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 19:10:00 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:06:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 	rl_clear_history();
 }
 
-void	abcdef(char *input, t_cmd_and_opt *cmdopt, char *prompt)
+void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
 	while (input != NULL)
 	{
@@ -47,6 +47,7 @@ void	abcdef(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		free(input);
 		free_cmdopt(cmdopt);
 		input = readline(prompt);
+		free(prompt);
 	}
 	return ;
 }
@@ -57,13 +58,13 @@ int	main(void)
 	char			*prompt;
 	char			*input;
 
-	//welcome_to_minishell();
+	welcome_to_minishell();
 	signal(SIGINT, sigint_handler);
 	prompt = display_user_prompt();
 	input = readline(prompt);
 
-	abcdef(input, &cmdopt, prompt);
-	
+	minishell(input, &cmdopt, prompt);
+
 	free(prompt);
 	rl_clear_history();
 	return (0);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 10:50:48 by zbp15             #+#    #+#              #
-#    Updated: 2023/06/17 19:37:33 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/20 17:09:15 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,18 +36,16 @@ all : $(NAME)
 $(NAME) : $(OBJ_B)
 	@make -s -C ./libft
 	@mv libft/libft.a .
-	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@ar rc pipex_bonus.a $(OBJ_B)
+	@ar rc pipex.a $(OBJ_B)
 
 clean :
 	@make -s clean -C ./libft
 	@$(CLEANF)
-	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
 
 fclean : clean
 	@make fclean -s -C ./libft
 	@rm -f libft.a
-	@rm pipex_bonus.a
+	@rm pipex.a
 	@rm -f $(NAME)
 
 re : fclean all

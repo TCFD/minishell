@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/19 19:05:56 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/06/20 16:24:01 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,20 +14,22 @@ NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -g
 PFLAGES		=	-lreadline
 CC			=	cc 
-CLEANF 		=	@(rm -f *.o)
+CLEANF 		=	@(rm -f *.o quotes_stuff/*.o)
 OBJ 		=	${SRCS:.c=.o}
 
 
-SRCS 		=	len_utils.c		\
-				signals_utils.c	 \
-				parsing_utils.c	  \
-				free_utils.c	   \
-				prompt_utils.c		\
-				init_utils.c		 \
-				execute_utils.c		  \
-				realloc_utils.c		   \
-				cd_utils.c				\
-				maintest.c
+SRCS 		=	len_utils.c		            \
+				signals_utils.c	             \
+				parsing_utils.c	              \
+				free_utils.c	               \
+				prompt_utils.c	            	\
+				init_utils.c	            	 \
+				execute_utils.c	            	  \
+				realloc_utils.c	            	   \
+				maintest.c		            		\
+				cd_utils.c	   						 \
+				quotes_stuff/check_correct_quotes.c   \
+				quotes_stuff/interpret_quotes.c		   \
 
 INCLUDE = INCLUDES
 PIPEX   = pipex
@@ -49,7 +51,7 @@ $(NAME) : $(OBJ)
 	@make -s -C $(PIPEX)/
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex_bonus.a $(PFLAGES) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :

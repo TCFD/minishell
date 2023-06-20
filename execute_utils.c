@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 19:46:02 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:03:40 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*brut_name(char *command_np)
 	str_split = ft_split(command_np, '/');
 	brut_command_name = ft_cpy(str_split[d_len(str_split) - 1], 0);
 	free_d_array(str_split);
+	free(command_np);
 	return (brut_command_name);
 }
 

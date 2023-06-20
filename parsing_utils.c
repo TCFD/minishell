@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 18:25:38 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:58:00 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,11 @@ char	*create_path(char *command_name)
 
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 {
-	char	**all_args;
-	
 	if (!input[0])
 		return ;
-	all_args = ft_split(input, ' ');
-	cmdopt->command_name = brut_name(ft_strdup(all_args[0]));
-	cmdopt->command_path = create_path(ft_strdup(all_args[0]));
-	if (all_args[1])
-		cmdopt->option = create_options(cmdopt->command_name, all_args + 1);
-	return (free_d_array(all_args));
+	if (!check_correct_quotes(input))
+		return ((void)(printf("minishell : incorect quotes.\n")));
+	interpret_quotes(input, cmdopt);
+	cmdopt->command_name = brut_name(ft_strdup(cmdopt->option[0]));
+	cmdopt->command_path = create_path(ft_strdup(cmdopt->option[0]));
 }
