@@ -6,19 +6,22 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 16:27:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:37:35 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define RED	"\033[31m"
-# define GREEN	"\033[32m"
-# define YELLOW	"\033[33m"
-# define BLUE	"\033[34m"
-# define PURPLE	"\033[35m"
-# define NC		"\033[0m"
+# define RED		"\033[31m"
+# define GREEN		"\033[32m"
+# define YELLOW		"\033[33m"
+# define BLUE		"\033[34m"
+# define PURPLE		"\033[35m"
+# define NC			"\033[0m"
+# define SIMPLE_Q	'\''
+# define DOUBLE_Q	'\"'
+# define SPACE		' '
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -59,7 +62,8 @@ void	execute_command(t_cmd_and_opt *cmdopt);
 void	bf_prd(char *str, int d, char *color);
 int		d_len(char **str);
 int		t_len(char ***str);
-int    use_pipex(char  *command);
-int	check_correct_quotes(t_cmd_and_opt *cmdopt);
+int    	use_pipex(char  *command);
+int		check_correct_quotes(char *input);
+void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt);
 
 #endif

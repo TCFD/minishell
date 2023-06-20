@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_management.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:41:38 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 20:12:18 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/20 15:01:34 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	use_pipex(char *command)
 {
 	char	**command_split;
 	char	*infile;
-	
+
 	if (!ft_strchr(command, '|'))
 		return (0);
 	command_split = ft_split(command, '|');

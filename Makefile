@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/19 16:29:42 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/19 17:07:45 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,17 @@ CLEANF 		=	@(rm -f *.o)
 OBJ 		=	${SRCS:.c=.o}
 
 
-SRCS 		=	len_utils.c		\
-				signals_utils.c	 \
-				parsing_utils.c	  \
-				free_utils.c	   \
-				prompt_utils.c		\
-				init_utils.c		 \
-				execute_utils.c		  \
-				realloc_utils.c		   \
-				check_correct_quotes.c	\
-				maintest.c
+SRCS 		=	len_utils.c		            \
+				signals_utils.c	             \
+				parsing_utils.c	              \
+				free_utils.c	               \
+				prompt_utils.c	            	\
+				init_utils.c	            	 \
+				execute_utils.c	            	  \
+				realloc_utils.c	            	   \
+				maintest.c		            		\
+				quotes_stuff/check_correct_quotes.c  \
+				quotes_stuff/interpret_quotes.c		  \
 
 INCLUDE = INCLUDES
 PIPEX   = pipex

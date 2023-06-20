@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 17:04:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:24:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ char	*brut_name(char *command_np)
 
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
-	if (!check_correct_quotes(cmdopt))
-		return ((void)(printf("minishell : incorect quotes.\n")));
 	if (!cmdopt->command_name)
 		return ;
 	if (ft_strncmp(cmdopt->command_name, "echo", 4) == 0)
