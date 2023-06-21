@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/20 17:06:33 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:19:11 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	{
 		init_cmdopt(cmdopt);
 		if (ft_strncmp(input, "exit", 4) == 0)
-			return  (exit_func(cmdopt, input));
+			return (exit_func(cmdopt, input));
 		if (input[0])
 		{
 			create_command(input, cmdopt);
@@ -62,9 +62,7 @@ int	main(void)
 	signal(SIGINT, sigint_handler);
 	prompt = display_user_prompt();
 	input = readline(prompt);
-
 	minishell(input, &cmdopt, prompt);
-
 	free(prompt);
 	rl_clear_history();
 	return (0);

@@ -6,13 +6,13 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:19:19 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/20 16:43:44 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:22:58 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-char	*ft_strchr_rciaze(const char *s, int c)
+char	*ft_strchr_rc(const char *s, int c)
 {
 	int		i;
 

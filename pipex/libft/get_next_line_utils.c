@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:38:34 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/17 19:32:01 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/21 12:22:05 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_substr_gnl(char *s, int start, int len)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 	int		len2;
 	char	*str;
 
@@ -82,4 +82,3 @@ char	*ft_strdup_gnl(const char *s)
 	str[i] = '\0';
 	return (str);
 }
-

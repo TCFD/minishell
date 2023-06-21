@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/19 18:43:08 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:21:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_if_same(char *s1, char *s2)
+int	heck_if_same(char *s1, char *s2)
 {
-    return (ft_strncmp(s1, s2, ft_strlen(s1)) == 0);
+	return (ft_strncmp(s1, s2, ft_strlen(s1)) == 0);
 }

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/20 17:15:36 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:21:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*brut_name(char *command_np);
 char	*is_path_unset(char *command_name);
 void	create_command(char	*input, t_cmd_and_opt *cmdopt);
 void	welcome_to_minishell(void);
-void	sigint_handler();
+void	sigint_handler(void);
 void	cd_remake(t_cmd_and_opt *cmdopt);
 void	free_d_array(char **str);
 void	free_t_array(char ***str);
@@ -63,7 +63,7 @@ void	bf_prd(char *str, int d, char *color);
 int		check_if_same(char *s1, char *s2);
 int		d_len(char **str);
 int		t_len(char ***str);
-int		use_pipex(char  *command);
+int		use_pipex(char *command);
 int		check_correct_quotes(char *input);
 void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt);
 

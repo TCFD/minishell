@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 14:39:15 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/20 16:43:56 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:23:08 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ char	*malloc_fill(char *content);
 char	*ft_cpy(const char *what_to_cpy, int possible_to_free);
 char	*read_fd(int fd, int *verification, char **static_buff);
 char	*ft_join(char *s1, char *s2);
-char	*ft_strchr_rciaze(const char *s, int c);
+char	*ft_strchr_rc(const char *s, int c);
 
 #endif

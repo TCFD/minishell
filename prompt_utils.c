@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/20 17:07:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:20:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	bf_prd(char *str, int d, char *color)
 		idx = 0;
 		while (idx < d)
 			idx++ ;
-		str_cara = (char*)malloc(2 * sizeof(char));
+		str_cara = malloc(2 * sizeof(char));
 		str_cara[0] = str[idx_str];
 		str_cara[1] = '\0';
 		write(1, str_cara, 1);
@@ -72,9 +72,11 @@ char	*display_user_prompt(void)
 	char	*user;
 	char	cwd[1024];
 
-	if (!(user = getenv("USER")))
+	user = getenv("USER");
+	if (!user)
 		return (NULL);
-	user = stick_color(ft_join(ft_strdup(user), ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
+	user = stick_color(ft_join(ft_strdup(user), ft_strdup("@minishell42:")),
+			ft_strdup("\033[32;1m"));
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (NULL);
 	result = ft_join(ft_strdup(cwd + ft_len(user) + 5), ft_strdup(" $ "));

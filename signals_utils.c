@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 13:47:57 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/21 12:20:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler()
+void	sigint_handler(void)
 {
 	char	*prompt;
 

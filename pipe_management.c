@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:41:38 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/20 15:01:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:21:42 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ char	*cut_str(char *str, char *cut)
 	return (new_str);
 }
 
-
 /////// A CONTINUER
 char	**create_pipex_cmd(char *command)
 {
 	char	**buble_cmd;
+
 	return (NULL);
 }
 
@@ -50,7 +50,6 @@ char	*find_infile(char *first_command)
 	char	**f_cmd_split;
 	char	*infile;
 	int		idx;
-
 
 	f_cmd_split = ft_split(first_command, ' ');
 	idx = 1;

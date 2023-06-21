@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/20 16:51:58 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:25:09 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char	which_one(char *input)
 	char	*first_double_quote;
 	char	*first_space;
 
-	first_simple_quote = ft_strchr_rciaze(input, '\'');
-	first_double_quote = ft_strchr_rciaze(input, '\"');
-	first_space = ft_strchr_rciaze(input, ' ');
+	first_simple_quote = ft_strchr_rc(input, '\'');
+	first_double_quote = ft_strchr_rc(input, '\"');
+	first_space = ft_strchr_rc(input, ' ');
 	if (first_simple_quote == input)
 		first_simple_quote = input + ft_strlen(input);
 	if (first_double_quote == input)
@@ -36,7 +36,7 @@ char	which_one(char *input)
 	return ('\0');
 }
 
-void	words(char **input, char what_case, char **dest, bool *boolean)
+void	qutoes_case(char **input, char what_case, char **dest)
 {
 	long int	first_quote;
 	long int	second_quote;
@@ -44,31 +44,36 @@ void	words(char **input, char what_case, char **dest, bool *boolean)
 	int			i;
 	int			j;
 
+	first_quote = ft_strchr_rc(*input, what_case) - *input;
+	second_quote = ft_strchr_rc(*input + first_quote + 1, what_case) - *input;
+	final_space = ft_strchr_rc(*input + second_quote + 1, SPACE) - *input;
+	*dest = malloc(sizeof(char) * (final_space - 1));
+	i = -1;
+	j = 0;
+	while (++i < final_space)
+	{
+		if (input[0][i] != what_case)
+		{
+			dest[0][j] = input[0][i];
+			j++;
+		}
+	}
+	dest[0][j] = '\0';
+	*input += final_space;
+}
+
+void	words(char **input, char what_case, char **dest, bool *boolean)
+{
 	if (!*input)
 		boolean = false;
 	if (what_case == SPACE)
 	{
-		*dest = ft_substr(*input, 0, ft_strchr_rciaze(*input, what_case) - *input);
+		*dest = ft_substr(*input, 0, ft_strchr_rc(*input, what_case) - *input);
 		*input += ft_strlen(*dest);
 	}
 	else
 	{
-		first_quote = ft_strchr_rciaze(*input, what_case) - *input;
-		second_quote = ft_strchr_rciaze(*input + first_quote + 1, what_case) - *input;
-		final_space = ft_strchr_rciaze(*input + second_quote + 1, SPACE) - *input;
-		*dest = malloc(sizeof(char) * (final_space - 1));
-		i = -1;
-		j = 0;
-		while (++i < final_space)
-		{
-			if (input[0][i] != what_case)
-			{
-				dest[0][j] = input[0][i];
-				j++;
-			}
-		}
-		dest[0][j] = '\0';
-		*input += final_space;
+		qutoes_case(input, what_case, dest);
 	}
 }
 
@@ -97,4 +102,3 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 		i++;
 	}
 }
-
