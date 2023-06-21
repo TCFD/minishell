@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:49:08 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define SIMPLE_Q	'\''
 # define DOUBLE_Q	'\"'
 # define SPACE		' '
+# define NONE		'\0'
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -34,11 +35,18 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+
+typedef struct s_opt_and_type
+{
+	char	*type;
+	char	**opt_tab;
+}t_opt_and_type;
+
 typedef struct s_command_and_option
 {
-	char	*command_name;
-	char	*command_path;
-	char	**option;
+	char			*command_name;
+	char			*command_path;
+	t_opt_and_type	option;
 }t_cmd_and_opt;
 
 char	**create_options(char *cmd_name, char **all_args);

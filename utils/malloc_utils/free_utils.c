@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:39:44 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 15:09:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 {
 	free(cmdopt->command_name);
 	free(cmdopt->command_path);
-	free_d_array(cmdopt->option);
+	free(cmdopt->option.type);
+	free_d_array(cmdopt->option.opt_tab);
 }

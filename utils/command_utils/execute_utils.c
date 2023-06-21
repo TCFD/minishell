@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:39:41 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 15:02:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	}
 	else if (pid == 0)
 	{
-		if (execve(cmdopt->command_path, cmdopt->option, NULL) == -1)
+		if (execve(cmdopt->command_path, cmdopt->option.opt_tab, NULL) == -1)
 		{
 			ft_printf("sh : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));

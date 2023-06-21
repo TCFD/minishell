@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/21 14:31:09 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/21 15:08:46 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -g
 PFLAGES		=	-lreadline
 CC			=	cc 
-CLEANF 		=	@(rm -rf */*/*.o)
+CLEANF 		=	@(find . -name "*.o" -type f -delete)
 OBJ 		=	${SRCS:.c=.o}
 
 
