@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:17:40 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:52:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**create_options(char *cmd_name, char **all_args)
 {
@@ -75,6 +75,9 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
 	interpret_quotes(input, cmdopt);
+	int 	i = -1;
+	while (cmdopt->option[++i])
+		printf("option '%s'\n", cmdopt->option[i]);
 	cmdopt->command_name = brut_name(ft_strdup(cmdopt->option[0]));
 	cmdopt->command_path = create_path(ft_strdup(cmdopt->option[0]));
 }

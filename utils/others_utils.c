@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/21 12:21:39 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	heck_if_same(char *s1, char *s2)
 {

@@ -1,33 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_utils.c                                        :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 14:02:41 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/19 17:11:39 by rciaze           ###   ########.fr       */
+/*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
+/*   Updated: 2023/06/21 12:39:44 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-int	d_len(char **str)
+void	free_d_array(char **str)
 {
 	int	idx;
 
 	idx = 0;
-	while (str[idx])
+	if (str == NULL || str[idx] == NULL)
+		return (free(str));
+	while (str[idx] != NULL)
+	{
+		free(str[idx]);
 		idx++ ;
-	return (idx);
+	}
+	free(str);
 }
 
-int	t_len(char ***str)
+void	free_t_array(char ***str)
 {
 	int	idx;
 
 	idx = 0;
 	while (str[idx])
+	{
 		idx++ ;
-	return (idx);
+		free_d_array(str[idx]);
+	}
+	free(str);
+}
+
+void	free_cmdopt(t_cmd_and_opt *cmdopt)
+{
+	free(cmdopt->command_name);
+	free(cmdopt->command_path);
+	free_d_array(cmdopt->option);
 }

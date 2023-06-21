@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:35:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 16:25:24 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_cmdopt(t_cmd_and_opt *cmdopt)
 {

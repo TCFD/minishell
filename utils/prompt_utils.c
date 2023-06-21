@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:20:31 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:23 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	bf_prd(char *str, int d, char *color)
 {

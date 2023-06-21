@@ -6,11 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/06/20 16:24:01 by rciaze           ###   ########.fr        #
-=======
-#    Updated: 2023/06/20 15:58:03 by rciaze           ###   ########.fr        #
->>>>>>> refs/remotes/origin/dev
+#    Updated: 2023/06/21 14:31:09 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,25 +14,25 @@ NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -g
 PFLAGES		=	-lreadline
 CC			=	cc 
-CLEANF 		=	@(rm -f *.o quotes_stuff/*.o)
+CLEANF 		=	@(rm -rf */*/*.o)
 OBJ 		=	${SRCS:.c=.o}
 
 
-SRCS 		=	len_utils.c		            \
-				signals_utils.c	             \
-				parsing_utils.c	              \
-				free_utils.c	               \
-				prompt_utils.c	            	\
-				init_utils.c	            	 \
-				execute_utils.c	            	  \
-				realloc_utils.c	            	   \
-				maintest.c		            		\
-				cd_utils.c	   						 \
-				quotes_stuff/check_correct_quotes.c   \
-				quotes_stuff/interpret_quotes.c		   \
+SRCS 		=	maintest.c 		 	         \
+				utils/len_utils.c		      \
+				utils/signals_utils.c	       \
+				utils/parsing_utils.c	        \
+				utils/prompt_utils.c	         \
+				utils/init_utils.c	              \
+				utils/malloc_utils/free_utils.c	   \
+				utils/malloc_utils/realloc_utils.c	\
+				utils/command_utils/execute_utils.c	 \
+				utils/command_utils/cd_utils.c	      \
+				quotes_stuff/check_correct_quotes.c	   \
+				quotes_stuff/interpret_quotes.c	        \
 
 INCLUDE = INCLUDES
-PIPEX   = pipex
+PIPEX   = pipe_stuff/pipex
 
 # Couleurs
 BOLD		=	"\033[1m"

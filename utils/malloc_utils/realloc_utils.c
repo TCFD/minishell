@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   realloc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/17 19:57:34 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 char	**double_a_realloc(char **array, char *new_elmt)
 {

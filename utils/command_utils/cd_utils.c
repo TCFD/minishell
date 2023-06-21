@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/21 12:25:45 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:36 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	cd_remake(t_cmd_and_opt *cmdopt)
 {

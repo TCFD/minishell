@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:41:38 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:21:42 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:39:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*cut_str(char *str, char *cut)
 {

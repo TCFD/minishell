@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:21:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:49:08 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "INCLUDES/libft.h"
-# include "pipex/pipex_bonus.h"
+# include "pipe_stuff/pipex/pipex_bonus.h"
 # include <signal.h>
 # include <errno.h>
 # include <sys/types.h>
@@ -51,7 +51,7 @@ char	*brut_name(char *command_np);
 char	*is_path_unset(char *command_name);
 void	create_command(char	*input, t_cmd_and_opt *cmdopt);
 void	welcome_to_minishell(void);
-void	sigint_handler(void);
+void	sigint_handler(int signum);
 void	cd_remake(t_cmd_and_opt *cmdopt);
 void	free_d_array(char **str);
 void	free_t_array(char ***str);
