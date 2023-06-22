@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:19:19 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/21 14:20:44 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:31:36 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strchr_rc(const char *s, int c)
 {
 	int		i;
 
-	if (c == '\0')
+	if (s == NULL || c == '\0')
 		return (NULL);
 	i = 0;
 	while (s[i])

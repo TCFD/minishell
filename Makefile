@@ -6,14 +6,14 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/21 15:08:46 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/22 18:02:29 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -g
 PFLAGES		=	-lreadline
-CC			=	cc 
+gcc			=	gcc 
 CLEANF 		=	@(find . -name "*.o" -type f -delete)
 OBJ 		=	${SRCS:.c=.o}
 
@@ -28,8 +28,9 @@ SRCS 		=	maintest.c 		 	         \
 				utils/malloc_utils/realloc_utils.c	\
 				utils/command_utils/execute_utils.c	 \
 				utils/command_utils/cd_utils.c	      \
-				quotes_stuff/check_correct_quotes.c	   \
-				quotes_stuff/interpret_quotes.c	        \
+				utils/command_utils/echo_utils.c       \
+				quotes_stuff/check_correct_quotes.c	    \
+				quotes_stuff/interpret_quotes.c	         \
 
 INCLUDE = INCLUDES
 PIPEX   = pipe_stuff/pipex
@@ -44,24 +45,21 @@ all : $(NAME)
 
 .c.o:
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
-	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	@${gcc} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME) : $(OBJ)
-	@make -s -C $(INCLUDE)/
-	@make -s -C $(PIPEX)/
+	@make -s -C $(INCLUDE)
+	@make -s -C $(PIPEX)
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
+	@$(gcc) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
-	@make -s clean -C $(INCLUDE)/
-	@make -s clean -C $(PIPEX)/
 	@$(CLEANF)
 	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
 
 fclean : clean
-	@make -s fclean -C $(INCLUDE)/
 	@make -s fclean -C $(PIPEX)/
 	@rm -f libft.a
 	@rm -f $(NAME)

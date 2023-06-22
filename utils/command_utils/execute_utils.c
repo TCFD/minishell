@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 15:02:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:56:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	if (!cmdopt->command_name)
 		return ;
 	if (verif_command_name(cmdopt->command_name, "echo"))
-		//------fonction spéciale reproduce_echo(char *str)
-		return ;
+		return (echo_remake(cmdopt));
 	if (verif_command_name(cmdopt->command_name, "cd"))
 		return (cd_remake(cmdopt));
 	run_execve(cmdopt);

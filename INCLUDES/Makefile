@@ -3,14 +3,14 @@ NC=\033[0m
 
 NAME = libft.a
 FLAGS = -Wall -Wextra -Werror -g3
-CC = gcc
+gcc = ggcc
 
 SRCS := $(wildcard *.c)
 OBJS := $(SRCS:.c=.o)
 COMPILED := 0
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
+	$(gcc) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 

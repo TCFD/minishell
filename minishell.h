@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 15:01:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:37 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-
 
 typedef struct s_opt_and_type
 {
@@ -74,5 +73,6 @@ int		t_len(char ***str);
 int		use_pipex(char *command);
 int		check_correct_quotes(char *input);
 void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt);
+void	echo_remake(t_cmd_and_opt *cmdopt);
 
 #endif

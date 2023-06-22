@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/21 15:19:39 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:51:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,25 @@ char	which_one(char *input)
 	return ('\0');
 }
 
+long int	assign_values(long int *f_quote, long int *s_quote,
+	char what_case, char **input)
+{
+	long int		final_space;
+
+	final_space = 0;
+	*f_quote = ft_strchr_rc(*input, what_case) - *input;
+	*s_quote = ft_strchr_rc(*input + *f_quote, what_case) - *input;
+	if (*input + *s_quote)
+		final_space = (long int)ft_strchr_rc(*input + *s_quote + 1, SPACE);
+	else
+		final_space = ft_strlen(*input);
+	if (final_space == 0)
+		final_space = ft_strlen(*input);
+	else
+		final_space -= (long int)*input;
+	return (final_space);
+}
+
 void	qutoes_case(char **input, char what_case, char **dest, int j)
 {
 	long int		first_quote;
@@ -43,14 +62,13 @@ void	qutoes_case(char **input, char what_case, char **dest, int j)
 	long int		final_space;
 	int				i;
 
-	first_quote = ft_strchr_rc(*input, what_case) - *input;
-	second_quote = ft_strchr_rc(*input + first_quote + 1, what_case) - *input;
-	final_space = (long int)ft_strchr_rc(*input + second_quote + 1, SPACE);
-	if (final_space == 0)
-		final_space = ft_strlen(*input);
-	else
-		final_space -= (long int)*input;
-	*dest = malloc(sizeof(char) * (final_space - 1));
+	final_space = assign_values(&first_quote, &second_quote, what_case, input);
+	*dest = malloc(sizeof(char) * (final_space));
+	if (!*dest)
+	{
+		perror("malloc fail");
+		exit(0);
+	}
 	i = -1;
 	while (++i < final_space)
 	{
@@ -95,9 +113,8 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 		if (!what_case)
 		{
 			cmdopt->option.opt_tab[i] = ft_strdup(input);
-			i++;
-			cmdopt->option.opt_tab[i] = NULL;
 			cmdopt->option.type[i] = NONE;
+			i++;
 			break ;
 		}
 		words(&input, what_case, &cmdopt->option.opt_tab[i],
@@ -106,4 +123,5 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 		while (*input == SPACE)
 			input += 1;
 	}
+	cmdopt->option.opt_tab[i] = NULL;
 }

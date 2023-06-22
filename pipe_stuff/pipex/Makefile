@@ -6,13 +6,13 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 10:50:48 by zbp15             #+#    #+#              #
-#    Updated: 2023/06/20 17:09:15 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/22 18:01:48 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
 CFLAGS		=	-Wall -Wextra -Werror -pthread -ggdb -O0
-CC			=	cc 
+gcc			=	gcc 
 CLEANF 		=	@(rm -f *.o)
 OBJ_B		=	${SRCS_B:.c=.o}
 
@@ -31,7 +31,7 @@ all : $(NAME)
 
 .c.o:
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
-	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	@${gcc} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME) : $(OBJ_B)
 	@make -s -C ./libft

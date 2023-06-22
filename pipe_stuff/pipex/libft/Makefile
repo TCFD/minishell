@@ -6,14 +6,14 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 12:06:39 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/14 15:06:37 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/22 18:01:50 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror -c -g3
-COMP = cc $(FLAGS) -c
+COMP = gcc $(FLAGS) -c
 all : $(NAME)
 CLEANF = rm -f *.o
 
