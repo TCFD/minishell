@@ -6,14 +6,14 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/22 18:02:29 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/22 18:06:13 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 CFLAGS		=	-Wall -Wextra -Werror -g
 PFLAGES		=	-lreadline
-gcc			=	gcc 
+CC			=	gcc 
 CLEANF 		=	@(find . -name "*.o" -type f -delete)
 OBJ 		=	${SRCS:.c=.o}
 
@@ -52,7 +52,7 @@ $(NAME) : $(OBJ)
 	@make -s -C $(PIPEX)
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(gcc) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
