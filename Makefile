@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/22 18:06:13 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/22 18:13:22 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ all : $(NAME)
 
 .c.o:
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
-	@${gcc} ${CFLAGS} -c $< -o ${<:.c=.o}
+	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)
