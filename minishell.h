@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/22 14:57:37 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/23 16:37:02 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,11 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-typedef struct s_opt_and_type
-{
-	char	*type;
-	char	**opt_tab;
-}t_opt_and_type;
-
 typedef struct s_command_and_option
 {
 	char			*command_name;
 	char			*command_path;
-	t_opt_and_type	option;
+	char			**opt_tab;
 }t_cmd_and_opt;
 
 char	**create_options(char *cmd_name, char **all_args);
@@ -74,5 +68,8 @@ int		use_pipex(char *command);
 int		check_correct_quotes(char *input);
 void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt);
 void	echo_remake(t_cmd_and_opt *cmdopt);
+char	*check_env_variables(char *input);
+void	expand(char **dest);
+int		space_end_case(char **input, char **dest);
 
 #endif

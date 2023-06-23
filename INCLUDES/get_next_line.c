@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:50:17 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/17 15:32:32 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/23 15:04:43 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_len(char *str)
 	int	count;
 
 	count = 0;
+	if (!str)
+		return (count);
 	while (str[count])
 		count++ ;
 	return (count);

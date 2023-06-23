@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:48:27 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/11/14 16:34:00 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:03:57 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stddef.h>
 #include <stdlib.h>
 
 char	*ft_strdup(const char *s)
@@ -18,6 +20,8 @@ char	*ft_strdup(const char *s)
 	char	*tab;
 
 	end = 0;
+	if (!s)
+		return(NULL);
 	while (s[end])
 		end++ ;
 	tab = malloc(end + 1);

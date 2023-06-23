@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:13:25 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/11/21 16:03:55 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:07:44 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	compte_mot(char *str, char charset)
 				mot++ ;
 			b = 1;
 		}
-	i++ ;
+		i++;
 	}
+	if (!mot)
+		return (1);
 	return (mot);
 }
 

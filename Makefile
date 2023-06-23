@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/22 18:13:22 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/23 16:38:47 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,9 @@ SRCS 		=	maintest.c 		 	         \
 				utils/command_utils/execute_utils.c	 \
 				utils/command_utils/cd_utils.c	      \
 				utils/command_utils/echo_utils.c       \
-				quotes_stuff/check_correct_quotes.c	    \
-				quotes_stuff/interpret_quotes.c	         \
+				utils/dollar_completion.c  				    \
+				quotes_stuff/check_correct_quotes.c	     \
+				quotes_stuff/interpret_quotes.c	          \
 
 INCLUDE = INCLUDES
 PIPEX   = pipe_stuff/pipex
@@ -60,9 +61,9 @@ clean :
 	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
 
 fclean : clean
-	@make -s fclean -C $(PIPEX)/
 	@rm -f libft.a
 	@rm -f $(NAME)
+	@make -s fclean -C $(PIPEX)/
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) deleted.$(RESET)
 
 re : fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:18:52 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/16 16:10:29 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:05:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (i);
 	while (s[i])
 		i++ ;
 	return (i);
