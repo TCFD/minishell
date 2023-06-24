@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/23 16:38:47 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/24 15:03:29 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,14 @@ SRCS 		=	maintest.c 		 	         \
 				utils/malloc_utils/free_utils.c	   \
 				utils/malloc_utils/realloc_utils.c	\
 				utils/command_utils/execute_utils.c	 \
-				utils/command_utils/cd_utils.c	      \
-				utils/command_utils/echo_utils.c       \
-				utils/dollar_completion.c  				    \
-				quotes_stuff/check_correct_quotes.c	     \
-				quotes_stuff/interpret_quotes.c	          \
+				utils/command_utils/execute_utils2.c  \
+				utils/command_utils/cd_utils.c	       \
+				utils/command_utils/echo_utils.c        \
+				utils/command_utils/env_utils.c			 \
+				utils/dollar_completion.c				  \
+				utils/design_pattern/design_p1.c		   \
+				quotes_stuff/check_correct_quotes.c		    \
+				quotes_stuff/interpret_quotes.c			     \
 
 INCLUDE = INCLUDES
 PIPEX   = pipe_stuff/pipex

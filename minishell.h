@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/23 16:37:02 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 15:49:13 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+typedef struct
+{
+	char	*lastValue;
+}Singleton;
+
 typedef struct s_command_and_option
 {
 	char			*command_name;
@@ -42,10 +47,12 @@ typedef struct s_command_and_option
 	char			**opt_tab;
 }t_cmd_and_opt;
 
+extern char **environ; // Variable Globale
+
 char	**create_options(char *cmd_name, char **all_args);
 char	**double_a_realloc(char **array, char *new_elmt);
 char	*getenv_check(char *str);
-char	*display_user_prompt(void);
+char	*display_user_prompt(char *username);
 char	*stick_color(char *str, char *color);
 char	*create_path(char *command_name);
 char	*brut_name(char *command_np);
@@ -61,6 +68,9 @@ void	init_cmdopt(t_cmd_and_opt *cmdopt);
 void	run_execve(t_cmd_and_opt *cmdopt);
 void	execute_command(t_cmd_and_opt *cmdopt);
 void	bf_prd(char *str, int d, char *color);
+void	unset_env_var(char *variable);
+void	unset_all_env_var(t_cmd_and_opt *cmdopt);
+void	display_env(void);
 int		check_if_same(char *s1, char *s2);
 int		d_len(char **str);
 int		t_len(char ***str);
@@ -71,5 +81,15 @@ void	echo_remake(t_cmd_and_opt *cmdopt);
 char	*check_env_variables(char *input);
 void	expand(char **dest);
 int		space_end_case(char **input, char **dest);
+int		cmp(char *cmd_name, char *cmd_name_2);
+
+char	*read_bytes(int *fd, char *buffer);
+char	*get_execve_return(t_cmd_and_opt *cmdopt);
+
+
+Singleton	*get_singleton_instance(void);
+void		update_username(const char *newValue);
+void		free_last_value(void);
+const char	*get_username(void);
 
 #endif

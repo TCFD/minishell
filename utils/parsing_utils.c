@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/23 13:39:35 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 10:47:23 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**create_options(char *cmd_name, char **all_args)
 	{
 		all_options[idx + 1] = ft_strdup(all_args[idx]);
 		if (!all_options[idx + 1])
-			return (free(all_options), (free(all_options[idx + 1])), NULL);
+			return (free(all_options), NULL);
 		idx++ ;
 	}
 	all_options[idx + 1] = NULL;

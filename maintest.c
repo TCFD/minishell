@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:19:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 15:49:13 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			add_history(input);
 		}
 		execute_command(cmdopt);
-		prompt = display_user_prompt();
+		prompt = display_user_prompt((char *)get_username());
 		free(input);
 		free_cmdopt(cmdopt);
 		input = readline(prompt);
@@ -52,18 +52,33 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	return ;
 }
 
+void	updateValue(const char *newValue)
+{
+	static char *lastValue = NULL;
+
+	if (lastValue != NULL)
+		free(lastValue);
+	lastValue = strdup(newValue);
+}
+
 int	main(void)
 {
 	t_cmd_and_opt	cmdopt;
 	char			*prompt;
 	char			*input;
+	char			*user;
 
-	welcome_to_minishell();
+	//welcome_to_minishell();
 	signal(SIGINT, sigint_handler);
-	prompt = display_user_prompt();
+	//remettre le PATH si unset dans le shell parent
+	create_command("/bin/whoami", &cmdopt);
+	user = get_execve_return(&cmdopt);
+	update_username(user);
+	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
 	free(prompt);
+	free(user);
 	rl_clear_history();
 	return (0);
 }

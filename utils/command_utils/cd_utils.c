@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/23 13:37:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 15:48:42 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*special_cara_cd(char *cd_arg)
+{
+	char	*f;
+	
+	if (!cd_arg)
+	{
+		f = getenv("HOME");
+		if (!f)
+			return (ft_printf("bash: cd « HOME » not set\n"), NULL);
+		return (ft_strdup(f));
+	}
+	if (cmp(cd_arg, "~"))
+		return (ft_join(ft_strdup("/home/"), ft_strdup(get_username())));
+	return (ft_strdup(cd_arg));
+
+}
 
 void	cd_remake(t_cmd_and_opt *cmdopt)
 {
@@ -20,15 +37,19 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 	if (!cmdopt->opt_tab)
 		return ;
 	if (d_len(cmdopt->opt_tab) > 2)
-		return ((void)(ft_printf("bash : cd : too many arguments\n")));
-	f = cmdopt->opt_tab[1];
+		return ((void)(ft_printf("bash: cd : too many arguments\n"))); // modifier la valeur errno (appeler une fonction avec msg erreur)
+	f = special_cara_cd(cmdopt->opt_tab[1]);
+	if (!f)
+		return ;
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (perror("getcwd"));
 	if (chdir(f) == -1)
 	{
-		ft_printf("bash : cd : \033[31m%s\033[0m: %s\n", f, strerror(errno));
+		ft_printf("bash: cd : \033[31m%s\033[0m: %s\n", f, strerror(errno));
+		free(f);
 		return ;
 	}
+	free(f);
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (perror("getcwd"));
 	return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/23 13:44:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 14:37:02 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ void	welcome_to_minishell(void)
 	ft_printf("\n\n\n");
 }
 
-char	*ccn(char *str, char *color)
-{
-	ft_printf("%s%s%s\n", color, str, NC);
-	return (str);
-}
-
 char	*stick_color(char *str, char *color)
 {
 	char	*new_str;
@@ -66,23 +60,19 @@ char	*stick_color(char *str, char *color)
 	return (new_str);
 }
 
-char	*display_user_prompt(void)
+char	*display_user_prompt(char *username)
 {
 	char	*result;
-	char	*user;
 	char	cwd[1024];
 	int		user_len;
 
-	user = getenv("USER");
-	if (!user)
-		return (NULL);
-	user_len = ft_strlen(user) + 15;
-	user = stick_color(ft_join(ft_strdup(user), ft_strdup("@minishell42:")),
+	user_len = ft_strlen(username) + 6;
+	username = stick_color(ft_join(ft_strdup(username), ft_strdup("@minishell42:")),
 			ft_strdup("\033[32;1m"));
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (NULL);
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
 	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
-	result = ft_join(user, result);
+	result = ft_join(username, result);
 	return (result);
 }

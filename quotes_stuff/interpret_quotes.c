@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/23 16:38:10 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 10:51:13 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ long int	assign_values(long int *f_quote, long int *s_quote,
 	final_space = 0;
 	*f_quote = ft_strchr_rc(*input, what_case) - *input;
 	*s_quote = ft_strchr_rc(*input + *f_quote + 1, what_case) - *input;
-	if (*input + *s_quote)
+	if (*input + *s_quote > *input)
 		final_space = ft_strchr_rc(*input + *s_quote + 1, SPACE) - *input;
 	if (final_space <= 0)
 		final_space = ft_strlen(*input);

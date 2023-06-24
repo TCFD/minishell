@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/23 13:37:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/24 14:42:38 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-// 
+
+
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-// 
 
 void	run_execve(t_cmd_and_opt *cmdopt)
 {
@@ -27,7 +33,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_tab, NULL) == -1)
 		{
-			ft_printf("sh : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
+			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
 			exit(EXIT_FAILURE);
 		}
@@ -51,7 +57,7 @@ char	*brut_name(char *command_np)
 	return (brut_command_name);
 }
 
-int	verif_command_name(char *cmd_name, char *cmd_name_2)
+int	cmp(char *cmd_name, char *cmd_name_2)
 {
 	if (ft_strncmp(cmd_name, cmd_name_2, ft_strlen(cmd_name_2)) == 0
 		&& ft_strlen(cmd_name) == ft_strlen(cmd_name_2))
@@ -63,9 +69,13 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 {
 	if (!cmdopt->command_name)
 		return ;
-	if (verif_command_name(cmdopt->command_name, "echo"))
+	if (cmp(cmdopt->command_name, "echo"))
 		return (echo_remake(cmdopt));
-	if (verif_command_name(cmdopt->command_name, "cd"))
+	if (cmp(cmdopt->command_name, "cd"))
 		return (cd_remake(cmdopt));
+	if (cmp(cmdopt->command_name, "unset"))
+		return (unset_all_env_var(cmdopt));
+	if (cmp(cmdopt->command_name, "env"))
+		return (display_env());
 	run_execve(cmdopt);
 }
