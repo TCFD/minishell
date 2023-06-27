@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/27 09:12:23 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/27 11:35:50 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,59 @@ void	expand(char **dest)
 	free(*dest);
 	*dest = ft_substr(dup, 0, ft_strchr(dup, '$') - dup);
 	dollar_pointer = ft_strchr(dup, '$');
+	end = NULL;
 	space_end_case(&dollar_pointer, &end, DOUBLE_Q);
 	*dest = ft_join(*dest, end);
 	free(dup);
+}
+
+char *	which_one_first(char *input)
+{
+	char	*dollar;
+	char	*space;
+
+	dollar = ft_strchr(input, '$');
+	space = ft_strchr(input, ' ');
+	if (dollar == space)
+		return (input + ft_strlen(input));
+	if (dollar > space)
+	{
+		if (dollar == input)
+			return (input + ft_strlen(input));
+		return (dollar);
+	}
+	if (space == input)
+			return (input + ft_strlen(input));
+	return (space);
 }
 
 int	space_end_case(char **input, char **dest, char what_case)
 {
 	int			i;
 	char		*tmp;
+	char		*tmp2;
 	long int	end;
 
-	(void)(what_case);
 	i = 0;
-	end = ft_strchr_rc(*input, ' ') - *input;
+	end = ft_strchr_rc(*input, what_case) - *input;
 	if (end <= 0)
 		end = ft_strlen(*input);
-	while (input[0][i] && input[0][i] != '$' && i < end)
+	while (input[0][i] && !(input[0][i] == '$' && input[0][i + 1] != ' ') && i < end)
 		i++;
-	if (input[0][i] == '$' && (input[0][i + 1] != ' ' && input[0][i + 1]))
+	if (input[0][i] == '$' && input[0][i + 1] != ' ')
 	{
-		tmp = check_env_variables(input[0] + i);
-		*dest = (ft_join(ft_substr(*input, 0, i), ft_strdup(tmp)));
+		tmp2 = ft_substr(*input, i, which_one_first(*input + 1) - *input);
+		printf("dest = %s\n\n", tmp2);
+		tmp = check_env_variables(tmp2);
+		free(tmp2);
+		*dest = (ft_join(*dest, ft_substr(*input, 0, i)));
+		*dest = (ft_join(*dest, ft_strdup(tmp)));
+		tmp = which_one_first(*input + i + 1);
+		*dest = ft_join(*dest, ft_substr(which_one_first(*input), 0, tmp - which_one_first(*input)));
+		if (tmp != *input + i + 1)
+			space_end_case(&tmp, dest, what_case);
 	}
 	else
-		*dest = ft_substr(*input, 0, end);
+		*dest = ft_join(*dest, ft_substr(*input, 0, end));
 	return (end);
 }
