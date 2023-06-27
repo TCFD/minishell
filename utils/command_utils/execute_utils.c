@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 14:42:38 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 14:09:25 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-
-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-// 
-
-
-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-// 
 
 void	run_execve(t_cmd_and_opt *cmdopt)
 {
@@ -75,7 +69,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		return (cd_remake(cmdopt));
 	if (cmp(cmdopt->command_name, "unset"))
 		return (unset_all_env_var(cmdopt));
-	if (cmp(cmdopt->command_name, "env"))
+	if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
 		return (display_env());
 	run_execve(cmdopt);
 }

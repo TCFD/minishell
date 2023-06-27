@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 13:31:27 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:55:05 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	updateValue(const char *newValue)
 	lastValue = strdup(newValue);
 }
 
-int	main(void)
+int	main(int ac, char **ag, char **env)
 {
 	t_cmd_and_opt	cmdopt;
 	char			*prompt;
@@ -69,6 +69,10 @@ int	main(void)
 	char			*user;
 
 	//welcome_to_minishell();
+	(void)ac;
+	(void)ag;
+	for (int i=0; env[i]; i++)
+		ft_printf("%s\n", env[i]);
 	signal(SIGINT, sigint_handler);
 	//remettre le PATH si unset dans le shell parent
 	create_command("/bin/whoami", &cmdopt);
