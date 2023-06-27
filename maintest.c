@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 16:20:09 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/27 16:29:56 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	return ;
 }
 
-void	updateValue(const char *newValue)
+void	update_value(const char *new_value)
 {
-	static char *lastValue = NULL;
+	static char	*last_value;
 
-	if (lastValue != NULL)
-		free(lastValue);
-	lastValue = strdup(newValue);
+	last_value = NULL;
+	if (last_value != NULL)
+		free(last_value);
+	last_value = strdup(new_value);
 }
 
 int	main(int ac, char **ag, char **env)

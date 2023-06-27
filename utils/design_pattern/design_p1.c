@@ -3,45 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   design_p1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:54 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 15:49:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:36:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-Singleton	*get_singleton_instance(void)
+t_singleton	*get_singleton_instance(void)
 {
-	static Singleton	instance;
+	static t_singleton	instance;
+
 	return (&instance);
 }
 
 void	update_username(const char *newValue)
 {
-	Singleton	*singleton;
-	
+	t_singleton	*singleton;
+
 	singleton = get_singleton_instance();
-	if (singleton->lastValue != NULL)
-		free(singleton->lastValue);
-	singleton->lastValue = ft_strdup(newValue);
+	if (singleton->last_value != NULL)
+		free(singleton->last_value);
+	singleton->last_value = ft_strdup(newValue);
 }
 
 const char	*get_username(void)
 {
-	Singleton *singleton = get_singleton_instance();
-	return (singleton->lastValue);
+	t_singleton	*singleton;
+
+	singleton = get_singleton_instance();
+	return (singleton->last_value);
 }
 
 void	free_last_value(void)
 {
-	Singleton	*singleton;
-	
+	t_singleton	*singleton;
+
 	singleton = get_singleton_instance();
-	if (singleton->lastValue != NULL)
+	if (singleton->last_value != NULL)
 	{
-		free(singleton->lastValue);
-		singleton->lastValue = NULL;
+		free(singleton->last_value);
+		singleton->last_value = NULL;
 	}
 }

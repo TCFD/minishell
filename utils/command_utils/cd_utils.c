@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/24 15:48:42 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:35:25 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*special_cara_cd(char *cd_arg)
 {
 	char	*f;
-	
+
 	if (!cd_arg)
 	{
 		f = getenv("HOME");
@@ -26,7 +26,6 @@ char	*special_cara_cd(char *cd_arg)
 	if (cmp(cd_arg, "~"))
 		return (ft_join(ft_strdup("/home/"), ft_strdup(get_username())));
 	return (ft_strdup(cd_arg));
-
 }
 
 void	cd_remake(t_cmd_and_opt *cmdopt)

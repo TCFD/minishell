@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/27 16:04:42 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/27 16:26:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,26 @@ char	*which_one_first(char *input)
 	return (space);
 }
 
+void	if_dollar(char **input, char **dest, char what_case, int i)
+{
+	char		*tmp;
+	char		*tmp2;
+
+	tmp2 = ft_substr(*input, i, which_one_first(*input + i + 1) - *input + i);
+	tmp = check_env_variables(tmp2);
+	free(tmp2);
+	*dest = ft_join(*dest, ft_substr(*input, 0, i));
+	*dest = ft_join(*dest, tmp);
+	tmp = which_one_first(*input + i + 1);
+	if (ft_strchr(tmp, '$'))
+		space_end_case(&tmp, dest, what_case);
+	else if (tmp)
+		*dest = ft_join(*dest, ft_strdup(tmp));
+}
+
 int	space_end_case(char **input, char **dest, char what_case)
 {
 	int			i;
-	char		*tmp;
-	char		*tmp2;
 	long int	end;
 
 	i = 0;
@@ -80,18 +95,7 @@ int	space_end_case(char **input, char **dest, char what_case)
 		!(input[0][i] == '$' && input[0][i + 1] != ' ') && i < end)
 		i++;
 	if (input[0][i] == '$' && input[0][i + 1] != ' ')
-	{
-		tmp2 = ft_substr(*input, i, which_one_first(*input + i + 1) - *input + i);
-		tmp = check_env_variables(tmp2);
-		free(tmp2);
-		*dest = ft_join(*dest, ft_substr(*input, 0, i));
-		*dest = ft_join(*dest, tmp);
-		tmp = which_one_first(*input + i + 1);
-		if (ft_strchr(tmp, '$'))
-			space_end_case(&tmp, dest, what_case);
-		else if (tmp)
-			*dest = ft_join(*dest, ft_strdup(tmp));
-	}
+		if_dollar(input, dest, what_case, i);
 	else
 		*dest = ft_join(*dest, ft_substr(*input, 0, end));
 	return (end);

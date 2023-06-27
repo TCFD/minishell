@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 13:32:57 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:34:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*read_bytes(int *fd)
 {
-	ssize_t	bytesRead;
+	ssize_t	bytes_read;
 	char	buffer[1024];
-	
-	bytesRead = read(fd[0], buffer, sizeof(buffer));
-	if (bytesRead == -1)
+
+	bytes_read = read(fd[0], buffer, sizeof(buffer));
+	if (bytes_read == -1)
 		exit(EXIT_FAILURE);
-	buffer[bytesRead - 1] = '\0';
+	buffer[bytes_read - 1] = '\0';
 	return (ft_strdup(buffer));
 }
 
