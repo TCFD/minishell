@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 14:37:02 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 13:44:13 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,41 @@ char	*stick_color(char *str, char *color)
 	return (new_str);
 }
 
+int	get_word_index(char const *str, char const *word)
+{
+	int	idx;
+	int	word_idx;
+
+	idx = 0;
+	while (str[idx])
+	{
+		word_idx = 1;
+		if (str[idx] == word[0])
+		{
+			while (str[idx + word_idx] == word[word_idx])
+				word_idx++ ;
+			if (word_idx == (int)ft_strlen(word))
+				return (idx + word_idx);
+			idx += word_idx;
+		}
+		idx++ ;
+	}
+	return (-1);
+}
+
 char	*display_user_prompt(char *username)
 {
+	char	*save_user;
 	char	*result;
 	char	cwd[1024];
 	int		user_len;
 
-	user_len = ft_strlen(username) + 6;
+	save_user = username;
 	username = stick_color(ft_join(ft_strdup(username), ft_strdup("@minishell42:")),
 			ft_strdup("\033[32;1m"));
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (NULL);
+	user_len = get_word_index(cwd, save_user);
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
 	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 	result = ft_join(username, result);

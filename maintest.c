@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 15:49:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:27 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(void)
 	//remettre le PATH si unset dans le shell parent
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
+	ft_printf("user : %s\n", user);
 	update_username(user);
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 15:49:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 13:32:22 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	expand(char **dest);
 int		space_end_case(char **input, char **dest);
 int		cmp(char *cmd_name, char *cmd_name_2);
 
-char	*read_bytes(int *fd, char *buffer);
+char	*read_bytes(int *fd);
 char	*get_execve_return(t_cmd_and_opt *cmdopt);
 
 
