@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 15:49:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 16:17:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			add_history(input);
 		}
 		execute_command(cmdopt);
-		prompt = display_user_prompt((char *)get_username());
 		free(input);
 		free_cmdopt(cmdopt);
+		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 		free(prompt);
 	}
@@ -73,6 +73,7 @@ int	main(void)
 	//remettre le PATH si unset dans le shell parent
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
+	free_cmdopt(&cmdopt);
 	update_username(user);
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);

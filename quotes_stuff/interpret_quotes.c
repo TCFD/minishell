@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/27 09:34:36 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/06/27 14:11:49 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	qutoes_case(char **input, char what_case, char **dest, int j)
 		}
 	}
 	dest[0][j] = '\0';
-	if (what_case == DOUBLE_Q)
+	if (what_case == DOUBLE_Q && ft_strchr(*dest, '$'))
 		expand(dest);
 	return (i);
 }
