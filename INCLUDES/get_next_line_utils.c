@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/16 16:11:44 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:07:38 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,22 @@ char	*ft_join(char *s1, char *s2)
 	int		idx_count;
 	int		s1_len;
 
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
 	s1_len = ft_len(s1);
 	new_str = malloc((s1_len + ft_len(s2) + 1) * sizeof(char));
 	if (!new_str)
 		return (NULL);
-	idx_count = 0;
-	while (idx_count < s1_len)
-	{
+	idx_count = -1;
+	while (++idx_count < s1_len)
 		new_str[idx_count] = s1[idx_count];
-		idx_count++ ;
-	}
-	idx_count = 0;
-	while (idx_count < ft_len(s2))
-	{
+	idx_count = -1;
+	while (++idx_count < ft_len(s2))
 		new_str[idx_count + s1_len] = s2[idx_count];
-		idx_count++ ;
-	}
-	free(s1);
-	free(s2);
 	new_str[idx_count + s1_len] = '\0';
-	return (new_str);
+	return (free(s1), free(s2), new_str);
 }
 
 /////// READ FD

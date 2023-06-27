@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 13:55:05 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:20:09 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			add_history(input);
 		}
 		execute_command(cmdopt);
-		prompt = display_user_prompt((char *)get_username());
 		free(input);
 		free_cmdopt(cmdopt);
+		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 		free(prompt);
 	}
@@ -78,6 +78,7 @@ int	main(int ac, char **ag, char **env)
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
 	ft_printf("user : %s\n", user);
+	free_cmdopt(&cmdopt);
 	update_username(user);
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:02:41 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/21 12:39:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/27 08:55:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	d_len(char **str)
 	int	idx;
 
 	idx = 0;
+	if (!str)
+		return (0);
 	while (str[idx])
 		idx++ ;
 	return (idx);
@@ -27,6 +29,8 @@ int	t_len(char ***str)
 	int	idx;
 
 	idx = 0;
+	if (!str)
+		return (0);
 	while (str[idx])
 		idx++ ;
 	return (idx);

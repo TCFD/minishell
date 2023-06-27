@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/24 10:51:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/27 14:11:49 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	qutoes_case(char **input, char what_case, char **dest, int j)
 	int				i;
 
 	final_space = assign_values(&first_quote, &second_quote, what_case, input);
-	*dest = malloc(sizeof(char) * final_space);
+	*dest = ft_calloc(sizeof(char), final_space + 1);
 	if (!*dest)
 		return (perror("malloc fail"), exit(0), 0);
 	i = -1;
@@ -74,7 +74,7 @@ int	qutoes_case(char **input, char what_case, char **dest, int j)
 		}
 	}
 	dest[0][j] = '\0';
-	if (what_case == DOUBLE_Q)
+	if (what_case == DOUBLE_Q && ft_strchr(*dest, '$'))
 		expand(dest);
 	return (i);
 }
@@ -82,7 +82,7 @@ int	qutoes_case(char **input, char what_case, char **dest, int j)
 void	words(char **input, char what_case, char **dest)
 {
 	if (what_case == SPACE)
-		*input += space_end_case(input, dest);
+		*input += space_end_case(input, dest, SPACE);
 	else
 		*input += qutoes_case(input, what_case, dest, 0);
 }
@@ -94,14 +94,14 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 
 	while (*input == SPACE)
 		input += 1;
-	cmdopt->opt_tab = malloc(sizeof(char *) * (ft_strlen(input) + 1));
+	cmdopt->opt_tab = ft_calloc(sizeof(char *), (ft_strlen(input) + 1));
 	i = 0;
 	while (*input)
 	{
 		what_case = which_one(input);
 		if (!what_case)
 		{
-			space_end_case(&input, &cmdopt->opt_tab[i]);
+			space_end_case(&input, &cmdopt->opt_tab[i], NONE);
 			i++;
 			break ;
 		}
