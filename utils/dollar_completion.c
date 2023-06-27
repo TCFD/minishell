@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/23 16:38:02 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/27 09:12:23 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,25 @@ char	*check_env_variables(char *input)
 void	expand(char **dest)
 {
 	char	*dup;
+	char	*dollar_pointer;
+	char	*end;
 
 	dup = ft_strdup(*dest);
 	free(*dest);
-	space_end_case(&dup, dest);
+	*dest = ft_substr(dup, 0, ft_strchr(dup, '$') - dup);
+	dollar_pointer = ft_strchr(dup, '$');
+	space_end_case(&dollar_pointer, &end, DOUBLE_Q);
+	*dest = ft_join(*dest, end);
+	free(dup);
 }
 
-int	space_end_case(char **input, char **dest)
+int	space_end_case(char **input, char **dest, char what_case)
 {
 	int			i;
 	char		*tmp;
 	long int	end;
 
+	(void)(what_case);
 	i = 0;
 	end = ft_strchr_rc(*input, ' ') - *input;
 	if (end <= 0)

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:13:25 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/23 16:07:44 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/27 08:54:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	**ft_split(char const *s, char c)
 	char	**tab;
 	char	*nwstr;
 
+	if (!s)
+		return (NULL);
 	nwstr = (char *)s;
 	mot = compte_mot(nwstr, c);
 	tab = malloc((mot + 1) * sizeof(char *));
