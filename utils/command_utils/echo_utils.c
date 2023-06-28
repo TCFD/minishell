@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:53:45 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/23 13:42:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 13:20:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	echo_remake(t_cmd_and_opt *cmdopt)
 		boolean = false;
 	while (cmdopt->opt_tab[++i])
 	{
-		write(1, cmdopt->opt_tab[i], ft_strlen(cmdopt->opt_tab[i]));
-		write(1, " ", 1);
+		write(STDOUT_FILENO, cmdopt->opt_tab[i], ft_strlen(cmdopt->opt_tab[i]));
+		write(STDOUT_FILENO, " ", 1);
 	}
 	if (boolean == false)
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 }

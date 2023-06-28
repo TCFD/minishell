@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/27 16:26:31 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:36:26 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	if_dollar(char **input, char **dest, char what_case, int i)
 	tmp = which_one_first(*input + i + 1);
 	if (ft_strchr(tmp, '$'))
 		space_end_case(&tmp, dest, what_case);
-	else if (tmp)
+	else if (tmp && what_case == DOUBLE_Q)
 		*dest = ft_join(*dest, ft_strdup(tmp));
 }
 

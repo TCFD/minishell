@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 16:29:56 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:28:00 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ int	main(int ac, char **ag, char **env)
 	//welcome_to_minishell();
 	(void)ac;
 	(void)ag;
-	for (int i=0; env[i]; i++)
-		ft_printf("%s\n", env[i]);
+	(void)env;
+	//for (int i=0; env[i]; i++)
+	//	ft_printf("%s\n", env[i]);
 	signal(SIGINT, sigint_handler);
 	//remettre le PATH si unset dans le shell parent
 	create_command("/bin/whoami", &cmdopt);

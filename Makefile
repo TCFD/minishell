@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/28 11:04:45 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/28 15:42:11 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CLEANF 			=	@(find . -name "*.o" -type f -delete)
 OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
 INCLUDE			= 	INCLUDES
 PIPEX  			=	pipe_and_redirections/pipe/pipex
+REDIRECTIONS	=	pipe_and_redirections/redirections/
 UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
@@ -40,6 +41,7 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)env_utils.c				\
 				$(QUOTES_STUFF)check_correct_quotes.c	\
 				$(QUOTES_STUFF)interpret_quotes.c		\
+				$(REDIRECTIONS)right_rafter_utils.c		\
 
 # Couleurs
 BOLD		=	"\033[1m"

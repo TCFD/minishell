@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 16:20:22 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:38:44 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 void	run_execve(t_cmd_and_opt *cmdopt)
 {
-	pid_t	pid;
-	int		status;
+	pid_t		pid;
+	int			status;
 
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
+		return (perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_tab, NULL) == -1)
@@ -61,15 +58,19 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
+	long int	position;
+	int			stdout_save;
+	int			filefd;
+
 	if (!cmdopt->command_name)
 		return ;
-	if (cmp(cmdopt->command_name, "echo"))
-		return (echo_remake(cmdopt));
+	search_redirections(cmdopt, &stdout_save, &filefd, &position);
 	if (cmp(cmdopt->command_name, "cd"))
-		return (cd_remake(cmdopt));
+		cd_remake(cmdopt);
 	if (cmp(cmdopt->command_name, "unset"))
-		return (unset_all_env_var(cmdopt));
+		unset_all_env_var(cmdopt);
 	if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
-		return (display_env());
+		display_env();
 	run_execve(cmdopt);
+	restore_fd(position, stdout_save, filefd);
 }

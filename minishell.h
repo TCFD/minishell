@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 10:45:56 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:40:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,11 @@ t_singleton	*get_singleton_instance(void);
 void		update_username(const char *newValue);
 void		free_last_value(void);
 const char	*get_username(void);
+int			search_d_tab(char **str_t, char *c);
+int			redirect_output(char **tab, int *stdout_save, int *filefd,
+				int which_case);
+void		restore_fd(int position, int stdout_save, int filefd);
+int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
+				int *filefd, long int *position);
 
 #endif
