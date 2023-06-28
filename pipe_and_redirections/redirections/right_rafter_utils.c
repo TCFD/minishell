@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/28 15:40:43 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 18:51:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	redirect_output(char **tab, int *stdout_save, int *filefd, int which_case)
 	*stdout_save = dup(STDOUT_FILENO);
 	if (*stdout_save == -1)
 		return (perror("Failed to save stdout"), 1);
-	printf("file = %s\n, case = %d,\n", tab[1], which_case);
 	if (which_case == 1)
 		*filefd = open(tab[1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	else
@@ -51,19 +50,76 @@ void	restore_fd(int position, int stdout_save, int filefd)
 int	search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 	int *filefd, long int *position)
 {
-	*position = search_d_tab(cmdopt->opt_tab, ">>");
+	*position = search_d_tab(cmdopt, ">>");
 	if (*position > -1)
 		if (redirect_output(cmdopt->opt_tab + *position, stdout_save,
 				filefd, 2))
 			return (1);
 	if (*position <= -1)
 	{
-		*position = search_d_tab(cmdopt->opt_tab, ">");
+		*position = search_d_tab(cmdopt, ">");
 		if (*position > -1)
 			if (redirect_output(cmdopt->opt_tab + *position, stdout_save,
 					filefd, 1))
 				return (1);
 	}	
-	printf("position %ld\n", *position);
 	return (0);
+}
+
+void	realloc_chevrons(t_cmd_and_opt *cmdopt, int start, int end)
+{
+	char	**temp;
+	int		j;
+	int		temp_counter;
+
+	j = 0;
+	while (cmdopt->opt_tab[j])
+		j++;
+	temp = ft_calloc(sizeof(char *), j + 1);
+	j = -1;
+	while (cmdopt->opt_tab[++j])
+		temp[j] = ft_strdup(cmdopt->opt_tab[j]);
+	temp[j] = NULL;
+	free_d_array(cmdopt->opt_tab);
+	cmdopt->opt_tab = ft_calloc(sizeof(char *), j - (end - start) + 1);
+	temp_counter = 0;
+	j = -1;
+	while (temp[++j])
+	{
+		if (j == start)
+			while (j < end)
+				j++;
+		cmdopt->opt_tab[temp_counter] = ft_strdup(temp[j]);
+		temp_counter++;
+	}
+	cmdopt->opt_tab[temp_counter] = NULL;
+	free_d_array(temp);
+}
+
+int	search_d_tab(t_cmd_and_opt *cmdopt, char *c)
+{
+	int			i;
+	int			j;
+	int			tmp;
+
+	i = -1;
+	while (cmdopt->opt_tab[++i])
+	{
+		if (ft_strnstr(cmdopt->opt_tab[i], c, ft_strlen(cmdopt->opt_tab[i])))
+		{
+			j = i;
+			tmp = i;
+			while (cmdopt->opt_tab[++j])
+			{
+				if (ft_strnstr(cmdopt->opt_tab[j], c, ft_strlen(cmdopt->opt_tab[j])))
+				{
+					close(open(cmdopt->opt_tab[tmp + 1], O_CREAT, 0666));
+					tmp = j;
+				}
+			}
+			realloc_chevrons(cmdopt, i, tmp);
+			return (i);
+		}
+	}
+	return (-1);
 }

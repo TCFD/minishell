@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 13:32:53 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 16:28:55 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,4 @@ char	*get_execve_return(t_cmd_and_opt *cmdopt)
 		return (read_bytes(pipefd));
 	}
 	return (NULL);
-}
-
-int	search_d_tab(char **str_t, char *c)
-{
-	int			i;
-
-	i = -1;
-	while (str_t[++i])
-		if (ft_strnstr(str_t[i], c, ft_strlen(str_t[i])))
-			return (i);
-	return (-1);
 }

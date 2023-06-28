@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:43:49 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/11/23 15:01:18 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:41:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
+
+#include "libft.h"
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -18,6 +19,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	if (little[0] == '\0')
 		return ((char *)big);
+	if (!big)
+		return (NULL);
 	i = 0;
 	while (i < len && big[i] != '\0')
 	{
@@ -26,7 +29,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		{
 			a++ ;
 			if (little[a] == '\0')
-				return ((char *)big + i);
+				return ((char *)big + i + a - 1);
 		}
 		i++ ;
 	}
