@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/28 10:48:11 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/28 11:04:45 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS			=	-Wall -Wextra -Werror -g
 PFLAGES			=	-lreadline
 CC				=	gcc 
 CLEANF 			=	@(find . -name "*.o" -type f -delete)
-OBJ 			=	${SRCS:.c=.o}
+OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
 INCLUDE			= 	INCLUDES
 PIPEX  			=	pipe_and_redirections/pipe/pipex
 UTILS  			=	utils/
@@ -41,7 +41,6 @@ SRCS 		=	maintest.c								\
 				$(QUOTES_STUFF)check_correct_quotes.c	\
 				$(QUOTES_STUFF)interpret_quotes.c		\
 
-
 # Couleurs
 BOLD		=	"\033[1m"
 RESET		=	"\033[0m"
@@ -50,9 +49,10 @@ LIGHT_CYAN	=	"\033[96m"
 
 all : $(NAME)
 
-.c.o:
+obj/%.o: %.c
+	@mkdir -p $(dir $@)
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
-	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	@${CC} ${CFLAGS} -c $< -o $@
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)
@@ -65,6 +65,7 @@ $(NAME) : $(OBJ)
 clean :
 	@$(CLEANF)
 	@echo $(BOLD)$(LIGHT_GREEN).o deleted.$(RESET)
+	@rm -rf obj/
 
 fclean : clean
 	@rm -f libft.a
@@ -74,5 +75,4 @@ fclean : clean
 
 re : fclean all
 
-
-.PHONY : all re clean fclean 
+.PHONY : all re clean fclean
