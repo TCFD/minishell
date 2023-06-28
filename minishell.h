@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 16:33:26 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/28 10:45:56 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "INCLUDES/libft.h"
-# include "pipe_stuff/pipex/pipex_bonus.h"
+# include "pipe_and_redirections/pipe/pipex/pipex_bonus.h"
 # include <signal.h>
 # include <errno.h>
 # include <sys/types.h>

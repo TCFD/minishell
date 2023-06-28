@@ -3,41 +3,44 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/24 15:03:29 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/28 10:48:11 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	minishell
-CFLAGS		=	-Wall -Wextra -Werror -g
-PFLAGES		=	-lreadline
-CC			=	gcc 
-CLEANF 		=	@(find . -name "*.o" -type f -delete)
-OBJ 		=	${SRCS:.c=.o}
+NAME			=	minishell
+CFLAGS			=	-Wall -Wextra -Werror -g
+PFLAGES			=	-lreadline
+CC				=	gcc 
+CLEANF 			=	@(find . -name "*.o" -type f -delete)
+OBJ 			=	${SRCS:.c=.o}
+INCLUDE			= 	INCLUDES
+PIPEX  			=	pipe_and_redirections/pipe/pipex
+UTILS  			=	utils/
+COMMAND_UTILS  	=	$(UTILS)command_utils/
+MALLOC_UTILS	=	$(UTILS)malloc_utils/
+QUOTES_STUFF  	=	quotes_stuff/
 
+SRCS 		=	maintest.c								\
+				$(UTILS)len_utils.c						\
+				$(UTILS)signals_utils.c					\
+				$(UTILS)parsing_utils.c					\
+				$(UTILS)prompt_utils.c					\
+				$(UTILS)init_utils.c					\
+				$(UTILS)dollar_completion.c				\
+				$(UTILS)design_pattern/design_p1.c		\
+				$(MALLOC_UTILS)free_utils.c				\
+				$(MALLOC_UTILS)realloc_utils.c			\
+				$(COMMAND_UTILS)execute_utils.c			\
+				$(COMMAND_UTILS)execute_utils2.c		\
+				$(COMMAND_UTILS)cd_utils.c				\
+				$(COMMAND_UTILS)echo_utils.c			\
+				$(COMMAND_UTILS)env_utils.c				\
+				$(QUOTES_STUFF)check_correct_quotes.c	\
+				$(QUOTES_STUFF)interpret_quotes.c		\
 
-SRCS 		=	maintest.c 		 	         \
-				utils/len_utils.c		      \
-				utils/signals_utils.c	       \
-				utils/parsing_utils.c	        \
-				utils/prompt_utils.c	         \
-				utils/init_utils.c	              \
-				utils/malloc_utils/free_utils.c	   \
-				utils/malloc_utils/realloc_utils.c	\
-				utils/command_utils/execute_utils.c	 \
-				utils/command_utils/execute_utils2.c  \
-				utils/command_utils/cd_utils.c	       \
-				utils/command_utils/echo_utils.c        \
-				utils/command_utils/env_utils.c			 \
-				utils/dollar_completion.c				  \
-				utils/design_pattern/design_p1.c		   \
-				quotes_stuff/check_correct_quotes.c		    \
-				quotes_stuff/interpret_quotes.c			     \
-
-INCLUDE = INCLUDES
-PIPEX   = pipe_stuff/pipex
 
 # Couleurs
 BOLD		=	"\033[1m"
