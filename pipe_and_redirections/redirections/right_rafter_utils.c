@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/28 18:51:21 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/29 10:39:11 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,26 @@ int	search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 	return (0);
 }
 
+void	dup_d_array(char **src, char ***dest, int *j)
+{
+	*j = 0;
+	while (src[*j])
+		*j += 1;
+	dest[0] = ft_calloc(sizeof(char *), *j + 1);
+	*j = -1;
+	while (src[++*j])
+		dest[0][*j] = ft_strdup(src[*j]);
+	dest[0][*j] = NULL;
+}
+
 void	realloc_chevrons(t_cmd_and_opt *cmdopt, int start, int end)
 {
 	char	**temp;
 	int		j;
 	int		temp_counter;
 
-	j = 0;
-	while (cmdopt->opt_tab[j])
-		j++;
-	temp = ft_calloc(sizeof(char *), j + 1);
-	j = -1;
-	while (cmdopt->opt_tab[++j])
-		temp[j] = ft_strdup(cmdopt->opt_tab[j]);
-	temp[j] = NULL;
+	temp = NULL;
+	dup_d_array(cmdopt->opt_tab, &temp, &j);
 	free_d_array(cmdopt->opt_tab);
 	cmdopt->opt_tab = ft_calloc(sizeof(char *), j - (end - start) + 1);
 	temp_counter = 0;

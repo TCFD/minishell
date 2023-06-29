@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 18:22:26 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/29 10:41:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_command_and_option
 	char			**opt_tab;
 }t_cmd_and_opt;
 
-extern char **environ; // Variable Globale
+extern char	**environ; // Variable Globale
 
 char		**create_options(char *cmd_name, char **all_args);
 char		**double_a_realloc(char **array, char *new_elmt);
