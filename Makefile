@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/28 15:42:11 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/30 14:59:30 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ REDIRECTIONS	=	pipe_and_redirections/redirections/
 UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
+DESIGN_PATTERN  =   $(UTILS)design_pattern/
 QUOTES_STUFF  	=	quotes_stuff/
 
 SRCS 		=	maintest.c								\
@@ -31,14 +32,17 @@ SRCS 		=	maintest.c								\
 				$(UTILS)prompt_utils.c					\
 				$(UTILS)init_utils.c					\
 				$(UTILS)dollar_completion.c				\
-				$(UTILS)design_pattern/design_p1.c		\
+				$(DESIGN_PATTERN)design_p_username.c	\
+				$(DESIGN_PATTERN)design_p_env.c			\
 				$(MALLOC_UTILS)free_utils.c				\
+				$(COMMAND_UTILS)shlvl_utils.c			\
 				$(MALLOC_UTILS)realloc_utils.c			\
 				$(COMMAND_UTILS)execute_utils.c			\
 				$(COMMAND_UTILS)execute_utils2.c		\
 				$(COMMAND_UTILS)cd_utils.c				\
 				$(COMMAND_UTILS)echo_utils.c			\
 				$(COMMAND_UTILS)env_utils.c				\
+				$(COMMAND_UTILS)env_utils2.c			\
 				$(QUOTES_STUFF)check_correct_quotes.c	\
 				$(QUOTES_STUFF)interpret_quotes.c		\
 				$(REDIRECTIONS)right_rafter_utils.c		\

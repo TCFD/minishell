@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/27 16:35:25 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 15:29:51 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*special_cara_cd(char *cd_arg)
 
 	if (!cd_arg)
 	{
-		f = getenv("HOME");
+		f = ft_getenv("HOME");
 		if (!f)
 			return (ft_printf("bash: cd « HOME » not set\n"), NULL);
 		return (ft_strdup(f));

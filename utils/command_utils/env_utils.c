@@ -6,20 +6,37 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 12:23:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 15:30:00 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	unset_env_var(char *variable)
+char	*ft_getenv(char *var_name)
+{
+	char	**env;
+	int		idx;
+
+	idx = 0;
+	env = get_env();
+	while (env[idx])
+	{
+		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0
+			&& env[idx][ft_strlen(var_name)] == '=')
+			return (env[idx]);
+		idx++ ;
+	}
+	return (NULL);
+}
+
+void	unset_env_var(char *variable, char **env)
 {
 	char	**env_;
 	int		i;
 	int		ij;
 
 	ft_printf("IN, variable : %s\n", variable);
-	env_ = environ;
+	env_ = env;
 	i = 0;
 	while (env_[i])
 	{
@@ -37,6 +54,7 @@ void	unset_env_var(char *variable)
 		}
 		i++ ;
 	}
+	update_env(env_);
 }
 
 void	unset_all_env_var(t_cmd_and_opt *cmdopt)
@@ -45,18 +63,16 @@ void	unset_all_env_var(t_cmd_and_opt *cmdopt)
 
 	idx = 0;
 	while (cmdopt->opt_tab[++idx])
-		unset_env_var(cmdopt->opt_tab[idx]);
+		unset_env_var(cmdopt->opt_tab[idx], get_env());
 }
 
-void	display_env(void)
+void	display_env(char **env)
 {
-	char	**env_;
 	int	idx;
 
-	if (!getenv("PATH"))
+	if (!ft_getenv("PATH"))
 		return ((void)ft_printf("bash : env : No such file or directory\n")); // Rajouter l'erreur errno
-	env_ = environ;
 	idx = -1;
-	while (env_[++idx])
-		ft_printf("%s\n", env_[idx]);
+	while (env[++idx])
+		ft_printf("%s\n", env[idx]);
 }

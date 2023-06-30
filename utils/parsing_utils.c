@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 10:47:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 15:29:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*is_path_unset(char *command_name)
 	char	*path2;
 	int		idx;
 
-	env_path = getenv("PATH");
+	env_path = ft_getenv("PATH");
 	if (!env_path)
 		return (command_name);
 	path_split = ft_split(env_path, ':');

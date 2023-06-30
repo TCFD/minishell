@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 15:28:00 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 15:29:31 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*getenv_check(char *str)
 {
 	char	*found_it;
 
-	found_it = getenv(str);
+	found_it = ft_getenv(str);
 	if (found_it == NULL)
 		return (NULL);
 	return (found_it);
@@ -52,41 +52,39 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	return ;
 }
 
-void	update_value(const char *new_value)
+void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 {
-	static char	*last_value;
+	char	*input;
+	char	*prompt;
 
-	last_value = NULL;
-	if (last_value != NULL)
-		free(last_value);
-	last_value = strdup(new_value);
+	shlvl_plus_one();
+	prompt = display_user_prompt((char *)get_username());
+	input = readline(prompt);
+	minishell(input, cmdopt, prompt);
+	free(prompt);
+	free(user);
+	rl_clear_history();
+	shlvl_minus_one();
 }
 
 int	main(int ac, char **ag, char **env)
 {
 	t_cmd_and_opt	cmdopt;
-	char			*prompt;
-	char			*input;
 	char			*user;
 
 	//welcome_to_minishell();
 	(void)ac;
 	(void)ag;
-	(void)env;
-	//for (int i=0; env[i]; i++)
-	//	ft_printf("%s\n", env[i]);
 	signal(SIGINT, sigint_handler);
-	//remettre le PATH si unset dans le shell parent
+	
+	update_env(env);
+	verif_env_and_path(&cmdopt);
+	ft_printf("cmdopt.env_i : %d\n", cmdopt.path_unset);
+	
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
-	ft_printf("user : %s\n", user);
-	free_cmdopt(&cmdopt);
 	update_username(user);
-	prompt = display_user_prompt((char *)get_username());
-	input = readline(prompt);
-	minishell(input, &cmdopt, prompt);
-	free(prompt);
-	free(user);
-	rl_clear_history();
+	run_minishell(user, &cmdopt);
+	
 	return (0);
 }

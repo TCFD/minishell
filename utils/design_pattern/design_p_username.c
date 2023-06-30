@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   design_p1.c                                        :+:      :+:    :+:   */
+/*   design_p_username.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:54 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 16:36:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 15:01:29 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	update_username(const char *newValue)
 	t_singleton	*singleton;
 
 	singleton = get_singleton_instance();
-	if (singleton->last_value != NULL)
-		free(singleton->last_value);
-	singleton->last_value = ft_strdup(newValue);
+	if (singleton->username != NULL)
+		free(singleton->username);
+	singleton->username = ft_strdup(newValue);
 }
 
 const char	*get_username(void)
@@ -34,7 +34,7 @@ const char	*get_username(void)
 	t_singleton	*singleton;
 
 	singleton = get_singleton_instance();
-	return (singleton->last_value);
+	return (singleton->username);
 }
 
 void	free_last_value(void)
@@ -42,9 +42,9 @@ void	free_last_value(void)
 	t_singleton	*singleton;
 
 	singleton = get_singleton_instance();
-	if (singleton->last_value != NULL)
+	if (singleton->username != NULL)
 	{
-		free(singleton->last_value);
-		singleton->last_value = NULL;
+		free(singleton->username);
+		singleton->username = NULL;
 	}
 }

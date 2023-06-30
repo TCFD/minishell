@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/29 10:41:39 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 15:32:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@
 
 typedef struct s_singleton
 {
-	char	*last_value;
+	char	*username;
+	char	**env;
 }t_singleton;
 
 typedef struct s_command_and_option
@@ -45,9 +46,8 @@ typedef struct s_command_and_option
 	char			*command_name;
 	char			*command_path;
 	char			**opt_tab;
+	int				path_unset;
 }t_cmd_and_opt;
-
-extern char	**environ; // Variable Globale
 
 char		**create_options(char *cmd_name, char **all_args);
 char		**double_a_realloc(char **array, char *new_elmt);
@@ -68,9 +68,9 @@ void		init_cmdopt(t_cmd_and_opt *cmdopt);
 void		run_execve(t_cmd_and_opt *cmdopt);
 void		execute_command(t_cmd_and_opt *cmdopt);
 void		bf_prd(char *str, int d, char *color);
-void		unset_env_var(char *variable);
+void		unset_env_var(char *variable, char **env);
 void		unset_all_env_var(t_cmd_and_opt *cmdopt);
-void		display_env(void);
+void		display_env(char **env);
 int			check_if_same(char *s1, char *s2);
 int			d_len(char **str);
 int			t_len(char ***str);
@@ -94,5 +94,17 @@ int			redirect_output(char **tab, int *stdout_save, int *filefd,
 void		restore_fd(int position, int stdout_save, int filefd);
 int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
+
+void	shlvl_plus_one(void);
+void	shlvl_minus_one(void);
+void	rebuild_env(void);
+
+void	verif_env_and_path(t_cmd_and_opt *cmdopt);
+
+t_singleton	*get_env_instance(void);
+void		update_env(char **new_value);
+char	**get_env(void);
+
+char	*ft_getenv(char *var_name);
 
 #endif
