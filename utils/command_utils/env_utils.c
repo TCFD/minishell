@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:30:00 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 15:36:38 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_getenv(char *var_name)
 	{
 		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0
 			&& env[idx][ft_strlen(var_name)] == '=')
-			return (env[idx]);
+			return (env[idx] + ft_strlen(var_name) + 1);
 		idx++ ;
 	}
 	return (NULL);
