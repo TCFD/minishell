@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/29 11:15:32 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 12:04:56 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 		{
 			space_end_case(&input, &cmdopt->opt_tab[i], NONE);
 			i++;
-			break ;
+			if (!which_one(input))
+				break ;
+			while (*input == SPACE)
+				input += 1;
 		}
 		words(&input, what_case, &cmdopt->opt_tab[i]);
 		i++;
@@ -111,5 +114,4 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 			input += 1;
 	}
 	cmdopt->opt_tab[i] = NULL;
-	//free(&cmdopt->opt_tab[i + 1]);
 }

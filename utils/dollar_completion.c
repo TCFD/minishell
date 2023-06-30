@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/28 15:36:26 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 12:02:38 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,39 @@ void	if_dollar(char **input, char **dest, char what_case, int i)
 		*dest = ft_join(*dest, ft_strdup(tmp));
 }
 
+char	*find_chevrons(char **input, int end)
+{
+	long int	chevrons;
+	char		*tmp;
+
+	printf("input = %s\n", *input);
+	chevrons = ft_strnstr(*input, ">", ft_strlen(*input)) - *input;
+	if (chevrons >= 0 && chevrons < end)
+	{
+		tmp = ft_join(ft_substr(*input, 0, chevrons), ft_strdup(" "));
+		tmp = ft_join(tmp, ft_substr(*input, chevrons, 1));
+		tmp = ft_join(tmp, ft_strdup(" "));
+		tmp = ft_join(tmp, ft_substr(*input, chevrons + 1, ft_strlen(*input)));
+		return(tmp);
+	}
+	return (ft_strdup(*input));
+}
+
 int	space_end_case(char **input, char **dest, char what_case)
 {
 	int			i;
 	long int	end;
+	//char		*tmp;
 
 	i = 0;
 	end = ft_strchr_rc(*input, what_case) - *input;
 	if (end <= 0)
 		end = ft_strlen(*input);
+	if (what_case != DOUBLE_Q && *input)
+	{
+		input[0] = find_chevrons(&*input, end);
+		end = ft_strchr_rc(*input, what_case) - *input;
+	}
 	while (input[0][i] &&
 		!(input[0][i] == '$' && input[0][i + 1] != ' ') && i < end)
 		i++;
