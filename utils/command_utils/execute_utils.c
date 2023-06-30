@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 15:38:44 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 12:10:52 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	search_redirections(cmdopt, &stdout_save, &filefd, &position);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
-	if (cmp(cmdopt->command_name, "unset"))
+	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
-	if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
+	else if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
 		display_env();
-	run_execve(cmdopt);
+	else
+		run_execve(cmdopt);
 	restore_fd(position, stdout_save, filefd);
 }
