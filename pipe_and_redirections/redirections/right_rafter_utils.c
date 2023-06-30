@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/29 10:39:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:03:37 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int	search_d_tab(t_cmd_and_opt *cmdopt, char *c)
 		{
 			j = i;
 			tmp = i;
+			if (cmdopt->opt_tab[i][ft_strlen(c)])
+				printf("test\n");
 			while (cmdopt->opt_tab[++j])
 			{
 				if (ft_strnstr(cmdopt->opt_tab[j], c, ft_strlen(cmdopt->opt_tab[j])))

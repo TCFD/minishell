@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/27 14:11:49 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/29 11:15:32 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt)
 			input += 1;
 	}
 	cmdopt->opt_tab[i] = NULL;
+	//free(&cmdopt->opt_tab[i + 1]);
 }
