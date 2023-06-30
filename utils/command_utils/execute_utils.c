@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:05:40 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/06/30 19:08:10 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		return (perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
-		if (execve(cmdopt->command_path, cmdopt->opt_tab, get_env()) == -1)
+		if (execve(cmdopt->command_path, cmdopt->opt_and_type_tab.tab, get_env()) == -1)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
@@ -71,7 +71,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
-	else if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
+	else if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_and_type_tab.tab[1])
 		display_env(get_env(), cmdopt);
 	else if (cmp(cmdopt->command_name, "export"))
 		export_all_var(cmdopt);

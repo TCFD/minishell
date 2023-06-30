@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:05:57 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/06/30 19:08:10 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_execve_return(t_cmd_and_opt *cmdopt)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
-		if (execve(cmdopt->command_path, cmdopt->opt_tab, get_env()) == -1)
+		if (execve(cmdopt->command_path, cmdopt->opt_and_type_tab.tab, get_env()) == -1)
 			exit(EXIT_FAILURE);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:03:09 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/06/30 19:07:09 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_command_and_option
 	char			*command_name;
 	char			*command_path;
 	int				path_unset;
-	t_opt_tab		opt_tab;
+	t_opt_tab		opt_and_type_tab;
 }t_cmd_and_opt;
 
 char		**create_options(char *cmd_name, char **all_args);

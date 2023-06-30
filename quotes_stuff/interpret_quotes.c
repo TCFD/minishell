@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/30 17:53:44 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/06/30 19:07:54 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i)
 
 	while (*input == SPACE)
 		input += 1;
-	cmdopt->opt_tab.tab = ft_calloc(sizeof(char *), (ft_strlen(input) + 1));
-	cmdopt->opt_tab.type = malloc(sizeof(char) * (ft_strlen(input) + 1));
+	cmdopt->opt_and_type_tab.tab = ft_calloc(sizeof(char *), (ft_strlen(input) + 1));
+	cmdopt->opt_and_type_tab.type = malloc(sizeof(char) * (ft_strlen(input) + 1));
 	while (*input)
 	{
 		what_case = which_one(input);
 		if (!what_case)
 		{
-			input += space_end_case(&input, &cmdopt->opt_tab.tab[i], NONE, &cmdopt->opt_tab.type[i]);
+			input += space_end_case(&input, &cmdopt->opt_and_type_tab.tab[i], NONE, &cmdopt->opt_and_type_tab.type[i]);
 			i++;
 			what_case = which_one(input);
 			if (!what_case)
@@ -111,10 +111,10 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i)
 			while (*input == SPACE)
 				input += 1;
 		}
-		words(&input, what_case, &cmdopt->opt_tab.tab[i], &cmdopt->opt_tab.type[i]);
+		words(&input, what_case, &cmdopt->opt_and_type_tab.tab[i], &cmdopt->opt_and_type_tab.type[i]);
 		i++;
 		while (*input == SPACE)
 			input += 1;
 	}
-	cmdopt->opt_tab.tab[i] = NULL;
+	cmdopt->opt_and_type_tab.tab[i] = NULL;
 }

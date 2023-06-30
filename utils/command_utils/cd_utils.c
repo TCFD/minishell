@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/30 19:04:32 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/06/30 19:07:54 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 	char	current_dir[4096];
 	char	*f;
 
-	if (!cmdopt->opt_tab.tab)
+	if (!cmdopt->opt_and_type_tab.tab)
 		return ;
-	if (d_len(cmdopt->opt_tab.tab) > 2)
+	if (d_len(cmdopt->opt_and_type_tab.tab) > 2)
 		return ((void)(ft_printf("bash: cd : too many arguments\n"))); // modifier la valeur errno (appeler une fonction avec msg erreur)
-	f = special_cara_cd(cmdopt->opt_tab.tab[1]);
+	f = special_cara_cd(cmdopt->opt_and_type_tab.tab[1]);
 	if (!f)
 		return ;
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)

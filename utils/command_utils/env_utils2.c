@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 18:19:51 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 19:08:10 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ void	export_all_var(t_cmd_and_opt *cmdopt)
 
 	idx = 0;
 	sub_idx = -1;
-	if (!cmdopt->opt_tab[1])
+	if (!cmdopt->opt_and_type_tab.tab[1])
 	{
 		env = get_env();
 		while (env[++sub_idx])
 			ft_printf("%sdeclare -x %s%s\n", NC, env[sub_idx], NC);
 		return ;
 	}
-	while (cmdopt->opt_tab[++idx])
-		export_var(cmdopt->opt_tab[idx]);
+	while (cmdopt->opt_and_type_tab.tab[++idx])
+		export_var(cmdopt->opt_and_type_tab.tab[idx]);
 }
 
 // ENV
