@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/23 13:38:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 17:55:44 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 {
 	free(cmdopt->command_name);
 	free(cmdopt->command_path);
-	free_d_array(cmdopt->opt_tab);
+	free(cmdopt->opt_tab.type);
+	free_d_array(cmdopt->opt_tab.tab);
 }

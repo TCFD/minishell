@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/30 12:02:38 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 18:38:08 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	expand(char **dest)
 	dollar_pointer = ft_strchr(dup, '$');
 	*dest = ft_substr(dup, 0, ft_strchr(dup, '$') - dup);
 	end = NULL;
-	space_end_case(&dollar_pointer, &end, DOUBLE_Q);
+	space_end_case(&dollar_pointer, &end, DOUBLE_Q, NULL);
 	*dest = ft_join(*dest, end);
 	free(dup);
 }
@@ -77,34 +77,15 @@ void	if_dollar(char **input, char **dest, char what_case, int i)
 	*dest = ft_join(*dest, tmp);
 	tmp = which_one_first(*input + i + 1);
 	if (ft_strchr(tmp, '$'))
-		space_end_case(&tmp, dest, what_case);
+		space_end_case(&tmp, dest, what_case, NULL);
 	else if (tmp && what_case == DOUBLE_Q)
 		*dest = ft_join(*dest, ft_strdup(tmp));
 }
 
-char	*find_chevrons(char **input, int end)
-{
-	long int	chevrons;
-	char		*tmp;
-
-	printf("input = %s\n", *input);
-	chevrons = ft_strnstr(*input, ">", ft_strlen(*input)) - *input;
-	if (chevrons >= 0 && chevrons < end)
-	{
-		tmp = ft_join(ft_substr(*input, 0, chevrons), ft_strdup(" "));
-		tmp = ft_join(tmp, ft_substr(*input, chevrons, 1));
-		tmp = ft_join(tmp, ft_strdup(" "));
-		tmp = ft_join(tmp, ft_substr(*input, chevrons + 1, ft_strlen(*input)));
-		return(tmp);
-	}
-	return (ft_strdup(*input));
-}
-
-int	space_end_case(char **input, char **dest, char what_case)
+int	space_end_case(char **input, char **dest, char what_case, char *type)
 {
 	int			i;
 	long int	end;
-	//char		*tmp;
 
 	i = 0;
 	end = ft_strchr_rc(*input, what_case) - *input;
@@ -112,8 +93,11 @@ int	space_end_case(char **input, char **dest, char what_case)
 		end = ft_strlen(*input);
 	if (what_case != DOUBLE_Q && *input)
 	{
-		input[0] = find_chevrons(&*input, end);
-		end = ft_strchr_rc(*input, what_case) - *input;
+		if (ft_strnstr(*input, ">", ft_strlen(*input)))
+			input[0] = find_chevrons(input, end);
+		end = ft_strchr_rc(*input, ' ') - *input;
+		if (end <= 0)
+			end = ft_strlen(*input);
 	}
 	while (input[0][i] &&
 		!(input[0][i] == '$' && input[0][i + 1] != ' ') && i < end)
@@ -122,5 +106,7 @@ int	space_end_case(char **input, char **dest, char what_case)
 		if_dollar(input, dest, what_case, i);
 	else
 		*dest = ft_join(*dest, ft_substr(*input, 0, end));
+	if ((what_case == SPACE || what_case == NONE) && type)
+		*type = INTERPRETABLE;
 	return (end);
 }

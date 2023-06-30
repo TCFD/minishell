@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 16:28:55 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 17:32:03 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_execve_return(t_cmd_and_opt *cmdopt)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
-		if (execve(cmdopt->command_path, cmdopt->opt_tab, NULL) == -1)
+		if (execve(cmdopt->command_path, cmdopt->opt_tab.tab, NULL) == -1)
 			exit(EXIT_FAILURE);
 	}
 	else

@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/29 10:41:39 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 18:38:26 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define RED		"\033[31m"
-# define GREEN		"\033[32m"
-# define YELLOW		"\033[33m"
-# define BLUE		"\033[34m"
-# define PURPLE		"\033[35m"
-# define NC			"\033[0m"
-# define SIMPLE_Q	'\''
-# define DOUBLE_Q	'\"'
-# define SPACE		' '
-# define NONE		'\0'
+# define RED				"\033[31m"
+# define GREEN				"\033[32m"
+# define YELLOW				"\033[33m"
+# define BLUE				"\033[34m"
+# define PURPLE				"\033[35m"
+# define NC					"\033[0m"
+# define SIMPLE_Q			'\''
+# define DOUBLE_Q			'\"'
+# define SPACE				' '
+# define NONE				'\0'
+# define INTERPRETABLE		'y'
+# define NOT_INTERPRETABLE	'n'
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -40,11 +42,18 @@ typedef struct s_singleton
 	char	*last_value;
 }t_singleton;
 
+typedef	struct s_opt_tab
+{
+	char	**tab;
+	char	*type;
+}t_opt_tab;
+
+
 typedef struct s_command_and_option
 {
-	char			*command_name;
-	char			*command_path;
-	char			**opt_tab;
+	char				*command_name;
+	char				*command_path;
+	t_opt_tab			opt_tab;
 }t_cmd_and_opt;
 
 extern char	**environ; // Variable Globale
@@ -76,11 +85,11 @@ int			d_len(char **str);
 int			t_len(char ***str);
 int			use_pipex(char *command);
 int			check_correct_quotes(char *input);
-void		interpret_quotes(char *input, t_cmd_and_opt *cmdopt);
+void		interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i);
 void		echo_remake(t_cmd_and_opt *cmdopt);
 char		*check_env_variables(char *input);
 void		expand(char **dest);
-int			space_end_case(char **input, char **dest, char what_case);
+int			space_end_case(char **input, char **dest, char what_case, char *type);
 int			cmp(char *cmd_name, char *cmd_name_2);
 char		*read_bytes(int *fd);
 char		*get_execve_return(t_cmd_and_opt *cmdopt);
@@ -94,5 +103,6 @@ int			redirect_output(char **tab, int *stdout_save, int *filefd,
 void		restore_fd(int position, int stdout_save, int filefd);
 int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
+char	*find_chevrons(char **input, int end);
 
 #endif

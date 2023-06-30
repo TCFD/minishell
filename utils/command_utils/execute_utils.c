@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/28 15:38:44 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 17:32:03 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		return (perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
-		if (execve(cmdopt->command_path, cmdopt->opt_tab, NULL) == -1)
+		if (execve(cmdopt->command_path, cmdopt->opt_tab.tab, NULL) == -1)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
@@ -65,12 +65,15 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	if (!cmdopt->command_name)
 		return ;
 	search_redirections(cmdopt, &stdout_save, &filefd, &position);
+	//if (cmp(cmdopt->command_name, "echo"))
+	//	echo_remake(cmdopt);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
-	if (cmp(cmdopt->command_name, "unset"))
+	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
-	if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
+	else if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab.tab[1])
 		display_env();
-	run_execve(cmdopt);
+	else
+		run_execve(cmdopt);
 	restore_fd(position, stdout_save, filefd);
 }

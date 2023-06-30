@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/24 12:23:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 17:32:03 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	unset_all_env_var(t_cmd_and_opt *cmdopt)
 	int	idx;
 
 	idx = 0;
-	while (cmdopt->opt_tab[++idx])
-		unset_env_var(cmdopt->opt_tab[idx]);
+	while (cmdopt->opt_tab.tab[++idx])
+		unset_env_var(cmdopt->opt_tab.tab[idx]);
 }
 
 void	display_env(void)

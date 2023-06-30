@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 10:50:48 by zbp15             #+#    #+#              #
-#    Updated: 2023/06/22 18:06:28 by rciaze           ###   ########.fr        #
+#    Updated: 2023/06/30 15:52:39 by zbp15            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	pipex
-CFLAGS		=	-Wall -Wextra -Werror -pthread -ggdb -O0
+CFLAGS		=	-Wall -Wextra -Werror -pthread -ggdb -O0 
 CC			=	gcc 
 CLEANF 		=	@(rm -f *.o)
 OBJ_B		=	${SRCS_B:.c=.o}
