@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:32:48 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 15:51:34 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ void		update_env(char **new_value);
 char	**get_env(void);
 
 char	*ft_getenv(char *var_name);
+void	export_var(char *var);
+void	export_all_var(t_cmd_and_opt *cmdopt);
 
 #endif

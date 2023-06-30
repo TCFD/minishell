@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:11:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 15:52:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		unset_all_env_var(cmdopt);
 	else if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_tab[1])
 		display_env(get_env());
+	else if (cmp(cmdopt->command_name, "export"))
+		export_all_var(cmdopt);
 	else
 		run_execve(cmdopt);
 	restore_fd(position, stdout_save, filefd);
