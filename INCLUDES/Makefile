@@ -2,7 +2,7 @@ GREEN=\033[0;32m
 NC=\033[0m
 
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror -g3 
 CC = gcc
 
 SRCS := $(wildcard *.c)

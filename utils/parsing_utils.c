@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:29:48 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 19:04:26 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		return ;
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
-	interpret_quotes(input, cmdopt);
+	interpret_quotes(input, cmdopt, 0);
 	int 	i = -1;
-	while (cmdopt->opt_tab[++i])
-		printf("option '%s'\n", cmdopt->opt_tab[i]);
+	while (cmdopt->opt_tab.tab[++i])
+		printf("option '%s'\n", cmdopt->opt_tab.tab[i]);
 	printf("\n\n");
-	cmdopt->command_name = brut_name(ft_strdup(cmdopt->opt_tab[0]));
-	cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_tab[0]));
-	free(cmdopt->opt_tab[0]);
-	cmdopt->opt_tab[0] = ft_strdup(cmdopt->command_path);
+	cmdopt->command_name = brut_name(ft_strdup(cmdopt->opt_tab.tab[0]));
+	cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_tab.tab[0]));
+	free(cmdopt->opt_tab.tab[0]);
+	cmdopt->opt_tab.tab[0] = ft_strdup(cmdopt->command_path);
 }
