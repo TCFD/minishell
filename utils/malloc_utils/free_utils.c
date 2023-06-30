@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/23 13:38:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/06/30 17:22:25 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void	free_d_array(char **str)
 {
-	int	idx;
-
-	idx = 0;
-	if (str == NULL || str[idx] == NULL)
-		return (free(str));
+	int idx = 0;
+	
+	if (str == NULL)
+		return;
 	while (str[idx] != NULL)
 	{
 		free(str[idx]);
-		idx++ ;
+		idx++;
 	}
 	free(str);
 }

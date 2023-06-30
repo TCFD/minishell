@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:29:31 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 18:01:36 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 {
 	char	*input;
 	char	*prompt;
+	//char	**env;
 
 	shlvl_plus_one();
 	prompt = display_user_prompt((char *)get_username());
@@ -63,6 +64,8 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 	minishell(input, cmdopt, prompt);
 	free(prompt);
 	free(user);
+	//env = get_env();
+	//free_d_array(env);
 	rl_clear_history();
 	shlvl_minus_one();
 }
@@ -77,10 +80,8 @@ int	main(int ac, char **ag, char **env)
 	(void)ag;
 	signal(SIGINT, sigint_handler);
 	
-	update_env(env);
+	update_env(ft_d_strdup(env));
 	verif_env_and_path(&cmdopt);
-	ft_printf("cmdopt.env_i : %d\n", cmdopt.path_unset);
-	
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
 	update_username(user);

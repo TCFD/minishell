@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:51:34 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 18:04:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ void		free_d_array(char **str);
 void		free_t_array(char ***str);
 void		free_cmdopt(t_cmd_and_opt *cmdopt);
 void		init_cmdopt(t_cmd_and_opt *cmdopt);
+void		init_design_pattern(t_singleton *design_p);
 void		run_execve(t_cmd_and_opt *cmdopt);
 void		execute_command(t_cmd_and_opt *cmdopt);
 void		bf_prd(char *str, int d, char *color);
 void		unset_env_var(char *variable, char **env);
 void		unset_all_env_var(t_cmd_and_opt *cmdopt);
-void		display_env(char **env);
+void		display_env(char **env, t_cmd_and_opt *cmdopt);
 int			check_if_same(char *s1, char *s2);
 int			d_len(char **str);
 int			t_len(char ***str);
@@ -97,16 +98,22 @@ int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 
 void	shlvl_plus_one(void);
 void	shlvl_minus_one(void);
-void	rebuild_env(void);
+void	rebuild_env(t_cmd_and_opt *cmdopt);
 
 void	verif_env_and_path(t_cmd_and_opt *cmdopt);
 
 t_singleton	*get_env_instance(void);
 void		update_env(char **new_value);
-char	**get_env(void);
+char		**get_env(void);
+
 
 char	*ft_getenv(char *var_name);
+int		ft_getenv_int(char *var_name);
 void	export_var(char *var);
 void	export_all_var(t_cmd_and_opt *cmdopt);
+
+char	**ft_d_strdup(char **tab);
+char	*get_char_until_limit(char *str, int lim);
+int		find_first_occurence(char *str, char cara);
 
 #endif

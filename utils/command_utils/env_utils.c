@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:36:38 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 18:24:31 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ char	*ft_getenv(char *var_name)
 		idx++ ;
 	}
 	return (NULL);
+}
+
+int	ft_getenv_int(char *var_name)
+{
+	char	**env;
+	int		idx;
+
+	idx = 0;
+	env = get_env();
+	while (env[idx])
+	{
+		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0
+			&& env[idx][ft_strlen(var_name)] == '=')
+			return (idx);
+		idx++ ;
+	}
+	return (-1);
 }
 
 void	unset_env_var(char *variable, char **env)
@@ -66,11 +83,11 @@ void	unset_all_env_var(t_cmd_and_opt *cmdopt)
 		unset_env_var(cmdopt->opt_tab[idx], get_env());
 }
 
-void	display_env(char **env)
+void	display_env(char **env, t_cmd_and_opt *cmdopt)
 {
-	int	idx;
+	int		idx;
 
-	if (!ft_getenv("PATH"))
+	if (cmdopt->path_unset == 1)
 		return ((void)ft_printf("bash : env : No such file or directory\n")); // Rajouter l'erreur errno
 	idx = -1;
 	while (env[++idx])

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:55:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 15:03:04 by wolf             ###   ########.fr       */
+/*   Updated: 2023/06/30 17:21:57 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ void	update_env(char **new_value)
 	t_singleton	*singleton;
 
 	singleton = get_env_instance();
-	if (singleton->env != NULL)
-		free_d_array(singleton->env);
-
-	singleton->env = new_value;
+	/* if (singleton && singleton->env != NULL)
+		free_d_array(singleton->env); */
+	singleton->env = ft_d_strdup(new_value);
 }
 
 char	**get_env(void)

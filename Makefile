@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/06/30 14:59:30 by wolf             ###   ########.fr        #
+#    Updated: 2023/06/30 17:39:10 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS 		=	maintest.c								\
 				$(UTILS)prompt_utils.c					\
 				$(UTILS)init_utils.c					\
 				$(UTILS)dollar_completion.c				\
+				$(UTILS)others_utils.c					\
 				$(DESIGN_PATTERN)design_p_username.c	\
 				$(DESIGN_PATTERN)design_p_env.c			\
 				$(MALLOC_UTILS)free_utils.c				\
