@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 14:37:17 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/03 18:34:51 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
-	else if (cmp(cmdopt->command_name, "env") && !cmdopt->opt_and_type_tab.tab[1])
+	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_and_type_tab.tab[1])
 		display_env(get_env(), cmdopt);
 	else if (cmp(cmdopt->command_name, "export"))
 		export_all_var(cmdopt);

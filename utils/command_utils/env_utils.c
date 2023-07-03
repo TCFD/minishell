@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 15:27:35 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/03 18:42:49 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	unset_env_var(char *variable, char **env)
 			&& env_[i][ft_strlen(variable)] == '=')
 		{
 			ij = 1;
-			while (env_[i + ij])
+			while (env_[i + ij - 1])
 			{
 				env_[i + ij - 1] = env_[i + ij];
 				ij++ ;
@@ -92,10 +92,14 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 {
 	int		idx;
 
-	if (cmdopt->path_unset == 1)
+	if (!cmp(cmdopt->command_path, "/bin/env")
+		&& !cmp(cmdopt->command_path, "/usr/bin/env"))
 	{
-		if (!ft_getenv("PATH") || !does_command_path_valid(ft_strdup("env")))
-			return ((void)ft_printf("bash : env : No such file or directory\n")); // Rajouter l'erreur errno
+		if (cmdopt->path_unset == 1)
+		{
+			if (!ft_getenv("PATH") || !does_command_path_valid(ft_strdup("env")))
+				return ((void)ft_printf("bash : env : No such file or directory\n")); // Rajouter l'erreur errno
+		}
 	}
 	idx = -1;
 	while (env[++idx])
