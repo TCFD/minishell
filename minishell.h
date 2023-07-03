@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 20:04:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/03 20:25:06 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			check_correct_quotes(char *input);
 void		interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i);
 void		echo_remake(t_cmd_and_opt *cmdopt);
 char		*check_env_variables(char *input);
-void		expand(char **dest);
+void		expand(char **dest, int start);
 int			space_end_case(char **input, char **dest, char what_case, char *type);
 int			cmp(char *cmd_name, char *cmd_name_2);
 char		*read_bytes(int *fd);
