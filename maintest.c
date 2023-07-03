@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 15:44:39 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/03 16:53:46 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
-		if (ft_strncmp(input, "exit", 4) == 0)
+		if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
 			return (exit_func(cmdopt, input));
 		if (input[0])
 		{
