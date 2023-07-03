@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:07:09 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 15:27:39 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ char		**double_a_realloc(char **array, char *new_elmt);
 char		*getenv_check(char *str);
 char		*display_user_prompt(char *username);
 char		*stick_color(char *str, char *color);
-char		*create_path(char *command_name);
+char		*create_path(char *command_name, int imd_return);
 char		*brut_name(char *command_np);
-char		*is_path_unset(char *command_name);
+char		*is_path_unset(char *command_name, int imd_return);
 void		create_command(char	*input, t_cmd_and_opt *cmdopt);
 void		welcome_to_minishell(void);
 void		sigint_handler(int signum);
@@ -125,5 +125,7 @@ void	export_all_var(t_cmd_and_opt *cmdopt);
 char	**ft_d_strdup(char **tab);
 char	*get_char_until_limit(char *str, int lim);
 int		find_first_occurence(char *str, char cara);
+
+int		does_command_path_valid(char *cmd);
 
 #endif

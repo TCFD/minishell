@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:02:19 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 15:44:39 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			add_history(input);
 		}
 		execute_command(cmdopt);
+		if (input[0])
+			free_cmdopt(cmdopt);
 		free(input);
-		free_cmdopt(cmdopt);
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 		free(prompt);

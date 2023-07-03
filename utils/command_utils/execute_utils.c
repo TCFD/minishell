@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:08:10 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 14:37:17 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	if (!cmdopt->command_name)
 		return ;
 	search_redirections(cmdopt, &stdout_save, &filefd, &position);
-	//if (cmp(cmdopt->command_name, "echo"))
-	//	echo_remake(cmdopt);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))

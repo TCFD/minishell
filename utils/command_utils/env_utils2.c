@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:08:10 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 15:28:08 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	export_all_var(t_cmd_and_opt *cmdopt)
 	}
 	while (cmdopt->opt_and_type_tab.tab[++idx])
 		export_var(cmdopt->opt_and_type_tab.tab[idx]);
+	verif_env_and_path(cmdopt);
 }
 
 // ENV
@@ -91,7 +92,7 @@ void	verif_env_and_path(t_cmd_and_opt *cmdopt)
 	cmdopt->path_unset = 0;
 	if (!get_env()[0])
 		return (rebuild_env(cmdopt));
-	if (!ft_getenv("PATH"))
+	if (ft_getenv("PATH"))
 	{
 		cmdopt->path_unset = 1;
 		return ;
