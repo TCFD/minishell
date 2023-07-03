@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 15:27:39 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/03 16:54:57 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,13 @@ void		restore_fd(int position, int stdout_save, int filefd);
 int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
 char	*find_chevrons(char **input, int end);
-
 void	shlvl_plus_one(void);
 void	shlvl_minus_one(void);
 void	rebuild_env(t_cmd_and_opt *cmdopt);
-
 void	verif_env_and_path(t_cmd_and_opt *cmdopt);
-
 t_singleton	*get_env_instance(void);
 void		update_env(char **new_value);
 char		**get_env(void);
-
-
 char	*ft_getenv(char *var_name);
 int		ft_getenv_int(char *var_name);
 void	export_var(char *var);
