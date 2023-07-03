@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/30 19:03:14 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 19:50:38 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*check_env_variables(char *input)
 	return (return_value);
 }
 
-void	expand(char **dest)
+void	expand(char **dest, int start)
 {
 	char	*dup;
 	char	*dollar_pointer;
@@ -37,8 +37,8 @@ void	expand(char **dest)
 
 	dup = ft_strdup(*dest);
 	free(*dest);
-	dollar_pointer = ft_strchr(dup, '$');
-	*dest = ft_substr(dup, 0, ft_strchr(dup, '$') - dup);
+	dollar_pointer = ft_strchr(dup + start, '$');
+	*dest = ft_substr(dup, 0, ft_strchr(dup + start, '$') - dup);
 	end = NULL;
 	space_end_case(&dollar_pointer, &end, DOUBLE_Q, NULL);
 	*dest = ft_join(*dest, end);
