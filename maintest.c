@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 16:53:46 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 20:04:00 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// ----
+// GETENV CHECK
 char	*getenv_check(char *str)
 {
 	char	*found_it;
@@ -23,6 +23,7 @@ char	*getenv_check(char *str)
 	return (found_it);
 }
 
+// EXIT FUNC
 void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
 	free_cmdopt(cmdopt);
@@ -30,6 +31,7 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 	rl_clear_history();
 }
 
+// MINISHELL
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
 	while (input != NULL)
@@ -53,6 +55,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	return ;
 }
 
+// RUN MINISHELL
 void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 {
 	char	*input;
@@ -71,6 +74,7 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 	shlvl_minus_one();
 }
 
+// ----------- MAIN ----------- //
 int	main(int ac, char **ag, char **env)
 {
 	t_cmd_and_opt	cmdopt;

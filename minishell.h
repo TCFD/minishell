@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 16:54:57 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/03 20:04:13 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,8 @@ char	*get_char_until_limit(char *str, int lim);
 int		find_first_occurence(char *str, char cara);
 
 int		does_command_path_valid(char *cmd);
+int		verif_if_env_called(t_cmd_and_opt *cmdopt);
+
+
 
 #endif
