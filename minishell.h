@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 11:23:04 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 15:11:50 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ int		find_first_occurence(char *str, char cara);
 int		does_command_path_valid(char *cmd);
 int		verif_if_env_called(t_cmd_and_opt *cmdopt);
 
-
+void	free_singleton(void);
 
 #endif
