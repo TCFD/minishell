@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 15:11:50 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 18:30:33 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			d_len(char **str);
 int			t_len(char ***str);
 int			use_pipex(char *command);
 int			check_correct_quotes(char *input);
-void		interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i);
+void		parse_that_shit(char *input, t_cmd_and_opt *cmdopt, int i);
 void		echo_remake(t_cmd_and_opt *cmdopt);
 char		*check_env_variables(char *input);
 void		expand(char **dest, int start, int if_case);

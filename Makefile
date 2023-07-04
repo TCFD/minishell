@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/03 19:11:20 by wolf             ###   ########.fr        #
+#    Updated: 2023/07/04 18:36:02 by zbp15            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,11 @@ UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
-QUOTES_STUFF  	=	quotes_stuff/
+PARSING		  	=	parsing/
 
 SRCS 		=	maintest.c								\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
-				$(UTILS)parsing_utils.c					\
 				$(UTILS)prompt_utils.c					\
 				$(UTILS)init_utils.c					\
 				$(UTILS)dollar_completion.c				\
@@ -46,8 +45,9 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)env_utils2.c			\
 				$(COMMAND_UTILS)env_utils3.c			\
 				$(COMMAND_UTILS)export_utils.c			\
-				$(QUOTES_STUFF)check_correct_quotes.c	\
-				$(QUOTES_STUFF)interpret_quotes.c		\
+				$(PARSING)parsing_utils.c				\
+				$(PARSING)check_correct_quotes.c		\
+				$(PARSING)main_parsing.c   				\
 				$(REDIRECTIONS)right_rafter_utils.c		\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
 
