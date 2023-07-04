@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/03 20:21:56 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 12:03:11 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 #include "../minishell.h"
 
-char	which_one(char *input)
+char which_one(char *input)
 {
-	char	*first_simple_quote;
-	char	*first_double_quote;
-	char	*first_space;
+	char *first_simple_quote;
+	char *first_double_quote;
+	char *first_space;
 
 	first_simple_quote = ft_strchr_rc(input, '\'');
 	first_double_quote = ft_strchr_rc(input, '\"');
@@ -38,11 +38,11 @@ char	which_one(char *input)
 	return ('\0');
 }
 
-long int	find_first_special_char(char *input, long int *s_quote, long int final_space)
+long int find_first_special_char(char *input, long int *s_quote, long int final_space)
 {
-	long int	simple_chevrons;
-	long int	first_special_char;
-	
+	long int simple_chevrons;
+	long int first_special_char;
+
 	first_special_char = ft_strnstr(input + *s_quote + 1, ">>", ft_strlen(input)) - input - 1;
 	if (first_special_char < 0)
 		first_special_char = final_space;
@@ -54,13 +54,12 @@ long int	find_first_special_char(char *input, long int *s_quote, long int final_
 	if (first_special_char > *s_quote && first_special_char < final_space)
 		return (first_special_char);
 	else
-		return(final_space);
+		return (final_space);
 }
 
-long int	assign_values(long int *f_quote, long int *s_quote, char what_case, char *input)
+long int assign_values(long int *f_quote, long int *s_quote, char what_case, char *input)
 {
-	long int		final_space;
-
+	long int final_space;
 
 	final_space = 0;
 	*f_quote = ft_strchr_rc(input, what_case) - input;
@@ -68,7 +67,11 @@ long int	assign_values(long int *f_quote, long int *s_quote, char what_case, cha
 		*f_quote = 0;
 	*s_quote = ft_strchr_rc(input + *f_quote + 1, what_case) - input;
 	if (*s_quote < 0)
-		*s_quote = ft_strlen(input);
+	{
+		*s_quote = ft_strchr_rc(input, what_case) - input;
+		if (*s_quote < 0)
+			*s_quote = ft_strlen(input);
+	}
 	if (input + *s_quote > input)
 		final_space = ft_strchr_rc(input + *s_quote + 1, SPACE) - input;
 	if (final_space <= 0)
@@ -76,16 +79,17 @@ long int	assign_values(long int *f_quote, long int *s_quote, char what_case, cha
 	return (find_first_special_char(input, s_quote, final_space));
 }
 
-int	qutoes_case(char **input, char what_case, char **dest, char *type)
+int qutoes_case(char **input, char what_case, char **dest, char *type)
 {
-	long int		first_quote;
-	long int		second_quote;
-	long int		final_space;
-	int				i;
-	int				j;
+	long int first_quote;
+	long int second_quote;
+	long int final_space;
+	int i;
+	int j;
 
 	j = 0;
 	final_space = assign_values(&first_quote, &second_quote, what_case, *input);
+	// first_quote = 0;
 	*dest = ft_calloc(sizeof(char), final_space + 1);
 	if (!*dest)
 		return (perror("malloc fail"), exit(0), 0);
@@ -100,8 +104,13 @@ int	qutoes_case(char **input, char what_case, char **dest, char *type)
 		if (i == second_quote)
 		{
 			dest[0][j] = '\0';
-			if (what_case != SIMPLE_Q && ft_strchr(*dest + first_quote, '$'))
-				expand(dest, first_quote);
+			if (what_case != SIMPLE_Q && ft_strchr(*dest, '$'))
+			{
+				if( ft_strchr(*dest, '$') - *dest < first_quote)
+					expand(dest, first_quote, 1);
+				else if (ft_strchr(*dest + first_quote, '$'))
+					expand(dest, first_quote, 0);
+			}
 			what_case = which_one(*input + i + 1);
 			assign_values(&first_quote, &second_quote, what_case, &input[0][i + 1]);
 			second_quote += i + 1;
@@ -112,7 +121,7 @@ int	qutoes_case(char **input, char what_case, char **dest, char *type)
 	return (i);
 }
 
-void	words(char **input, char what_case, char **dest, char *type)
+void words(char **input, char what_case, char **dest, char *type)
 {
 	if (what_case == SPACE)
 		*input += space_end_case(input, dest, SPACE, type);
@@ -120,9 +129,9 @@ void	words(char **input, char what_case, char **dest, char *type)
 		*input += qutoes_case(input, what_case, dest, type);
 }
 
-void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i)
+void interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i)
 {
-	char	what_case;
+	char what_case;
 
 	while (*input == SPACE)
 		input += 1;
@@ -137,7 +146,7 @@ void	interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i)
 			i++;
 			what_case = which_one(input);
 			if (!what_case)
-				break ;
+				break;
 			while (*input == SPACE)
 				input += 1;
 		}

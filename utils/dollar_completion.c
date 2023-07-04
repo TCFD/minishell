@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/03 20:39:45 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 11:50:14 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,28 @@ char	*check_env_variables(char *input)
 	return (return_value);
 }
 
-void	expand(char **dest, int start)
+void	expand(char **dest, int start, int if_case)
 {
 	char	*dup;
+	char	*tmp;
 	char	*dollar_pointer;
 	char	*end;
 
 	dup = ft_strdup(*dest);
 	free(*dest);
 	dollar_pointer = ft_strchr(dup + start, '$');
-	*dest = ft_substr(dup, 0, ft_strchr(dup + start, '$') - dup);
 	end = NULL;
+	if (if_case)
+	{
+		dollar_pointer = dup + start;
+		tmp = ft_substr(dup, 0, start);
+		space_end_case(&tmp, &end, DOUBLE_Q, NULL);
+		free(tmp);
+		*dest = ft_join(end, ft_substr(dup, start, ft_strlen(dup)));
+		free(dup);
+		return ;
+	}
+	*dest = ft_substr(dup, 0, dollar_pointer - dup);
 	space_end_case(&dollar_pointer, &end, DOUBLE_Q, NULL);
 	*dest = ft_join(*dest, end);
 	free(dup);
@@ -70,7 +81,7 @@ void	if_dollar(char **input, char **dest, char what_case, int i)
 	char		*tmp;
 	char		*tmp2;
 
-	tmp2 = ft_substr(*input, i, which_one_first(*input + i + 1) - *input + i);
+	tmp2 = ft_substr(*input, i, which_one_first(*input + i + 1) - *input - i);
 	tmp = check_env_variables(tmp2);
 	free(tmp2);
 	*dest = ft_join(*dest, ft_substr(*input, 0, i));
