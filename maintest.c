@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 20:04:00 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 15:57:08 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 		free(prompt);
+		prompt = NULL;
 	}
 	return ;
 }
@@ -85,12 +86,13 @@ int	main(int ac, char **ag, char **env)
 	(void)ag;
 	signal(SIGINT, sigint_handler);
 	
-	update_env(ft_d_strdup(env));
+	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
 	update_username(user);
+	free_cmdopt(&cmdopt);
 	run_minishell(user, &cmdopt);
-	
+	free_singleton();
 	return (0);
 }
