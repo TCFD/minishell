@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/30 19:07:54 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ int	search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 {
 	*position = search_d_tab(cmdopt, ">>");
 	if (*position > -1)
-		if (redirect_output(cmdopt->opt_and_type_tab.tab + *position, stdout_save,
+		if (redirect_output(cmdopt->opt_ty_tb.tab + *position, stdout_save,
 				filefd, 2))
 			return (1);
 	if (*position <= -1)
 	{
 		*position = search_d_tab(cmdopt, ">");
 		if (*position > -1)
-			if (redirect_output(cmdopt->opt_and_type_tab.tab + *position, stdout_save,
+			if (redirect_output(cmdopt->opt_ty_tb.tab + *position, stdout_save,
 					filefd, 1))
 				return (1);
 	}	
@@ -85,9 +85,9 @@ void	realloc_chevrons(t_cmd_and_opt *cmdopt, int start, int end)
 	int		temp_counter;
 
 	temp = NULL;
-	dup_d_array(cmdopt->opt_and_type_tab.tab, &temp, &j);
-	free_d_array(cmdopt->opt_and_type_tab.tab);
-	cmdopt->opt_and_type_tab.tab = ft_calloc(sizeof(char *), j - (end - start) + 1);
+	dup_d_array(cmdopt->opt_ty_tb.tab, &temp, &j);
+	free_d_array(cmdopt->opt_ty_tb.tab);
+	cmdopt->opt_ty_tb.tab = ft_calloc(sizeof(char *), j - (end - start) + 1);
 	temp_counter = 0;
 	j = -1;
 	while (temp[++j])
@@ -95,10 +95,10 @@ void	realloc_chevrons(t_cmd_and_opt *cmdopt, int start, int end)
 		if (j == start)
 			while (j < end)
 				j++;
-		cmdopt->opt_and_type_tab.tab[temp_counter] = ft_strdup(temp[j]);
+		cmdopt->opt_ty_tb.tab[temp_counter] = ft_strdup(temp[j]);
 		temp_counter++;
 	}
-	cmdopt->opt_and_type_tab.tab[temp_counter] = NULL;
+	cmdopt->opt_ty_tb.tab[temp_counter] = NULL;
 	free_d_array(temp);
 }
 
@@ -109,17 +109,17 @@ int	search_d_tab(t_cmd_and_opt *cmdopt, char *c)
 	int			tmp;
 
 	i = -1;
-	while (cmdopt->opt_and_type_tab.tab[++i])
+	while (cmdopt->opt_ty_tb.tab[++i])
 	{
-		if (ft_strnstr(cmdopt->opt_and_type_tab.tab[i], c, ft_strlen(cmdopt->opt_and_type_tab.tab[i])) && cmdopt->opt_and_type_tab.type[i] == INTERPRETABLE)
+		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], c, ft_strlen(cmdopt->opt_ty_tb.tab[i])) && cmdopt->opt_ty_tb.type[i] == INTERPRETABLE)
 		{
 			j = i;
 			tmp = i;
-			while (cmdopt->opt_and_type_tab.tab[++j])
+			while (cmdopt->opt_ty_tb.tab[++j])
 			{
-				if (ft_strnstr(cmdopt->opt_and_type_tab.tab[j], c, ft_strlen(cmdopt->opt_and_type_tab.tab[j])) && cmdopt->opt_and_type_tab.type[j] == INTERPRETABLE)
+				if (ft_strnstr(cmdopt->opt_ty_tb.tab[j], c, ft_strlen(cmdopt->opt_ty_tb.tab[j])) && cmdopt->opt_ty_tb.type[j] == INTERPRETABLE)
 				{
-					close(open(cmdopt->opt_and_type_tab.tab[tmp + 1], O_CREAT, 0666));
+					close(open(cmdopt->opt_ty_tb.tab[tmp + 1], O_CREAT, 0666));
 					tmp = j;
 				}
 			}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/03 19:11:20 by wolf             ###   ########.fr        #
+#    Updated: 2023/07/04 15:45:31 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
+GLOBAL			=	$(UTILS)global/
 QUOTES_STUFF  	=	quotes_stuff/
 
 SRCS 		=	maintest.c								\
@@ -35,6 +36,7 @@ SRCS 		=	maintest.c								\
 				$(UTILS)others_utils.c					\
 				$(DESIGN_PATTERN)design_p_username.c	\
 				$(DESIGN_PATTERN)design_p_env.c			\
+				$(GLOBAL)errno_management.c				\
 				$(MALLOC_UTILS)free_utils.c				\
 				$(COMMAND_UTILS)shlvl_utils.c			\
 				$(MALLOC_UTILS)realloc_utils.c			\
@@ -46,6 +48,7 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)env_utils2.c			\
 				$(COMMAND_UTILS)env_utils3.c			\
 				$(COMMAND_UTILS)export_utils.c			\
+				$(COMMAND_UTILS)exit_utils.c			\
 				$(QUOTES_STUFF)check_correct_quotes.c	\
 				$(QUOTES_STUFF)interpret_quotes.c		\
 				$(REDIRECTIONS)right_rafter_utils.c		\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 18:34:51 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	pid_t		pid;
 	int			status;
 
+	errno = 0;
 	pid = fork();
 	if (pid == -1)
-		return (perror("fork"), exit(EXIT_FAILURE));
+		return ((void)update_err_code((int)errno), 
+		perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
-		if (execve(cmdopt->command_path, cmdopt->opt_and_type_tab.tab, get_env()) == -1)
+		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env()) == -1)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
@@ -34,6 +36,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		if (waitpid(pid, &status, 0) == -1)
 			exit(EXIT_FAILURE);
 	}
+	update_err_code((int)errno);
 }
 
 char	*brut_name(char *command_np)
@@ -69,7 +72,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
-	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_and_type_tab.tab[1])
+	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
 		display_env(get_env(), cmdopt);
 	else if (cmp(cmdopt->command_name, "export"))
 		export_all_var(cmdopt);

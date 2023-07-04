@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/30 19:08:10 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*read_bytes(int *fd)
 	if (bytes_read == -1)
 		exit(EXIT_FAILURE);
 	buffer[bytes_read - 1] = '\0';
+	close(fd[0]);
+	close(fd[1]);
 	return (ft_strdup(buffer));
 }
 
@@ -31,16 +33,16 @@ char	*get_execve_return(t_cmd_and_opt *cmdopt)
 	int		status;
 
 	if (pipe(pipefd) == -1)
-		exit(EXIT_FAILURE);
+		return ((void)update_err_code((int)errno), exit(EXIT_FAILURE), NULL);
 	pid = fork();
 	if (pid == -1)
-		exit(EXIT_FAILURE);
+		return ((void)update_err_code((int)errno), exit(EXIT_FAILURE), NULL);
 	if (pid == 0)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
-		if (execve(cmdopt->command_path, cmdopt->opt_and_type_tab.tab, get_env()) == -1)
-			exit(EXIT_FAILURE);
+		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env()) == -1)
+			return ((void)update_err_code((int)errno), exit(EXIT_FAILURE), NULL);
 	}
 	else
 	{

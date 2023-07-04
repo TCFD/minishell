@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 19:42:43 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	export_var(char *var)
 	int		idx_var;
 	
 	if (export_name_unvalid(var))
-		return ((void)ft_printf("bash : export: "), 
+		return ((void)update_err_code((int)errno), (void)ft_printf("bash : export: "), 
 			(void)ft_printf("« %s » : identifiant non valable\n", var));
 	if (var[0] == '=')
-		return (
+		return ((void)update_err_code((int)errno),
 		(void)ft_printf("bash : export: « = » : identifiant non valable\n"));
 	if (!ft_strchr(var, '='))
 		return ;
@@ -53,6 +53,7 @@ void	export_var(char *var)
 	else
 		env = double_a_realloc(env, var);
 	free_d_array(split_name);
+	(void)update_err_code(0);
 	update_env(env);
 }
 
@@ -65,14 +66,14 @@ void	export_all_var(t_cmd_and_opt *cmdopt)
 
 	idx = 0;
 	sub_idx = -1;
-	if (!cmdopt->opt_and_type_tab.tab[1])
+	if (!cmdopt->opt_ty_tb.tab[1])
 	{
 		env = get_env();
 		while (env[++sub_idx])
 			ft_printf("%sdeclare -x %s%s\n", NC, env[sub_idx], NC);
-		return ;
+		return ((void)update_err_code(0));
 	}
-	while (cmdopt->opt_and_type_tab.tab[++idx])
-		export_var(cmdopt->opt_and_type_tab.tab[idx]);
+	while (cmdopt->opt_ty_tb.tab[++idx])
+		export_var(cmdopt->opt_ty_tb.tab[idx]);
 	verif_env_and_path(cmdopt);
 }

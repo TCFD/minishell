@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 15:02:29 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,27 +104,21 @@ char	*create_path(char *command_name, int imd_return)
 // CREATE COMMAND
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 {
-	int	i;
-	
 	if (!input[0])
 		return ;
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
 	interpret_quotes(input, cmdopt, 0);
-	i = -1;
-	while (cmdopt->opt_and_type_tab.tab[++i])
-		printf("option '%s'\n", cmdopt->opt_and_type_tab.tab[i]);
-	printf("\n\n");
 	if (cmdopt->path_unset == 0 && !ft_getenv("PATH"))
 	{
-		cmdopt->command_name = create_path(ft_strdup(cmdopt->opt_and_type_tab.tab[0]), 0);
+		cmdopt->command_name = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 0);
 		cmdopt->command_path = ft_cpy(cmdopt->command_name, 0);
 	}
 	else
 	{
-		cmdopt->command_name = brut_name(ft_strdup(cmdopt->opt_and_type_tab.tab[0]));
-		cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_and_type_tab.tab[0]), 1);
+		cmdopt->command_name = brut_name(ft_strdup(cmdopt->opt_ty_tb.tab[0]));
+		cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
 	}
-	free(cmdopt->opt_and_type_tab.tab[0]);
-	cmdopt->opt_and_type_tab.tab[0] = ft_strdup(cmdopt->command_path);
+	free(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 }

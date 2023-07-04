@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/06/30 19:03:14 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/04 14:14:48 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*check_env_variables(char *input)
 		end = ft_strlen(input);
 	value = ft_substr(input, 0, end);
 	if (!ft_strncmp(value, "$?", ft_strlen(value)))
-		return (free(value), ft_itoa(errno));
+		return (free(value), ft_itoa(error_code));
 	return_value = ft_strdup(ft_getenv(value + 1));
 	free (value);
 	return (return_value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 18:42:49 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_getenv(char *var_name)
 
 	idx = 0;
 	env = get_env();
+	errno = 0;
 	while (env[idx])
 	{
 		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0
@@ -55,7 +56,6 @@ void	unset_env_var(char *variable, char **env)
 	int		i;
 	int		ij;
 
-	ft_printf("IN, variable : %s\n", variable);
 	env_ = env;
 	i = 0;
 	while (env_[i])
@@ -70,11 +70,11 @@ void	unset_env_var(char *variable, char **env)
 				ij++ ;
 			}
 			env_[i + ij] = NULL;
-			return (update_env(env_));
+			return ((void)update_err_code(0), update_env(env_));
 		}
 		i++ ;
 	}
-	update_env(env_);
+	return ((void)update_err_code(0), update_env(env_));
 }
 
 // UNSET ALL ENV VAR
@@ -83,8 +83,8 @@ void	unset_all_env_var(t_cmd_and_opt *cmdopt)
 	int	idx;
 
 	idx = 0;
-	while (cmdopt->opt_and_type_tab.tab[++idx])
-		unset_env_var(cmdopt->opt_and_type_tab.tab[idx], get_env());
+	while (cmdopt->opt_ty_tb.tab[++idx])
+		unset_env_var(cmdopt->opt_ty_tb.tab[idx], get_env());
 }
 
 // DISPLAY ENV
@@ -98,7 +98,8 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 		if (cmdopt->path_unset == 1)
 		{
 			if (!ft_getenv("PATH") || !does_command_path_valid(ft_strdup("env")))
-				return ((void)ft_printf("bash : env : No such file or directory\n")); // Rajouter l'erreur errno
+				return ((void)update_err_code((int)errno),
+				(void)ft_printf("bash : env : No such file or directory\n"));
 		}
 	}
 	idx = -1;

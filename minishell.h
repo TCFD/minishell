@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 18:36:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+extern int	error_code;
 
 typedef struct s_singleton
 {
@@ -55,7 +56,7 @@ typedef struct s_command_and_option
 	char			*command_name;
 	char			*command_path;
 	int				path_unset;
-	t_opt_tab		opt_and_type_tab;
+	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
 char		**create_options(char *cmd_name, char **all_args);
@@ -129,6 +130,9 @@ int		find_first_occurence(char *str, char cara);
 int		does_command_path_valid(char *cmd);
 int		verif_if_env_called(t_cmd_and_opt *cmdopt);
 
-
+void	update_err_code(int code_err);
+void	update_err_code_exit(int code_err);
+void	ft_exit(char *code_err);
+void	update_err_code_exit(int code_err);
 
 #endif

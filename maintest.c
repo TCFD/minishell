@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/03 18:07:39 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/04 16:14:00 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,18 @@ char	*getenv_check(char *str)
 // EXIT FUNC
 void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
+	char	ipt[1024];
+	char	**spl;
+
+	spl = ft_split(input, ' ');
+
+	if (spl[1])
+		ft_strlcpy(ipt, spl[1], ft_strlen(spl[1]) + 1);	
 	free_cmdopt(cmdopt);
-	free(input);
 	rl_clear_history();
+	free(input);
+	free_d_array(spl);
+	ft_exit(ipt);
 }
 
 // MINISHELL

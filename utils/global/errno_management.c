@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils.c                                       :+:      :+:    :+:   */
+/*   errno_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 14:35:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Created: 2023/07/04 13:44:30 by tboldrin          #+#    #+#             */
+/*   Updated: 2023/07/04 16:16:09 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	init_cmdopt(t_cmd_and_opt *cmdopt)
-{
-	cmdopt->command_name = NULL;
-	cmdopt->command_path = NULL;
-	cmdopt->opt_ty_tb.type = NULL;
-	cmdopt->opt_ty_tb.type = NULL;
-}
+int	error_code;
 
-void	init_design_pattern(t_singleton *design_p)
+void	update_err_code(int code_err)
 {
-	design_p->username = NULL;
-	design_p->env = NULL;
+	if (code_err == 13)
+		error_code = 126;
+	else if (code_err == 1 || code_err == 2
+		|| code_err == 5 || code_err == 9
+		|| code_err == 12 || code_err == 17
+		|| code_err == 25)
+		error_code = 127;
+	else if (code_err == 32)
+		error_code = 141;
+	else if (code_err == 0)
+		error_code = 0;
+	else
+		error_code = code_err;
 }
-	
