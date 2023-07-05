@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/04 16:21:34 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:52:29 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	update_err_code_exit(int code_err)
 {
-	code_err = code_err % 255;
+	code_err = code_err % 256;
 	errno = code_err;
 	update_err_code(code_err);
-	ft_printf("code_err : %d, exit code : %d\n", code_err, (int)errno);
 	exit(code_err);
 }
 

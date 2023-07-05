@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 12:19:29 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/05 12:48:23 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
-			exit(EXIT_FAILURE);
+			exit(errno);
 		}
 	}
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
-			exit(EXIT_FAILURE);
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			errno = WEXITSTATUS(status);
 	}
 	update_err_code((int)errno);
 }
