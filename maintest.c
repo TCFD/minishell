@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 19:05:12 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 20:35:06 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
-		if (ft_strncmp(input, "exit", 4) == 0)
+		if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
 			return (exit_func(cmdopt, input));
 		if (input[0])
 		{
@@ -60,6 +60,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 		free(prompt);
+		prompt = NULL;
 	}
 	return ;
 }
@@ -100,6 +101,8 @@ int	main(int ac, char **ag, char **env)
 	update_username(user);
 	if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
+	free_cmdopt(&cmdopt);
 	run_minishell(user, &cmdopt);
+	free_singleton();
 	return (0);
 }

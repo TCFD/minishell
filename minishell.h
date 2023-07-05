@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 19:18:33 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 20:36:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # define DOUBLE_Q			'\"'
 # define SPACE				' '
 # define NONE				'\0'
-# define INTERPRETABLE		'y'
-# define NOT_INTERPRETABLE	'n'
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -37,6 +35,17 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 extern int	error_code;
+
+
+typedef struct s_separators
+{
+	char		what_case;
+	char		separator;
+	bool		double_sep;
+	long int	w_string;
+	long int	s_string;
+}t_separators;
+
 
 typedef struct s_singleton
 {
@@ -60,7 +69,6 @@ typedef struct s_command_and_option
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
-char		**create_options(char *cmd_name, char **all_args);
 char		**double_a_realloc(char **array, char *new_elmt);
 char		*getenv_check(char *str);
 char		*display_user_prompt(char *username);
@@ -88,10 +96,10 @@ int			d_len(char **str);
 int			t_len(char ***str);
 int			use_pipex(char *command);
 int			check_correct_quotes(char *input);
-void		interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i);
+void		parse_that_shit(char *input, t_cmd_and_opt *cmdopt);
 void		echo_remake(t_cmd_and_opt *cmdopt);
 char		*check_env_variables(char *input);
-void		expand(char **dest);
+void		expand(char **dest, int start, int if_case);
 int			space_end_case(char **input, char **dest, char what_case, char *type);
 int			cmp(char *cmd_name, char *cmd_name_2);
 char		*read_bytes(int *fd);
@@ -107,18 +115,13 @@ void		restore_fd(int position, int stdout_save, int filefd);
 int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
 char	*find_chevrons(char **input, int end);
-
-void	shlvl_plus_one(char **join_it);
+void	shlvl_plus_one(void);
 void	shlvl_minus_one(void);
-void	rebuild_env(void);
-
+void	rebuild_env(t_cmd_and_opt *cmdopt);
 void	verif_env_and_path(t_cmd_and_opt *cmdopt);
-
 t_singleton	*get_env_instance(void);
 void		update_env(char **new_value);
 char		**get_env(void);
-
-
 char	*ft_getenv(char *var_name);
 int		ft_getenv_int(char *var_name);
 void	export_var(char *var);
@@ -136,6 +139,7 @@ void	update_err_code_exit(int code_err);
 void	ft_exit(char *code_err);
 void	update_err_code_exit(int code_err);
 
+void	free_singleton(void);
 
 char	*get_pwd(void);
 void	print_pwd(void);

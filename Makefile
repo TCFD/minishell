@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/05 19:07:27 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/07/05 20:35:23 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
 GLOBAL			=	$(UTILS)global/
 QUOTES_STUFF  	=	quotes_stuff/
+PARSING		  	=	parsing/
 
 SRCS 		=	maintest.c								\
 				pour_le_tester.c						\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
-				$(UTILS)parsing_utils.c					\
 				$(UTILS)prompt_utils.c					\
 				$(UTILS)init_utils.c					\
 				$(UTILS)dollar_completion.c				\
@@ -53,6 +53,9 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)exit_utils.c			\
 				$(QUOTES_STUFF)check_correct_quotes.c	\
 				$(QUOTES_STUFF)interpret_quotes.c		\
+				$(PARSING)parsing_utils.c				\
+				$(PARSING)check_correct_quotes.c		\
+				$(PARSING)main_parsing.c   				\
 				$(REDIRECTIONS)right_rafter_utils.c		\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
 

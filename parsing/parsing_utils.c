@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 20:36:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// CREATE OPTIONS
-char	**create_options(char *cmd_name, char **all_args)
-{
-	char	**all_options;
-	int		idx;
-
-	all_options = malloc((d_len(all_args) + 2) * sizeof(char *));
-	if (!all_options)
-		return (NULL);
-	all_options[0] = ft_strdup(cmd_name);
-	if (!all_options[0])
-		return (free(all_options), NULL);
-	idx = 0;
-	while (idx < d_len(all_args))
-	{
-		all_options[idx + 1] = ft_strdup(all_args[idx]);
-		if (!all_options[idx + 1])
-			return (free(all_options), NULL);
-		idx++ ;
-	}
-	all_options[idx + 1] = NULL;
-	return (all_options);
-}
 
 // IS PATH UNSET
 char	*is_path_unset(char *command_name, int imd_return)
@@ -108,7 +84,11 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		return ;
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
-	interpret_quotes(input, cmdopt, 0);
+	parse_that_shit(input, cmdopt);
+	i = -1;
+	while (cmdopt->opt_and_type_tab.tab[++i])
+		printf("option '%s', type = %c\n", cmdopt->opt_and_type_tab.tab[i], cmdopt->opt_and_type_tab.type[i]);
+	printf("\n\n");
 	if (cmdopt->path_unset == 0 && !ft_getenv("PATH"))
 	{
 		cmdopt->command_name = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 18:18:35 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 20:38:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	free_d_array(char **str)
 {
 	int idx;
-
 	idx = 0;
 	if (str == NULL)
 		return;
@@ -50,4 +49,8 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 		free(cmdopt->opt_ty_tb.type);
 	if (cmdopt->opt_ty_tb.tab)
 		free_d_array(cmdopt->opt_ty_tb.tab);
+	cmdopt->command_name = NULL;
+	cmdopt->command_path = NULL;
+	cmdopt->opt_ty_tb.type = NULL;
+	cmdopt->opt_ty_tb.tab = NULL;
 }
