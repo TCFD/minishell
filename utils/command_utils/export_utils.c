@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:04:34 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	export_var(char *var)
 	int		idx_var;
 	
 	if (export_name_unvalid(var))
-		return ((void)update_err_code((int)errno), (void)ft_printf("bash : export: "), 
+		return ((void)update_err_code(1), (void)ft_printf("bash : export: "), 
 			(void)ft_printf("« %s » : identifiant non valable\n", var));
 	if (var[0] == '=')
 		return ((void)update_err_code((int)errno),
