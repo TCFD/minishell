@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/05 20:37:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:41:40 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,13 @@ int	search_d_tab(t_cmd_and_opt *cmdopt, char *c)
 	i = -1;
 	while (cmdopt->opt_ty_tb.tab[++i])
 	{
-		if (ft_strnstr(cmdopt->opt_and_type_tab.tab[i], c, ft_strlen(cmdopt->opt_and_type_tab.tab[i])) && (cmdopt->opt_and_type_tab.type[i] != SIMPLE_Q && cmdopt->opt_and_type_tab.type[i] != DOUBLE_Q))
+		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], c, ft_strlen(cmdopt->opt_ty_tb.tab[i])) && (cmdopt->opt_ty_tb.type[i] != SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q))
 		{
 			j = i;
 			tmp = i;
 			while (cmdopt->opt_ty_tb.tab[++j])
 			{
-				if (ft_strnstr(cmdopt->opt_and_type_tab.tab[j], c, ft_strlen(cmdopt->opt_and_type_tab.tab[j])) && (cmdopt->opt_and_type_tab.type[i] != SIMPLE_Q && cmdopt->opt_and_type_tab.type[i] != DOUBLE_Q))
+				if (ft_strnstr(cmdopt->opt_ty_tb.tab[j], c, ft_strlen(cmdopt->opt_ty_tb.tab[j])) && (cmdopt->opt_ty_tb.type[i] != SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q))
 				{
 					close(open(cmdopt->opt_ty_tb.tab[tmp + 1], O_CREAT, 0666));
 					tmp = j;

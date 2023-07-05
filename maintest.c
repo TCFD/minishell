@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 20:35:06 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:40:22 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ int	main(int ac, char **ag, char **env)
 		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	free_cmdopt(&cmdopt);
 	run_minishell(user, &cmdopt);
-	free_singleton();
 	return (0);
 }

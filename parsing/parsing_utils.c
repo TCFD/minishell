@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 20:36:33 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:41:49 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
-	i = -1;
-	while (cmdopt->opt_and_type_tab.tab[++i])
-		printf("option '%s', type = %c\n", cmdopt->opt_and_type_tab.tab[i], cmdopt->opt_and_type_tab.type[i]);
+	int i = -1;
+	while (cmdopt->opt_ty_tb.tab[++i])
+		printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);
 	printf("\n\n");
 	if (cmdopt->path_unset == 0 && !ft_getenv("PATH"))
 	{

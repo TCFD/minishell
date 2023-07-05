@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 20:36:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:40:41 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ void		restore_fd(int position, int stdout_save, int filefd);
 int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
 char	*find_chevrons(char **input, int end);
-void	shlvl_plus_one(void);
+void	shlvl_plus_one(char **join_it);
 void	shlvl_minus_one(void);
-void	rebuild_env(t_cmd_and_opt *cmdopt);
+void	rebuild_env(void);
 void	verif_env_and_path(t_cmd_and_opt *cmdopt);
 t_singleton	*get_env_instance(void);
 void		update_env(char **new_value);
@@ -138,9 +138,6 @@ void	update_err_code(int code_err);
 void	update_err_code_exit(int code_err);
 void	ft_exit(char *code_err);
 void	update_err_code_exit(int code_err);
-
-void	free_singleton(void);
-
 char	*get_pwd(void);
 void	print_pwd(void);
 

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/05 20:28:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:43:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char	*substr_without_char(char const *s, size_t len, char c1, char c2)
 
 // avant chaque allocation dans liste(ou content), completion du $ par la valeur de la variable d'environnement
 //check les quotes echo sal"ut '"
+// echo "test"> out marche pas
 
 t_list	*all_tokens(char *input, t_list *list, int i)
 {
@@ -243,18 +244,18 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 		input += 1;	
 	list = get_tokens(input);
 	temp_list = list;
-	cmdopt->opt_and_type_tab.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
-	cmdopt->opt_and_type_tab.type = ft_calloc(ft_lstsize(list), sizeof(char));
+	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
+	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
 	i = 0;
 	while (temp_list->next)
 	{
-		cmdopt->opt_and_type_tab.tab[i] = ft_strdup(temp_list->content);
-		cmdopt->opt_and_type_tab.type[i] = temp_list->type;
+		cmdopt->opt_ty_tb.tab[i] = ft_strdup(temp_list->content);
+		cmdopt->opt_ty_tb.type[i] = temp_list->type;
 		temp_list = temp_list->next;
 		i++;
 	}
-	cmdopt->opt_and_type_tab.tab[i] = NULL;
-	cmdopt->opt_and_type_tab.type[i] = '\0';
+	cmdopt->opt_ty_tb.tab[i] = NULL;
+	cmdopt->opt_ty_tb.type[i] = '\0';
 	ft_lstclear(&list);
 	free(input);
 }
