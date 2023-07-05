@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/05 12:15:57 by wolf             ###   ########.fr        #
+#    Updated: 2023/07/05 19:07:27 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ GLOBAL			=	$(UTILS)global/
 QUOTES_STUFF  	=	quotes_stuff/
 
 SRCS 		=	maintest.c								\
+				pour_le_tester.c						\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
 				$(UTILS)parsing_utils.c					\

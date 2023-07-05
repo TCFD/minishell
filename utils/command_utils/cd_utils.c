@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/05 12:27:16 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/05 19:57:38 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 char	*special_cara_cd(char *cd_arg)
 {
 	char	*f;
+	char	*path_to_home;
+	char	*result_path;
+	int		user_in_path;
 
 	if (!cd_arg)
 	{
@@ -24,9 +27,12 @@ char	*special_cara_cd(char *cd_arg)
 			ft_printf("bash: cd « HOME » not set\n"), NULL);
 		return (ft_strdup(f));
 	}
+	path_to_home = get_pwd();
+	user_in_path = get_word_index(path_to_home, get_username());
+	result_path = get_char_until_limit(path_to_home, user_in_path);
 	if (cmp(cd_arg, "~"))
-		return (ft_join(ft_strdup("/home/"), ft_strdup(get_username())));
-	return (ft_strdup(cd_arg));
+		return (result_path);
+	return (free(result_path), ft_strdup(cd_arg));
 }
 
 void	cd_remake(t_cmd_and_opt *cmdopt)

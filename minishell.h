@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 12:14:38 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/05 19:18:33 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_singleton
 {
 	char	*username;
 	char	**env;
+	int		count;
 }t_singleton;
 
 typedef	struct s_opt_tab
@@ -107,9 +108,9 @@ int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
 char	*find_chevrons(char **input, int end);
 
-void	shlvl_plus_one(void);
+void	shlvl_plus_one(char **join_it);
 void	shlvl_minus_one(void);
-void	rebuild_env(t_cmd_and_opt *cmdopt);
+void	rebuild_env(void);
 
 void	verif_env_and_path(t_cmd_and_opt *cmdopt);
 
@@ -137,5 +138,17 @@ void	update_err_code_exit(int code_err);
 
 
 char	*get_pwd(void);
+void	print_pwd(void);
+
+void	exit_func(t_cmd_and_opt *cmdopt, char *input);
+int		get_word_index(char const *str, char const *word);
+
+// ------- Pour le tester --------//
+
+char	*get_args_simple_into_tab(char **all_args);
+void	minishell_tester(char *input, t_cmd_and_opt *cmdopt);
+void	run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
+
+// ------------------------------//
 
 #endif

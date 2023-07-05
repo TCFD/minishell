@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 13:00:36 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:45:01 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	*brut_name(char *command_np)
 	char	**str_split;
 	char	*brut_command_name;
 
+	if (!ft_strchr(command_np, '/'))
+		return (command_np);
 	str_split = ft_split(command_np, '/');
 	brut_command_name = ft_cpy(str_split[d_len(str_split) - 1], 0);
 	free_d_array(str_split);
@@ -78,7 +80,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "export"))
 		export_all_var(cmdopt);
 	else if (cmp(cmdopt->command_name, "pwd"))
-		ft_printf("%s\n", get_pwd());
+		print_pwd();
 	else
 		run_execve(cmdopt);
 	restore_fd(position, stdout_save, filefd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 12:22:26 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/05 19:05:12 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,19 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 {
 	char	*input;
 	char	*prompt;
-	//char	**env;
+	char	*join;
 
-	shlvl_plus_one();
+	join = NULL;
+	shlvl_plus_one(&join);
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, cmdopt, prompt);
 	free(prompt);
 	free(user);
-	//env = get_env();
-	//free_d_array(env);
 	rl_clear_history();
 	shlvl_minus_one();
+	free_cmdopt(cmdopt);
+	free(join);
 }
 
 // ----------- MAIN ----------- //
@@ -90,16 +91,15 @@ int	main(int ac, char **ag, char **env)
 	char			*user;
 
 	//welcome_to_minishell();
-	(void)ac;
-	(void)ag;
-	signal(SIGINT, sigint_handler);
 	
-	update_env(ft_d_strdup(env));
+	signal(SIGINT, sigint_handler);
+	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
 	user = get_execve_return(&cmdopt);
 	update_username(user);
+	if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
+		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell(user, &cmdopt);
-	
 	return (0);
 }

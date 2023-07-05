@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/27 11:07:38 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/05 17:09:57 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_join(char *s1, char *s2)
 	while (++idx_count < ft_len(s2))
 		new_str[idx_count + s1_len] = s2[idx_count];
 	new_str[idx_count + s1_len] = '\0';
-	return (free(s1), free(s2), new_str);
+	return ((free(s1), free(s2)), new_str);
 }
 
 /////// READ FD

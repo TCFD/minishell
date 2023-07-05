@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/06/27 16:34:22 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 19:58:03 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,11 @@ char	*display_user_prompt(char *username)
 	save_user = username;
 	username = stick_color(ft_join(ft_strdup(username),
 				ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	if (getcwd(cwd, 1024) == NULL)
 		return (NULL);
 	user_len = get_word_index(cwd, save_user);
+	if (user_len == -1)
+		user_len = ft_strlen(cwd);
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
 	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 	result = ft_join(username, result);

@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 13:04:34 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:15:13 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	export_var(char *var)
 	else
 		env = double_a_realloc(env, var);
 	free_d_array(split_name);
-	(void)update_err_code(0);
+	update_err_code(0);
 	update_env(env);
 }
 

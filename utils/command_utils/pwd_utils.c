@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 12:22:11 by wolf             ###   ########.fr       */
+/*   Updated: 2023/07/05 16:50:39 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,13 @@ char	*get_pwd(void)
 		(void)perror("getcwd"), NULL);
 	update_err_code(0);
 	return (current_dir);
+}
+
+void	print_pwd(void)
+{
+	char	*pwd_print;
+
+	pwd_print = get_pwd();
+	ft_printf("%s\n", pwd_print);
+	free(pwd_print);
 }
