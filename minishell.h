@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 14:32:32 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 19:17:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_separators
 {
 	char		what_case;
 	char		separator;
+	bool		double_sep;
 	long int	w_string;
 	long int	s_string;
 }t_separators;

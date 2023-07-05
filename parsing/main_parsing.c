@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/05 18:29:53 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:28:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,52 @@ char	search_first_separator(char *input)
 	return (char_tab[i]);
 }
 
-// avant chaque allocation dans liste(ou content), completion du $ par la valeur de la variable d'environnement
+// comme substr mais ne copie pas le char c
 
-void	all_tokens(char *input, t_list *list, int i)
+char	*substr_without_char(char const *s, size_t len, char c1, char c2)
+{
+	unsigned int	i;
+	unsigned int	j;
+	char			*str;
+
+	if (!s)
+		return (NULL);
+	if (len == 0)
+		return (ft_strdup(""));
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	str = malloc((len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (++i < (unsigned int)(len) && s[i])
+	{
+		if (s[i] != c1 && s[i] != c2)
+		{
+			str[j] = s[i];
+			j++;
+		}
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+// avant chaque allocation dans liste(ou content), completion du $ par la valeur de la variable d'environnement
+//check les quotes echo sal"ut '"
+
+t_list	*all_tokens(char *input, t_list *list, int i)
 {
 	int		len;
-	t_separators sep;
 	char	*content;
 	char	tmp;
+	t_separators sep;
 
 	while (input[i] == SPACE)
 		i += 1;
 	len = ft_strlen(input);
 	if (i == len)
-		return ;
+		return (list);
 	while (i < len)
 	{
 		sep.what_case = which_one(input + i);
@@ -106,70 +138,96 @@ void	all_tokens(char *input, t_list *list, int i)
 			sep.s_string = ft_strlen(input + i);
 		if (sep.s_string < sep.w_string)
 		{	
-			if (sep.s_string == 0)
+			if (sep.s_string == 0 && input[i + 1 + sep.s_string] == input[i + sep.s_string])
+				sep.s_string += 2;
+			else if (sep.s_string == 0)
 				sep.s_string += 1;
-			list->next = ft_lstnew(ft_substr(input + i, 0, sep.s_string), NONE);
-			list = list->next;
+			list->content = ft_substr(input + i, 0, sep.s_string);
+			list->type = NONE;
+			list->next = ft_lstnew("", NONE);
 			i += ft_strlen(list->content);
+			list = list->next;
 		}
 		else
 		{
 			if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
 			{
 				tmp = sep.what_case;
-				i++;
-				content = ft_substr(input + i, 0, ft_strchr(input + i, sep.what_case) - (input + i));
-				i += ft_strlen(content) + 1;
+				if (input[i] == SIMPLE_Q || input[i] == DOUBLE_Q)
+				{
+					i++;
+					content = ft_substr(input + i, 0, ft_strchr(input + i, sep.what_case) - (input + i));
+					i += ft_strlen(content) + 1;
+				}
+				else
+				{
+					content = ft_substr(input + i, 0, ft_strchr(input + i, sep.what_case) - (input + i));
+					i += ft_strlen(content);
+				}
 				if (input[i] != SPACE)
 				{
 					sep.what_case = which_one(input + i);
 					sep.separator = search_first_separator(input + i);
-					while (sep.what_case > sep.separator)
+					sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
+					sep.s_string = ft_strchr(input + i, sep.separator) - (input + i);
+					if (sep.w_string < sep.s_string)
 					{
-						if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
-							i++;
-						sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
-						if (sep.w_string < 0)
-							sep.w_string = ft_strlen(input + i);
-						content = ft_join(content, ft_substr(input + i, 0, sep.w_string));
-						i += sep.w_string;
-						if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
-							i++;
-						sep.what_case = which_one(input + i);
+						i++;
+						content = ft_join(content, ft_substr(input + i, 0, ft_strchr(input + i, sep.what_case) - (input + i)));
+						i += ft_strchr(input + i, sep.what_case) - (input + i) + 1;
+					}
+					else if (sep.w_string == sep.s_string)
+					{
+						content = ft_join(content, ft_substr(input + i, 0, ft_strlen(input + i)));
+						i += ft_strlen(input + i);
+					}
+					else
+					{
+						while (sep.what_case != NONE || sep.what_case != SPACE)
+						{
+							if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+								i++;
+							sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
+							if (sep.w_string < 0)
+								sep.w_string = ft_strlen(input + i);
+							content = ft_join(content, ft_substr(input + i, 0, sep.w_string));
+							i += sep.w_string;
+							if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+								i++;
+							sep.what_case = which_one(input + i);
+						}
 					}
 				}
-				list->next = ft_lstnew(strdup(content), tmp);
-				free(content);
+				list->content = strdup(content);
+				list->type = tmp;
+				list->next = ft_lstnew("", NONE);
 				list = list->next;
+				free(content);
 			}
 			else
 			{
-				list->next = ft_lstnew(ft_substr(input + i, 0, sep.w_string), SPACE);
-				list = list->next;
+				list->content = ft_substr(input + i, 0, sep.w_string);
+				list->type = SPACE;
+				list->next = ft_lstnew("", NONE);
 				i += ft_strlen(list->content);
+				list = list->next;
 			}
 		}
 		while (input[i] == SPACE)
 			i += 1;
 	}
+	list = NULL;
+	return (list);
 }
 
 t_list	*get_tokens(char *input)
 {
-	char	what_case;
 	t_list	*list;
 	t_list	*tmp;
 	
-	what_case = which_one(input);
-	if (what_case == DOUBLE_Q || what_case == SIMPLE_Q)
-		list = ft_lstnew(ft_substr(input, 1, ft_strchr(input + 1, what_case) - input - 1), what_case);
-	else
-		list = ft_lstnew(ft_substr(input, 0, ft_strchr(input, what_case) - input), what_case);
+	list = ft_lstnew("", '\0');
 	tmp = list;
-	if (what_case == DOUBLE_Q || what_case == SIMPLE_Q)
-		all_tokens(input, tmp, ft_strlen(tmp->content) + 2);
-	else
-		all_tokens(input, tmp, ft_strlen(tmp->content));	
+	all_tokens(input, tmp, 0);	
 	return (list);
 }
 
@@ -185,10 +243,10 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 		input += 1;	
 	list = get_tokens(input);
 	temp_list = list;
-	cmdopt->opt_and_type_tab.tab = ft_calloc(ft_lstsize(list) + 1, sizeof(char *));
-	cmdopt->opt_and_type_tab.type = ft_calloc(ft_lstsize(list) + 1, sizeof(char));
+	cmdopt->opt_and_type_tab.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
+	cmdopt->opt_and_type_tab.type = ft_calloc(ft_lstsize(list), sizeof(char));
 	i = 0;
-	while (temp_list)
+	while (temp_list->next)
 	{
 		cmdopt->opt_and_type_tab.tab[i] = ft_strdup(temp_list->content);
 		cmdopt->opt_and_type_tab.type[i] = temp_list->type;

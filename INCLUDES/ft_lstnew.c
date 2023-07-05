@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:03:18 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/05 17:26:37 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 19:54:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_list	*ft_lstnew(char *content, char type)
 	t_list	*str;
 
 	str = ft_calloc(sizeof(t_list), 1);
-	str->content = content;
+	if (!content[0])
+		str->content = NULL;
+	else
+		str->content = content;
 	str->type = type;
 	str->next = NULL;
 	return (str);
