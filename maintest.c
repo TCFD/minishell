@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 15:57:08 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/05 16:50:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ int	main(int ac, char **ag, char **env)
 	char			*user;
 
 	//welcome_to_minishell();
-	(void)ac;
 	(void)ag;
+	(void)ac;
+	(void)env;
 	signal(SIGINT, sigint_handler);
 	
 	update_env(env);

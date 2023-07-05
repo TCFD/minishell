@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/04 18:53:44 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/07/05 18:29:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,34 +38,165 @@ char which_one(char *input)
 	return ('\0');
 }
 
-// Redirige vers la fonction qui va traiter selon les cas
-
-/* void words(char **input, char what_case, char **dest, char *type)
+void	init_tabs(char char_tab[4], long int tab[4], char * input)
 {
-	if (what_case == SPACE)
-		//redirection vers la fonction qui va traiter les espaces
-	else if (what_case == SIMPLE_Q || what_case == DOUBLE_Q)
-		//redirection vers la fonction qui va traiter les quotes
-	else
-		//redirection vers la fonction qui va traiter les la fin de string
-} */
+	char_tab[0] = '>';
+	char_tab[1] = '<';
+	char_tab[2] = ' ';
+	char_tab[3] = '|';
+	tab[0] = ft_strchr(input, char_tab[0]) - input;
+	tab[1] = ft_strchr(input, char_tab[1]) - input;
+	tab[2] = ft_strchr(input, char_tab[2]) - input;
+	tab[3] = ft_strchr(input, char_tab[3]) - input;
+}
 
-//listes chainées
-
-void	parse_that_shit(char *input, t_cmd_and_opt *cmdopt, int i)
+char	search_first_separator(char *input)
 {
-	char what_case;
+	char		char_tab[4];
+	long int	tab[4];
+	long int	lowest;
+	long int	y;
+	int			i;
+	int 		len;
 
-	(void)(input);
-	(void)(cmdopt);
-	(void)(i);
-	while (*input == SPACE)
-		input += 1;
-	cmdopt->opt_and_type_tab.tab = ft_calloc(sizeof(char *), (ft_strlen(input) + 1));
-	cmdopt->opt_and_type_tab.type = malloc(sizeof(char) * (ft_strlen(input) + 1));
-	while (*input)
+	init_tabs(char_tab, tab, input);
+	len = ft_strlen(input);
+	lowest = len;
+	i = -1;
+	y = -1;
+	while (++i < 4)
 	{
-		printf("%s\n", input);
+		if (tab[i] < 0)
+			tab[i] = len + 1;
+		if (tab[i] <= lowest)
+		{
+			lowest = tab[i];
+			y = i;
+		}
+	}
+	i = y;
+	if (i == -1)
+		return (0);
+	return (char_tab[i]);
+}
+
+// avant chaque allocation dans liste(ou content), completion du $ par la valeur de la variable d'environnement
+
+void	all_tokens(char *input, t_list *list, int i)
+{
+	int		len;
+	t_separators sep;
+	char	*content;
+	char	tmp;
+
+	while (input[i] == SPACE)
+		i += 1;
+	len = ft_strlen(input);
+	if (i == len)
+		return ;
+	while (i < len)
+	{
+		sep.what_case = which_one(input + i);
+		sep.separator = search_first_separator(input + i);
+		sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
+		sep.s_string = ft_strchr(input + i, sep.separator) - (input + i);
+		if (sep.w_string < 0)
+			sep.w_string = ft_strlen(input + i);
+		if (sep.s_string < 0)
+			sep.s_string = ft_strlen(input + i);
+		if (sep.s_string < sep.w_string)
+		{	
+			if (sep.s_string == 0)
+				sep.s_string += 1;
+			list->next = ft_lstnew(ft_substr(input + i, 0, sep.s_string), NONE);
+			list = list->next;
+			i += ft_strlen(list->content);
+		}
+		else
+		{
+			if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+			{
+				tmp = sep.what_case;
+				i++;
+				content = ft_substr(input + i, 0, ft_strchr(input + i, sep.what_case) - (input + i));
+				i += ft_strlen(content) + 1;
+				if (input[i] != SPACE)
+				{
+					sep.what_case = which_one(input + i);
+					sep.separator = search_first_separator(input + i);
+					while (sep.what_case > sep.separator)
+					{
+						if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+							i++;
+						sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
+						if (sep.w_string < 0)
+							sep.w_string = ft_strlen(input + i);
+						content = ft_join(content, ft_substr(input + i, 0, sep.w_string));
+						i += sep.w_string;
+						if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+							i++;
+						sep.what_case = which_one(input + i);
+					}
+				}
+				list->next = ft_lstnew(strdup(content), tmp);
+				free(content);
+				list = list->next;
+			}
+			else
+			{
+				list->next = ft_lstnew(ft_substr(input + i, 0, sep.w_string), SPACE);
+				list = list->next;
+				i += ft_strlen(list->content);
+			}
+		}
+		while (input[i] == SPACE)
+			i += 1;
+	}
+}
+
+t_list	*get_tokens(char *input)
+{
+	char	what_case;
+	t_list	*list;
+	t_list	*tmp;
+	
+	what_case = which_one(input);
+	if (what_case == DOUBLE_Q || what_case == SIMPLE_Q)
+		list = ft_lstnew(ft_substr(input, 1, ft_strchr(input + 1, what_case) - input - 1), what_case);
+	else
+		list = ft_lstnew(ft_substr(input, 0, ft_strchr(input, what_case) - input), what_case);
+	tmp = list;
+	if (what_case == DOUBLE_Q || what_case == SIMPLE_Q)
+		all_tokens(input, tmp, ft_strlen(tmp->content) + 2);
+	else
+		all_tokens(input, tmp, ft_strlen(tmp->content));	
+	return (list);
+}
+
+void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
+{
+	t_list	*list;
+	t_list	*temp_list;
+	char	*input;
+	int		i;
+
+	input = ft_strdup(tmp);
+	while (*input == SPACE)
+		input += 1;	
+	list = get_tokens(input);
+	temp_list = list;
+	cmdopt->opt_and_type_tab.tab = ft_calloc(ft_lstsize(list) + 1, sizeof(char *));
+	cmdopt->opt_and_type_tab.type = ft_calloc(ft_lstsize(list) + 1, sizeof(char));
+	i = 0;
+	while (temp_list)
+	{
+		cmdopt->opt_and_type_tab.tab[i] = ft_strdup(temp_list->content);
+		cmdopt->opt_and_type_tab.type[i] = temp_list->type;
+		temp_list = temp_list->next;
+		i++;
 	}
 	cmdopt->opt_and_type_tab.tab[i] = NULL;
+	cmdopt->opt_and_type_tab.type[i] = '\0';
+	ft_lstclear(&list);
+	free(input);
 }
