@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/05 12:27:16 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 		return ;
 	if (d_len(cmdopt->opt_ty_tb.tab) > 2)
 		return ((void)update_err_code(1),
-		(void)(ft_printf("bash: cd : too many arguments\n"))); // modifier la valeur errno (appeler une fonction avec msg erreur)
+		(void)(ft_printf("bash: cd : too many arguments\n")));
 	f = special_cara_cd(cmdopt->opt_ty_tb.tab[1]);
 	if (!f)
 		return ;

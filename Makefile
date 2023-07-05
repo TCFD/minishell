@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/04 15:45:31 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/07/05 12:15:57 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)env_utils2.c			\
 				$(COMMAND_UTILS)env_utils3.c			\
 				$(COMMAND_UTILS)export_utils.c			\
+				$(COMMAND_UTILS)pwd_utils.c				\
 				$(COMMAND_UTILS)exit_utils.c			\
 				$(QUOTES_STUFF)check_correct_quotes.c	\
 				$(QUOTES_STUFF)interpret_quotes.c		\
