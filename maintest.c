@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 20:40:22 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/05 20:50:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
-		if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
+		if (ft_strncmp(input, "exit", 4) == 0)
 			return (exit_func(cmdopt, input));
 		if (input[0])
 		{
