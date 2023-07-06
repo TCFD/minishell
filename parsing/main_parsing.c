@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/05 20:43:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/06 12:17:12 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,6 @@ char	search_first_separator(char *input)
 	return (char_tab[i]);
 }
 
-// comme substr mais ne copie pas le char c
-
-char	*substr_without_char(char const *s, size_t len, char c1, char c2)
-{
-	unsigned int	i;
-	unsigned int	j;
-	char			*str;
-
-	if (!s)
-		return (NULL);
-	if (len == 0)
-		return (ft_strdup(""));
-	if (len > ft_strlen(s))
-		len = ft_strlen(s);
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (++i < (unsigned int)(len) && s[i])
-	{
-		if (s[i] != c1 && s[i] != c2)
-		{
-			str[j] = s[i];
-			j++;
-		}
-	}
-	str[j] = '\0';
-	return (str);
-}
-
 // avant chaque allocation dans liste(ou content), completion du $ par la valeur de la variable d'environnement
 //check les quotes echo sal"ut '"
 // echo "test"> out marche pas
@@ -126,7 +95,10 @@ t_list	*all_tokens(char *input, t_list *list, int i)
 		i += 1;
 	len = ft_strlen(input);
 	if (i == len)
+	{
+		//list->content = ft_strdup("");
 		return (list);
+	}
 	while (i < len)
 	{
 		sep.what_case = which_one(input + i);
@@ -184,7 +156,7 @@ t_list	*all_tokens(char *input, t_list *list, int i)
 					}
 					else
 					{
-						while (sep.what_case != NONE || sep.what_case != SPACE)
+						while ((sep.what_case != NONE || sep.what_case != SPACE) && (sep.separator == 0 || sep.separator == SPACE))
 						{
 							if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
 								i++;
@@ -240,8 +212,6 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	int		i;
 
 	input = ft_strdup(tmp);
-	while (*input == SPACE)
-		input += 1;	
 	list = get_tokens(input);
 	temp_list = list;
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));

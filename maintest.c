@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 20:50:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/06 12:18:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,23 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 // MINISHELL
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
+	int	i;
+	
+	i = 0;
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
 		if (ft_strncmp(input, "exit", 4) == 0)
 			return (exit_func(cmdopt, input));
-		if (input[0])
+		while (input[i] == ' ')
+			i++;
+		if (input[i])
 		{
 			create_command(input, cmdopt);
 			add_history(input);
 		}
 		execute_command(cmdopt);
-		if (input[0])
+		if (input[i])
 			free_cmdopt(cmdopt);
 		free(input);
 		prompt = display_user_prompt((char *)get_username());
