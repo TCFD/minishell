@@ -6,10 +6,10 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 14:02:43 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/04 15:54:11 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:19:51 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
+
 #include "libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)

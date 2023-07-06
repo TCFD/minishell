@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 19:18:33 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:30:11 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	print_pwd(void);
 
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
 int		get_word_index(char const *str, char const *word);
+void	ft_strlcpy_addr(char (*dst)[4096], const char *src, int size);
 
 // ------- Pour le tester --------//
 

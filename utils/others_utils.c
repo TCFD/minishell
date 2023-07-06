@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/05 19:56:16 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:35:05 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,40 @@ int	find_first_occurence(char *str, char cara)
 		idx++ ;
 	}
 	return (-1);
+}
+
+/* void	ft_strlcpy_addr(char (*dst)[4096], const char *src, int size)
+{
+	int	i;
+
+	if (!*dst || !src)
+		return ;
+	if (size == 0)
+		return ;
+	i = 0;
+	while (src[i] && i < size - 1)
+	{
+		*dst[i] = src[i];
+		i++ ;
+	}
+	*dst[i] = '\0';
+	return ;
+} */
+
+void ft_strlcpy_addr(char (*dst)[4096], const char *src, int size)
+{
+	int i;
+
+	if (!*dst || !src)
+		return;
+	if (size == 0)
+		return;
+	i = 0;
+	while (src[i] && i < size)
+	{
+		(*dst)[i] = src[i];
+		i++;
+	}
+	(*dst)[i] = '\0';
+	return;
 }
