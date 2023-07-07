@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/06 12:15:09 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/07 14:12:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,34 @@ char	*create_path(char *command_name, int imd_return)
 	return (is_path_unset(command_name, imd_return));
 }
 
+int	check_valid_file_name(t_cmd_and_opt *cmdopt)
+{
+	int	i;
+
+	i = -1;
+	while (cmdopt->opt_ty_tb.tab[++i])
+	{
+		if (ft_strncmp(cmdopt->opt_ty_tb.tab[i], SIMPLE_R_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i]))
+			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i], DOUBLE_R_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i])))
+		{
+			if (!cmdopt->opt_ty_tb.tab[i + 1][0]
+			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i + 1], SIMPLE_R_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i + 1]))
+			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i + 1], DOUBLE_R_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i + 1]))
+			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i + 1], PIPE,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i + 1])))
+			{
+				if (cmdopt->opt_ty_tb.tab[i + 1])
+					return (printf("minishell : syntax error near unexpected token '%s'\n", cmdopt->opt_ty_tb.tab[i + 1]));
+				return (printf("minishell : syntax error near unexpected token 'newline'\n"));
+			}
+		}
+	}
+}
+
 // CREATE COMMAND
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 {
@@ -85,6 +113,8 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
+	if (check_valid_file_name(cmdopt))
+		return ;
 	int i = -1;
 	while (cmdopt->opt_ty_tb.tab[++i])
 		printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);

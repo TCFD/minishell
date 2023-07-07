@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/06 12:17:22 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/07 14:09:27 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # define DOUBLE_Q			'\"'
 # define SPACE				' '
 # define NONE				'\0'
+# define SIMPLE_R_RAFTER	">"
+# define DOUBLE_R_RAFTER	">>"
+# define SIMPLE_L_RAFTER	"<"
+# define DOUBLE_L_RAFTER	"<<"
+# define PIPE				"|"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -98,7 +103,7 @@ int			use_pipex(char *command);
 int			check_correct_quotes(char *input);
 void		parse_that_shit(char *input, t_cmd_and_opt *cmdopt);
 void		echo_remake(t_cmd_and_opt *cmdopt);
-char		*check_env_variables(char *input);
+char		*check_env_variables(char *input, int start, int end);
 void		expand(char **dest, int start, int if_case);
 int			space_end_case(char **input, char **dest, char what_case, char *type);
 int			cmp(char *cmd_name, char *cmd_name_2);
@@ -114,36 +119,36 @@ int			redirect_output(char **tab, int *stdout_save, int *filefd,
 void		restore_fd(int position, int stdout_save, int filefd);
 int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 				int *filefd, long int *position);
-char	*find_chevrons(char **input, int end);
-void	shlvl_plus_one(char **join_it);
-void	shlvl_minus_one(void);
-void	rebuild_env(void);
-void	verif_env_and_path(t_cmd_and_opt *cmdopt);
+char		*find_chevrons(char **input, int end);
+void		shlvl_plus_one(char **join_it);
+void		shlvl_minus_one(void);
+void		rebuild_env(void);
+void		verif_env_and_path(t_cmd_and_opt *cmdopt);
 t_singleton	*get_env_instance(void);
 void		update_env(char **new_value);
 char		**get_env(void);
-char	*ft_getenv(char *var_name);
-int		ft_getenv_int(char *var_name);
-void	export_var(char *var);
-void	export_all_var(t_cmd_and_opt *cmdopt);
+char		*ft_getenv(char *var_name);
+int			ft_getenv_int(char *var_name);
+void		export_var(char *var);
+void		export_all_var(t_cmd_and_opt *cmdopt);
 
-char	**ft_d_strdup(char **tab);
-char	*get_char_until_limit(char *str, int lim);
-int		find_first_occurence(char *str, char cara);
+char		**ft_d_strdup(char **tab);
+char		*get_char_until_limit(char *str, int lim);
+int			find_first_occurence(char *str, char cara);
 
-int		does_command_path_valid(char *cmd);
-int		verif_if_env_called(t_cmd_and_opt *cmdopt);
+int			does_command_path_valid(char *cmd);
+int			verif_if_env_called(t_cmd_and_opt *cmdopt);
 
-void	update_err_code(int code_err);
-void	update_err_code_exit(int code_err);
-void	ft_exit(char *code_err);
-void	update_err_code_exit(int code_err);
-char	*get_pwd(void);
-void	print_pwd(void);
+void		update_err_code(int code_err);
+void		update_err_code_exit(int code_err);
+void		ft_exit(char *code_err);
+void		update_err_code_exit(int code_err);
+char		*get_pwd(void);
+void		print_pwd(void);
 
-void	exit_func(t_cmd_and_opt *cmdopt, char *input);
-int		get_word_index(char const *str, char const *word);
-
+void		exit_func(t_cmd_and_opt *cmdopt, char *input);
+int			get_word_index(char const *str, char const *word);
+char		*replace_dollar(char *input);
 // ------- Pour le tester --------//
 
 char	*get_args_simple_into_tab(char **all_args);

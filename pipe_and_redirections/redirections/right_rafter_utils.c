@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/05 20:41:40 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/07 14:12:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,85 +47,35 @@ void	restore_fd(int position, int stdout_save, int filefd)
 	}
 }
 
+t_list	*remove_redirection(t_cmd_and_opt *cmdopt)
+{
+	int		i;
+	char	*last_one;
+	
+	i = -1;
+	last_one = ft_strdup("");
+	while (cmdopt->opt_ty_tb.tab[++i])
+	{
+		if (ft_strncmp(cmdopt->opt_ty_tb.tab[i], SIMPLE_R_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i]))
+			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i], DOUBLE_R_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i])))
+		{
+			free(last_one);
+			last_one = ft_strdup(cmdopt->opt_ty_tb.tab[i]);
+			if (close(open(cmdopt->opt_ty_tb.tab[i + 1])))
+		}
+		else
+		{
+			
+		}
+	}
+}
+
 int	search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 	int *filefd, long int *position)
 {
-	*position = search_d_tab(cmdopt, ">>");
-	if (*position > -1)
-		if (redirect_output(cmdopt->opt_ty_tb.tab + *position, stdout_save,
-				filefd, 2))
-			return (1);
-	if (*position <= -1)
-	{
-		*position = search_d_tab(cmdopt, ">");
-		if (*position > -1)
-			if (redirect_output(cmdopt->opt_ty_tb.tab + *position, stdout_save,
-					filefd, 1))
-				return (1);
-	}	
+	//*position = search_d_tab(cmdopt, ">>");
+	remove_redirection(cmdopt);	
 	return (0);
-}
-
-void	dup_d_array(char **src, char ***dest, int *j)
-{
-	*j = 0;
-	while (src[*j])
-		*j += 1;
-	dest[0] = ft_calloc(sizeof(char *), *j + 1);
-	*j = -1;
-	while (src[++*j])
-		dest[0][*j] = ft_strdup(src[*j]);
-	dest[0][*j] = NULL;
-}
-
-void	realloc_chevrons(t_cmd_and_opt *cmdopt, int start, int end)
-{
-	char	**temp;
-	int		j;
-	int		temp_counter;
-
-	temp = NULL;
-	dup_d_array(cmdopt->opt_ty_tb.tab, &temp, &j);
-	free_d_array(cmdopt->opt_ty_tb.tab);
-	cmdopt->opt_ty_tb.tab = ft_calloc(sizeof(char *), j - (end - start) + 1);
-	temp_counter = 0;
-	j = -1;
-	while (temp[++j])
-	{
-		if (j == start)
-			while (j < end)
-				j++;
-		cmdopt->opt_ty_tb.tab[temp_counter] = ft_strdup(temp[j]);
-		temp_counter++;
-	}
-	cmdopt->opt_ty_tb.tab[temp_counter] = NULL;
-	free_d_array(temp);
-}
-
-int	search_d_tab(t_cmd_and_opt *cmdopt, char *c)
-{
-	int			i;
-	int			j;
-	int			tmp;
-
-	i = -1;
-	while (cmdopt->opt_ty_tb.tab[++i])
-	{
-		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], c, ft_strlen(cmdopt->opt_ty_tb.tab[i])) && (cmdopt->opt_ty_tb.type[i] != SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q))
-		{
-			j = i;
-			tmp = i;
-			while (cmdopt->opt_ty_tb.tab[++j])
-			{
-				if (ft_strnstr(cmdopt->opt_ty_tb.tab[j], c, ft_strlen(cmdopt->opt_ty_tb.tab[j])) && (cmdopt->opt_ty_tb.type[i] != SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q))
-				{
-					close(open(cmdopt->opt_ty_tb.tab[tmp + 1], O_CREAT, 0666));
-					tmp = j;
-				}
-			}
-			realloc_chevrons(cmdopt, i, tmp);
-			return (i);
-		}
-	}
-	return (-1);
 }

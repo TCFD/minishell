@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/06 12:17:12 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/07 12:29:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,15 @@ char	search_first_separator(char *input)
 	return (char_tab[i]);
 }
 
+void	set_separator(t_separators *sep, char *input, int i)
+{
+	sep->what_case = which_one(input + i);
+	sep->separator = search_first_separator(input + i);
+	sep->w_string = ft_strchr(input + i, sep->what_case) - (input + i);
+	sep->s_string = ft_strchr(input + i, sep->separator) - (input + i);
+}
+
 // avant chaque allocation dans liste(ou content), completion du $ par la valeur de la variable d'environnement
-//check les quotes echo sal"ut '"
-// echo "test"> out marche pas
 
 t_list	*all_tokens(char *input, t_list *list, int i)
 {
@@ -94,17 +100,9 @@ t_list	*all_tokens(char *input, t_list *list, int i)
 	while (input[i] == SPACE)
 		i += 1;
 	len = ft_strlen(input);
-	if (i == len)
-	{
-		//list->content = ft_strdup("");
-		return (list);
-	}
 	while (i < len)
 	{
-		sep.what_case = which_one(input + i);
-		sep.separator = search_first_separator(input + i);
-		sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
-		sep.s_string = ft_strchr(input + i, sep.separator) - (input + i);
+		set_separator(&sep, input, i);
 		if (sep.w_string < 0)
 			sep.w_string = ft_strlen(input + i);
 		if (sep.s_string < 0)
@@ -115,10 +113,11 @@ t_list	*all_tokens(char *input, t_list *list, int i)
 				sep.s_string += 2;
 			else if (sep.s_string == 0)
 				sep.s_string += 1;
-			list->content = ft_substr(input + i, 0, sep.s_string);
+			content = ft_substr(input + i, 0, sep.s_string);
+			i += ft_strlen(content);
+			list->content = replace_dollar(content);
 			list->type = NONE;
 			list->next = ft_lstnew("", NONE);
-			i += ft_strlen(list->content);
 			list = list->next;
 		}
 		else
@@ -139,10 +138,7 @@ t_list	*all_tokens(char *input, t_list *list, int i)
 				}
 				if (input[i] != SPACE)
 				{
-					sep.what_case = which_one(input + i);
-					sep.separator = search_first_separator(input + i);
-					sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
-					sep.s_string = ft_strchr(input + i, sep.separator) - (input + i);
+					set_separator(&sep, input, i);
 					if (sep.w_string < sep.s_string)
 					{
 						i++;
@@ -154,35 +150,33 @@ t_list	*all_tokens(char *input, t_list *list, int i)
 						content = ft_join(content, ft_substr(input + i, 0, ft_strlen(input + i)));
 						i += ft_strlen(input + i);
 					}
-					else
+					set_separator(&sep, input, i);
+					while ((sep.what_case != NONE || sep.what_case != SPACE) && sep.separator == SPACE && sep.s_string > 0)
 					{
-						while ((sep.what_case != NONE || sep.what_case != SPACE) && (sep.separator == 0 || sep.separator == SPACE))
-						{
-							if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
-								i++;
-							sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
-							if (sep.w_string < 0)
-								sep.w_string = ft_strlen(input + i);
-							content = ft_join(content, ft_substr(input + i, 0, sep.w_string));
-							i += sep.w_string;
-							if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
-								i++;
-							sep.what_case = which_one(input + i);
-						}
+						if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+							i++;
+						sep.w_string = ft_strchr(input + i, sep.what_case) - (input + i);
+						if (sep.w_string < 0)
+							sep.w_string = ft_strlen(input + i);
+						content = ft_join(content, ft_substr(input + i, 0, sep.w_string));
+						i += sep.w_string;
+						if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
+							i++;
+						set_separator(&sep, input, i);
 					}
 				}
-				list->content = strdup(content);
+				list->content = replace_dollar(content);
 				list->type = tmp;
 				list->next = ft_lstnew("", NONE);
 				list = list->next;
-				free(content);
 			}
 			else
 			{
-				list->content = ft_substr(input + i, 0, sep.w_string);
+				content = ft_substr(input + i, 0, sep.w_string);
+				i += ft_strlen(content);
+				list->content = replace_dollar(content);
 				list->type = SPACE;
 				list->next = ft_lstnew("", NONE);
-				i += ft_strlen(list->content);
 				list = list->next;
 			}
 		}
@@ -200,7 +194,7 @@ t_list	*get_tokens(char *input)
 	
 	list = ft_lstnew("", '\0');
 	tmp = list;
-	all_tokens(input, tmp, 0);	
+	all_tokens(input, tmp, 0);
 	return (list);
 }
 
