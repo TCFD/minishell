@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/07 14:12:01 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/07 15:44:38 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	check_valid_file_name(t_cmd_and_opt *cmdopt)
 			}
 		}
 	}
+	return (0);
 }
 
 // CREATE COMMAND
@@ -113,8 +114,8 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
-	if (check_valid_file_name(cmdopt))
-		return ;
+	//if (check_valid_file_name(cmdopt))
+	//	return ;
 	int i = -1;
 	while (cmdopt->opt_ty_tb.tab[++i])
 		printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);
