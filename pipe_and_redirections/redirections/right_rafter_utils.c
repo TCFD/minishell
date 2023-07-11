@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/07 15:44:50 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:40:06 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,47 +50,17 @@ void	restore_fd(int position, int stdout_save, int filefd)
 t_list	*remove_redirection(t_cmd_and_opt *cmdopt,  long int *position)
 {
 	int		i;
-	int		fd;
-	char	*last_one;
 	t_list	**start;
 	t_list	*return_list;
 
 	i = -1;
-	last_one = ft_strdup("");
 	start = &return_list;
 	while (cmdopt->opt_ty_tb.tab[++i])
 	{
-		if (cmdopt->opt_ty_tb.tab[i + 1] && cmdopt->opt_ty_tb.tab[i + 2]
-			&& ft_strncmp(cmdopt->opt_ty_tb.tab[i], SIMPLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i]))
-			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i], DOUBLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i])))
-		{
-			fd = open(cmdopt->opt_ty_tb.tab[i + 1], O_CREAT, 0666);
-			if (fd == -1)
-				return (perror("minishell : "), NULL);
-			if (close(fd) != 0)
-				return (perror("minishell : "), NULL);
-			*position = 1;
-			i++;
-		}
-		else if (ft_strncmp(cmdopt->opt_ty_tb.tab[i], SIMPLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i]))
-			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i], DOUBLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i])))
-		{
-			free(last_one);
-			last_one = ft_strdup(cmdopt->opt_ty_tb.tab[i]);
-			*position = 1;
-		}
-		else
-		{
-			return_list = ft_lstnew(ft_strdup(cmdopt->opt_ty_tb.tab[i]), 0);
-			return_list = return_list->next;
-		}
+		
 	}
 	return (*start);
-}
+}*/
 
 char	**list_to_d_tab(t_list *list)
 {
@@ -105,18 +75,39 @@ char	**list_to_d_tab(t_list *list)
 		list = list->next;
 		i++;
 	}
+	tab[i] = NULL;
 	return (tab);
+}
+
+int	count_redirections(char **tab, char *type)
+{
+	int	i;
+	int	counter;
+
+	i = -1;
+	counter = 0;
+	while (tab[++i])
+	{
+		if (ft_strnstr(tab[i], SIMPLE_R_RAFTER, ft_strlen(tab[i])) && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
+			counter++;
+	}
+	return (counter);
 }
 
 int	search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
 	int *filefd, long int *position)
 {
-	t_list	*list;
-	int		i;
-
-	list = remove_redirection(cmdopt, position);
-	free_d_array(cmdopt->opt_ty_tb.tab);
-	cmdopt->opt_ty_tb.tab = list_to_d_tab(list);
+	//t_list	*list;
+	int		counter;
+	(void)stdout_save;
+	(void)filefd;
+	(void)position;
+	
+	
+	counter = count_redirections(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type);
+	printf("%d\n", counter);
+	//list = remove_redirection(cmdopt, position);
+	//free_d_array(cmdopt->opt_ty_tb.tab);
+	//cmdopt->opt_ty_tb.tab = list_to_d_tab(list);
 	return (0);
 }
- */

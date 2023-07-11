@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/07 15:44:38 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:40:39 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,24 @@ char	*create_path(char *command_name, int imd_return)
 	return (is_path_unset(command_name, imd_return));
 }
 
-int	check_valid_file_name(t_cmd_and_opt *cmdopt)
+int	check_valid_file_name(char **tab, char *type)
 {
 	int	i;
 
 	i = -1;
-	while (cmdopt->opt_ty_tb.tab[++i])
+	while (tab[++i])
 	{
-		if (ft_strncmp(cmdopt->opt_ty_tb.tab[i], SIMPLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i]))
-			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i], DOUBLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i])))
+		if (ft_strnstr(tab[i], SIMPLE_R_RAFTER,
+			ft_strlen(tab[i])) && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 		{
-			if (!cmdopt->opt_ty_tb.tab[i + 1][0]
-			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i + 1], SIMPLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i + 1]))
-			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i + 1], DOUBLE_R_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i + 1]))
-			|| ft_strncmp(cmdopt->opt_ty_tb.tab[i + 1], PIPE,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i + 1])))
+			if ((!tab[i + 1]
+			|| ft_strnstr(tab[i + 1], SIMPLE_L_RAFTER, ft_strlen(tab[i + 1]))
+			|| ft_strnstr(tab[i + 1], SIMPLE_R_RAFTER, ft_strlen(tab[i + 1]))
+			|| ft_strnstr(tab[i + 1], PIPE, ft_strlen(tab[i + 1])))
+			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 			{
-				if (cmdopt->opt_ty_tb.tab[i + 1])
-					return (printf("minishell : syntax error near unexpected token '%s'\n", cmdopt->opt_ty_tb.tab[i + 1]));
+				if (tab[i + 1])
+					return (printf("minishell : syntax error near unexpected token '%s'\n", tab[i + 1]));
 				return (printf("minishell : syntax error near unexpected token 'newline'\n"));
 			}
 		}
@@ -114,8 +110,8 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!check_correct_quotes(input))
 		return ((void)(printf("minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
-	//if (check_valid_file_name(cmdopt))
-	//	return ;
+	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
+		return ;
 	int i = -1;
 	while (cmdopt->opt_ty_tb.tab[++i])
 		printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);

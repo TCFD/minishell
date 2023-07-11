@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/07 15:45:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/11 16:32:34 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
-	//long int	position;
-	//int			stdout_save;
-	//int			filefd;
+	long int	position;
+	int			stdout_save;
+	int			filefd;
 
 	if (!cmdopt->command_name)
 		return ;
-	//search_redirections(cmdopt, &stdout_save, &filefd, &position);
+	search_redirections(cmdopt, &stdout_save, &filefd, &position);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
