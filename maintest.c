@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 19:05:12 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:58:11 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 
 	join = NULL;
 	shlvl_plus_one(&join);
+	if (!ft_getenv("PWD"))
+		rebuild_pwd(cmdopt);
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, cmdopt, prompt);

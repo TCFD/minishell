@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/06 11:30:11 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:56:12 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_command_and_option
 	char			*command_name;
 	char			*command_path;
 	int				path_unset;
+	int				pwd_unset;
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
@@ -143,6 +144,8 @@ void	print_pwd(void);
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
 int		get_word_index(char const *str, char const *word);
 void	ft_strlcpy_addr(char (*dst)[4096], const char *src, int size);
+
+void	rebuild_pwd(t_cmd_and_opt *cmdopt);
 
 // ------- Pour le tester --------//
 

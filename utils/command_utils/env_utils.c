@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 18:08:51 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 12:38:43 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 {
 	int		idx;
 
+	if (cmdopt->pwd_unset == 0)
+		rebuild_pwd(cmdopt);
 	if (!cmp(cmdopt->command_path, "/bin/env")
 		&& !cmp(cmdopt->command_path, "/usr/bin/env"))
 	{

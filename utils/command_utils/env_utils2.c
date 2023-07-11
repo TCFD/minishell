@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 18:15:24 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:49:34 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 void	verif_env_and_path(t_cmd_and_opt *cmdopt)
 {
 	cmdopt->path_unset = 0;
+	cmdopt->pwd_unset = 0;
 	if (!get_env()[0])
 		return (rebuild_env());
 	if (ft_getenv("PATH"))
-	{
 		cmdopt->path_unset = 1;
-		return ;
-	}
+	if (ft_getenv("PWD"))
+		cmdopt->pwd_unset = 1;
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/06 11:38:21 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/07/06 11:59:51 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,23 @@ char	*special_cara_cd(char *cd_arg)
 	return (free(result_path), ft_strdup(cd_arg));
 }
 
-void	cd_remake(t_cmd_and_opt *cmdopt)
+void	rebuild_pwd(t_cmd_and_opt *cmdopt)
 {
 	char	path_update[4096];
-	char	current_dir[4096];
 	char	*tmp_path;
+
+	if (cmdopt->pwd_unset == 1 && !ft_getenv("PWD"))
+		return ;
+	tmp_path = ft_join(ft_strdup("PWD="), get_pwd());
+	ft_strlcpy_addr(&path_update, tmp_path, (int)ft_strlen(tmp_path));
+	export_var(path_update);
+	free(tmp_path);
+}
+
+void	cd_remake(t_cmd_and_opt *cmdopt)
+{
+	
+	char	current_dir[4096];
 	char	*f;
 
 	if (!cmdopt->opt_ty_tb.tab)
@@ -61,10 +73,7 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 	}
 	free(f);
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-		return ((void)update_err_code((int)errno),perror("getcwd"));
-	tmp_path = ft_join(ft_strdup("PWD="), get_pwd());
-	ft_strlcpy_addr(&path_update, tmp_path, (int)ft_strlen(tmp_path));
-	export_var(path_update);
-	free(tmp_path);
+		return ((void)update_err_code((int)errno), perror("getcwd")); // 25 lignes
+	rebuild_pwd(cmdopt);
 	return ;
 }
