@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/07 14:09:27 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/11 22:50:33 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@
 # include <sys/wait.h>
 extern int	error_code;
 
+
+typedef struct s_redirections
+{
+	t_list	*list;
+	int		counter;
+	int		stdout_save;
+	int		filefd;
+}t_redirections;
 
 typedef struct s_separators
 {
@@ -116,9 +124,8 @@ const char	*get_username(void);
 int			search_d_tab(t_cmd_and_opt *cmdopt, char *c);
 int			redirect_output(char **tab, int *stdout_save, int *filefd,
 				int which_case);
-void		restore_fd(int position, int stdout_save, int filefd);
-int			search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
-				int *filefd, long int *position);
+void		restore_fd(int stdout_save, int filefd);
+int			search_redirections(t_cmd_and_opt *cmdopt, t_redirections *redirections, bool *redir_bool);
 char		*find_chevrons(char **input, int end);
 void		shlvl_plus_one(char **join_it);
 void		shlvl_minus_one(void);
@@ -148,6 +155,10 @@ void		print_pwd(void);
 
 void		exit_func(t_cmd_and_opt *cmdopt, char *input);
 int			get_word_index(char const *str, char const *word);
+char		**list_to_d_tab(t_list *list);
+int			count_redirs(char **tab, char *type);
+
+
 char		*replace_dollar(char *input);
 // ------- Pour le tester --------//
 

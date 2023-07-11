@@ -6,7 +6,7 @@
 /*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/11 16:32:34 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/11 22:01:05 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,17 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
-	long int	position;
-	int			stdout_save;
-	int			filefd;
+	t_redirections	redirections;
+	bool			redir_bool;
 
 	if (!cmdopt->command_name)
 		return ;
-	search_redirections(cmdopt, &stdout_save, &filefd, &position);
+	if (search_redirections(cmdopt, &redirections, &redir_bool) == 0)
+		return ;
+	//int i = -1;
+	//while (cmdopt->opt_ty_tb.tab[++i])
+	//	printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);
+	//printf("\n\n");
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
@@ -83,5 +87,6 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		print_pwd();
 	else
 		run_execve(cmdopt);
-	//restore_fd(position, stdout_save, filefd);
+	if (redir_bool)
+		restore_fd(redirections.stdout_save, redirections.filefd);
 }
