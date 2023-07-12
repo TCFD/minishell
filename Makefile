@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/05 20:41:07 by rciaze           ###   ########.fr        #
+#    Updated: 2023/07/12 16:28:10 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,10 +52,14 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)pwd_utils.c				\
 				$(COMMAND_UTILS)exit_utils.c			\
 				$(PARSING)parsing_utils.c				\
+				$(PARSING)parsing_utils2.c				\
 				$(PARSING)check_correct_quotes.c		\
 				$(PARSING)main_parsing.c   				\
+				$(PARSING)cases_for_parsing.c 			\
 				$(REDIRECTIONS)right_rafter_utils.c		\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
+				$(REDIRECTIONS)left_rafter_utils.c		\
+				$(REDIRECTIONS)left_rafter_utils2.c		\
 
 # Couleurs
 BOLD		=	"\033[1m"

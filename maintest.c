@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/06 12:18:53 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/12 15:05:08 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 	char	**spl;
 
 	spl = ft_split(input, ' ');
-
 	if (spl[1])
-		ft_strlcpy(ipt, spl[1], ft_strlen(spl[1]) + 1);	
+		ft_strlcpy(ipt, spl[1], ft_strlen(spl[1]) + 1);
 	free_cmdopt(cmdopt);
 	rl_clear_history();
 	free(input);
@@ -44,7 +43,7 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
 	int	i;
-	
+
 	i = 0;
 	while (input != NULL)
 	{
@@ -97,7 +96,6 @@ int	main(int ac, char **ag, char **env)
 	char			*user;
 
 	//welcome_to_minishell();
-	
 	signal(SIGINT, sigint_handler);
 	update_env(env);
 	verif_env_and_path(&cmdopt);

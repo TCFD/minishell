@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/11 22:01:05 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/12 15:46:51 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
-			exit(errno);
+			return(free_cmdopt(cmdopt), exit(errno));
 		}
 	}
 	else
@@ -65,16 +65,15 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
 	t_redirections	redirections;
-	bool			redir_bool;
+	bool			redir_out_bool;
+	bool			redir_in_bool;
 
 	if (!cmdopt->command_name)
 		return ;
-	if (search_redirections(cmdopt, &redirections, &redir_bool) == 0)
+	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
 		return ;
-	//int i = -1;
-	//while (cmdopt->opt_ty_tb.tab[++i])
-	//	printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);
-	//printf("\n\n");
+	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
+		return ;
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
@@ -87,6 +86,8 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		print_pwd();
 	else
 		run_execve(cmdopt);
-	if (redir_bool)
-		restore_fd(redirections.stdout_save, redirections.filefd);
+	if (redir_in_bool)
+		restore_stdin(redirections.stdin_save, redirections.file_in_fd);
+	if (redir_out_bool)
+		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 }

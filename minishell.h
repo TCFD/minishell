@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/11 22:50:33 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/12 16:32:32 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define DOUBLE_Q			'\"'
 # define SPACE				' '
 # define NONE				'\0'
-# define SIMPLE_R_RAFTER	">"
-# define DOUBLE_R_RAFTER	">>"
-# define SIMPLE_L_RAFTER	"<"
+# define S_R_RAFTER	">"
+# define D_R_RAFTER	">>"
+# define S_L_RAFTER	"<"
 # define DOUBLE_L_RAFTER	"<<"
 # define PIPE				"|"
 
@@ -47,7 +47,9 @@ typedef struct s_redirections
 	t_list	*list;
 	int		counter;
 	int		stdout_save;
-	int		filefd;
+	int		stdin_save;
+	int		file_in_fd;
+	int		file_out_fd;
 }t_redirections;
 
 typedef struct s_separators
@@ -57,6 +59,8 @@ typedef struct s_separators
 	bool		double_sep;
 	long int	w_string;
 	long int	s_string;
+	char		tmp;
+	int			i;
 }t_separators;
 
 
@@ -124,8 +128,8 @@ const char	*get_username(void);
 int			search_d_tab(t_cmd_and_opt *cmdopt, char *c);
 int			redirect_output(char **tab, int *stdout_save, int *filefd,
 				int which_case);
-void		restore_fd(int stdout_save, int filefd);
-int			search_redirections(t_cmd_and_opt *cmdopt, t_redirections *redirections, bool *redir_bool);
+void		restore_stdout(int stdout_save, int filefd);
+int			search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
 char		*find_chevrons(char **input, int end);
 void		shlvl_plus_one(char **join_it);
 void		shlvl_minus_one(void);
@@ -156,10 +160,22 @@ void		print_pwd(void);
 void		exit_func(t_cmd_and_opt *cmdopt, char *input);
 int			get_word_index(char const *str, char const *word);
 char		**list_to_d_tab(t_list *list);
-int			count_redirs(char **tab, char *type);
-
-
+int			count_out_redirs(char **tab, char *type);
+int			count_in_redirs(char **tab, char *type);
+void		restore_stdin(int stdin_save, int filefd);
+int			search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
+int			redirect_input(char **tab, int *stdin_save, int *filefd);
 char		*replace_dollar(char *input);
+void	case_1(t_separators *sep, char **content, char *input, t_list **list);
+void	case_2_or_3(t_separators *sep, char **content, char *input, t_list **list);
+void	case_4_or_5(t_separators *sep, char **content, char *input);
+void	case_4_5_part_2(t_separators *sep, char **content, char *input);
+void	final_case(t_separators *sep, char **content, char *input, t_list **list);
+int		check_valid_file_name(char **tab, char *type);
+void	set_separator(t_separators *sep, char *input);
+t_list	*all_tokens(char *input, t_list *list, int i, int len);
+void	lst_add(t_list **list, char **content, char type);
+
 // ------- Pour le tester --------//
 
 char	*get_args_simple_into_tab(char **all_args);
