@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 13:15:51 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/12 15:46:51 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
-			exit(errno);
+			return(free_cmdopt(cmdopt), exit(errno));
 		}
 	}
 	else

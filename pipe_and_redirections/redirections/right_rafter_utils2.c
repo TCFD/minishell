@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/12 13:00:31 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/12 16:32:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	count_out_redirs(char **tab, char *type)
 	i = -1;
 	counter = 0;
 	while (tab[++i])
-		if (ft_strnstr(tab[i], SIMPLE_R_RAFTER, ft_strlen(tab[i]))
+		if (ft_strnstr(tab[i], S_R_RAFTER, ft_strlen(tab[i]))
 			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 			counter++;
 	return (counter);

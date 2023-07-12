@@ -6,32 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/12 13:21:01 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/12 16:32:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	restore_stdin(int stdin_save, int filefd)
-{
-	if (dup2(stdin_save, STDIN_FILENO) == -1)
-		return (perror("Failed to restore stdin"));
-	close(filefd);
-	close(stdin_save);
-}
-
-int	redirect_input(char **tab, int *stdin_save, int *filefd)
-{
-	*stdin_save = dup(STDIN_FILENO);
-	if (*stdin_save == -1)
-		return (perror("Failed to save stdin"), 1);
-	*filefd = open(tab[1], O_RDONLY, 0666);
-	if (*filefd == -1)
-		return (perror("Minishell : "), 1);
-	if (dup2(*filefd, STDIN_FILENO) == -1)
-		return (perror("Failed to redirect stdin"), 1);
-	return (0);
-}
 
 int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 {
@@ -61,7 +40,7 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redir)
 	funct_counter = 1;
 	while (tab[++i])
 	{
-		tmp = ft_strnstr(tab[i], SIMPLE_L_RAFTER, ft_strlen(tab[i]));
+		tmp = ft_strnstr(tab[i], S_L_RAFTER, ft_strlen(tab[i]));
 		if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
 			&& funct_counter < redir->counter)
 		{
@@ -88,7 +67,7 @@ int	count_in_redirs(char **tab, char *type)
 	i = -1;
 	counter = 0;
 	while (tab[++i])
-		if (ft_strnstr(tab[i], SIMPLE_L_RAFTER, ft_strlen(tab[i]))
+		if (ft_strnstr(tab[i], S_L_RAFTER, ft_strlen(tab[i]))
 			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 			counter++;
 	return (counter);
@@ -97,7 +76,8 @@ int	count_in_redirs(char **tab, char *type)
 int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	bool *redir_bool)
 {
-	redir->counter = count_in_redirs(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type);
+	redir->counter = count_in_redirs(cmdopt->opt_ty_tb.tab,
+			cmdopt->opt_ty_tb.type);
 	if (redir->counter == 0)
 	{
 		*redir_bool = false;

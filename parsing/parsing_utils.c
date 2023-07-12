@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 15:23:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/12 16:33:05 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,56 +77,28 @@ char	*create_path(char *command_name, int imd_return)
 	return (is_path_unset(command_name, imd_return));
 }
 
-int	check_valid_file_name(char **tab, char *type)
+int	check_valid_file_name(char **t, char *type)
 {
 	int	i;
 
 	i = -1;
-	while (tab[++i])
+	while (t[++i])
 	{
-		if ((ft_strnstr(tab[i], SIMPLE_R_RAFTER, ft_strlen(tab[i]))
-			|| ft_strnstr(tab[i], SIMPLE_L_RAFTER, ft_strlen(tab[i])))
+		if ((ft_strnstr(t[i], S_R_RAFTER, ft_strlen(t[i]))
+				|| ft_strnstr(t[i], S_L_RAFTER, ft_strlen(t[i])))
 			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 		{
-			if ((!tab[i + 1]
-			|| ft_strnstr(tab[i + 1], SIMPLE_L_RAFTER, ft_strlen(tab[i + 1]))
-			|| ft_strnstr(tab[i + 1], SIMPLE_R_RAFTER, ft_strlen(tab[i + 1]))
-			|| ft_strnstr(tab[i + 1], PIPE, ft_strlen(tab[i + 1])))
-			&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
+			if ((!t[i + 1]
+					|| ft_strnstr(t[i + 1], S_L_RAFTER, ft_strlen(t[i + 1]))
+					|| ft_strnstr(t[i + 1], S_R_RAFTER, ft_strlen(t[i + 1]))
+					|| ft_strnstr(t[i + 1], PIPE, ft_strlen(t[i + 1])))
+				&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
 			{
-				if (tab[i + 1])
-					return (printf("minishell : syntax error near unexpected token '%s'\n", tab[i + 1]));
+				if (t[i + 1])
+					return (printf("minishell : syntax error near unexpected token '%s'\n", t[i + 1]));
 				return (printf("minishell : syntax error near unexpected token 'newline'\n"));
 			}
 		}
 	}
 	return (0);
-}
-
-// CREATE COMMAND
-void	create_command(char	*input, t_cmd_and_opt *cmdopt)
-{
-	if (!input[0])
-		return ;
-	if (!check_correct_quotes(input))
-		return ((void)(printf("minishell : incorect quotes.\n")));
-	parse_that_shit(input, cmdopt);
-	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
-		return ;
-	int i = -1;
-	while (cmdopt->opt_ty_tb.tab[++i])
-		printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);
-	printf("\n\n");
-	if (cmdopt->path_unset == 0 && !ft_getenv("PATH"))
-	{
-		cmdopt->command_name = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 0);
-		cmdopt->command_path = ft_cpy(cmdopt->command_name, 0);
-	}
-	else
-	{
-		cmdopt->command_name = brut_name(ft_strdup(cmdopt->opt_ty_tb.tab[0]));
-		cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
-	}
-	free(cmdopt->opt_ty_tb.tab[0]);
-	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 }
