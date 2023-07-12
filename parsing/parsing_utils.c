@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 13:24:35 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/12 15:23:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	check_valid_file_name(char **tab, char *type)
 			|| ft_strnstr(tab[i + 1], SIMPLE_L_RAFTER, ft_strlen(tab[i + 1]))
 			|| ft_strnstr(tab[i + 1], SIMPLE_R_RAFTER, ft_strlen(tab[i + 1]))
 			|| ft_strnstr(tab[i + 1], PIPE, ft_strlen(tab[i + 1])))
-			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
+			&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
 			{
 				if (tab[i + 1])
 					return (printf("minishell : syntax error near unexpected token '%s'\n", tab[i + 1]));
