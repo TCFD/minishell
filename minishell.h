@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/11 22:50:33 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/12 13:15:29 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ typedef struct s_redirections
 	t_list	*list;
 	int		counter;
 	int		stdout_save;
-	int		filefd;
+	int		stdin_save;
+	int		file_in_fd;
+	int		file_out_fd;
 }t_redirections;
 
 typedef struct s_separators
@@ -124,8 +126,8 @@ const char	*get_username(void);
 int			search_d_tab(t_cmd_and_opt *cmdopt, char *c);
 int			redirect_output(char **tab, int *stdout_save, int *filefd,
 				int which_case);
-void		restore_fd(int stdout_save, int filefd);
-int			search_redirections(t_cmd_and_opt *cmdopt, t_redirections *redirections, bool *redir_bool);
+void		restore_stdout(int stdout_save, int filefd);
+int			search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
 char		*find_chevrons(char **input, int end);
 void		shlvl_plus_one(char **join_it);
 void		shlvl_minus_one(void);
@@ -156,8 +158,10 @@ void		print_pwd(void);
 void		exit_func(t_cmd_and_opt *cmdopt, char *input);
 int			get_word_index(char const *str, char const *word);
 char		**list_to_d_tab(t_list *list);
-int			count_redirs(char **tab, char *type);
-
+int			count_out_redirs(char **tab, char *type);
+int			count_in_redirs(char **tab, char *type);
+void	restore_stdin(int stdin_save, int filefd);
+int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
 
 char		*replace_dollar(char *input);
 // ------- Pour le tester --------//

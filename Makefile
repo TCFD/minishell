@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/05 20:41:07 by rciaze           ###   ########.fr        #
+#    Updated: 2023/07/12 12:27:39 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS 		=	maintest.c								\
 				$(PARSING)main_parsing.c   				\
 				$(REDIRECTIONS)right_rafter_utils.c		\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
+				$(REDIRECTIONS)left_rafter_utils.c		\
 
 # Couleurs
 BOLD		=	"\033[1m"

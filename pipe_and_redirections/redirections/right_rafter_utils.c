@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/11 22:51:09 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/12 13:16:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	add_rest(char **tab, char *type, int i, t_redirections *redir)
 		w_case = 2;
 	else
 		w_case = 1;
-	if (redirect_output(tab + i, &redir->stdout_save, &redir->filefd, w_case))
+	if (redirect_output(tab + i, &redir->stdout_save, &redir->file_out_fd, w_case))
 		return (0);
 	if (!tab[i + 2])
 		return (1);
@@ -98,11 +98,10 @@ void	redo_path_and_name(t_cmd_and_opt *cmd)
 	cmd->opt_ty_tb.tab[0] = ft_strdup(cmd->command_path);
 }
 
-int	search_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
+int	search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	bool *redir_bool)
 {
-	redir->counter = count_redirs
-		(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type);
+	redir->counter = count_out_redirs(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type);
 	if (redir->counter == 0)
 	{
 		*redir_bool = false;

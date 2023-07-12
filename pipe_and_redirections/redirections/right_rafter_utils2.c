@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/07/11 22:51:27 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/12 13:00:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	redirect_output(char **tab, int *stdout_save, int *filefd, int which_case)
 	return (0);
 }
 
-void	restore_fd(int stdout_save, int filefd)
+void	restore_stdout(int stdout_save, int filefd)
 {
 	if (dup2(stdout_save, STDOUT_FILENO) == -1)
 		return (perror("Failed to restore stdout"));
@@ -53,7 +53,7 @@ char	**list_to_d_tab(t_list *list)
 	return (tab);
 }
 
-int	count_redirs(char **tab, char *type)
+int	count_out_redirs(char **tab, char *type)
 {
 	int	i;
 	int	counter;
