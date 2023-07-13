@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 16:32:32 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/13 17:01:47 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define S_R_RAFTER	">"
 # define D_R_RAFTER	">>"
 # define S_L_RAFTER	"<"
-# define DOUBLE_L_RAFTER	"<<"
+# define D_L_RAFTER	"<<"
 # define PIPE				"|"
 
 # include <stdio.h>
@@ -50,6 +50,7 @@ typedef struct s_redirections
 	int		stdin_save;
 	int		file_in_fd;
 	int		file_out_fd;
+	bool	heredoc;
 }t_redirections;
 
 typedef struct s_separators
@@ -161,8 +162,8 @@ void		exit_func(t_cmd_and_opt *cmdopt, char *input);
 int			get_word_index(char const *str, char const *word);
 char		**list_to_d_tab(t_list *list);
 int			count_out_redirs(char **tab, char *type);
-int			count_in_redirs(char **tab, char *type);
-void		restore_stdin(int stdin_save, int filefd);
+int			count_in_redirs(char **tab, char *type, bool *heredoc);
+void		restore_stdin(t_redirections *redir);
 int			search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
 int			redirect_input(char **tab, int *stdin_save, int *filefd);
 char		*replace_dollar(char *input);
@@ -175,6 +176,7 @@ int		check_valid_file_name(char **tab, char *type);
 void	set_separator(t_separators *sep, char *input);
 t_list	*all_tokens(char *input, t_list *list, int i, int len);
 void	lst_add(t_list **list, char **content, char type);
+void	temp_heredoc(char *str);
 
 // ------- Pour le tester --------//
 

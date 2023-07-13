@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 15:46:51 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/13 17:00:29 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	else
 		run_execve(cmdopt);
 	if (redir_in_bool)
-		restore_stdin(redirections.stdin_save, redirections.file_in_fd);
+		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 }
