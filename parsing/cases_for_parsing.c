@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/12 16:38:02 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/13 17:58:08 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ void	case_4_or_5(t_separators *sep, char **content, char *input)
 void	case_4_5_part_2(t_separators *sep, char **content, char *input)
 {
 	set_separator(sep, input);
-	while ((sep->what_case != NONE || sep->what_case != SPACE)
-		&& sep->separator == SPACE && sep->s_string > 0)
+	while ((sep->separator == SPACE || sep->separator == NONE)
+		&& sep->s_string > 0)
 	{
-		if (sep->what_case == SIMPLE_Q || sep->what_case == DOUBLE_Q)
+		if ((sep->what_case == SIMPLE_Q && input[sep->i] == SIMPLE_Q)
+			|| (sep->what_case == DOUBLE_Q && input[sep->i] == DOUBLE_Q))
 			sep->i += 1;
+		if (!input[sep->i])
+			break ;
 		sep->w_string = ft_strchr(input + sep->i, sep->what_case)
 			- (input + sep->i);
 		if (sep->w_string < 0)
