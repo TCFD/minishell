@@ -6,7 +6,7 @@
 /*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/13 17:00:29 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/13 17:06:29 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		return ;
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
+	else if (cmp(cmdopt->command_name, "echo"))
+		echo_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
 	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
