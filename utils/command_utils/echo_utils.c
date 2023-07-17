@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:53:45 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/13 17:17:05 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/17 21:11:18 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	echo_remake(t_cmd_and_opt *cm)
 	j = 1;
 	i = 0;
 	boolean = false;
-	if (!ft_strncmp(cm->opt_ty_tb.tab[1], "-n", 2))
+	if (cm->opt_ty_tb.tab[1] && !ft_strncmp(cm->opt_ty_tb.tab[1], "-n", 2))
 	{
-		while (cm->opt_ty_tb.tab[1][++j] && cm->opt_ty_tb.tab[1][j] == 'n')
-			boolean = true;
+		boolean = true;
+		while (cm->opt_ty_tb.tab[1][j] && cm->opt_ty_tb.tab[1][j] == 'n')
+			j += 1;
 		if (cm->opt_ty_tb.tab[1][j] && cm->opt_ty_tb.tab[1][j] != 'n')
 			boolean = false;
 		else

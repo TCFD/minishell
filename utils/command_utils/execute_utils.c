@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/13 17:06:29 by raphael          ###   ########.fr       */
+/*   Updated: 2023/07/17 20:51:58 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 
 char	*brut_name(char *command_np)
 {
-	char	**str_split;
+		char	**str_split;
 	char	*brut_command_name;
 
 	if (!ft_strchr(command_np, '/'))
