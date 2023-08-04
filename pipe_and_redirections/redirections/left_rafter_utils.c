@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/12 17:48:32 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/04 14:33:34 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redir)
 		if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
 			&& funct_counter < redir->counter)
 		{
+			if (ft_strnstr(tab[i], D_L_RAFTER, ft_strlen(tab[i])))
+				temp_heredoc(tab[i + 1]);
 			i++;
 			funct_counter++;
 			continue ;
@@ -59,7 +61,7 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redir)
 	return (add_rest_in(tab, type, i, redir));
 }
 
-int	count_in_redirs(char **tab, char *type)
+int	count_in_redirs(char **tab, char *type, bool *heredoc)
 {
 	int	i;
 	int	counter;
@@ -67,17 +69,23 @@ int	count_in_redirs(char **tab, char *type)
 	i = -1;
 	counter = 0;
 	while (tab[++i])
+	{
+		if (ft_strnstr(tab[i], D_L_RAFTER, ft_strlen(tab[i]))
+			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
+			*heredoc = true;
 		if (ft_strnstr(tab[i], S_L_RAFTER, ft_strlen(tab[i]))
 			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 			counter++;
+	}
 	return (counter);
 }
 
 int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	bool *redir_bool)
 {
+	redir->heredoc = false;
 	redir->counter = count_in_redirs(cmdopt->opt_ty_tb.tab,
-			cmdopt->opt_ty_tb.type);
+			cmdopt->opt_ty_tb.type, &redir->heredoc);
 	if (redir->counter == 0)
 	{
 		*redir_bool = false;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 16:33:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/13 17:59:42 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	does_command_path_valid(char *cmd)
 
 // CREATE PATH
 char	*create_path(char *command_name, int imd_return)
-{	
+{
 	if (ft_strchr(command_name, '/'))
 		return (command_name);
 	return (is_path_unset(command_name, imd_return));
@@ -95,8 +95,10 @@ int	check_valid_file_name(char **t, char *type)
 				&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
 			{
 				if (t[i + 1])
-					return (printf("minishell : syntax error near unexpected token '%s'\n", t[i + 1]));
-				return (printf("minishell : syntax error near unexpected token 'newline'\n"));
+					return (printf("minishell : syntax error near unexpected"
+							"token '%s'\n", t[i + 1]));
+				return (printf("minishell : syntax error near unexpected"
+						"token 'newline'\n"));
 			}
 		}
 	}

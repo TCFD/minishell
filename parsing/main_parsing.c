@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/04 12:29:25 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/04 14:33:28 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,6 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	parse_that_shit(input, cmdopt);
 	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
 		return ;
-	//int i = -1;
-	//while (cmdopt->opt_ty_tb.tab[++i])
-	//	printf("option '%s', type = %c\n", cmdopt->opt_ty_tb.tab[i], cmdopt->opt_ty_tb.type[i]);
-	//printf("\n\n");
 	if (cmdopt->path_unset == 0 && !ft_getenv("PATH"))
 	{
 		cmdopt->command_name = create_path

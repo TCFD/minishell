@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 15:46:51 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/07/17 20:51:58 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 
 char	*brut_name(char *command_np)
 {
-	char	**str_split;
+		char	**str_split;
 	char	*brut_command_name;
 
 	if (!ft_strchr(command_np, '/'))
@@ -76,6 +76,8 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		return ;
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
+	else if (cmp(cmdopt->command_name, "echo"))
+		echo_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
 	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
@@ -87,7 +89,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	else
 		run_execve(cmdopt);
 	if (redir_in_bool)
-		restore_stdin(redirections.stdin_save, redirections.file_in_fd);
+		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 }
