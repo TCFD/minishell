@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/12 16:32:32 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/04 13:18:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_separators
 	long int	s_string;
 	char		tmp;
 	int			i;
+	int			tmp_i;
 }t_separators;
 
 
@@ -165,7 +166,7 @@ int			count_in_redirs(char **tab, char *type);
 void		restore_stdin(int stdin_save, int filefd);
 int			search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
 int			redirect_input(char **tab, int *stdin_save, int *filefd);
-char		*replace_dollar(char *input);
+char		*replace_dollar(char *input, int i);
 void	case_1(t_separators *sep, char **content, char *input, t_list **list);
 void	case_2_or_3(t_separators *sep, char **content, char *input, t_list **list);
 void	case_4_or_5(t_separators *sep, char **content, char *input);

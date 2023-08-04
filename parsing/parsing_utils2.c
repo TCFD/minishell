@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:27:47 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/12 16:38:42 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/04 13:02:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	init_tabs(char char_tab[4], long int tab[4], char *input)
 
 void	lst_add(t_list **list, char **content, char type)
 {
-	(*list)->content = replace_dollar(*content);
+	(*list)->content = ft_strdup(*content);
+	free(*content);
 	(*list)->type = type;
 	(*list)->next = ft_lstnew("", NONE);
 	(*list) = (*list)->next;
