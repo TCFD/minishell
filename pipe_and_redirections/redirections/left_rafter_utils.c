@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/04 14:33:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/05 11:21:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redir)
 	char	*tmp;
 
 	i = -1;
-	funct_counter = 1;
+	funct_counter = 0;
 	while (tab[++i])
 	{
 		tmp = ft_strnstr(tab[i], S_L_RAFTER, ft_strlen(tab[i]));
 		if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
-			&& funct_counter < redir->counter)
+			&& (funct_counter < redir->counter || redir->counter == 1))
 		{
 			if (ft_strnstr(tab[i], D_L_RAFTER, ft_strlen(tab[i])))
 				temp_heredoc(tab[i + 1]);
