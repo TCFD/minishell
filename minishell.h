@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/04 14:32:38 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/05 15:18:02 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ void	set_separator(t_separators *sep, char *input);
 t_list	*all_tokens(char *input, t_list *list, int i, int len);
 void	lst_add(t_list **list, char **content, char type);
 void	temp_heredoc(char *str);
+void	redo_path_and_name(t_cmd_and_opt *cmd);
 
 // ------- Pour le tester --------//
 

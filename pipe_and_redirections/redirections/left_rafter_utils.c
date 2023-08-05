@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/05 11:21:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/05 15:17:42 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 		return (0);
 	if (!tab[i + 2])
 		return (1);
+	//if (ft_strnstr(tab[i], S_L_RAFTER, ft_strlen(tab[i]))
+	//	&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
+	//	
 	i += 2;
 	while (tab[i])
 	{
@@ -37,12 +40,12 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redir)
 	char	*tmp;
 
 	i = -1;
-	funct_counter = 0;
+	funct_counter = 1;
 	while (tab[++i])
 	{
 		tmp = ft_strnstr(tab[i], S_L_RAFTER, ft_strlen(tab[i]));
 		if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
-			&& (funct_counter < redir->counter || redir->counter == 1))
+			&& funct_counter < redir->counter)
 		{
 			if (ft_strnstr(tab[i], D_L_RAFTER, ft_strlen(tab[i])))
 				temp_heredoc(tab[i + 1]);
@@ -99,5 +102,6 @@ int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 		return (0);
 	free_d_array(cmdopt->opt_ty_tb.tab);
 	cmdopt->opt_ty_tb.tab = list_to_d_tab(redir->list);
+	redo_path_and_name(cmdopt);
 	return (1);
 }

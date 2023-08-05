@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/13 17:02:40 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/05 14:49:38 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	temp_heredoc(char *str)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strncmp(line, str, ft_strlen(line)) == 0)
+		if (ft_strncmp(line, str, ft_strlen(str)) == 0)
 		{
 			free(line);
 			break ;
