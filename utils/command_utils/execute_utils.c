@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/17 20:51:58 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/05 16:19:38 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 
 	if (!cmdopt->command_name)
 		return ;
+	if (!cmdopt->command_path[0])
+		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
+				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
 	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
 		return ;
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)

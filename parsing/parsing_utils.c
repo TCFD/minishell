@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/13 17:59:42 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:18:04 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*is_path_unset(char *command_name, int imd_return)
 		idx++ ;
 	}
 	free_d_array(path_split);
-	return (command_name);
+	return (ft_strdup(""));
 }
 
 // DOES COMMAND PATH VALID
