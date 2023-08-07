@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/05 16:06:03 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:58:27 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,4 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		cmdopt->command_path = create_path
 			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
 	}
-	free(cmdopt->opt_ty_tb.tab[0]);
-	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 }

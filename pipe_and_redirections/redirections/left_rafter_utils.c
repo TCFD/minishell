@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/07 19:08:48 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:52:47 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	free_d_array(cmdopt->opt_ty_tb.tab);
 	cmdopt->opt_ty_tb.tab = list_to_d_tab(redir->list);
 	redo_path_and_name(cmdopt);
+	ft_lstclear(&redir->list);
 	return (1);
 }

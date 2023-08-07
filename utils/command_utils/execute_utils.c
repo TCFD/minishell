@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:17:13 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:58:32 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		return ;
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
 		return ;
+	free(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "echo"))

@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:01:28 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:52:15 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	main(int ac, char **ag, char **env)
 	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
+	cmdopt.opt_ty_tb.tab[0] = ft_strdup(cmdopt.command_path);
 	user = get_execve_return(&cmdopt);
 	update_username(user);
 	if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
