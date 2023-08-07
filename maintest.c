@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 16:24:53 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 18:55:00 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			free_cmdopt(cmdopt);
 		free(input);
 		prompt = display_user_prompt((char *)get_username());
-		// input = readline(prompt);
-		input = readline("");
+		input = readline(prompt);
 		free(prompt);
 		prompt = NULL;
 	}
@@ -80,8 +79,7 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 	join = NULL;
 	shlvl_plus_one(&join);
 	prompt = display_user_prompt((char *)get_username());
-	// input = readline(prompt);
-	input = readline("");
+	input = readline(prompt);
 	minishell(input, cmdopt, prompt);
 	free(prompt);
 	free(user);
