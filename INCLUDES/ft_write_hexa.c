@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write_hexa.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:27:28 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/28 13:09:40 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:17:19 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	write_addr(void *pointeur, char *base)
 		count++ ;
 	}
 	tab[count] = '\0';
-	write(1, "0x", 2);
+	write(2, "0x", 2);
 	len = write_str_reverse(tab);
 	free(tab);
 	return (len + 2);

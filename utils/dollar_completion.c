@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/04 13:51:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:07:14 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*check_env_variables(char *input, int start, int end)
 
 	if (end == 1)
 		return (ft_strdup("$"));
-	value = ft_substr(input, start, end);
+	value = ft_substr(input, start, end - start);
 	if (!ft_strncmp(value, "$?", ft_strlen(value)))
 		return (free(value), ft_itoa(error_code));
 	return_value = ft_strdup(ft_getenv(value + 1));
@@ -60,7 +60,7 @@ char	*replace_dollar(char *input, int i)
 		end = ft_strlen(tmp_dup);
 	input = ft_substr(tmp_dup, 0, start);
 	input = ft_join(input, check_env_variables(tmp_dup, start, end));
-	input = ft_join(input, ft_substr(tmp_dup, end, ft_strlen(tmp_dup)));
+	input = ft_join(input, ft_substr(tmp_dup, end, ft_strlen(tmp_dup) - end));
 	if (ft_strchr(input + 1, '$'))
 		input = replace_dollar(input, i);
 	return (input);
