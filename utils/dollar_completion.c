@@ -6,13 +6,14 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/07 17:07:14 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:12:14 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Regarde dans l'environement si la variable existe, si oui, la remplace par sa valeur
+// Regarde dans l'environement si la variable existe,
+// si oui, la remplace par sa valeur
 
 int	find_first_non_valid(char *input, int i)
 {
@@ -46,10 +47,10 @@ char	*check_env_variables(char *input, int start, int end)
 
 char	*replace_dollar(char *input, int i)
 {
-	char *tmp_dup;
-	int start;
-	int end;
-	
+	char	*tmp_dup;
+	int		start;
+	int		end;
+
 	if (input[i] != '$' && !ft_strchr(input + i, '$'))
 		return (input);
 	tmp_dup = ft_strdup(input);

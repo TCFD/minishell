@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 15:40:30 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:17:13 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	pid = fork();
 	if (pid == -1)
 		return ((void)update_err_code((int)errno),
-		perror("fork"), exit(EXIT_FAILURE));
+			perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
-		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env()) == -1)
+		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
+			== -1)
 		{
 			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
 				strerror(errno));
-			return(free_cmdopt(cmdopt), exit(errno));
+			return (free_cmdopt(cmdopt), exit(errno));
 		}
 	}
 	else
@@ -42,7 +43,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 
 char	*brut_name(char *command_np)
 {
-		char	**str_split;
+	char	**str_split;
 	char	*brut_command_name;
 
 	if (!ft_strchr(command_np, '/'))

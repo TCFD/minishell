@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/05 19:56:16 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:12:39 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_char_until_limit(char *str, int lim)
 	while (idx < lim)
 	{
 		new_one[idx] = str[idx];
-		idx++ ;	
+		idx++;
 	}
 	new_one[idx] = '\0';
 	free(str);

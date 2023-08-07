@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:53:45 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/05 15:37:33 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:14:23 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 void	skip_n(t_cmd_and_opt *cm, int *i, int *j, bool *boolean)
 {
 	bool	temp_boolean;
-	
+
 	if (cm->opt_ty_tb.tab[1] && !ft_strncmp(cm->opt_ty_tb.tab[1], "-n", 2))
 	{
 		temp_boolean = true;
 		*boolean = false;
 		*i += 1;
-		while (!ft_strncmp(cm->opt_ty_tb.tab[*i], "-n", 2) && temp_boolean == true && cm->opt_ty_tb.tab[*i])
+		while (!ft_strncmp(cm->opt_ty_tb.tab[*i], "-n", 2)
+			&& temp_boolean == true && cm->opt_ty_tb.tab[*i])
 		{
-			while (cm->opt_ty_tb.tab[*i][*j] && cm->opt_ty_tb.tab[*i][*j] == 'n')
+			while (cm->opt_ty_tb.tab[*i][*j]
+				&& cm->opt_ty_tb.tab[*i][*j] == 'n')
 				*j += 1;
 			if (cm->opt_ty_tb.tab[*i][*j] && cm->opt_ty_tb.tab[*i][*j] != 'n')
 				temp_boolean = false;

@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/05 15:18:02 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/07 19:00:36 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-extern int	error_code;
 
+extern int	error_code;
 
 typedef struct s_redirections
 {
@@ -65,7 +65,6 @@ typedef struct s_separators
 	int			tmp_i;
 }t_separators;
 
-
 typedef struct s_singleton
 {
 	char	*username;
@@ -73,12 +72,11 @@ typedef struct s_singleton
 	int		count;
 }t_singleton;
 
-typedef	struct s_opt_tab
+typedef struct s_opt_tab
 {
 	char	**tab;
 	char	*type;
 }t_opt_tab;
-
 
 typedef struct s_command_and_option
 {
@@ -119,7 +117,8 @@ void		parse_that_shit(char *input, t_cmd_and_opt *cmdopt);
 void		echo_remake(t_cmd_and_opt *cmdopt);
 char		*check_env_variables(char *input, int start, int end);
 void		expand(char **dest, int start, int if_case);
-int			space_end_case(char **input, char **dest, char what_case, char *type);
+int			space_end_case(char **input, char **dest, char what_case,
+				char *type);
 int			cmp(char *cmd_name, char *cmd_name_2);
 char		*read_bytes(int *fd);
 char		*get_execve_return(t_cmd_and_opt *cmdopt);
@@ -131,7 +130,8 @@ int			search_d_tab(t_cmd_and_opt *cmdopt, char *c);
 int			redirect_output(char **tab, int *stdout_save, int *filefd,
 				int which_case);
 void		restore_stdout(int stdout_save, int filefd);
-int			search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
+int			search_out_redirections(t_cmd_and_opt *cmdopt,
+				t_redirections *redir, bool *redir_bool);
 char		*find_chevrons(char **input, int end);
 void		shlvl_plus_one(char **join_it);
 void		shlvl_minus_one(void);
@@ -165,26 +165,30 @@ char		**list_to_d_tab(t_list *list);
 int			count_out_redirs(char **tab, char *type);
 int			count_in_redirs(char **tab, char *type, bool *heredoc);
 void		restore_stdin(t_redirections *redir);
-int			search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir, bool *redir_bool);
+int			search_in_redirections(t_cmd_and_opt *cmdopt,
+				t_redirections *redir, bool *redir_bool);
 int			redirect_input(char **tab, int *stdin_save, int *filefd);
 char		*replace_dollar(char *input, int i);
-void	case_1(t_separators *sep, char **content, char *input, t_list **list);
-void	case_2_or_3(t_separators *sep, char **content, char *input, t_list **list);
-void	case_4_or_5(t_separators *sep, char **content, char *input);
-void	case_4_5_part_2(t_separators *sep, char **content, char *input);
-void	final_case(t_separators *sep, char **content, char *input, t_list **list);
-int		check_valid_file_name(char **tab, char *type);
-void	set_separator(t_separators *sep, char *input);
-t_list	*all_tokens(char *input, t_list *list, int i, int len);
-void	lst_add(t_list **list, char **content, char type);
-void	temp_heredoc(char *str);
-void	redo_path_and_name(t_cmd_and_opt *cmd);
+void		case_1(t_separators *sep, char **content, char *input,
+				t_list **list);
+void		case_2_or_3(t_separators *sep, char **content, char *input,
+				t_list **list);
+void		case_4_or_5(t_separators *sep, char **content, char *input);
+void		case_4_5_part_2(t_separators *sep, char **content, char *input);
+void		final_case(t_separators *sep, char **content, char *input,
+				t_list **list);
+int			check_valid_file_name(char **tab, char *type);
+void		set_separator(t_separators *sep, char *input);
+t_list		*all_tokens(char *input, t_list *list, int i, int len);
+void		lst_add(t_list **list, char **content, char type);
+void		temp_heredoc(char *str);
+void		redo_path_and_name(t_cmd_and_opt *cmd);
 
 // ------- Pour le tester --------//
 
-char	*get_args_simple_into_tab(char **all_args);
-void	minishell_tester(char *input, t_cmd_and_opt *cmdopt);
-void	run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
+char		*get_args_simple_into_tab(char **all_args);
+void		minishell_tester(char *input, t_cmd_and_opt *cmdopt);
+void		run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
 
 // ------------------------------//
 
