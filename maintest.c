@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:52:15 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 13:44:43 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
 	char	ipt[1024];
 	char	**spl;
+	int		i;
 
+	(void)(cmdopt);
+	i = 0;
+	while (i < 1024)
+		ipt[i++] = '\0';
 	spl = ft_split(input, ' ');
 	if (spl[1])
 		ft_strlcpy(ipt, spl[1], ft_strlen(spl[1]) + 1);
-	free_cmdopt(cmdopt);
+	//free_cmdopt(cmdopt);
 	rl_clear_history();
 	free(input);
 	free_d_array(spl);
@@ -100,12 +105,13 @@ int	main(int ac, char **ag, char **env)
 	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
+	free(cmdopt.opt_ty_tb.tab[0]);
 	cmdopt.opt_ty_tb.tab[0] = ft_strdup(cmdopt.command_path);
 	user = get_execve_return(&cmdopt);
 	update_username(user);
+	free_cmdopt(&cmdopt);
 	if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
-	free_cmdopt(&cmdopt);
 	run_minishell(user, &cmdopt);
 	return (0);
 }
