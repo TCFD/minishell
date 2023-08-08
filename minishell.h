@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 17:20:31 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 18:45:27 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,15 @@ typedef struct s_command_and_option
 	int				path_unset;
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
+
+typedef struct s_dollar
+{
+	int		start;
+	int		end;
+	char	*tmp_dup;
+	char 	*env_var;
+}t_dollar;
+
 
 char		**double_a_realloc(char **array, char *new_elmt);
 char		*getenv_check(char *str);
@@ -169,13 +178,13 @@ void		restore_stdin(t_redirections *redir);
 int			search_in_redirections(t_cmd_and_opt *cmdopt,
 				t_redirections *redir, bool *redir_bool);
 int			redirect_input(char **tab, int *stdin_save, int *filefd);
-char		*replace_dollar(char *input, int i);
+char		*replace_dollar(char what_case, char *input, int i, t_list **list);
 void		case_1(t_separators *sep, char **content, char *input,
 				t_list **list);
 void		case_2_or_3(t_separators *sep, char **content, char *input,
 				t_list **list);
-void		case_4_or_5(t_separators *sep, char **content, char *input);
-void		case_4_5_part_2(t_separators *sep, char **content, char *input);
+void		case_4_or_5(t_separators *sep, char **content, char *input, t_list **list);
+void		case_4_5_part_2(t_separators *sep, char **content, char *input, t_list **list);
 void		final_case(t_separators *sep, char **content, char *input,
 				t_list **list);
 int			check_valid_file_name(char **tab, char *type);

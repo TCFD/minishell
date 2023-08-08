@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:19:09 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 18:18:04 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int	export_name_unvalid(char *var)
 		return (1);
 	if (ft_strchr(var, '.'))
 		return (1);
-	if (ft_strchr(var, '-'))
-		return (1);
-	if (ft_strchr(var, ' '))
-		return (1);
+	//if (ft_strchr(var, '-'))
+	//	return (1);
 	if (find_first_occurence(var, '$') == (int)ft_strlen(var) - 1)
 		return (1);
 	return (0);

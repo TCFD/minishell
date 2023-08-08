@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/07 19:05:40 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 18:54:18 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	case_1(t_separators *sep, char **content, char *input, t_list **list)
 	*content = ft_substr(input + sep->i, 0, sep->s_string);
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
-		*content = replace_dollar(*content, 0);
+		*content = replace_dollar(sep->what_case, *content, 0, list);
 	lst_add(list, content, NONE);
 }
 
@@ -44,13 +44,13 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 		sep->i += ft_strlen(*content);
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
-		*content = replace_dollar(*content, 0);
+		*content = replace_dollar(sep->what_case, *content, 0, list);
 	if (input[sep->i] != SPACE && input[sep->i])
-		case_4_or_5(sep, content, input);
+		case_4_or_5(sep, content, input, list);
 	lst_add(list, content, sep->tmp);
 }
 
-void	case_4_or_5(t_separators *sep, char **content, char *s1)
+void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 {
 	sep->tmp_i = ft_strlen(*content);
 	set_separator(sep, s1);
@@ -75,11 +75,11 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1)
 		sep->i += ft_strlen(s1 + sep->i);
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
-			*content = replace_dollar(*content, sep->tmp_i);
-	case_4_5_part_2(sep, content, s1);
+			*content = replace_dollar(sep->what_case, *content, sep->tmp_i, list);
+	case_4_5_part_2(sep, content, s1, list);
 }
 
-void	case_4_5_part_2(t_separators *sep, char **content, char *input)
+void	case_4_5_part_2(t_separators *sep, char **content, char *input, t_list **list)
 {
 	set_separator(sep, input);
 	while ((sep->separator == SPACE || sep->separator == NONE)
@@ -99,7 +99,7 @@ void	case_4_5_part_2(t_separators *sep, char **content, char *input)
 				ft_substr(input + sep->i, 0, sep->w_string));
 		if (sep->what_case != '\'' || (sep->what_case == '\''
 				&& sep->w_string > 0))
-			*content = replace_dollar(*content, sep->tmp_i);
+			*content = replace_dollar(sep->what_case, *content, sep->tmp_i, list);
 		sep->i += sep->w_string;
 		if (sep->what_case == SIMPLE_Q || sep->what_case == DOUBLE_Q)
 			sep->i += 1;
@@ -113,6 +113,6 @@ void	final_case(t_separators *sep, char **content, char *input,
 	*content = ft_substr(input + sep->i, 0, sep->w_string);
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
-		*content = replace_dollar(*content, 0);
+		*content = replace_dollar(sep->what_case, *content, 0, list);
 	lst_add(list, content, SPACE);
 }
