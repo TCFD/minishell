@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 13:44:43 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:21:52 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
 	int	i;
-
+	
 	i = 0;
 	while (input != NULL)
 	{

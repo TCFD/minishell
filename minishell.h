@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:00:36 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:20:31 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void		shlvl_minus_one(void);
 void		rebuild_env(void);
 void		verif_env_and_path(t_cmd_and_opt *cmdopt);
 t_singleton	*get_env_instance(void);
+void		free_singleton(void);
 void		update_env(char **new_value);
 char		**get_env(void);
 char		*ft_getenv(char *var_name);

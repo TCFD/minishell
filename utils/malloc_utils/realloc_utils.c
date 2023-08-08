@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:22:40 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/08 17:18:02 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	**double_a_realloc(char **array, char *new_elmt)
 	}
 	new_one[idx] = ft_strdup(new_elmt);
 	new_one[idx + 1] = NULL;
-	//free(array);
 	return (new_one);
 }
 
