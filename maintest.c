@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 16:33:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/09 16:54:41 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,25 @@ char	*getenv_check(char *str)
 }
 
 // EXIT FUNC
-void	exit_func(t_cmd_and_opt *cmdopt, char *input)
+void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
-	char	*ipt;
-	char	**spl;
-	int		i;
+    char    *ipt;
+    char    **spl;
 
-	(void)(cmdopt);
-	i = 0;
-	while (i < 1024)
-		ipt[i++] = '\0';
-	spl = ft_split(input, ' ');
-	if (d_len(spl) > 2)
-		return ((void)printf("bash: exit: trop d'arguments\n"),
-			free_cmdopt(cmdopt), free(input), free_d_array(spl),
-			exit(1));
-	if (spl[1])
-		ipt = ft_strdup(spl[1]);
-	else
-		ipt = NULL;
-	free_cmdopt(cmdopt);
-	rl_clear_history();
-	free(input);
-	free_d_array(spl);
-	ft_exit(ipt);
+    spl = ft_split(input, ' ');
+    if (d_len(spl) > 2)
+        return ((void)printf("bash: exit: trop d'arguments\n"),
+            free_cmdopt(cmdopt), free(input), free_d_array(spl),
+            exit(1));
+    if (spl[1])
+        ipt = ft_strdup(spl[1]);
+    else
+        ipt = NULL;
+    free_cmdopt(cmdopt);
+    rl_clear_history();
+    free(input);
+    free_d_array(spl);
+    ft_exit(ipt);
 }
 
 // MINISHELL
