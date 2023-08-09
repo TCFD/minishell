@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/09 13:41:19 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 14:55:11 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*d_t_case(char *input, t_list **list, t_dollar *dollar)
 	start_of_search = ft_strchr(dollar->env_var, ' ') - dollar->env_var + ft_strlen(input);
 	input = ft_join(input, ft_strdup(dollar->env_var));
 	tmp = ft_substr(input, 0, start_of_search);
-	lst_add(list, &tmp, ' ');
+	if (tmp[0])
+		lst_add(list, &tmp, ' ');
 	split_tab = ft_split(input + start_of_search, ' ');
 	j = -1;
 	while(split_tab[++j + 1])
