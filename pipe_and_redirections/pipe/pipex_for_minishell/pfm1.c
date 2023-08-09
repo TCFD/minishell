@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pfm1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:53:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 19:22:01 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/09 16:55:55 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,15 +161,22 @@ void	exec(t_cmd_and_opt *cmdopt)
 // EXECUTE PIPE COMMAND
 void	execute_pipe_command(t_cmd_and_opt *cmdopt)
 {
-	long int	position;
-	int			stdout_save;
-	int			filefd;
+	t_redirections	redirections;
+	bool			redir_out_bool;
+	bool			redir_in_bool;
 
 	if (!cmdopt->command_name)
 		return ;
-	search_redirections(cmdopt, &stdout_save, &filefd, &position);
+	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
+		return ;
+	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
+		return ;
+	free(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
+	else if (cmp(cmdopt->command_name, "echo"))
+		echo_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "unset"))
 		unset_all_env_var(cmdopt);
 	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
@@ -178,9 +185,15 @@ void	execute_pipe_command(t_cmd_and_opt *cmdopt)
 		export_all_var(cmdopt);
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
+	else if (!cmdopt->command_path[0])
+		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
+				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
 	else
-		exec(cmdopt);
-	restore_fd(position, stdout_save, filefd);
+		run_execve(cmdopt);
+	if (redir_in_bool)
+		restore_stdin(&redirections);
+	if (redir_out_bool)
+		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 }
 
 // EXECUTE ALL
