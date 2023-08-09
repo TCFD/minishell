@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   pfm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 15:20:04 by rciaze            #+#    #+#             */
-/*   Updated: 2022/11/22 17:52:00 by rciaze           ###   ########.fr       */
+/*   Created: 2023/07/10 12:04:59 by wolf              #+#    #+#             */
+/*   Updated: 2023/07/14 18:13:00 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+typedef struct s_pipes
 {
-	unsigned int	i;
+    int **pipes;
+    int *pids;
+    int len_max;
+    int idx;
+}t_pipes;
 
-	i = 0;
-	while (i < ft_strlen(s))
-	{
-		(*f)(i, s + i);
-		i++;
-	}
-	s[i] = '\0';
-}
+
+
+void	pipex(char *input);

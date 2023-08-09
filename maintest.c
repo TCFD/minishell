@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 19:05:12 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:16:29 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ char	*getenv_check(char *str)
 // EXIT FUNC
 void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
-	char	ipt[1024];
+	char	*ipt;
 	char	**spl;
 
 	spl = ft_split(input, ' ');
-
+	if (d_len(spl) > 2)
+		return ((void)printf("bash: exit: trop d'arguments\n"),
+			free_cmdopt(cmdopt), free(input), free_d_array(spl),
+			exit(1));
 	if (spl[1])
-		ft_strlcpy(ipt, spl[1], ft_strlen(spl[1]) + 1);	
+		ipt = ft_strdup(spl[1]);
+	else
+		ipt = NULL;
 	free_cmdopt(cmdopt);
 	rl_clear_history();
 	free(input);
@@ -45,17 +50,21 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
 	while (input != NULL)
 	{
-		init_cmdopt(cmdopt);
+		free_cmdopt(cmdopt);
 		if (ft_strncmp(input, "exit", 4) == 0)
 			return (exit_func(cmdopt, input));
-		if (input[0])
+		if (input[0] && ft_strchr(input, '|'))
+		{
+			pipex(input);
+			add_history(input);
+		}
+		else if (input[0])
 		{
 			create_command(input, cmdopt);
 			add_history(input);
-		}
-		execute_command(cmdopt);
-		if (input[0])
+			execute_command(cmdopt);
 			free_cmdopt(cmdopt);
+		}
 		free(input);
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);

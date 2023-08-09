@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils.c                                       :+:      :+:    :+:   */
+/*   design_p_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 14:35:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 19:01:07 by wolf             ###   ########.fr       */
+/*   Created: 2023/07/26 17:24:14 by tboldrin          #+#    #+#             */
+/*   Updated: 2023/07/31 11:11:45 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	init_cmdopt(t_cmd_and_opt *cmdopt)
+t_singleton	*get_pwd_instance(void)
 {
-	cmdopt->command_name = NULL;
-	cmdopt->command_path = NULL;
-	cmdopt->opt_ty_tb.type = NULL;
-	cmdopt->opt_ty_tb.tab = NULL;
+	static t_singleton	instance;
+	return (&instance);
 }
 
-void	init_design_pattern(t_singleton *design_p)
+void	update_pwd(char *new_value)
 {
-	design_p->username = NULL;
-	design_p->env = NULL;
+	t_singleton	*singleton;
+
+	singleton = get_pwd_instance();
+	if (singleton->pwd)
+		free(singleton->pwd);
+	singleton->pwd = new_value;
 }
-	
+
+char	**get_pwd_path(void)
+{
+	t_singleton	*singleton;
+
+	singleton = get_pwd_instance();
+	return (singleton->env);
+}

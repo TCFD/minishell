@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 18:15:24 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:21:08 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,30 @@ void	rebuild_env(void)
 	export_var(pwd);
 	export_var("SHLVL=1");
 	export_var("_=/usr/bin/env");
-	free(pwd);
+	printf("pwd : %s\n", pwd);
+	//free(pwd);
 
 	return ;
+}
+
+char	*get_env_var(char *var_name)
+{
+	char	**env;
+	char	**split_one;
+	char	*final;
+	int		idx;
+
+	env = get_env();
+	idx = 0;
+	while (env[idx])
+	{
+		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0)
+		{
+			split_one = ft_split(env[idx], '=');
+			final = ft_strdup(split_one[1]);
+			return (free_d_array(split_one), final);
+		}
+		idx++ ;
+	}
+	return (NULL);
 }
