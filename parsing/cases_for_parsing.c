@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/09 13:21:42 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 15:05:20 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	case_1(t_separators *sep, char **content, char *input, t_list **list)
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-	lst_add(list, content, NONE);
+	if (*content)
+		lst_add(list, content, SPACE);
 }
 
 void	case_2_or_3(t_separators *sep, char **content, char *input,
@@ -48,7 +49,8 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 		*content = replace_dollar(sep->what_case, *content, 0, list);
 	if (input[sep->i] != SPACE && input[sep->i])
 		case_4_or_5(sep, content, input, list);
-	lst_add(list, content, sep->tmp);
+	if (*content)
+		lst_add(list, content, SPACE);
 }
 
 void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
@@ -76,7 +78,7 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 		sep->i += ft_strlen(s1 + sep->i);
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
-			*content = replace_dollar(sep->what_case, *content, sep->tmp_i, list);
+		*content = replace_dollar(sep->what_case, *content, sep->tmp_i, list);
 	case_4_5_part_2(sep, content, s1, list);
 }
 
@@ -115,5 +117,6 @@ void	final_case(t_separators *sep, char **content, char *input,
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-	lst_add(list, content, SPACE);
+	if (*content)
+		lst_add(list, content, SPACE);
 }

@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/09 14:55:11 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 15:11:28 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,15 @@ char	*replace_dollar(char what_case, char *input, int i, t_list **list)
 	input = ft_substr(dollar.tmp_dup, 0, dollar.start);
 	if (what_case != DOUBLE_Q && ft_strchr(dollar.env_var, ' '))
 		return (d_t_case(input, list, &dollar));
-	input = ft_join(input, ft_strdup(dollar.env_var));
+	if (dollar.env_var[0])
+		input = ft_join(input, ft_strdup(dollar.env_var));
 	input = ft_join(input, ft_substr(dollar.tmp_dup, dollar.end, ft_strlen(dollar.tmp_dup) - dollar.end));
-	if (ft_strchr(input + 1, '$'))
+	if (ft_strchr(input, '$'))
 		input = replace_dollar(what_case, input, i, list);
+	if (!input[0])
+	{
+		free(NULL);
+		input = NULL;
+	}
 	return (input);
 }
