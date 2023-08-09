@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 19:16:29 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/09 16:19:17 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
 	while (input != NULL)
 	{
-		free_cmdopt(cmdopt);
-		if (ft_strncmp(input, "exit", 4) == 0)
+		init_cmdopt(cmdopt);
+		if (ft_strncmp(input, "exit", ft_strlen(input)) == 0)
 			return (exit_func(cmdopt, input));
 		if (input[0] && ft_strchr(input, '|'))
 		{

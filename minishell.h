@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 16:35:03 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/09 16:21:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int			check_correct_quotes(char *input);
 void		interpret_quotes(char *input, t_cmd_and_opt *cmdopt, int i);
 void		echo_remake(t_cmd_and_opt *cmdopt);
 char		*check_env_variables(char *input);
-void		expand(char **dest);
+void		expand(char **dest, int start);
 int			space_end_case(char **input, char **dest, char what_case, char *type);
 int			cmp(char *cmd_name, char *cmd_name_2);
 char		*read_bytes(int *fd);
@@ -125,12 +125,9 @@ void	shlvl_minus_one(void);
 void	rebuild_env(void);
 
 void	verif_env_and_path(t_cmd_and_opt *cmdopt);
-
 t_singleton	*get_env_instance(void);
 void		update_env(char **new_value);
 char		**get_env(void);
-
-
 char	*ft_getenv(char *var_name);
 int		ft_getenv_int(char *var_name);
 void	export_var(char *var);

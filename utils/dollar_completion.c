@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/04 14:14:48 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:23:29 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ char	*check_env_variables(char *input)
 	if (end <= 0)
 		end = ft_strlen(input);
 	value = ft_substr(input, 0, end);
-	if (!ft_strncmp(value, "$?", ft_strlen(value)))
-		return (free(value), ft_itoa(error_code));
+	if (ft_strlen(value) != 1 && !ft_strncmp(value, "$?", ft_strlen(value)))
+		return (free(value), ft_itoa(errno));
 	return_value = ft_strdup(ft_getenv(value + 1));
 	free (value);
 	return (return_value);
 }
 
-void	expand(char **dest)
+void	expand(char **dest, int start)
 {
 	char	*dup;
 	char	*dollar_pointer;
@@ -37,8 +37,8 @@ void	expand(char **dest)
 
 	dup = ft_strdup(*dest);
 	free(*dest);
-	dollar_pointer = ft_strchr(dup, '$');
-	*dest = ft_substr(dup, 0, ft_strchr(dup, '$') - dup);
+	dollar_pointer = ft_strchr(dup + start, '$');
+	*dest = ft_substr(dup, 0, ft_strchr(dup + start, '$') - dup);
 	end = NULL;
 	space_end_case(&dollar_pointer, &end, DOUBLE_Q, NULL);
 	*dest = ft_join(*dest, end);

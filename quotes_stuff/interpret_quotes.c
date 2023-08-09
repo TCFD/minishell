@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:06:57 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:21:52 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,42 @@ char	which_one(char *input)
 	return ('\0');
 }
 
-long int	assign_values(long int *f_quote, long int *s_quote,
-	char what_case, char **input)
+long int	find_first_special_char(char *input, long int *s_quote, long int final_space)
+{
+	long int	simple_chevrons;
+	long int	first_special_char;
+	
+	first_special_char = ft_strnstr(input + *s_quote + 1, ">>", ft_strlen(input)) - input - 1;
+	if (first_special_char < 0)
+		first_special_char = final_space;
+	simple_chevrons = ft_strnstr(input + *s_quote + 1, ">", ft_strlen(input)) - input;
+	if (simple_chevrons < 0)
+		simple_chevrons = final_space;
+	if (simple_chevrons && simple_chevrons < first_special_char && input[simple_chevrons + 1] != '>')
+		first_special_char = simple_chevrons;
+	if (first_special_char > *s_quote && first_special_char < final_space)
+		return (first_special_char);
+	else
+		return(final_space);
+}
+
+long int	assign_values(long int *f_quote, long int *s_quote, char what_case, char *input)
 {
 	long int		final_space;
 
+
 	final_space = 0;
-	*f_quote = ft_strchr_rc(*input, what_case) - *input;
-	*s_quote = ft_strchr_rc(*input + *f_quote + 1, what_case) - *input;
-	if (*input + *s_quote > *input)
-		final_space = ft_strchr_rc(*input + *s_quote + 1, SPACE) - *input;
+	*f_quote = ft_strchr_rc(input, what_case) - input;
+	if (*f_quote < 0)
+		*f_quote = 0;
+	*s_quote = ft_strchr_rc(input + *f_quote + 1, what_case) - input;
+	if (*s_quote < 0)
+		*s_quote = ft_strlen(input);
+	if (input + *s_quote > input)
+		final_space = ft_strchr_rc(input + *s_quote + 1, SPACE) - input;
 	if (final_space <= 0)
-		final_space = ft_strlen(*input);
-	return (final_space);
+		final_space = ft_strlen(input);
+	return (find_first_special_char(input, s_quote, final_space));
 }
 
 int	qutoes_case(char **input, char what_case, char **dest, char *type)
@@ -62,22 +85,29 @@ int	qutoes_case(char **input, char what_case, char **dest, char *type)
 	int				j;
 
 	j = 0;
-	final_space = assign_values(&first_quote, &second_quote, what_case, input);
+	final_space = assign_values(&first_quote, &second_quote, what_case, *input);
 	*dest = ft_calloc(sizeof(char), final_space + 1);
 	if (!*dest)
 		return (perror("malloc fail"), exit(0), 0);
 	i = -1;
-	while (++i < final_space)
+	while (++i < final_space + 1)
 	{
-		if (input[0][i] != what_case)
+		if ((input[0][i] != what_case))
 		{
 			dest[0][j] = input[0][i];
 			j++;
 		}
+		if (i == second_quote)
+		{
+			dest[0][j] = '\0';
+			if (what_case != SIMPLE_Q && ft_strchr(*dest + first_quote, '$'))
+				expand(dest, first_quote);
+			what_case = which_one(*input + i + 1);
+			assign_values(&first_quote, &second_quote, what_case, &input[0][i + 1]);
+			second_quote += i + 1;
+			first_quote += i - 1;
+		}
 	}
-	dest[0][j] = '\0';
-	if (what_case == DOUBLE_Q && ft_strchr(*dest, '$'))
-		expand(dest);
 	*type = NOT_INTERPRETABLE;
 	return (i);
 }
