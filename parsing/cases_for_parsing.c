@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/08 18:54:18 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 13:21:42 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 		*content = ft_substr(input + sep->i, 0,
 				ft_strchr(input + sep->i, sep->what_case) - (input + sep->i));
 		sep->i += ft_strlen(*content);
+		sep->what_case = 0;
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
 		*content = replace_dollar(sep->what_case, *content, 0, list);
