@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 18:45:27 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 16:37:50 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "INCLUDES/libft.h"
-# include "pipe_and_redirections/pipe/pipex/pipex_bonus.h"
+# include "pipe_and_redirections/pipe/pipex_for_minishell/pfm.h"
 # include <signal.h>
 # include <errno.h>
+# include <stdbool.h>
+# include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-
+# include <dirent.h>
 extern int	error_code;
 
 typedef struct s_redirections
@@ -69,10 +71,19 @@ typedef struct s_singleton
 {
 	char	*username;
 	char	**env;
+	char	*pwd;
 	int		count;
 }t_singleton;
 
-typedef struct s_opt_tab
+typedef struct c_cd
+{
+	char	*env_pwd;
+	char	*env_old_pwd;
+	int		env_pwd_true;
+	int		env_oldpwd_true;
+} t_cd;
+
+typedef	struct s_opt_tab
 {
 	char	**tab;
 	char	*type;
@@ -163,9 +174,7 @@ int			does_command_path_valid(char *cmd);
 int			verif_if_env_called(t_cmd_and_opt *cmdopt);
 
 void		update_err_code(int code_err);
-void		update_err_code_exit(int code_err);
 void		ft_exit(char *code_err);
-void		update_err_code_exit(int code_err);
 char		*get_pwd(void);
 void		print_pwd(void);
 
@@ -193,6 +202,20 @@ t_list		*all_tokens(char *input, t_list *list, int i, int len);
 void		lst_add(t_list **list, char **content, char type);
 void		temp_heredoc(char *str);
 void		redo_path_and_name(t_cmd_and_opt *cmd);
+void		update_err_code_exit(char *origin_code, int code_err);
+
+
+char	*get_pwd(void);
+void	print_pwd(void);
+
+void	exit_func(t_cmd_and_opt *cmdopt, char *input);
+int		get_word_index(char const *str, char const *word);
+void	free_d_int(int **elmt, int len);
+
+t_singleton	*get_pwd_instance(void);
+char	*get_env_var(char *var_name);
+void	update_pwd(char *new_value);
+char	**get_pwd_path(void);
 
 // ------- Pour le tester --------//
 

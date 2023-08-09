@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 16:29:46 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 16:47:11 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	sigint_handler(int signum)
 	prompt = display_user_prompt((char *)get_username());
 	ft_printf("\n%s", prompt);
 	free(prompt);
+	update_err_code(130);
 }

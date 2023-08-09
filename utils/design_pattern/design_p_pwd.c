@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   design_p_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 16:48:48 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/07 16:13:44 by wolf             ###   ########.fr       */
+/*   Created: 2023/07/26 17:24:14 by tboldrin          #+#    #+#             */
+/*   Updated: 2023/07/31 11:11:45 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *nptr)
-{
-	int	i;
-	int	res;
-	int	s;
+#include "../../minishell.h"
 
-	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 7 && nptr[i] <= 13))
-		i++ ;
-	res = 0;
-	s = 1;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			s = -1;
-		i++;
-	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		res = res * 10 + (nptr[i] - 48);
-		i++ ;
-	}
-	return (res * s);
+t_singleton	*get_pwd_instance(void)
+{
+	static t_singleton	instance;
+	return (&instance);
+}
+
+void	update_pwd(char *new_value)
+{
+	t_singleton	*singleton;
+
+	singleton = get_pwd_instance();
+	if (singleton->pwd)
+		free(singleton->pwd);
+	singleton->pwd = new_value;
+}
+
+char	**get_pwd_path(void)
+{
+	t_singleton	*singleton;
+
+	singleton = get_pwd_instance();
+	return (singleton->env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 17:21:52 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 16:33:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*getenv_check(char *str)
 // EXIT FUNC
 void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
-	char	ipt[1024];
+	char	*ipt;
 	char	**spl;
 	int		i;
 
@@ -35,9 +35,15 @@ void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 	while (i < 1024)
 		ipt[i++] = '\0';
 	spl = ft_split(input, ' ');
+	if (d_len(spl) > 2)
+		return ((void)printf("bash: exit: trop d'arguments\n"),
+			free_cmdopt(cmdopt), free(input), free_d_array(spl),
+			exit(1));
 	if (spl[1])
-		ft_strlcpy(ipt, spl[1], ft_strlen(spl[1]) + 1);
-	//free_cmdopt(cmdopt);
+		ipt = ft_strdup(spl[1]);
+	else
+		ipt = NULL;
+	free_cmdopt(cmdopt);
 	rl_clear_history();
 	free(input);
 	free_d_array(spl);
@@ -57,14 +63,18 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			return (exit_func(cmdopt, input));
 		while (input[i] == ' ')
 			i++;
-		if (input[i])
+		if (input[i] && ft_strchr(input, '|'))
+		{
+			pipex(input);
+			add_history(input);
+		}
+		else if (input[i])
 		{
 			create_command(input, cmdopt);
 			add_history(input);
+			execute_command(cmdopt);
 		}
-		execute_command(cmdopt);
-		if (input[i])
-			free_cmdopt(cmdopt);
+		free_cmdopt(cmdopt);
 		free(input);
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 13:42:03 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 16:48:41 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{
-			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_path,
+			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
 			return (free_cmdopt(cmdopt), exit(errno));
 		}
@@ -47,11 +47,10 @@ char	*brut_name(char *command_np)
 	char	*brut_command_name;
 
 	if (!ft_strchr(command_np, '/'))
-		return (command_np);
+		return (ft_strdup(command_np));
 	str_split = ft_split(command_np, '/');
-	brut_command_name = ft_cpy(str_split[d_len(str_split) - 1], 0);
+	brut_command_name = ft_strdup(str_split[d_len(str_split) - 1]);
 	free_d_array(str_split);
-	free(command_np);
 	return (brut_command_name);
 }
 

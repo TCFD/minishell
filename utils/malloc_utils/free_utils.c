@@ -3,28 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:23:39 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/09 16:49:54 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	free_d_array(char **str)
+void	free_d_int(int **elmt, int len)
 {
 	int	idx;
 
 	idx = 0;
+	if (elmt != NULL)
+	{
+		while (idx < len)
+		{
+        	free(elmt[idx]);
+			idx++ ;
+		}
+	}
+    free(elmt);
+}
+
+
+void	free_d_array(char **str)
+{
+	int idx;
+	int len;
+
+	len = d_len(str);
 	if (str == NULL)
-		return ;
-	while (str[idx] && str[idx] != NULL)
+		return;
+	idx = 0;
+	while (str[idx] && idx < len)
 	{
 		free(str[idx]);
-		idx++;
+		str[idx] = NULL;
+		idx++ ;
 	}
-	free(str);
+	if (len >= 1)
+		free(str);
 }
 
 void	free_t_array(char ***str)
@@ -48,10 +69,7 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 		free(cmdopt->command_path);
 	if (cmdopt->opt_ty_tb.type)
 		free(cmdopt->opt_ty_tb.type);
-	if (cmdopt->opt_ty_tb.tab)
+	if (cmdopt->opt_ty_tb.tab != NULL)
 		free_d_array(cmdopt->opt_ty_tb.tab);
-	cmdopt->command_name = NULL;
-	cmdopt->command_path = NULL;
-	cmdopt->opt_ty_tb.type = NULL;
-	cmdopt->opt_ty_tb.tab = NULL;
+	init_cmdopt(cmdopt);
 }

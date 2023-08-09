@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/12 16:28:10 by rciaze           ###   ########.fr        #
+#    Updated: 2023/08/09 16:33:39 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC				=	gcc
 CLEANF 			=	@(find . -name "*.o" -type f -delete)
 OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
 INCLUDE			= 	INCLUDES
-PIPEX  			=	pipe_and_redirections/pipe/pipex
+PIPEX  			=	pipe_and_redirections/pipe/pipex_for_minishell/
 REDIRECTIONS	=	pipe_and_redirections/redirections/
 UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
@@ -37,6 +37,7 @@ SRCS 		=	maintest.c								\
 				$(UTILS)others_utils.c					\
 				$(DESIGN_PATTERN)design_p_username.c	\
 				$(DESIGN_PATTERN)design_p_env.c			\
+				$(DESIGN_PATTERN)design_p_pwd.c			\
 				$(GLOBAL)errno_management.c				\
 				$(MALLOC_UTILS)free_utils.c				\
 				$(COMMAND_UTILS)shlvl_utils.c			\
@@ -60,6 +61,7 @@ SRCS 		=	maintest.c								\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
 				$(REDIRECTIONS)left_rafter_utils.c		\
 				$(REDIRECTIONS)left_rafter_utils2.c		\
+				$(PIPEX)pfm1.c							\
 
 # Couleurs
 BOLD		=	"\033[1m"
@@ -76,10 +78,9 @@ obj/%.o: %.c
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)
-	@make -s -C $(PIPEX)
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
@@ -90,7 +91,6 @@ clean :
 fclean : clean
 	@rm -f libft.a
 	@rm -f $(NAME)
-	@make -s fclean -C $(PIPEX)/
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) deleted.$(RESET)
 
 re : fclean all
