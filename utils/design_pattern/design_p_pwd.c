@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:24:14 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/31 11:11:45 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/11 22:55:24 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	update_pwd(char *new_value)
 	singleton->pwd = new_value;
 }
 
-char	**get_pwd_path(void)
+char	*get_pwd_path(void)
 {
 	t_singleton	*singleton;
 
 	singleton = get_pwd_instance();
-	return (singleton->env);
+	return (singleton->pwd);
 }

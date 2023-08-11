@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 16:37:50 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/11 22:54:52 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ void	free_d_int(int **elmt, int len);
 t_singleton	*get_pwd_instance(void);
 char	*get_env_var(char *var_name);
 void	update_pwd(char *new_value);
-char	**get_pwd_path(void);
+char	*get_pwd_path(void);
 
 // ------- Pour le tester --------//
 

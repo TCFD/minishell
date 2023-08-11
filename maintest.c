@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 16:58:45 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/11 23:29:09 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
     char    *ipt;
     char    **spl;
-
+	
     spl = ft_split(input, ' ');
     if (d_len(spl) > 2)
         return ((void)printf("bash: exit: trop d'arguments\n"),

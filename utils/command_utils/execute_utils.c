@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 16:48:41 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/11 22:04:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ char	*brut_name(char *command_np)
 	char	*brut_command_name;
 
 	if (!ft_strchr(command_np, '/'))
-		return (ft_strdup(command_np));
+		return (command_np);
 	str_split = ft_split(command_np, '/');
 	brut_command_name = ft_strdup(str_split[d_len(str_split) - 1]);
 	free_d_array(str_split);
+	free(command_np);
 	return (brut_command_name);
 }
 

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 16:45:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/11 22:26:12 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*is_path_unset(char *command_name, int imd_return)
 
 	env_path = ft_getenv("PATH");
 	if (!env_path && imd_return)
-		return (ft_strdup(command_name));
+		return (command_name);
 	if (env_path)
 		path_split = ft_split(env_path, ':');
 	else
@@ -34,11 +34,12 @@ char	*is_path_unset(char *command_name, int imd_return)
 		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
 		path2 = ft_join(path, ft_strdup(command_name));
 		if (access(path2, F_OK | X_OK) == 0)
-			return ((free_d_array(path_split)), path2);
+			return ((free_d_array(path_split)), free(command_name), path2);
 		free(path2);
 		idx++ ;
 	}
 	free_d_array(path_split);
+	free(command_name);
 	return (ft_strdup(""));
 }
 
@@ -73,7 +74,7 @@ int	does_command_path_valid(char *cmd)
 char	*create_path(char *command_name, int imd_return)
 {
 	if (ft_strchr(command_name, '/'))
-		return (ft_strdup(command_name));
+		return (command_name);
 	return (is_path_unset(command_name, imd_return));
 }
 
