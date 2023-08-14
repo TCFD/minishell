@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/09 16:46:59 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/14 09:28:45 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ char	*replace_dollar(char what_case, char *input, int i, t_list **list)
 		free(NULL);
 		input = NULL;
 	}
-	return (input);
+	return (free(dollar.tmp_dup), free(dollar.env_var), input);
 }
