@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:37:39 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/11/26 16:12:35 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:40:34 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stddef.h>
 
+#include <stddef.h>
+			
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
 	i = 0;
+	if (!s1)
+		return (-1);
+	if (!s2)
+		return (1);
 	while (i < n)
 	{
 		if (s1[i] == s2[i])

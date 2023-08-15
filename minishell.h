@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/11 22:54:52 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/15 14:59:47 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int			use_pipex(char *command);
 int			check_correct_quotes(char *input);
 void		parse_that_shit(char *input, t_cmd_and_opt *cmdopt);
 void		echo_remake(t_cmd_and_opt *cmdopt);
-char		*check_env_variables(char *input, int start, int end);
+char		*check_env_variables(char *input, int end);
 void		expand(char **dest, int start, int if_case);
 int			space_end_case(char **input, char **dest, char what_case,
 				char *type);
