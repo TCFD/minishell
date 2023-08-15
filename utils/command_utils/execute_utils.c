@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/11 22:04:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/15 22:33:26 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 			return (free_cmdopt(cmdopt), exit(errno));
 		}
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			errno = WEXITSTATUS(status);
-	}
+	update_sign_ctrl(1);
+	waitpid(pid, &status, 0);
+	update_sign_ctrl(0);
+	if (WIFEXITED(status))
+		errno = WEXITSTATUS(status);
 	update_err_code((int)errno);
 }
 
@@ -63,20 +62,8 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 	return (0);
 }
 
-void	execute_command(t_cmd_and_opt *cmdopt)
+void	find_command(t_cmd_and_opt *cmdopt)
 {
-	t_redirections	redirections;
-	bool			redir_out_bool;
-	bool			redir_in_bool;
-
-	if (!cmdopt->command_name)
-		return ;
-	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
-		return ;
-	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
-		return ;
-	free(cmdopt->opt_ty_tb.tab[0]);
-	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
 	else if (cmp(cmdopt->command_name, "echo"))
@@ -94,6 +81,23 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
 	else
 		run_execve(cmdopt);
+}
+
+void	execute_command(t_cmd_and_opt *cmdopt)
+{
+	t_redirections	redirections;
+	bool			redir_out_bool;
+	bool			redir_in_bool;
+
+	if (!cmdopt->command_name)
+		return ;
+	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
+		return ;
+	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
+		return ;
+	free(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
+	find_command(cmdopt);
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)
