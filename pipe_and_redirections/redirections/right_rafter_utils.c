@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/07 19:58:40 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/15 16:37:21 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@ int	add_rest(char **tab, char *type, int i, t_redirections *redir)
 	return (1);
 }
 
-int	open_sub_file(char **tab, int i, int *funct_counter)
+int	open_sub_file(char **tab, int *i, int *funct_counter)
 {
 	int	fd;
 
-	if (ft_strncmp(tab[i], D_R_RAFTER, 2) == 0)
-		fd = open(tab[i + 1], O_CREAT | O_APPEND, 0666);
+	if (ft_strncmp(tab[*i], D_R_RAFTER, 2) == 0)
+		fd = open(tab[*i + 1], O_CREAT | O_APPEND, 0666);
 	else
-		fd = open(tab[i + 1], O_CREAT | O_TRUNC, 0666);
+		fd = open(tab[*i + 1], O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 		return (perror("Failed to open file"), 0);
 	if (close(fd) == -1)
 		return (perror("Failed to close file"), 0);
-	i++;
-	funct_counter++;
+	*i += 1;
+	*funct_counter += 1;
 	return (1);
 }
 
@@ -68,7 +68,7 @@ int	remove_redirections(char **tab, char *type, t_redirections *redir)
 		if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
 			&& funct_counter < redir->counter)
 		{
-			if (open_sub_file(tab, i, &funct_counter) == 0)
+			if (open_sub_file(tab, &i, &funct_counter) == 0)
 				return (0);
 			continue ;
 		}

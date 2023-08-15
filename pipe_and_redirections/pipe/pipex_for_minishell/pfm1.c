@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pfm1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:53:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/09 16:55:55 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/15 16:56:06 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,14 @@ void	execute_pipe_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
 	else if (!cmdopt->command_path[0])
+	{
+		if (redir_in_bool)
+			restore_stdin(&redirections);
+		if (redir_out_bool)
+			restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
+	}
 	else
 		run_execve(cmdopt);
 	if (redir_in_bool)
