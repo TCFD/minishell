@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/11 23:29:09 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/15 22:49:15 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 // MINISHELL
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
-	int	i;
-	
+	int		i;
+	char	*last_entry;
+
 	i = 0;
+	last_entry = ft_strdup(NULL);
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
@@ -61,21 +63,26 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		if (input[i] && ft_strchr(input, '|'))
 		{
 			pipex(input);
-			add_history(input);
+			if (ft_strncmp(last_entry, input, ft_strlen(input) + ft_strlen(last_entry)))
+				add_history(input);
 		}
 		else if (input[i])
 		{
 			create_command(input, cmdopt);
-			add_history(input);
+			if (ft_strncmp(last_entry, input, ft_strlen(input) + ft_strlen(last_entry)))
+				add_history(input);
 			execute_command(cmdopt);
 		}
 		free_cmdopt(cmdopt);
+		free(last_entry);
+		last_entry = ft_strdup(input);
 		free(input);
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 		free(prompt);
 		prompt = NULL;
 	}
+	free(last_entry);
 	return ;
 }
 

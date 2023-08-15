@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/09 15:05:20 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/15 22:03:22 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 	if (input[sep->i] != SPACE && input[sep->i])
 		case_4_or_5(sep, content, input, list);
 	if (*content)
-		lst_add(list, content, SPACE);
+		lst_add(list, content, sep->what_case);
 }
 
 void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
@@ -79,7 +79,8 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
 		*content = replace_dollar(sep->what_case, *content, sep->tmp_i, list);
-	case_4_5_part_2(sep, content, s1, list);
+	if (s1[sep->i])
+		case_4_5_part_2(sep, content, s1, list);
 }
 
 void	case_4_5_part_2(t_separators *sep, char **content, char *input, t_list **list)

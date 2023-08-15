@@ -6,7 +6,7 @@
 /*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/15 17:09:17 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/15 22:12:01 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 	return (1);
 }
 
+int	search_if_file_exist(char *filename)
+{
+	int	filefd;
+
+	filefd = open(filename, O_RDONLY, 0666);
+	if (filefd == -1)
+		return ((void)ft_printf("Minishell : %s: ", filename), perror(""), 1);
+	close(filefd);
+	return (0);
+}
+
 int	remove_in_redirections(char **tab, char *type, t_redirections *redi, int i)
 {
 	int		funct_counter;
@@ -44,6 +55,9 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redi, int i)
 		{
 			if (ft_strnstr(tab[i], D_L_RAFTER, ft_strlen(tab[i])))
 				temp_heredoc(tab[i + 1]);
+			else
+				if (search_if_file_exist(tab[i + 1]))
+					return (0);
 			i++;
 			funct_counter++;
 			continue ;
