@@ -6,7 +6,7 @@
 /*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/15 16:37:21 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/15 17:11:59 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	redir->list = NULL;
 	if (remove_redirections(cmdopt->opt_ty_tb.tab,
 			cmdopt->opt_ty_tb.type, redir) == 0)
-		return (0);
+		return (ft_lstclear(&redir->list), 0);
 	free_d_array(cmdopt->opt_ty_tb.tab);
 	cmdopt->opt_ty_tb.tab = list_to_d_tab(redir->list);
 	redo_path_and_name(cmdopt);
