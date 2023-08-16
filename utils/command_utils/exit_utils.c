@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/16 20:26:02 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:32:36 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void	ft_exit(char *code_err)
 {
 	if (ft_len(code_err) > 0 && code_err[0] != '\0')
 		update_err_code_exit(code_err, ft_atoi(code_err));
-	free(code_err);
 }
