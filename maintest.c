@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 22:49:15 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:01:49 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
     char    *ipt;
     char    **spl;
-	
+	char	*env_free;
+
     spl = ft_split(input, ' ');
     if (d_len(spl) > 2)
         return ((void)printf("bash: exit: trop d'arguments\n"),
@@ -37,7 +38,13 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
     if (spl[1])
         ipt = ft_strdup(spl[1]);
     else
+	{
         ipt = NULL;
+	}	
+	env_free = get_env_var("PWD=");
+	free(env_free);
+	env_free = get_env_var("OLDPWD=");
+	free(env_free);
     free_cmdopt(cmdopt);
     rl_clear_history();
     free(input);
@@ -114,6 +121,7 @@ int	main(int ac, char **ag, char **env)
 
 	//welcome_to_minishell();
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
 	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);

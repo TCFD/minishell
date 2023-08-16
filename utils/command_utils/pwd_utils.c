@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/11 23:35:03 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/15 23:00:42 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*get_pwd(void)
 		return (free(current_dir), (void)update_err_code((int)errno),
 			ft_strdup(last_one));
 	update_err_code(0);
-	update_pwd(current_dir);
+	last_one = ft_cpy(current_dir, 0);
+	update_pwd(last_one);
 	return (current_dir);
 }
 
