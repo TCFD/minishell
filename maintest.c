@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 20:09:04 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:18:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ char	*getenv_check(char *str)
 void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
     char    *ipt;
+	char	*env_free;
     //char    **spl;
 	
     //spl = ft_split(input, ' ');
+	
 	create_command(input, cmdopt);
     if (d_len(cmdopt->opt_ty_tb.tab) > 2)
         return ((void)printf("bash: exit: trop d'arguments\n"),
