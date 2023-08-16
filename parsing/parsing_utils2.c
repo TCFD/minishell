@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:27:47 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/04 13:02:39 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 16:46:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,20 @@ char	which_one(char *input)
 	return ('\0');
 }
 
-void	init_tabs(char char_tab[4], long int tab[4], char *input)
+void	init_tabs(char char_tab[6], long int tab[6], char *input)
 {
 	char_tab[0] = '>';
 	char_tab[1] = '<';
 	char_tab[2] = ' ';
-	char_tab[3] = '|';
+	char_tab[3] = '\t';
+	char_tab[4] = '\n';
+	char_tab[5] = '|';
 	tab[0] = ft_strchr(input, char_tab[0]) - input;
 	tab[1] = ft_strchr(input, char_tab[1]) - input;
 	tab[2] = ft_strchr(input, char_tab[2]) - input;
 	tab[3] = ft_strchr(input, char_tab[3]) - input;
+	tab[4] = ft_strchr(input, char_tab[4]) - input;
+	tab[5] = ft_strchr(input, char_tab[5]) - input;
 }
 
 void	lst_add(t_list **list, char **content, char type)
@@ -59,8 +63,8 @@ void	lst_add(t_list **list, char **content, char type)
 
 char	search_first_separator(char *input, int len)
 {
-	char		char_tab[4];
-	long int	tab[4];
+	char		char_tab[6];
+	long int	tab[6];
 	long int	lowest;
 	long int	y;
 	int			i;
@@ -69,7 +73,7 @@ char	search_first_separator(char *input, int len)
 	lowest = len;
 	i = -1;
 	y = -1;
-	while (++i < 4)
+	while (++i < 6)
 	{
 		if (tab[i] < 0)
 			tab[i] = len + 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/07 19:58:27 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/16 16:46:25 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*all_tokens(char *input, t_list *list, int i, int len)
 			else
 				final_case(&sep, &content, input, &list);
 		}
-		while (input[sep.i] == SPACE)
+		while (input[sep.i] == SPACE || input[sep.i] == '\t' || input[sep.i] == '\n')
 			sep.i += 1;
 	}
 	list = NULL;

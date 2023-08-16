@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 14:59:47 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/16 16:51:00 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void	print_pwd(void);
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
 int		get_word_index(char const *str, char const *word);
 void	free_d_int(int **elmt, int len);
-
+int		check_if_IFS(char c);
 t_singleton	*get_pwd_instance(void);
 char	*get_env_var(char *var_name);
 void	update_pwd(char *new_value);

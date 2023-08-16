@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/07 19:12:39 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/16 16:50:20 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,11 @@ int	find_first_occurence(char *str, char cara)
 		idx++ ;
 	}
 	return (-1);
+}
+
+int	check_if_IFS(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n')
+		return (1);
+	return (0);
 }

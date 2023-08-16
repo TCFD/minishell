@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/11 23:29:09 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/16 18:49:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,22 @@ char	*getenv_check(char *str)
 void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
     char    *ipt;
-    char    **spl;
+    //char    **spl;
 	
-    spl = ft_split(input, ' ');
-    if (d_len(spl) > 2)
+    //spl = ft_split(input, ' ');
+	create_command(input, cmdopt);
+    if (d_len(cmdopt->opt_ty_tb.tab) > 2)
         return ((void)printf("bash: exit: trop d'arguments\n"),
-            free_cmdopt(cmdopt), free(input), free_d_array(spl),
+            free_cmdopt(cmdopt), free(input),
             exit(1));
-    if (spl[1])
-        ipt = ft_strdup(spl[1]);
+    if (cmdopt->opt_ty_tb.tab[1])
+        ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
     else
         ipt = NULL;
     free_cmdopt(cmdopt);
     rl_clear_history();
     free(input);
-    free_d_array(spl);
+    ///free_d_array(spl);
     ft_exit(ipt);
 }
 
@@ -54,9 +55,9 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
-		if (ft_strncmp(input, "exit", 4) == 0)
+		if (ft_strncmp(input, "exit", 4) == 0 && (check_if_IFS(input[4]) || input[4] == '\0'))
 			return (exit_func(cmdopt, input));
-		while (input[i] == ' ')
+		while (check_if_IFS(input[i]))
 			i++;
 		if (input[i] && ft_strchr(input, '|'))
 		{
@@ -107,6 +108,7 @@ int	main(int ac, char **ag, char **env)
 
 	//welcome_to_minishell();
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
 	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
