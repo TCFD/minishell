@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 19:02:07 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/16 19:04:04 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,8 @@ void	find_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
 	else if (!cmdopt->command_path[0])
-	{
-		if (redir_in_bool)
-			restore_stdin(&redirections);
-		if (redir_out_bool)
-			restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
-	}
 	else
 		run_execve(cmdopt);
 }
