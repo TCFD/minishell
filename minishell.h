@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 16:51:00 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:09:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_singleton
 	char	**env;
 	char	*pwd;
 	int		count;
+	int		sign_ctrl;
 }t_singleton;
 
 typedef struct c_cd
@@ -89,6 +90,7 @@ typedef	struct s_opt_tab
 	char	*type;
 }t_opt_tab;
 
+// S : COMMAND AND OPTION
 typedef struct s_command_and_option
 {
 	char			*command_name;
@@ -97,6 +99,7 @@ typedef struct s_command_and_option
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
+// S : DOLLAR
 typedef struct s_dollar
 {
 	int		start;
@@ -216,6 +219,11 @@ t_singleton	*get_pwd_instance(void);
 char	*get_env_var(char *var_name);
 void	update_pwd(char *new_value);
 char	*get_pwd_path(void);
+
+void		find_command(t_cmd_and_opt *cmdopt);
+
+void	update_sign_ctrl(int value);
+int		get_sign_ctrl(void);
 
 // ------- Pour le tester --------//
 

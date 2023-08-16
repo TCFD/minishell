@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 18:53:21 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:09:04 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
     if (cmdopt->opt_ty_tb.tab[1])
         ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
     else
+	{
         ipt = NULL;
+	}	
+	env_free = get_env_var("PWD=");
+	free(env_free);
+	env_free = get_env_var("OLDPWD=");
+	free(env_free);
     free_cmdopt(cmdopt);
     rl_clear_history();
     free(input);

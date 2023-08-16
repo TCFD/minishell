@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 16:54:46 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:04:04 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 			return (free_cmdopt(cmdopt), exit(errno));
 		}
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			errno = WEXITSTATUS(status);
-	}
+	update_sign_ctrl(1);
+	waitpid(pid, &status, 0);
+	update_sign_ctrl(0);
+	if (WIFEXITED(status))
+		errno = WEXITSTATUS(status);
 	update_err_code((int)errno);
 }
 
@@ -63,6 +62,27 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 	return (0);
 }
 
+void	find_command(t_cmd_and_opt *cmdopt)
+{
+	if (cmp(cmdopt->command_name, "cd"))
+		cd_remake(cmdopt);
+	else if (cmp(cmdopt->command_name, "echo"))
+		echo_remake(cmdopt);
+	else if (cmp(cmdopt->command_name, "unset"))
+		unset_all_env_var(cmdopt);
+	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
+		display_env(get_env(), cmdopt);
+	else if (cmp(cmdopt->command_name, "export"))
+		export_all_var(cmdopt);
+	else if (cmp(cmdopt->command_name, "pwd"))
+		print_pwd();
+	else if (!cmdopt->command_path[0])
+		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
+				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
+	else
+		run_execve(cmdopt);
+}
+
 void	execute_command(t_cmd_and_opt *cmdopt)
 {
 	t_redirections	redirections;
@@ -77,29 +97,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 		return ;
 	free(cmdopt->opt_ty_tb.tab[0]);
 	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
-	if (cmp(cmdopt->command_name, "cd"))
-		cd_remake(cmdopt);
-	else if (cmp(cmdopt->command_name, "echo"))
-		echo_remake(cmdopt);
-	else if (cmp(cmdopt->command_name, "unset"))
-		unset_all_env_var(cmdopt);
-	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
-		display_env(get_env(), cmdopt);
-	else if (cmp(cmdopt->command_name, "export"))
-		export_all_var(cmdopt);
-	else if (cmp(cmdopt->command_name, "pwd"))
-		print_pwd();
-	else if (!cmdopt->command_path[0])
-	{
-		if (redir_in_bool)
-			restore_stdin(&redirections);
-		if (redir_out_bool)
-			restore_stdout(redirections.stdout_save, redirections.file_out_fd);
-		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
-	}
-	else
-		run_execve(cmdopt);
+	find_command(cmdopt);
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)

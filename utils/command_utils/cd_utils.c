@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/09 16:47:47 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/15 23:07:33 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ char	*join_by_value(char *var_name, char *value)
 
 void	write_env_oldpwd(t_cd *cd_var, char *oldpwd)
 {
-	if (cd_var->env_oldpwd_true == 1)
+	static int	count_oldpwd;
+
+	count_oldpwd++ ;
+	if (count_oldpwd >= 3 && cd_var->env_oldpwd_true == 1)
 		free(cd_var->env_old_pwd);
 	cd_var->env_old_pwd = oldpwd;
 	cd_var->env_oldpwd_true = 1;
@@ -56,7 +59,10 @@ void	write_env_oldpwd(t_cd *cd_var, char *oldpwd)
 
 void	write_env_pwd(t_cd *cd_var, char *pwd)
 {
-	if (cd_var->env_pwd_true == 1)
+	static int	count_pwd;
+
+	count_pwd++ ;
+	if (count_pwd >= 3 && cd_var->env_pwd_true == 1)
 		free(cd_var->env_pwd);
 	cd_var->env_pwd = pwd;
 	cd_var->env_pwd_true = 1;
@@ -69,6 +75,7 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 	char	current_dir[4096];
 	char	*f;
 
+	current_dir[0] = '\0';
 	if (!cmdopt->opt_ty_tb.tab || (d_len(cmdopt->opt_ty_tb.tab) == 2
 			&& cmdopt->opt_ty_tb.tab[1][0] == 0))
 		return ;
