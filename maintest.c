@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 23:09:18 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/16 18:53:56 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	main(int ac, char **ag, char **env)
 
 	//welcome_to_minishell();
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigint_handler);
 	update_env(env);
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
