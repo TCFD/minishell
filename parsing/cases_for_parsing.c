@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/16 19:42:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:07:05 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-	if (input[sep->i] != SPACE && input[sep->i])
+	if (!check_if_IFS(input[sep->i]) && input[sep->i])
 		case_4_or_5(sep, content, input, list);
 	if (*content)
 		lst_add(list, content, sep->what_case);
@@ -67,7 +67,7 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 		sep->i += ft_strchr(s1 + sep->i, sep->what_case)
 			- (s1 + sep->i) + 1;
 	}
-	else if (sep->what_case == SPACE && sep->separator == SPACE)
+	else if (check_if_IFS(sep->separator) && check_if_IFS(sep->separator))
 	{
 		*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
 					ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
@@ -88,7 +88,7 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 void	case_4_5_part_2(t_separators *sep, char **content, char *input, t_list **list)
 {
 	set_separator(sep, input);
-	while ((sep->separator == SPACE || sep->separator == NONE)
+	while ((check_if_IFS(sep->separator) || sep->separator == NONE)
 		&& sep->s_string > 0)
 	{
 		if ((sep->what_case == SIMPLE_Q && input[sep->i] == SIMPLE_Q)

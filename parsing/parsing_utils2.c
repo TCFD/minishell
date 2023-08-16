@@ -6,29 +6,45 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:27:47 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/16 16:46:01 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:04:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+char	find_first_isf(char *input)
+{
+	int	i;
+
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] == ' ' || input[i] == '\t' || input[i] == '\n')
+			return (input[i]);
+	}
+	return (' ');
+}
+
 char	which_one(char *input)
 {
 	char	*first_simple_quote;
 	char	*first_double_quote;
-	char	*first_space;
+	char	*first_isf_pointer;
+	char	first_isf;
 
 	first_simple_quote = ft_strchr_rc(input, '\'');
 	first_double_quote = ft_strchr_rc(input, '\"');
-	first_space = ft_strchr_rc(input, ' ');
+	first_isf = find_first_isf(input);
+	first_isf_pointer = ft_strchr_rc(input, first_isf);
 	if (first_simple_quote == NULL)
 		first_simple_quote = input + ft_strlen(input);
 	if (first_double_quote == NULL)
 		first_double_quote = input + ft_strlen(input);
-	if (first_space == NULL)
-		first_space = input + ft_strlen(input);
-	if (first_space < first_double_quote && first_space < first_simple_quote)
-		return (SPACE);
+	if (first_isf_pointer == NULL)
+		first_isf_pointer = input + ft_strlen(input);
+	if (first_isf_pointer < first_double_quote
+		&& first_isf_pointer < first_simple_quote)
+		return (first_isf);
 	if (first_simple_quote < first_double_quote)
 		return (SIMPLE_Q);
 	if (first_simple_quote > first_double_quote)
@@ -50,15 +66,6 @@ void	init_tabs(char char_tab[6], long int tab[6], char *input)
 	tab[3] = ft_strchr(input, char_tab[3]) - input;
 	tab[4] = ft_strchr(input, char_tab[4]) - input;
 	tab[5] = ft_strchr(input, char_tab[5]) - input;
-}
-
-void	lst_add(t_list **list, char **content, char type)
-{
-	(*list)->content = ft_strdup(*content);
-	free(*content);
-	(*list)->type = type;
-	(*list)->next = ft_lstnew("", NONE);
-	(*list) = (*list)->next;
 }
 
 char	search_first_separator(char *input, int len)

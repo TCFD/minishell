@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/16 16:46:25 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 19:55:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*all_tokens(char *input, t_list *list, int i, int len)
 			else
 				final_case(&sep, &content, input, &list);
 		}
-		while (input[sep.i] == SPACE || input[sep.i] == '\t' || input[sep.i] == '\n')
+		while (check_if_IFS(input[sep.i]) && input[sep.i])
 			sep.i += 1;
 	}
 	list = NULL;
