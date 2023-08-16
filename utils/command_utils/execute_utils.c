@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 19:04:04 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/16 20:47:41 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	execute_command(t_cmd_and_opt *cmdopt)
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
 		return ;
 	free(cmdopt->opt_ty_tb.tab[0]);
-	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
 	find_command(cmdopt);
 	if (redir_in_bool)
 		restore_stdin(&redirections);
