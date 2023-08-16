@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 21:46:07 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:50:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,9 @@ void	export_var(char *var)
 	char	**env;
 	int		idx_var;
 
-	if (export_name_unvalid(var))
+	if (export_name_unvalid(var) || var[0] == '=')
 		return ((void)update_err_code(1), (void)ft_printf("bash : export: "),
 			(void)ft_printf("« %s » : identifiant non valable\n", var));
-	if (var[0] == '=')
-		return ((void)update_err_code((int)errno),
-			(void)ft_printf("bash : export: « = » : identifiant non valable\n"));
 	if (!ft_strchr(var, '='))
 		return ;
 	split_name = ft_split(var, '=');

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/16 18:53:28 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/16 19:42:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 	set_separator(sep, s1);
 	if (sep->w_string < sep->s_string)
 	{
-		sep->i += 1;
+		if ((sep->what_case == SIMPLE_Q && s1[sep->i] == SIMPLE_Q)
+			|| (sep->what_case == DOUBLE_Q && s1[sep->i] == DOUBLE_Q))
+			sep->i += 1;
 		*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
 					ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
 		sep->i += ft_strchr(s1 + sep->i, sep->what_case)
