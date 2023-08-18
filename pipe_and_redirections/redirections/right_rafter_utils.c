@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/15 21:42:31 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/18 16:59:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	redo_path_and_name(t_cmd_and_opt *cmd)
 	}
 	else
 	{
-		cmd->command_name = brut_name(ft_strdup(cmd->opt_ty_tb.tab[0]));
+		cmd->command_name = ft_strdup(cmd->opt_ty_tb.tab[0]);
 		cmd->command_path = create_path(ft_strdup(cmd->opt_ty_tb.tab[0]), 1);
 	}
 }

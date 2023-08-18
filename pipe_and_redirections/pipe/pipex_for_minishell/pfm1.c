@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pfm1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:53:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 16:56:06 by raphael          ###   ########.fr       */
+/*   Updated: 2023/08/18 18:39:48 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	exec(t_cmd_and_opt *cmdopt)
 	
 	if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env()) == -1)
 	{
-		error_join = ft_join(ft_strdup("bash : "), ft_strdup(cmdopt->command_name));
+		error_join = ft_join(ft_strdup("Minishell : "), ft_strdup(cmdopt->command_name));
 		perror(error_join);
 		free(error_join);
 		exit(errno);
@@ -191,7 +191,7 @@ void	execute_pipe_command(t_cmd_and_opt *cmdopt)
 			restore_stdin(&redirections);
 		if (redir_out_bool)
 			restore_stdout(redirections.stdout_save, redirections.file_out_fd);
-		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
+		return (ft_printf("Minishell : \033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
 	}
 	else

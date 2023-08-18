@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 20:22:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/18 18:39:32 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 	
 	create_command(input, cmdopt);
     if (d_len(cmdopt->opt_ty_tb.tab) > 2)
-        return ((void)printf("bash: exit: trop d'arguments\n"),
+        return ((void)printf("Minishell: exit: trop d'arguments\n"),
             free_cmdopt(cmdopt), free(input),
             exit(1));
     if (cmdopt->opt_ty_tb.tab[1])

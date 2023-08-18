@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/15 23:07:33 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/18 18:39:55 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*special_cara_cd(char *cd_arg)
 		f = ft_getenv("HOME");
 		if (!f)
 			return ((void)update_err_code(1),
-				ft_printf("bash: cd « HOME » not set\n"), NULL);
+				ft_printf("Minishell: cd « HOME » not set\n"), NULL);
 		return (ft_strdup(f));
 	}
 	path_to_home = get_pwd();
@@ -81,16 +81,16 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 		return ;
 	if (d_len(cmdopt->opt_ty_tb.tab) > 2)
 		return ((void)update_err_code(1),
-			(void)(ft_printf("bash: cd : too many arguments\n")));
+			(void)(ft_printf("Minishell: cd : too many arguments\n")));
 	f = special_cara_cd(cmdopt->opt_ty_tb.tab[1]);
 	if (!f)
 		return ;
 	if (opendir(f) == NULL)
 		return ((void)update_err_code((int)errno), 
-			(void)printf("bash: cd: can't cd to %s : %s\n", f, strerror(errno)));
+			(void)printf("Minishell: cd: can't cd to %s : %s\n", f, strerror(errno)));
 	write_env_oldpwd(&pwd_oldpwd, join_by_value("OLDPWD=", current_dir));
 	if (chdir(f) == -1)
-		return ((void)ft_printf("bash: cd : \033[31m%s\033[0m: %s\n", f, strerror(errno)),
+		return ((void)ft_printf("Minishell: cd : \033[31m%s\033[0m: %s\n", f, strerror(errno)),
 		update_err_code(1), free(f));
 	free(f);
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)

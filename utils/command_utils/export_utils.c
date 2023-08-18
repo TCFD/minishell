@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 19:53:57 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/18 18:40:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 // EXPORT NAME UNVALID
 int	export_name_unvalid(char *var)
 {
-	if (ft_strchr(var, '\''))
-		return (1);
-	if (ft_strchr(var, '@'))
-		return (1);
-	if (ft_strchr(var, '.'))
-		return (1);
-	if (ft_strchr(var, '-'))
-		return (1);
-	if (find_first_occurence(var, '$') == (int)ft_strlen(var) - 1)
-		return (1);
-	if (find_first_occurence(var, '=') == (int)ft_strlen(var) - 1)
-		return (1);
+	int	i;
+
+	i = -1;
+	while(var[++i] != '=' && var[i])
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+			return (1);
+	}
 	return (0);
 }
 
@@ -37,9 +33,9 @@ void	export_var(char *var)
 	char	**env;
 	int		idx_var;
 
-	if (export_name_unvalid(var) || var[0] == '=')
-		return ((void)update_err_code(1), (void)ft_printf("bash : export: "),
-			(void)ft_printf("« %s » : identifiant non valable\n", var));
+	if (export_name_unvalid(var))
+		return ((void)update_err_code(1), (void)ft_printf("Minishell : export: "),
+			(void)ft_printf("`%s': identifiant non valable\n", var));
 	if (!ft_strchr(var, '='))
 		return ;
 	split_name = ft_split(var, '=');

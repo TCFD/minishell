@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/15 22:26:36 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/18 17:25:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	sigint_handler(int signum)
 {
 	char	*prompt;
 
-	(void)(signum);
+	if (get_sign_ctrl() == 0)
+		rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 	if (get_sign_ctrl() == 0)
@@ -26,6 +27,13 @@ void	sigint_handler(int signum)
 		free(prompt);
 	}
 	else
-		printf("\n");
-	update_err_code(130);
+	{
+		if (signum == 3)
+			ft_printf("Quit (core dumped)");
+		ft_printf("\n");
+	}
+	if (signum == 3)
+		update_err_code(131);
+	else
+		update_err_code(130);
 }

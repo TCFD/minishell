@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 20:47:41 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/18 17:07:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{
-			ft_printf("bash : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
+			ft_printf("\033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
 			return (free_cmdopt(cmdopt), exit(errno));
 		}
@@ -38,20 +38,6 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	if (WIFEXITED(status))
 		errno = WEXITSTATUS(status);
 	update_err_code((int)errno);
-}
-
-char	*brut_name(char *command_np)
-{
-	char	**str_split;
-	char	*brut_command_name;
-
-	if (!ft_strchr(command_np, '/'))
-		return (command_np);
-	str_split = ft_split(command_np, '/');
-	brut_command_name = ft_strdup(str_split[d_len(str_split) - 1]);
-	free_d_array(str_split);
-	free(command_np);
-	return (brut_command_name);
 }
 
 int	cmp(char *cmd_name, char *cmd_name_2)
@@ -77,7 +63,7 @@ void	find_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
 	else if (!cmdopt->command_path[0])
-		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
+		return (ft_printf("\033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
 	else
 		run_execve(cmdopt);

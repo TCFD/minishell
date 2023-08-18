@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/14 20:43:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/18 16:01:16 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*display_user_prompt(char *username)
 				ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
 	cwd = get_pwd();
 	if (cwd == NULL)
-		return (NULL);
+		return (free(username), NULL);
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = ft_strlen(cwd);
