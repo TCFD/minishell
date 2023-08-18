@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/16 20:07:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/18 18:04:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,18 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 	if (*content)
 		lst_add(list, content, sep->what_case);
 }
-
+	 
 void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 {
 	sep->tmp_i = ft_strlen(*content);
 	set_separator(sep, s1);
-	if (sep->w_string < sep->s_string)
+	if ((sep->w_string < sep->s_string) || check_if_IFS(sep->separator))
 	{
 		if ((sep->what_case == SIMPLE_Q && s1[sep->i] == SIMPLE_Q)
 			|| (sep->what_case == DOUBLE_Q && s1[sep->i] == DOUBLE_Q))
 			sep->i += 1;
-		*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
-					ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
-		sep->i += ft_strchr(s1 + sep->i, sep->what_case)
-			- (s1 + sep->i) + 1;
-	}
-	else if (check_if_IFS(sep->separator) && check_if_IFS(sep->separator))
-	{
-		*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
-					ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
-		sep->i += ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i) + 1;
+		*content = ft_join(*content, ft_substr(s1 + sep->i, 0, ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
+		sep->i += ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i);
 	}
 	else if (sep->w_string == sep->s_string)
 	{

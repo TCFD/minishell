@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:15:08 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/18 18:39:58 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 			if (!ft_getenv("PATH")
 				|| !does_command_path_valid(ft_strdup("env")))
 				return ((void)update_err_code((int)errno),
-					(void)ft_printf("bash : env : No such file or directory\n"));
+					(void)ft_printf("Minishell : env : No such file or directory\n"));
 		}
 	}
 	idx = -1;
