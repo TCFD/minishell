@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_utils.c                                        :+:      :+:    :+:   */
+/*   check_correct_quotes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 14:02:41 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/07 15:04:45 by rciaze           ###   ########.fr       */
+/*   Created: 2023/06/19 16:26:37 by rciaze            #+#    #+#             */
+/*   Updated: 2023/07/07 10:56:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	d_len(char **str)
+int	check_input(char *input)
 {
-	int	idx;
+	int	i;
 
-	idx = 0;
-	if (!str)
-		return (0);
-	while (str[idx])
-		idx++ ;
-	return (idx);
+	i = -1;
+	while (input[++i])
+	{
+		if (input[i] == '\'')
+		{
+			while (input[++i] && input[i] != '\'')
+				;
+			if (input[i] == '\0')
+				return (1);
+		}
+		if (input[i] == '\"')
+		{
+			while (input[++i] && input[i] != '\"')
+				;
+			if (input[i] == '\0')
+				return (1);
+		}
+	}
+	return (0);
 }
 
-int	t_len(char ***str)
+int	check_correct_quotes(char *input)
 {
-	int	idx;
-
-	idx = 0;
-	if (!str)
+	if (check_input(input))
 		return (0);
-	while (str[idx])
-		idx++ ;
-	return (idx);
+	return (1);
 }

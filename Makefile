@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/07/05 19:07:27 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/08/16 21:32:25 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC				=	gcc
 CLEANF 			=	@(find . -name "*.o" -type f -delete)
 OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
 INCLUDE			= 	INCLUDES
-PIPEX  			=	pipe_and_redirections/pipe/pipex
+PIPEX  			=	pipe_and_redirections/pipe/pipex_for_minishell/
 REDIRECTIONS	=	pipe_and_redirections/redirections/
 UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
@@ -25,18 +25,21 @@ MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
 GLOBAL			=	$(UTILS)global/
 QUOTES_STUFF  	=	quotes_stuff/
+PARSING		  	=	parsing/
 
 SRCS 		=	maintest.c								\
 				pour_le_tester.c						\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
-				$(UTILS)parsing_utils.c					\
 				$(UTILS)prompt_utils.c					\
 				$(UTILS)init_utils.c					\
 				$(UTILS)dollar_completion.c				\
 				$(UTILS)others_utils.c					\
 				$(DESIGN_PATTERN)design_p_username.c	\
 				$(DESIGN_PATTERN)design_p_env.c			\
+				$(DESIGN_PATTERN)design_p_pwd.c			\
+				$(DESIGN_PATTERN)design_p_sign.c		\
+				$(DESIGN_PATTERN)design_p_cd.c			\
 				$(GLOBAL)errno_management.c				\
 				$(MALLOC_UTILS)free_utils.c				\
 				$(COMMAND_UTILS)shlvl_utils.c			\
@@ -51,10 +54,16 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)export_utils.c			\
 				$(COMMAND_UTILS)pwd_utils.c				\
 				$(COMMAND_UTILS)exit_utils.c			\
-				$(QUOTES_STUFF)check_correct_quotes.c	\
-				$(QUOTES_STUFF)interpret_quotes.c		\
+				$(PARSING)parsing_utils.c				\
+				$(PARSING)parsing_utils2.c				\
+				$(PARSING)check_correct_quotes.c		\
+				$(PARSING)main_parsing.c   				\
+				$(PARSING)cases_for_parsing.c 			\
 				$(REDIRECTIONS)right_rafter_utils.c		\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
+				$(REDIRECTIONS)left_rafter_utils.c		\
+				$(REDIRECTIONS)left_rafter_utils2.c		\
+				$(PIPEX)pfm1.c							\
 
 # Couleurs
 BOLD		=	"\033[1m"
@@ -71,10 +80,9 @@ obj/%.o: %.c
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)
-	@make -s -C $(PIPEX)
 	@mv $(INCLUDE)/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
-	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PIPEX)/pipex.a $(PFLAGES) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
 
 clean :
@@ -85,7 +93,6 @@ clean :
 fclean : clean
 	@rm -f libft.a
 	@rm -f $(NAME)
-	@make -s fclean -C $(PIPEX)/
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) deleted.$(RESET)
 
 re : fclean all

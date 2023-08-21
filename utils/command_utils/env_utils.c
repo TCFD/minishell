@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/06 12:38:43 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/20 18:37:24 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	unset_env_var(char *variable, char **env)
 				ij++ ;
 			}
 			env_[i + ij] = NULL;
-			return ((void)update_err_code(0), update_env(env_));
+			break;
 		}
 		i++ ;
 	}
@@ -94,16 +94,15 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 {
 	int		idx;
 
-	if (cmdopt->pwd_unset == 0)
-		rebuild_pwd(cmdopt);
 	if (!cmp(cmdopt->command_path, "/bin/env")
 		&& !cmp(cmdopt->command_path, "/usr/bin/env"))
 	{
 		if (cmdopt->path_unset == 1)
 		{
-			if (!ft_getenv("PATH") || !does_command_path_valid(ft_strdup("env")))
+			if (!ft_getenv("PATH")
+				|| !does_command_path_valid(ft_strdup("env")))
 				return ((void)update_err_code((int)errno),
-				(void)ft_printf("bash : env : No such file or directory\n"));
+					(void)ft_printf("bash : env : No such file or directory\n"));
 		}
 	}
 	idx = -1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:16:10 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ char	*get_execve_return(t_cmd_and_opt *cmdopt)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
-		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env()) == -1)
-			return ((void)update_err_code((int)errno), exit(EXIT_FAILURE), NULL);
+		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
+			== -1)
+			return ((void)update_err_code((int)errno), exit(EXIT_FAILURE),
+				NULL);
 	}
 	else
 	{

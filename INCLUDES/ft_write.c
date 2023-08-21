@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:46:29 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/28 13:09:30 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:17:06 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	write_str(char *str)
 		str = "(null)";
 	while (str[i])
 	{
-		write(1, &(str[i]), 1);
+		write(2, &(str[i]), 1);
 		i++ ;
 	}
 	return (i);
@@ -29,7 +29,7 @@ int	write_str(char *str)
 
 int	write_char(char c)
 {
-	write(1, &c, 1);
+	write(2, &c, 1);
 	return (1);
 }
 

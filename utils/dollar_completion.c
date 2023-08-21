@@ -3,110 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/04 14:14:48 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:31:04 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*check_env_variables(char *input)
+// Regarde dans l'environement si la variable existe,
+// si oui, la remplace par sa valeur
+
+int	find_first_non_valid(char *input, int i)
+{
+	if (input[i] <= '9' && input[i] >= '0')
+		return (i + 1);
+	if (input[i] == '?')
+		return (i + 1);
+	while (input[i])
+	{
+		if (ft_isalnum(input[i]) == 0)
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+char	*check_env_variables(char *input, int end)
 {
 	char		*value;
 	char		*return_value;
-	long int	end;
+	int			start;
 
-	end = ft_strchr(input, ' ') - (input);
-	if (end <= 0)
-		end = ft_strlen(input);
-	value = ft_substr(input, 0, end);
+	start = 0;
+	if (end == 1)
+		return (ft_strdup("$"));
+	value = ft_substr(input, start, end - start);
 	if (!ft_strncmp(value, "$?", ft_strlen(value)))
 		return (free(value), ft_itoa(error_code));
 	return_value = ft_strdup(ft_getenv(value + 1));
-	free (value);
+	free(value);
 	return (return_value);
 }
 
-void	expand(char **dest)
+char	*d_t_case(char *input, t_list **list, t_dollar *dollar)
 {
-	char	*dup;
-	char	*dollar_pointer;
-	char	*end;
+	int		start_of_search;
+	char	**split_tab;
+	char 	*tmp;
+	int 	j;
 
-	dup = ft_strdup(*dest);
-	free(*dest);
-	dollar_pointer = ft_strchr(dup, '$');
-	*dest = ft_substr(dup, 0, ft_strchr(dup, '$') - dup);
-	end = NULL;
-	space_end_case(&dollar_pointer, &end, DOUBLE_Q, NULL);
-	*dest = ft_join(*dest, end);
-	free(dup);
-}
-
-char	*which_one_first(char *input)
-{
-	char	*dollar;
-	char	*space;
-
-	dollar = ft_strchr(input, '$');
-	space = ft_strchr(input, ' ');
-	if (dollar == space)
-		return (input + ft_strlen(input));
-	if ((dollar < space || !space) && dollar)
+	start_of_search = ft_strchr(dollar->env_var, ' ') - dollar->env_var + ft_strlen(input);
+	input = ft_join(input, ft_strdup(dollar->env_var));
+	tmp = ft_substr(input, 0, start_of_search);
+	if (tmp[0])
+		lst_add(list, &tmp, ' ');
+	split_tab = ft_split(input + start_of_search, ' ');
+	j = -1;
+	while(split_tab[++j + 1])
 	{
-		if (!dollar)
-			return (input + ft_strlen(input));
-		return (dollar);
+		tmp = ft_strdup(split_tab[j]);
+		lst_add(list, &tmp, ' ');
 	}
-	if (!space)
-		return (input + ft_strlen(input));
-	return (space);
+	free(input);
+	input = ft_join(ft_strdup(split_tab[j]), ft_strdup(dollar->tmp_dup + dollar->end));
+	free_d_array(split_tab);
+	if (ft_strchr(input, '$') && find_first_non_valid(ft_strchr(input, '$'), 1) != 1)
+		input = replace_dollar(' ', input, 0, list);
+	return (input);
 }
 
-void	if_dollar(char **input, char **dest, char what_case, int i)
+char	*replace_dollar(char what_case, char *input, int i, t_list **list)
 {
-	char		*tmp;
-	char		*tmp2;
+	t_dollar	dollar;
 
-	tmp2 = ft_substr(*input, i, which_one_first(*input + i + 1) - *input + i);
-	tmp = check_env_variables(tmp2);
-	free(tmp2);
-	*dest = ft_join(*dest, ft_substr(*input, 0, i));
-	*dest = ft_join(*dest, tmp);
-	tmp = which_one_first(*input + i + 1);
-	if (ft_strchr(tmp, '$'))
-		space_end_case(&tmp, dest, what_case, NULL);
-	else if (tmp && what_case == DOUBLE_Q)
-		*dest = ft_join(*dest, ft_strdup(tmp));
-}
-
-int	space_end_case(char **input, char **dest, char what_case, char *type)
-{
-	int			i;
-	long int	end;
-
-	i = 0;
-	end = ft_strchr_rc(*input, what_case) - *input;
-	if (end <= 0)
-		end = ft_strlen(*input);
-	if (what_case != DOUBLE_Q && *input)
+	if (input[i] != '$' && !ft_strchr(input + i, '$'))
+		return (input);
+	dollar.tmp_dup = ft_strdup(input);
+	free(input);
+	dollar.start = ft_strchr(dollar.tmp_dup + i, '$') - dollar.tmp_dup;
+	dollar.end = find_first_non_valid(dollar.tmp_dup, dollar.start + 1);
+	if (dollar.tmp_dup[0] != '$' && dollar.end <= 0)
+		dollar.end = ft_strlen(dollar.tmp_dup);
+	dollar.env_var = check_env_variables(dollar.tmp_dup + dollar.start, dollar.end - dollar.start);
+	input = ft_substr(dollar.tmp_dup, 0, dollar.start);
+	if (what_case != DOUBLE_Q && ft_strchr(dollar.env_var, ' '))
+		return (d_t_case(input, list, &dollar));
+	if (dollar.env_var[0])
+		input = ft_join(input, ft_strdup(dollar.env_var));
+	input = ft_join(input, ft_substr(dollar.tmp_dup, dollar.end, ft_strlen(dollar.tmp_dup) - dollar.end));
+	if (ft_strchr(input, '$') && find_first_non_valid(ft_strchr(input, '$'), 1) != 1)
+		input = replace_dollar(what_case, input, i, list);
+	if (!input[0])
 	{
-		if (ft_strnstr(*input, ">", ft_strlen(*input)))
-			input[0] = find_chevrons(input, end);
-		end = ft_strchr_rc(*input, ' ') - *input;
-		if (end <= 0)
-			end = ft_strlen(*input);
+		free(input);
+		input = NULL;
 	}
-	while (input[0][i] &&
-		!(input[0][i] == '$' && input[0][i + 1] != ' ') && i < end)
-		i++;
-	if (input[0][i] == '$' && input[0][i + 1] != ' ')
-		if_dollar(input, dest, what_case, i);
-	else
-		*dest = ft_join(*dest, ft_substr(*input, 0, end));
-	if ((what_case == SPACE || what_case == NONE) && type)
-		*type = INTERPRETABLE;
-	return (end);
+	return (free(dollar.tmp_dup), free(dollar.env_var), input);
 }

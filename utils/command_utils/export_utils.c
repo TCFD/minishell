@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 15:15:13 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:24:57 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,43 @@ int	export_name_unvalid(char *var)
 		return (1);
 	if (ft_strchr(var, '-'))
 		return (1);
-	if (ft_strchr(var, ' '))
-		return (1);
 	if (find_first_occurence(var, '$') == (int)ft_strlen(var) - 1)
 		return (1);
+	//if (find_first_occurence(var, '=') == (int)ft_strlen(var) - 1)
+	//	return (1);
 	return (0);
 }
 
 // EXPORT VAR
 void	export_var(char *var)
 {
-	char	**split_name;
-	char	**env;
-	int		idx_var;
-	
+	char		**split_name;
+	char		**env;
+	char		**new_env;
+	int			idx_var;
+
 	if (export_name_unvalid(var))
-		return ((void)update_err_code(1), (void)ft_printf("bash : export: "), 
+		return ((void)update_err_code(1), (void)ft_printf("bash : export: "),
 			(void)ft_printf("« %s » : identifiant non valable\n", var));
 	if (var[0] == '=')
 		return ((void)update_err_code((int)errno),
-		(void)ft_printf("bash : export: « = » : identifiant non valable\n"));
+			(void)ft_printf("bash : export: « = » : identifiant non valable\n"));
 	if (!ft_strchr(var, '='))
 		return ;
 	split_name = ft_split(var, '=');
 	idx_var = ft_getenv_int(split_name[0]);
 	env = get_env();
 	if (idx_var != -1)
+	{
+		free(env[idx_var]); // Pose prb
 		env[idx_var] = var;
+		new_env = env;
+	}
 	else
-		env = double_a_realloc(env, var);
+		new_env = double_a_realloc(env, var);
 	free_d_array(split_name);
 	update_err_code(0);
-	update_env(env);
+	update_env(new_env);
 }
 
 // EXPORT ALL VAR

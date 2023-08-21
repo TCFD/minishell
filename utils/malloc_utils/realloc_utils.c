@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/05 15:39:01 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:28:01 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,43 +27,40 @@ char	**double_a_realloc(char **array, char *new_elmt)
 		free_d_array(array);
 		return (NULL);
 	}
-	idx = 0;
-	while (idx < len)
-	{
-		new_one[idx] = array[idx];
-		idx++ ;
-	}
-	new_one[idx] = ft_strdup(new_elmt);
+	idx = -1;
+	while (++idx < len)
+		new_one[idx] = ft_strdup(array[idx]);
+	new_one[idx] = new_elmt;
 	new_one[idx + 1] = NULL;
-	//free(array);
+	free_d_array(array);
 	return (new_one);
 }
 
 char	**ft_d_strdup(char **tab)
 {
-    char	**new_one;
-    int 	idx;
-    int 	sub_idx;
+	char	**new_one;
+	int		idx;
+	int		sub_idx;
 
-    idx = -1;
-    new_one = malloc((d_len(tab) + 1) * sizeof(char *));
-    if (!new_one)
-        return (NULL);
-    while (tab[++idx])
-    {
-        sub_idx = -1;
-        new_one[idx] = malloc((ft_strlen(tab[idx]) + 1) * sizeof(char));
-        if (!new_one[idx])
-        {
-            while (--idx >= 0)
-                free(new_one[idx]);
-            free(new_one);
-            return (NULL);
-        }
-        while (tab[idx][++sub_idx])
-            new_one[idx][sub_idx] = tab[idx][sub_idx];
-        new_one[idx][sub_idx] = '\0';
-    }
-    new_one[idx] = NULL;
-    return (new_one);
+	idx = -1;
+	new_one = malloc((d_len(tab) + 1) * sizeof(char *));
+	if (!new_one)
+		return (NULL);
+	while (tab[++idx])
+	{
+		sub_idx = -1;
+		new_one[idx] = malloc((ft_strlen(tab[idx]) + 1) * sizeof(char));
+		if (!new_one[idx])
+		{
+			while (--idx >= 0)
+				free(new_one[idx]);
+			free(new_one);
+			return (NULL);
+		}
+		while (tab[idx][++sub_idx])
+			new_one[idx][sub_idx] = tab[idx][sub_idx];
+		new_one[idx][sub_idx] = '\0';
+	}
+	new_one[idx] = NULL;
+	return (new_one);
 }

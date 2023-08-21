@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/06 11:49:34 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:48:34 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 void	verif_env_and_path(t_cmd_and_opt *cmdopt)
 {
 	cmdopt->path_unset = 0;
-	cmdopt->pwd_unset = 0;
 	if (!get_env()[0])
 		return (rebuild_env());
 	if (ft_getenv("PATH"))
+	{
 		cmdopt->path_unset = 1;
-	if (ft_getenv("PWD"))
-		cmdopt->pwd_unset = 1;
+		return ;
+	}
 	return ;
 }
 
@@ -37,7 +37,28 @@ void	rebuild_env(void)
 	export_var(pwd);
 	export_var("SHLVL=1");
 	export_var("_=/usr/bin/env");
-	free(pwd);
-
+	//free(pwd);
 	return ;
+}
+
+char	*get_env_var(char *var_name)
+{
+	char	**env;
+	char	**split_one;
+	char	*final;
+	int		idx;
+
+	env = get_env();
+	idx = 0;
+	while (env[idx])
+	{
+		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0)
+		{
+			split_one = ft_split(env[idx], '=');
+			final = ft_strdup(split_one[1]);
+			return (free_d_array(split_one), final);
+		}
+		idx++ ;
+	}
+	return (NULL);
 }

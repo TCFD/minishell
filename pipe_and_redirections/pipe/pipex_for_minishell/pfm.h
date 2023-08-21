@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   pfm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 16:48:48 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/07 16:13:44 by wolf             ###   ########.fr       */
+/*   Created: 2023/07/10 12:04:59 by wolf              #+#    #+#             */
+/*   Updated: 2023/07/14 18:13:00 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *nptr)
+typedef struct s_pipes
 {
-	int	i;
-	int	res;
-	int	s;
+    int **pipes;
+    int *pids;
+    int len_max;
+    int idx;
+}t_pipes;
 
-	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 7 && nptr[i] <= 13))
-		i++ ;
-	res = 0;
-	s = 1;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			s = -1;
-		i++;
-	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		res = res * 10 + (nptr[i] - 48);
-		i++ ;
-	}
-	return (res * s);
-}
+
+
+void	pipex(char *input);

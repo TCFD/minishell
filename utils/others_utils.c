@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/06 11:35:05 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:18:47 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_char_until_limit(char *str, int lim)
 	while (idx < lim)
 	{
 		new_one[idx] = str[idx];
-		idx++ ;	
+		idx++;
 	}
 	new_one[idx] = '\0';
 	free(str);
@@ -50,38 +50,12 @@ int	find_first_occurence(char *str, char cara)
 	return (-1);
 }
 
-/* void	ft_strlcpy_addr(char (*dst)[4096], const char *src, int size)
+void	stack_cpy(char *tab_stack, char *tab_heap)
 {
-	int	i;
+	size_t	len_tab_heap;
 
-	if (!*dst || !src)
-		return ;
-	if (size == 0)
-		return ;
-	i = 0;
-	while (src[i] && i < size - 1)
-	{
-		*dst[i] = src[i];
-		i++ ;
-	}
-	*dst[i] = '\0';
-	return ;
-} */
-
-void ft_strlcpy_addr(char (*dst)[4096], const char *src, int size)
-{
-	int i;
-
-	if (!*dst || !src)
-		return;
-	if (size == 0)
-		return;
-	i = 0;
-	while (src[i] && i < size)
-	{
-		(*dst)[i] = src[i];
-		i++;
-	}
-	(*dst)[i] = '\0';
-	return;
+	len_tab_heap = ft_strlen(tab_heap) + 1;
+	if (len_tab_heap >= 1024)
+		return ((void)printf("Allocation Error : len(tab_heap) >= 1024\n"));
+	ft_strlcpy(tab_stack, tab_heap, len_tab_heap);
 }

@@ -3,129 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/07/04 16:09:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/15 21:42:31 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	redirect_output(char **tab, int *stdout_save, int *filefd, int which_case)
+int	add_rest(char **tab, char *type, int i, t_redirections *redir)
 {
-	int			i;
+	int	w_case;
 
-	*stdout_save = dup(STDOUT_FILENO);
-	if (*stdout_save == -1)
-		return (perror("Failed to save stdout"), 1);
-	if (which_case == 1)
-		*filefd = open(tab[1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (ft_strncmp(tab[i], D_R_RAFTER, 2) == 0)
+		w_case = 2;
 	else
-		*filefd = open(tab[1], O_WRONLY | O_CREAT | O_APPEND, 0666);
-	if (*filefd == -1)
-		return (perror("Failed to open file"), 1);
-	if (dup2(*filefd, STDOUT_FILENO) == -1)
-		return (perror("Failed to redirect stdout"), 1);
+		w_case = 1;
+	if (redirect_output(tab + i, &redir->stdout_save,
+			&redir->file_out_fd, w_case))
+		return (0);
+	if (!tab[i + 2])
+		return (1);
+	i += 2;
+	while (tab[i])
+	{
+		if (redir->list)
+			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+		else
+			redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+		i++;
+	}
+	return (1);
+}
+
+int	open_sub_file(char **tab, int *i, int *funct_counter)
+{
+	int	fd;
+
+	if (ft_strncmp(tab[*i], D_R_RAFTER, 2) == 0)
+		fd = open(tab[*i + 1], O_CREAT | O_APPEND, 0666);
+	else
+		fd = open(tab[*i + 1], O_CREAT | O_TRUNC, 0666);
+	if (fd == -1)
+		return (perror("Failed to open file"), 0);
+	if (close(fd) == -1)
+		return (perror("Failed to close file"), 0);
+	*i += 1;
+	*funct_counter += 1;
+	return (1);
+}
+
+int	remove_redirections(char **tab, char *type, t_redirections *redir)
+{
+	int		i;
+	int		funct_counter;
+	char	*tmp;
+
 	i = -1;
+	funct_counter = 1;
 	while (tab[++i])
 	{
-		free(tab[i]);
-		tab[i] = NULL;
-	}
-	return (0);
-}
-
-void	restore_fd(int position, int stdout_save, int filefd)
-{
-	if (position > -1)
-	{
-		if (dup2(stdout_save, STDOUT_FILENO) == -1)
-			return (perror("Failed to restore stdout"));
-		close(filefd);
-		close(stdout_save);
-	}
-}
-
-int	search_redirections(t_cmd_and_opt *cmdopt, int *stdout_save,
-	int *filefd, long int *position)
-{
-	*position = search_d_tab(cmdopt, ">>");
-	if (*position > -1)
-		if (redirect_output(cmdopt->opt_ty_tb.tab + *position, stdout_save,
-				filefd, 2))
-			return (1);
-	if (*position <= -1)
-	{
-		*position = search_d_tab(cmdopt, ">");
-		if (*position > -1)
-			if (redirect_output(cmdopt->opt_ty_tb.tab + *position, stdout_save,
-					filefd, 1))
-				return (1);
-	}	
-	return (0);
-}
-
-void	dup_d_array(char **src, char ***dest, int *j)
-{
-	*j = 0;
-	while (src[*j])
-		*j += 1;
-	dest[0] = ft_calloc(sizeof(char *), *j + 1);
-	*j = -1;
-	while (src[++*j])
-		dest[0][*j] = ft_strdup(src[*j]);
-	dest[0][*j] = NULL;
-}
-
-void	realloc_chevrons(t_cmd_and_opt *cmdopt, int start, int end)
-{
-	char	**temp;
-	int		j;
-	int		temp_counter;
-
-	temp = NULL;
-	dup_d_array(cmdopt->opt_ty_tb.tab, &temp, &j);
-	free_d_array(cmdopt->opt_ty_tb.tab);
-	cmdopt->opt_ty_tb.tab = ft_calloc(sizeof(char *), j - (end - start) + 1);
-	temp_counter = 0;
-	j = -1;
-	while (temp[++j])
-	{
-		if (j == start)
-			while (j < end)
-				j++;
-		cmdopt->opt_ty_tb.tab[temp_counter] = ft_strdup(temp[j]);
-		temp_counter++;
-	}
-	cmdopt->opt_ty_tb.tab[temp_counter] = NULL;
-	free_d_array(temp);
-}
-
-int	search_d_tab(t_cmd_and_opt *cmdopt, char *c)
-{
-	int			i;
-	int			j;
-	int			tmp;
-
-	i = -1;
-	while (cmdopt->opt_ty_tb.tab[++i])
-	{
-		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], c, ft_strlen(cmdopt->opt_ty_tb.tab[i])) && cmdopt->opt_ty_tb.type[i] == INTERPRETABLE)
+		tmp = ft_strnstr(tab[i], S_R_RAFTER, ft_strlen(tab[i]));
+		if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
+			&& funct_counter < redir->counter)
 		{
-			j = i;
-			tmp = i;
-			while (cmdopt->opt_ty_tb.tab[++j])
-			{
-				if (ft_strnstr(cmdopt->opt_ty_tb.tab[j], c, ft_strlen(cmdopt->opt_ty_tb.tab[j])) && cmdopt->opt_ty_tb.type[j] == INTERPRETABLE)
-				{
-					close(open(cmdopt->opt_ty_tb.tab[tmp + 1], O_CREAT, 0666));
-					tmp = j;
-				}
-			}
-			realloc_chevrons(cmdopt, i, tmp);
-			return (i);
+			if (open_sub_file(tab, &i, &funct_counter) == 0)
+				return (0);
+			continue ;
 		}
+		else if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
+			&& funct_counter == redir->counter)
+			return (add_rest(tab, type, i, redir));
+		if (redir->list)
+			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+		else
+			redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
 	}
-	return (-1);
+	return (add_rest(tab, type, i, redir));
+}
+
+void	redo_path_and_name(t_cmd_and_opt *cmd)
+{
+	free(cmd->command_name);
+	free(cmd->command_path);
+	if (cmd->path_unset == 0 && !ft_getenv("PATH"))
+	{
+		cmd->command_name = create_path(ft_strdup(cmd->opt_ty_tb.tab[0]), 0);
+		cmd->command_path = ft_cpy(cmd->command_name, 0);
+	}
+	else
+	{
+		cmd->command_name = brut_name(ft_strdup(cmd->opt_ty_tb.tab[0]));
+		cmd->command_path = create_path(ft_strdup(cmd->opt_ty_tb.tab[0]), 1);
+	}
+}
+
+int	search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
+	bool *redir_bool)
+{
+	redir->counter = count_out_redirs(cmdopt->opt_ty_tb.tab,
+			cmdopt->opt_ty_tb.type);
+	if (redir->counter == 0)
+	{
+		*redir_bool = false;
+		return (1);
+	}
+	else
+		*redir_bool = true;
+	redir->list = NULL;
+	if (remove_redirections(cmdopt->opt_ty_tb.tab,
+			cmdopt->opt_ty_tb.type, redir) == 0)
+		return (ft_lstclear(&redir->list), 0);
+	free_d_array(cmdopt->opt_ty_tb.tab);
+	cmdopt->opt_ty_tb.tab = list_to_d_tab(redir->list);
+	redo_path_and_name(cmdopt);
+	ft_lstclear(&redir->list);
+	return (1);
 }
