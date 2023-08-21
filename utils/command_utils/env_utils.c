@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/18 18:39:58 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:16:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	unset_env_var(char *variable, char **env)
 				ij++ ;
 			}
 			env_[i + ij] = NULL;
-			return ((void)update_err_code(0), update_env(env_));
+			break;
 		}
 		i++ ;
 	}

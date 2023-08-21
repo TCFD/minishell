@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/16 16:50:20 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:13:00 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,14 @@ int	check_if_IFS(char c)
 	if (c == ' ' || c == '\t' || c == '\n')
 		return (1);
 	return (0);
+}
+
+void	stack_cpy(char *tab_stack, char *tab_heap)
+{
+	size_t	len_tab_heap;
+
+	len_tab_heap = ft_strlen(tab_heap) + 1;
+	if (len_tab_heap >= 1024)
+		return ((void)printf("Allocation Error : len(tab_heap) >= 1024\n"));
+	ft_strlcpy(tab_stack, tab_heap, len_tab_heap);
 }

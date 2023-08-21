@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 16:10:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:06:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,28 @@ char	*getenv_check(char *str)
 void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
     char    *ipt;
-	char	*env_free;
-    //char    **spl;
-	
-    //spl = ft_split(input, ' ');
-	
-	create_command(input, cmdopt);
-    if (d_len(cmdopt->opt_ty_tb.tab) > 2)
-        return ((void)printf("Minishell: exit: trop d'arguments\n"),
-            free_cmdopt(cmdopt), free(input),
+    char    **spl;
+	char	*env_var;
+
+    spl = ft_split(input, ' ');
+    if (d_len(spl) > 2)
+        return ((void)printf("bash: exit: trop d'arguments\n"),
+            free_cmdopt(cmdopt), free(input), free_d_array(spl),
             exit(1));
-    if (cmdopt->opt_ty_tb.tab[1])
-        ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
+    if (spl[1])
+        ipt = ft_strdup(spl[1]);
     else
 	{
         ipt = NULL;
 	}	
-	env_free = get_env_var("PWD=");
-	free(env_free);
-	env_free = get_env_var("OLDPWD=");
-	free(env_free);
+	env_var = get_env_var("PWD=");
+	free(env_var);
+	env_var = get_env_var("OLDPWD=");
+	free(env_var);
     free_cmdopt(cmdopt);
     rl_clear_history();
     free(input);
-    ///free_d_array(spl);
+    free_d_array(spl);
     ft_exit(ipt);
 }
 
@@ -112,7 +110,27 @@ void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
 	rl_clear_history();
 	shlvl_minus_one();
 	free_cmdopt(cmdopt);
-	free(join);
+	//free(join);
+}
+
+char	**alloc_env(char **env)
+{
+	char	**env_out;
+	int		idx;
+
+	idx = 0;
+	env_out = malloc((d_len(env) + 1) * sizeof(char *));
+	if (!env_out)
+		return (exit(EXIT_FAILURE), NULL);
+	while (env[idx])
+	{
+		env_out[idx] = ft_strdup(env[idx]);
+		if (!env_out[idx])
+			return (free(env_out), exit(EXIT_FAILURE), NULL);
+		idx++ ;
+	}
+	env_out[idx] = NULL;
+	return (env_out);
 }
 
 // ----------- MAIN ----------- //
@@ -124,7 +142,7 @@ int	main(int ac, char **ag, char **env)
 	//welcome_to_minishell();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	update_env(env);
+	update_env(alloc_env(env));
 	verif_env_and_path(&cmdopt);
 	create_command("/bin/whoami", &cmdopt);
 	free(cmdopt.opt_ty_tb.tab[0]);
@@ -135,5 +153,6 @@ int	main(int ac, char **ag, char **env)
 	if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell(user, &cmdopt);
+	free_env_singleton();
 	return (0);
 }

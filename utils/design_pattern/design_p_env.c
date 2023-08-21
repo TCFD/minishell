@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:55:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/07 19:20:23 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/21 19:23:02 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	update_env(char **new_value)
 	if (singleton && singleton->env != NULL)
 	{
 		singleton->env = new_value;
-		singleton->count++ ;
 		return ;
 	}
-	singleton->count = 0;
 	singleton->env = new_value;
 }
 
@@ -42,7 +40,7 @@ char	**get_env(void)
 	return (singleton->env);
 }
 
-void	free_singleton(void)
+void	free_env_singleton(void)
 {
 	t_singleton	*singleton;
 

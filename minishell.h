@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 15:59:31 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:06:51 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_singleton
 	char	*username;
 	char	**env;
 	char	*pwd;
+	char	*env_pwd;
+	char	*env_oldpwd;
 	int		count;
 	int		sign_ctrl;
 }t_singleton;
@@ -208,6 +210,7 @@ void		update_err_code_exit(char *origin_code, int code_err);
 
 
 char	*get_pwd(void);
+char	*get_pwd_for_pwd(void);
 void	print_pwd(void);
 
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
@@ -223,6 +226,14 @@ void		find_command(t_cmd_and_opt *cmdopt);
 
 void	update_sign_ctrl(int value);
 int		get_sign_ctrl(void);
+
+void	stack_cpy(char *tab_stack, char *tab_heap);
+void	update_env_pwd(char *new_value);
+void	update_env_oldpwd(char *new_value);
+char	*get_env_pwd(void);
+char	*get_env_oldpwd(void);
+
+void	free_env_singleton(void);
 
 // ------- Pour le tester --------//
 

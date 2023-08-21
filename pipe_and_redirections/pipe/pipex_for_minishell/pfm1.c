@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:53:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/18 18:39:48 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:12:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../minishell.h"
+/* #include "../../../minishell.h"
 
 
 void	free_all_pipes(int	**pipes, int nb_pipes)
@@ -158,6 +158,21 @@ void	exec(t_cmd_and_opt *cmdopt)
 	}
 }
 
+
+void	fork_it(void (*func_to_fork)(t_cmd_and_opt *))
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid < 0)
+		return ;
+	if (pid == 0)
+	{
+		func_to_fork;
+	}
+}
+
 // EXECUTE PIPE COMMAND
 void	execute_pipe_command(t_cmd_and_opt *cmdopt)
 {
@@ -174,24 +189,20 @@ void	execute_pipe_command(t_cmd_and_opt *cmdopt)
 	free(cmdopt->opt_ty_tb.tab[0]);
 	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_path);
 	if (cmp(cmdopt->command_name, "cd"))
-		cd_remake(cmdopt);
+		return (fork_it(cd_remake(cmdopt)));
 	else if (cmp(cmdopt->command_name, "echo"))
-		echo_remake(cmdopt);
+		return (fork_it(echo_remake(cmdopt)));
 	else if (cmp(cmdopt->command_name, "unset"))
-		unset_all_env_var(cmdopt);
+		return (fork_it(unset_all_env_var(cmdopt)));
 	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
-		display_env(get_env(), cmdopt);
+		return (fork_it(display_env(get_env(), cmdopt)));
 	else if (cmp(cmdopt->command_name, "export"))
-		export_all_var(cmdopt);
+		return (fork_it(export_all_var(cmdopt)));
 	else if (cmp(cmdopt->command_name, "pwd"))
-		print_pwd();
+		return (fork_it(print_pwd()));
 	else if (!cmdopt->command_path[0])
 	{
-		if (redir_in_bool)
-			restore_stdin(&redirections);
-		if (redir_out_bool)
-			restore_stdout(redirections.stdout_save, redirections.file_out_fd);
-		return (ft_printf("Minishell : \033[31m%s\033[0m : command not found\n",
+		return (ft_printf("bash : \033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
 	}
 	else
@@ -256,7 +267,7 @@ void	brut_test(char **elmt)
 		dup2(pipes1[1], STDOUT_FILENO);
 		close(pipes1[1]);	
 		create_command(elmt[idx], &cmdopt);
-		exec(&cmdopt);
+		execute_pipe_command(&cmdopt);
 	}
 	if (pipe(pipes2) < 0)
 		return ;
@@ -276,7 +287,7 @@ void	brut_test(char **elmt)
 		close(pipes2[1]);
 		
 		create_command(elmt[idx], &cmdopt);
-		exec(&cmdopt);
+		execute_pipe_command(&cmdopt);
 	}
 	
 	idx = 2;
@@ -293,7 +304,7 @@ void	brut_test(char **elmt)
 		close(pipes2[0]);
 		
 		create_command(elmt[idx], &cmdopt);
-		exec(&cmdopt);
+		execute_pipe_command(&cmdopt);
 	}
 
 
@@ -309,14 +320,16 @@ void	brut_test(char **elmt)
 }
 // -------------------
 
+*/
 // PIPEX
 void	pipex(char *input)
 {
-	char	**split_all;
+	(void)input;
+	/* char	**split_all;
 
 	split_all = ft_split(input, '|');
-	execute_all(split_all);
-	//brut_test(split_all);
-	free_d_array(split_all);
+	//execute_all(split_all);
+	brut_test(split_all);
+	free_d_array(split_all); */
 	return ;
 }

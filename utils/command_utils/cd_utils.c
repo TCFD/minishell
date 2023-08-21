@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/21 12:48:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:15:34 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,40 @@ char	*join_by_value(char *var_name, char *value)
 	return (tmp);
 }
 
-void	write_env_oldpwd(t_cd *cd_var, char *oldpwd)
+void	write_env_oldpwd(char *oldpwd)
 {
-	static int	count_oldpwd;
-
-	count_oldpwd++ ;
-	if (count_oldpwd >= 3 && cd_var->env_oldpwd_true == 1)
-		free(cd_var->env_old_pwd);
-	cd_var->env_old_pwd = oldpwd;
-	cd_var->env_oldpwd_true = 1;
-	export_var(cd_var->env_old_pwd);
+	update_env_oldpwd(oldpwd);
+	export_var(get_env_oldpwd());
 }
 
-void	write_env_pwd(t_cd *cd_var, char *pwd)
+void	write_env_pwd(char *pwd)
 {
-	static int	count_pwd;
+	update_env_pwd(pwd);
+	export_var(get_env_pwd());
+}
 
-	count_pwd++ ;
-	if (count_pwd >= 3 && cd_var->env_pwd_true == 1)
-		free(cd_var->env_pwd);
-	cd_var->env_pwd = pwd;
-	cd_var->env_pwd_true = 1;
-	export_var(cd_var->env_pwd);
+char	*get_opendir_value(t_cmd_and_opt *cmdopt)
+{
+	char	*f;
+	DIR		*file;
+	
+	f = special_cara_cd(cmdopt->opt_ty_tb.tab[1]);
+	if (!f)
+		return (NULL);
+	file = opendir(f);
+	if (file == NULL)
+		return (closedir(file), (void)update_err_code((int)errno), 
+			(void)printf("Minishell: cd: %s: %s\n", f, strerror(errno)),
+			free(f), NULL);
+	closedir(file);
+	return (f);
 }
 
 void	cd_remake(t_cmd_and_opt *cmdopt)
 {
 	t_cd	pwd_oldpwd;
 	char	current_dir[4096];
+	char	*pwd_path;
 	char	*f;
 
 	current_dir[0] = '\0';
@@ -82,19 +88,17 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 	if (d_len(cmdopt->opt_ty_tb.tab) > 2)
 		return ((void)update_err_code(1),
 			(void)(ft_printf("Minishell: cd : too many arguments\n")));
-	f = special_cara_cd(cmdopt->opt_ty_tb.tab[1]);
-	if (!f)
+	f = get_opendir_value(cmdopt);
+	if (f == NULL)
 		return ;
-	if (opendir(f) == NULL)
-		return ((void)update_err_code((int)errno), 
-			(void)printf("Minishell: cd: %s: %s\n", f, strerror(errno)), free(f));
-	write_env_oldpwd(&pwd_oldpwd, join_by_value("OLDPWD=", current_dir));
+	pwd_path = get_pwd();
+	write_env_oldpwd(join_by_value("OLDPWD=", pwd_path));
+	free(pwd_path);
 	if (chdir(f) == -1)
-		return ((void)ft_printf("Minishell: cd : \033[31m%s\033[0m: %s\n", f, strerror(errno)),
-		update_err_code(1), free(f));
-	free(f);
+		return ((void)ft_printf("Minishell: cd : \033[31m%s\033[0m: %s\n",
+			f, strerror(errno)), update_err_code(1), free(f));
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-		return ((void)update_err_code((int)errno),perror("getcwd"));
-	write_env_pwd(&pwd_oldpwd, join_by_value("PWD=", current_dir));
-	return ;
+		return ((void)update_err_code((int)errno),perror("getcwd"), free(f));
+	write_env_pwd(join_by_value("PWD=", current_dir));
+	return (free(f));
 }

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 16:39:10 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:18:06 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	run_execve(t_cmd_and_opt *cmdopt)
 {
+	static bool	b;
 	pid_t		pid;
 	int			status;
 
@@ -36,10 +37,33 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	update_sign_ctrl(1);
 	waitpid(pid, &status, 0);
 	update_sign_ctrl(0);
-	if (WIFEXITED(status))
+	if (error_code == 130 && b == false)
+	{
+		//printf("error_code 130\n");
+		b = true;
+	}
+	else if (WIFEXITED(status))
+	{
 		errno = WEXITSTATUS(status);
-	update_err_code((int)errno);
+		b = false;
+		update_err_code((int)errno);
+	}
 }
+
+/* 
+char	*brut_name(char *command_np)
+{
+	char	**str_split;
+	char	*brut_command_name;
+
+	if (!ft_strchr(command_np, '/'))
+		return (command_np);
+	str_split = ft_split(command_np, '/');
+	brut_command_name = ft_strdup(str_split[d_len(str_split) - 1]);
+	free_d_array(str_split);
+	free(command_np);
+	return (brut_command_name);
+} */
 
 int	cmp(char *cmd_name, char *cmd_name_2)
 {

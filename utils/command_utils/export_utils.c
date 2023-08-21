@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/18 18:40:03 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:20:56 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	export_var(char *var)
 {
 	char	**split_name;
 	char	**env;
+	char	**new_env;
 	int		idx_var;
 
 	if (export_name_unvalid(var))
@@ -42,12 +43,16 @@ void	export_var(char *var)
 	idx_var = ft_getenv_int(split_name[0]);
 	env = get_env();
 	if (idx_var != -1)
+	{
+		free(env[idx_var]); // Pose prb
 		env[idx_var] = var;
+		new_env = env;
+	}
 	else
-		env = double_a_realloc(env, var);
+		new_env = double_a_realloc(env, var);
 	free_d_array(split_name);
 	update_err_code(0);
-	update_env(env);
+	update_env(new_env);
 }
 
 // EXPORT ALL VAR

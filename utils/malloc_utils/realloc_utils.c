@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/08 17:18:02 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/21 19:24:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ char	**double_a_realloc(char **array, char *new_elmt)
 		free_d_array(array);
 		return (NULL);
 	}
-	idx = 0;
-	while (idx < len)
-	{
-		new_one[idx] = array[idx];
-		idx++ ;
-	}
-	new_one[idx] = ft_strdup(new_elmt);
+	idx = -1;
+	while (++idx < len)
+		new_one[idx] = ft_strdup(array[idx]);
+	new_one[idx] = new_elmt;
 	new_one[idx + 1] = NULL;
+	free_d_array(array);
 	return (new_one);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/18 18:49:56 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:19:43 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	update_err_code_exit(char *origin_code, int code_err)
 	
 	char	*str;
 	str = ft_itoa(code_err);
+	free_env_singleton();
 	if (!str)
 		return (free(str), free(origin_code), exit(EXIT_FAILURE));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
 		return ((void)printf("Minishell: exit: %s : argument numérique nécessaire\n", origin_code),
-		free(str), free(origin_code),  exit(2));
+		free(str), free(origin_code), exit(2));
 	code_err = code_err % 256;
 	errno = code_err;
 	update_err_code(code_err);
@@ -34,4 +35,5 @@ void	ft_exit(char *code_err)
 {
 	if (ft_len(code_err) > 0 && code_err[0] != '\0')
 		update_err_code_exit(code_err, ft_atoi(code_err));
+	free(code_err);
 }
