@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/18 17:07:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 16:39:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 			perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{

@@ -6,16 +6,17 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/18 17:25:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 16:39:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	sigint_handler(int signum)
+void	sig_handler(int signum)
 {
 	char	*prompt;
 
+	(void)signum;
 	if (get_sign_ctrl() == 0)
 		rl_on_new_line();
 	rl_replace_line("", 0);
@@ -28,12 +29,7 @@ void	sigint_handler(int signum)
 	}
 	else
 	{
-		if (signum == 3)
-			ft_printf("Quit (core dumped)");
 		ft_printf("\n");
 	}
-	if (signum == 3)
-		update_err_code(131);
-	else
-		update_err_code(130);
+	update_err_code(130);
 }

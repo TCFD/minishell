@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/18 17:00:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 15:59:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char		*create_path(char *command_name, int imd_return);
 char		*is_path_unset(char *command_name, int imd_return);
 void		create_command(char	*input, t_cmd_and_opt *cmdopt);
 void		welcome_to_minishell(void);
-void		sigint_handler(int signum);
+void		sig_handler(int signum);
 void		cd_remake(t_cmd_and_opt *cmdopt);
 void		free_d_array(char **str);
 void		free_t_array(char ***str);
