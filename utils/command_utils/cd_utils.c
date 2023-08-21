@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/18 18:39:55 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 12:48:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 		return ;
 	if (opendir(f) == NULL)
 		return ((void)update_err_code((int)errno), 
-			(void)printf("Minishell: cd: can't cd to %s : %s\n", f, strerror(errno)));
+			(void)printf("Minishell: cd: %s: %s\n", f, strerror(errno)), free(f));
 	write_env_oldpwd(&pwd_oldpwd, join_by_value("OLDPWD=", current_dir));
 	if (chdir(f) == -1)
 		return ((void)ft_printf("Minishell: cd : \033[31m%s\033[0m: %s\n", f, strerror(errno)),
