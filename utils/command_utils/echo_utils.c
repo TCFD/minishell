@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:53:45 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/07 19:14:23 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/22 09:05:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void	echo_remake(t_cmd_and_opt *cm)
 	}
 	if (boolean == false)
 		write(STDOUT_FILENO, "\n", 1);
+	update_err_code(0);
 }
