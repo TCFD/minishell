@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:13:20 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 11:10:29 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ char	*display_user_prompt(char *username)
 		user_len = ft_strlen(cwd);
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
 	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
+	//printf("errno : %d\nerror_code : %d\n", errno, error_code); // --
+	if (error_code == 0)
+		username = ft_join(ft_strdup("👍 "), username);
+	else
+		username = ft_join(ft_strdup("🖕 "), username);
 	result = ft_join(username, result);
 	free(cwd);
 	return (result);

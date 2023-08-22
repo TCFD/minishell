@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:06:10 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 10:55:16 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 				add_history(input);
 			execute_command(cmdopt);
 		}
+		else
+			update_err_code(0);
 		free_cmdopt(cmdopt);
 		free(last_entry);
 		last_entry = ft_strdup(input);
