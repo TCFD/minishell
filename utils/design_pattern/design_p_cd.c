@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:23:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/16 21:53:03 by wolf             ###   ########.fr       */
+/*   Updated: 2023/08/21 21:06:56 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	update_env_pwd(char *new_value)
 	static int	count;
 	t_singleton	*singleton;
 
+	count = 0;
 	count++ ;
 	singleton = get_env_instance();
 	if (count > 1 && singleton->env_pwd != NULL)
@@ -29,6 +30,7 @@ void	update_env_oldpwd(char *new_value)
 	static int	count;
 	t_singleton	*singleton;
 
+	count = 0;
 	count++ ;
 	singleton = get_env_instance();
 	if (count > 1 && singleton->env_oldpwd != NULL)

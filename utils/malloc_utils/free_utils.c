@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:23:38 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 12:46:17 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 		free(cmdopt->command_path);
 	if (cmdopt->opt_ty_tb.type)
 	{
-		printf("trying to free : ..->opt_ty_tb.type\n");
+		//printf("trying to free : ..->opt_ty_tb.type\n");
 		free(cmdopt->opt_ty_tb.type);
 	}
 	if (cmdopt->opt_ty_tb.tab != NULL)
 	{
-		printf("trying to free : ..->opt_ty_tb.tab\n");
+		//printf("trying to free : ..->opt_ty_tb.tab\n");
 		free_d_array(cmdopt->opt_ty_tb.tab);
 	}
-	printf("all cmdopt'free done.\n");
+	//printf("all cmdopt'free done.\n");
 	init_cmdopt(cmdopt);
 }

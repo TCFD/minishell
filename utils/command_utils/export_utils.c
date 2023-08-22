@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:20:56 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 13:00:05 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	export_var(char *var)
 	char	**split_name;
 	char	**env;
 	char	**new_env;
+//	char	*savetamere;
 	int		idx_var;
 
 	if (export_name_unvalid(var))
@@ -40,6 +41,7 @@ void	export_var(char *var)
 	if (!ft_strchr(var, '='))
 		return ;
 	split_name = ft_split(var, '=');
+//	savetamere = ft_strdup(split_name[1]);
 	idx_var = ft_getenv_int(split_name[0]);
 	env = get_env();
 	if (idx_var != -1)
@@ -50,6 +52,7 @@ void	export_var(char *var)
 	}
 	else
 		new_env = double_a_realloc(env, var);
+//	split_name[1] = savetamere;
 	free_d_array(split_name);
 	update_err_code(0);
 	update_env(new_env);

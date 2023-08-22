@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/21 19:15:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/21 20:24:50 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt)
 
 void	cd_remake(t_cmd_and_opt *cmdopt)
 {
-	t_cd	pwd_oldpwd;
 	char	current_dir[4096];
 	char	*pwd_path;
 	char	*f;

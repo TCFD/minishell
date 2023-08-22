@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:06:51 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 10:55:25 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,5 +242,6 @@ void		minishell_tester(char *input, t_cmd_and_opt *cmdopt);
 void		run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
 
 // ------------------------------//
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:18:06 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 10:01:02 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	int			status;
 
 	errno = 0;
+	signal(SIGQUIT, sig_handler);
 	pid = fork();
 	if (pid == -1)
 		return ((void)update_err_code((int)errno),
 			perror("fork"), exit(EXIT_FAILURE));
 	else if (pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{
@@ -36,6 +36,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	}
 	update_sign_ctrl(1);
 	waitpid(pid, &status, 0);
+	signal(SIGQUIT, SIG_IGN);
 	update_sign_ctrl(0);
 	if (error_code == 130 && b == false)
 	{
@@ -44,8 +45,8 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	}
 	else if (WIFEXITED(status))
 	{
-		errno = WEXITSTATUS(status);
 		b = false;
+		errno = WEXITSTATUS(status);
 		update_err_code((int)errno);
 	}
 }
