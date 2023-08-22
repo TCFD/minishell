@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:16:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 15:23:28 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	ft_getenv_int(char *var_name)
 }
 
 // UNSET ENV VAR
-void	unset_env_var(char *variable, char **env)
+void	unset_env_var(char *variable)
 {
 	char	**env_;
 	int		i;
 	int		ij;
 
-	env_ = env;
+	env_ = get_env();
 	i = 0;
 	while (env_[i])
 	{
@@ -66,10 +66,12 @@ void	unset_env_var(char *variable, char **env)
 			ij = 1;
 			while (env_[i + ij - 1])
 			{
+				if (ij == 1)
+					free(env_[i + ij - 1]);
 				env_[i + ij - 1] = env_[i + ij];
 				ij++ ;
 			}
-			env_[i + ij] = NULL;
+			env_[i + ij - 1] = NULL;
 			break;
 		}
 		i++ ;
@@ -85,7 +87,7 @@ void	unset_all_env_var(t_cmd_and_opt *cmdopt)
 	idx = 0;
 	ft_printf("Debut unset\n");
 	while (cmdopt->opt_ty_tb.tab[++idx])
-		unset_env_var(cmdopt->opt_ty_tb.tab[idx], get_env());
+		unset_env_var(cmdopt->opt_ty_tb.tab[idx]);
 	ft_printf("Fin unset\n");
 }
 
@@ -94,17 +96,7 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 {
 	int		idx;
 
-	if (!cmp(cmdopt->command_path, "/bin/env")
-		&& !cmp(cmdopt->command_path, "/usr/bin/env"))
-	{
-		if (cmdopt->path_unset == 1)
-		{
-			if (!ft_getenv("PATH")
-				|| !does_command_path_valid(ft_strdup("env")))
-				return ((void)update_err_code((int)errno),
-					(void)ft_printf("Minishell : env : No such file or directory\n"));
-		}
-	}
+	(void)(cmdopt);
 	idx = -1;
 	while (env[++idx])
 		ft_printf("%s\n", env[idx]);

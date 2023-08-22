@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 10:55:25 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:06:16 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void		init_design_pattern(t_singleton *design_p);
 void		run_execve(t_cmd_and_opt *cmdopt);
 void		execute_command(t_cmd_and_opt *cmdopt);
 void		bf_prd(char *str, int d, char *color);
-void		unset_env_var(char *variable, char **env);
+void		unset_env_var(char *variable);
 void		unset_all_env_var(t_cmd_and_opt *cmdopt);
 void		display_env(char **env, t_cmd_and_opt *cmdopt);
 int			check_if_same(char *s1, char *s2);
@@ -234,6 +234,8 @@ char	*get_env_pwd(void);
 char	*get_env_oldpwd(void);
 
 void	free_env_singleton(void);
+
+void	exit_message(int code);
 
 // ------- Pour le tester --------//
 

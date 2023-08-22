@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:22:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 15:26:20 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_pwd(void)
 	last_one = get_pwd_path();
 	current_dir = get_env_var("PWD=");
 	if (current_dir != NULL)
-		return (update_pwd(current_dir), ft_strdup(current_dir));
+		return (update_pwd(current_dir), current_dir);
 	current_dir = malloc(1024);
 	if (getcwd(current_dir, 1024) == NULL)
 		return (free(current_dir), (void)update_err_code((int)errno),
