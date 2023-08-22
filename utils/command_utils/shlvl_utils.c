@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:54:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:22:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 16:07:04 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	shlvl_plus_one(char **join_it)
 		return ;
 	*join_it = ft_join(ft_strdup("SHLVL="), shlvl);
 	export_var(*join_it);
+	free(*join_it);
 }
 
 void	shlvl_minus_one(void)
@@ -43,4 +44,5 @@ void	shlvl_minus_one(void)
 		return ;
 	join_it = ft_join(ft_strdup("SHLVL="), shlvl);
 	export_var(join_it);
+	free(join_it);
 }

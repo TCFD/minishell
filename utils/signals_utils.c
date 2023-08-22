@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 11:16:59 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:12:30 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sig_handler(int signum)
 
 	rl_replace_line("", 0);
 	if (get_sign_ctrl() == 0)
-		printf("\n");
+		ft_printf("\n");
 	rl_redisplay();
 	if (signum == 3)
 		update_err_code(131);

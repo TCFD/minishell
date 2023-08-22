@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pfm1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 11:53:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:12:01 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 15:45:44 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,3 +333,5 @@ void	pipex(char *input)
 	free_d_array(split_all); */
 	return ;
 }
+
+

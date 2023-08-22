@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 13:00:05 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:05:03 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	export_var(char *var)
 {
 	char	**split_name;
 	char	**env;
-	char	**new_env;
+	//char	**new_env;
 //	char	*savetamere;
 	int		idx_var;
 
@@ -47,15 +47,14 @@ void	export_var(char *var)
 	if (idx_var != -1)
 	{
 		free(env[idx_var]); // Pose prb
-		env[idx_var] = var;
-		new_env = env;
+		env[idx_var] = ft_strdup(var);
+		update_env(env);
 	}
 	else
-		new_env = double_a_realloc(env, var);
+		update_env(double_a_realloc(env, ft_strdup(var)));
 //	split_name[1] = savetamere;
 	free_d_array(split_name);
 	update_err_code(0);
-	update_env(new_env);
 }
 
 // EXPORT ALL VAR

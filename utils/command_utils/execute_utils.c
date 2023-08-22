@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 10:01:02 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:27:09 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	int			status;
 
 	errno = 0;
-	signal(SIGQUIT, sig_handler);
 	pid = fork();
+	signal(SIGQUIT, sig_handler);
 	if (pid == -1)
 		return ((void)update_err_code((int)errno),
 			perror("fork"), exit(EXIT_FAILURE));

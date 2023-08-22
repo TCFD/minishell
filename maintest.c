@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 15:14:21 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:53:20 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int	main(int ac, char **ag, char **env)
 		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell(user, &cmdopt);
 	free_env_singleton();
+	update_pwd(NULL);
 	//exit_message(0);
 	return (0);
 }
