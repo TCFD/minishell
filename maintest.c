@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 17:47:20 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 17:57:19 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 	{
         ipt = NULL;
 	}
-	free(get_env_pwd());
-	free(get_env_oldpwd());
     free_cmdopt(cmdopt);
     rl_clear_history();
     free(input);
     free_d_array(spl);
-    ft_exit(ipt);
+    exit_prg(ipt);
 }
 
 // MINISHELL
@@ -61,7 +59,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	{
 		init_cmdopt(cmdopt);
 		if (ft_strncmp(input, "exit", 4) == 0 && (check_if_IFS(input[4]) || input[4] == '\0'))
-			return (free(last_entry), exit_func(cmdopt, input));
+			return (free(last_entry), free(prompt), exit_func(cmdopt, input));
 		while (check_if_IFS(input[i]))
 			i++;
 		if (input[i] && ft_strchr(input, '|'))
@@ -86,11 +84,12 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		free(last_entry);
 		last_entry = ft_strdup(input);
 		free(input);
-		prompt = display_user_prompt((char *)get_username());
-		input = readline(prompt);
 		free(prompt);
 		prompt = NULL;
+		prompt = display_user_prompt((char *)get_username());
+		input = readline(prompt);
 	}
+	free(prompt);
 	free(last_entry);
 	return ;
 }
@@ -113,7 +112,7 @@ void	run_minishell(void)
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
-	free(prompt);
+	//free(prompt);
 	//free(user);
 	rl_clear_history();
 	shlvl_minus_one();
@@ -197,12 +196,5 @@ int	main(int ac, char **ag, char **env)
 	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell();
-	free_env_singleton();
-	update_pwd(NULL);
-	free(get_env_pwd());
-	free(get_env_oldpwd());
-	free(get_home_path());
-	free(get_username());
-	//exit_message(0);
-	return (0);
+	return (ft_exit(error_code), 0);
 }
