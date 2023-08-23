@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 18:07:41 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:15:02 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ void	initialise_home_path(void)
 	update_home_path(ft_strdup(result));
 	free(result);
 }
-
 
 // ----------- MAIN ----------- //
 int	main(int ac, char **ag, char **env)
