@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils.c                                       :+:      :+:    :+:   */
+/*   design_p_home_path.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 14:35:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 14:24:51 by tboldrin         ###   ########.fr       */
+/*   Created: 2023/07/26 17:24:14 by tboldrin          #+#    #+#             */
+/*   Updated: 2023/08/23 15:01:00 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	init_cmdopt(t_cmd_and_opt *cmdopt)
+void	update_home_path(char *new_value)
 {
-	cmdopt->command_name = NULL;
-	cmdopt->command_path = NULL;
-	cmdopt->opt_ty_tb.type = NULL;
-	cmdopt->opt_ty_tb.tab = NULL;
-	cmdopt->path_unset = 0; // peut poser pb, a surveiller.
+	t_singleton	*singleton;
+
+	singleton = get_singleton_instance();
+	if (singleton->home_path)
+		free(singleton->home_path);
+	singleton->home_path = new_value;
 }
 
-void	init_design_pattern(t_singleton *design_p)
+char	*get_home_path(void)
 {
-	design_p->username = NULL;
-	design_p->env = NULL;
+	t_singleton	*singleton;
+
+	singleton = get_singleton_instance();
+	return (singleton->home_path);
 }

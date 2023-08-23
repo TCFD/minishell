@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/22 13:16:52 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:14:59 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ char	*special_cara_cd(char *cd_arg)
 {
 	char	*f;
 	char	*path_to_home;
-	char	*result_path;
-	int		user_in_path;
 
 	if (!cd_arg)
 	{
@@ -25,16 +23,15 @@ char	*special_cara_cd(char *cd_arg)
 		if (!f)
 			return ((void)update_err_code(1),
 				ft_printf("Minishell: cd « HOME » not set\n"), NULL);
-		return (ft_strdup(f));
+		return (f);
 	}
-	path_to_home = get_pwd();
-	user_in_path = get_word_index(path_to_home, get_username());
-	result_path = get_char_until_limit(path_to_home, user_in_path);
+	path_to_home = get_home_path();
 	if (cmp(cd_arg, "~"))
-		return (result_path);
+		return (path_to_home);
 	if (cmp(cd_arg, "-"))
 		return (get_env_var("OLDPWD="));
-	return (free(result_path), ft_strdup(cd_arg));
+	// peut-etre cd_arg a free
+	return (cd_arg);
 }
 
 char	*join_by_value(char *var_name, char *value)
@@ -59,19 +56,37 @@ void	write_env_pwd(char *pwd)
 
 char	*get_opendir_value(t_cmd_and_opt *cmdopt)
 {
+	bool	is_malloc;
 	char	*f;
+	char	*tmp_name;
 	DIR		*file;
 	
+	is_malloc = false;
 	f = special_cara_cd(cmdopt->opt_ty_tb.tab[1]);
 	if (!f)
 		return (NULL);
-	file = opendir(f);
+	tmp_name = f;
+	if ('~' == f[0])
+	{
+		is_malloc = true;
+		f = ft_join(ft_strdup(get_home_path()), ft_strdup(f + 1));
+		file = opendir(f);
+	}
+	else
+		file = opendir(f);
+	if (file == NULL && is_malloc == true)
+		free(f);
 	if (file == NULL)
 		return (closedir(file), (void)update_err_code((int)errno), 
-			(void)printf("Minishell: cd: %s: %s\n", f, strerror(errno)),
-			free(f), NULL);
+			(void)ft_printf("Minishell: cd: %s: %s\n", tmp_name, strerror(errno)),
+			NULL);
 	closedir(file);
-	return (f);
+	//if (cmp("~", cmdopt->opt_ty_tb.tab[1])
+	//	|| (cmdopt->opt_ty_tb.tab[1] && ('~' == cmdopt->opt_ty_tb.tab[1][0])))
+	//	return ((void)printf("yup\n"), f);
+	if (is_malloc == true)
+		return (f);
+	return (ft_strdup(f));
 }
 
 void	cd_remake(t_cmd_and_opt *cmdopt)

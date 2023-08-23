@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_username.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:54 by wolf              #+#    #+#             */
-/*   Updated: 2023/07/04 15:34:38 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/23 15:43:41 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	update_username(const char *newValue)
 	singleton->username = (char *)newValue;
 }
 
-const char	*get_username(void)
+char	*get_username(void)
 {
 	t_singleton	*singleton;
 
