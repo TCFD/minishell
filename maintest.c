@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 10:27:14 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:25:16 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 
     spl = ft_split(input, ' ');
     if (d_len(spl) > 2)
-        return ((void)printf("bash: exit: trop d'arguments\n"),
+        return ((void)ft_printf("bash: exit: trop d'arguments\n"),
             free_cmdopt(cmdopt), free(input), free_d_array(spl),
             exit(1));
     if (spl[1])

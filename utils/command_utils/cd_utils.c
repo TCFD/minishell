@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/22 13:16:52 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:25:56 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt)
 	file = opendir(f);
 	if (file == NULL)
 		return (closedir(file), (void)update_err_code((int)errno), 
-			(void)printf("Minishell: cd: %s: %s\n", f, strerror(errno)),
+			(void)ft_printf("Minishell: cd: %s: %s\n", f, strerror(errno)),
 			free(f), NULL);
 	closedir(file);
 	return (f);

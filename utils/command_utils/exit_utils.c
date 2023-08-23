@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/22 14:32:09 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:26:08 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	update_err_code_exit(char *origin_code, int code_err)
 	if (!str)
 		return (free(str), free(origin_code), exit_message(EXIT_FAILURE));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
-		return ((void)printf("Minishell: exit: %s : argument numérique nécessaire\n", origin_code),
+		return ((void)ft_printf("Minishell: exit: %s : argument numérique nécessaire\n", origin_code),
 		free(str), free(origin_code), exit_message(2));
 	code_err = code_err % 256;
 	errno = code_err;

@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 11:04:06 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:24:53 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	get_word_index(char *str, char const *word)
 		word_idx = 0;
 		if (str[idx] == word[0])
 		{
-			while (str[idx + word_idx] == word[word_idx])
+			while (str[idx + word_idx] && 
+				str[idx + word_idx] == word[word_idx])
 				word_idx++ ;
 			if (word_idx == (int)ft_strlen(word))
 				return (idx + word_idx);
@@ -79,6 +80,8 @@ int	get_word_index(char *str, char const *word)
 				return ((int)ft_strlen(str));
 			idx += word_idx;
 		}
+		if (idx == (int)ft_strlen(str))
+			break;
 		idx++ ;
 	}
 	return (-1);

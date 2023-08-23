@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/22 20:07:29 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:25:48 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	stack_cpy(char *tab_stack, char *tab_heap)
 
 	len_tab_heap = ft_strlen(tab_heap) + 1;
 	if (len_tab_heap >= 1024)
-		return ((void)printf("Allocation Error : len(tab_heap) >= 1024\n"));
+		return ((void)ft_printf("Allocation Error : len(tab_heap) >= 1024\n"));
 	ft_strlcpy(tab_stack, tab_heap, len_tab_heap);
 }

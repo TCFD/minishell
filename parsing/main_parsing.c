@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/21 19:08:37 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 12:25:27 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!input[0])
 		return ;
 	if (!check_correct_quotes(input))
-		return ((void)(printf("Minishell : incorect quotes.\n")));
+		return ((void)(ft_printf("Minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
 	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
 		return ;
