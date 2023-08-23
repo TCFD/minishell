@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 15:43:51 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:40:40 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int			does_command_path_valid(char *cmd);
 int			verif_if_env_called(t_cmd_and_opt *cmdopt);
 
 void		update_err_code(int code_err);
-void		ft_exit(char *code_err);
+void		exit_prg(char *code_err);
 char		*get_pwd(void);
 void		print_pwd(void);
 
@@ -233,10 +233,11 @@ char	*get_env_oldpwd(void);
 
 void	free_env_singleton(void);
 
-void	exit_message(int code);
 
 void	update_home_path(char *new_value);
 char	*get_home_path(void);
+
+void	ft_exit(int code);
 
 // ------- Pour le tester --------//
 
