@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 11:02:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 11:11:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ char		*get_pwd(void);
 void		print_pwd(void);
 
 void		exit_func(t_cmd_and_opt *cmdopt, char *input);
-int			get_word_index(char const *str, char const *word);
+int			get_word_index(char *str, char const *word);
 char		**list_to_d_tab(t_list *list);
 int			count_out_redirs(char **tab, char *type);
 int			count_in_redirs(char **tab, char *type, bool *heredoc);
@@ -215,7 +215,6 @@ char	*get_pwd_for_pwd(void);
 void	print_pwd(void);
 
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
-int		get_word_index(char const *str, char const *word);
 void	free_d_int(int **elmt, int len);
 int		check_if_IFS(char c);
 t_singleton	*get_pwd_instance(void);

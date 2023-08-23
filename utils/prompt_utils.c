@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 15:52:10 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:04:06 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*stick_color(char *str, char *color)
 	return (new_str);
 }
 
-int	get_word_index(char const *str, char const *word)
+int	get_word_index(char *str, char const *word)
 {
 	int	idx;
 	int	word_idx;
@@ -68,13 +68,15 @@ int	get_word_index(char const *str, char const *word)
 	idx = 0;
 	while (str[idx])
 	{
-		word_idx = 1;
+		word_idx = 0;
 		if (str[idx] == word[0])
 		{
 			while (str[idx + word_idx] == word[word_idx])
 				word_idx++ ;
 			if (word_idx == (int)ft_strlen(word))
 				return (idx + word_idx);
+			if (word_idx > (int)ft_strlen(word))
+				return ((int)ft_strlen(str));
 			idx += word_idx;
 		}
 		idx++ ;
@@ -92,15 +94,22 @@ char	*display_user_prompt(char *username)
 	save_user = username;
 	username = stick_color(ft_join(ft_strdup(username),
 				ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
+
 	cwd = get_pwd();
 	if (cwd == NULL)
 		return (free(username), NULL);
+
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
-		user_len = ft_strlen(cwd);
+		user_len = 0;
+
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
-	result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
-	//printf("errno : %d\nerror_code : %d\n", errno, error_code); // --
+
+	if (user_len == 0) // Pour savoir si on est au dessus de "~"
+		result = stick_color(ft_join(ft_strdup(" "), result), ft_strdup(BLUE));
+	else
+		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
+
 	if (error_code == 0)
 		username = ft_join(ft_strdup("👍 "), username);
 	else
