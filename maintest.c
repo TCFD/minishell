@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 17:57:19 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:07:41 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			ft_printf("\n");
 		if (error_code == 131)
 			ft_printf("Quit (core dumped)\n");
+		free_cmdopt(cmdopt);
 		free(last_entry);
 		last_entry = ft_strdup(input);
 		free(input);
