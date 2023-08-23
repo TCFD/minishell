@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 15:06:16 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:02:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_redirections
 	int		file_in_fd;
 	int		file_out_fd;
 	bool	heredoc;
+	char	*random_adress;
 }t_redirections;
 
 typedef struct s_separators
@@ -190,7 +191,7 @@ int			count_in_redirs(char **tab, char *type, bool *heredoc);
 void		restore_stdin(t_redirections *redir);
 int			search_in_redirections(t_cmd_and_opt *cmdopt,
 				t_redirections *redir, bool *redir_bool);
-int			redirect_input(char **tab, int *stdin_save, int *filefd);
+int			redirect_input(char **tab, int *stdin_save, int *filefd, char **random_adress);
 char		*replace_dollar(char what_case, char *input, int i, t_list **list);
 void		case_1(t_separators *sep, char **content, char *input,
 				t_list **list);
@@ -204,7 +205,7 @@ int			check_valid_file_name(char **tab, char *type);
 void		set_separator(t_separators *sep, char *input);
 t_list		*all_tokens(char *input, t_list *list, int i, int len);
 void		lst_add(t_list **list, char **content, char type);
-void		temp_heredoc(char *str);
+void		temp_heredoc(char *str, char **random_adress);
 void		redo_path_and_name(t_cmd_and_opt *cmd);
 void		update_err_code_exit(char *origin_code, int code_err);
 

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/21 19:12:12 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 11:01:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 {
-	if (redirect_input(tab + i, &redir->stdin_save, &redir->file_in_fd))
+	if (redirect_input(tab + i, &redir->stdin_save, &redir->file_in_fd, &redir->random_adress))
 		return (0);
 	if (!tab[i + 2])
 		return (1);
@@ -54,7 +54,7 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redi, int i)
 			&& funct_counter < redi->counter)
 		{
 			if (ft_strnstr(tab[i], D_L_RAFTER, ft_strlen(tab[i])))
-				temp_heredoc(tab[i + 1]);
+				temp_heredoc(tab[i + 1], &redi->random_adress);
 			else
 				if (search_if_file_exist(tab[i + 1]))
 					return (0);

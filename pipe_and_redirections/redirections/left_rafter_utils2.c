@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/05 14:49:38 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/23 11:02:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,22 @@ void	restore_stdin(t_redirections *redir)
 	close(redir->file_in_fd);
 	close(redir->stdin_save);
 	if (redir->heredoc)
-		unlink("temp_heredoc");
+	{
+		unlink(redir->random_adress);
+		free(redir->random_adress);
+	}
 }
 
-void	temp_heredoc(char *str)
+void	temp_heredoc(char *str, char **random_adress)
 {
-	int		fd;
-	char	*line;
+	int			fd;
+	long int	random;
+	char		*line;
 
-	fd = open("temp_heredoc", O_CREAT | O_RDWR | O_TRUNC, 0666);
+	random = (long int)random_adress;
+	*random_adress = ft_itoa(random);
+	*random_adress = ft_join(ft_strdup("/tmp/"), *random_adress);
+	fd = open(*random_adress, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	while (1)
 	{
 		line = readline("> ");
@@ -44,15 +51,15 @@ void	temp_heredoc(char *str)
 	close(fd);
 }
 
-int	redirect_input(char **tab, int *stdin_save, int *filefd)
+int	redirect_input(char **tab, int *stdin_save, int *filefd, char **random_adress)
 {
 	*stdin_save = dup(STDIN_FILENO);
 	if (*stdin_save == -1)
 		return (perror("Failed to save stdin"), 1);
 	if (ft_strnstr(tab[0], D_L_RAFTER, ft_strlen(tab[0])))
 	{
-		temp_heredoc(tab[1]);
-		*filefd = open("temp_heredoc", O_RDONLY, 0666);
+		temp_heredoc(tab[1], random_adress);
+		*filefd = open(*random_adress, O_RDONLY, 0666);
 	}
 	else
 		*filefd = open(tab[1], O_RDONLY, 0666);
