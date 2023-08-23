@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/23 11:02:33 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 15:05:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	temp_heredoc(char *str, char **random_adress)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line)
+		if (!line || error_code == 130)
 			break ;
-		if (ft_strncmp(line, str, ft_strlen(str)) == 0)
+		if (ft_strncmp(line, str, ft_strlen(str) + ft_strlen(str)) == 0)
 		{
 			free(line);
 			break ;

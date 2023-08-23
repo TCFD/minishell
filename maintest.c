@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 10:27:14 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:45:45 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		}
 		else
 			update_err_code(0);
-		free_cmdopt(cmdopt);
+		if (error_code == 130)
+			ft_printf("\n");
+		if (error_code == 131)
+			ft_printf("Quit (core dumped)\n");
 		free(last_entry);
 		last_entry = ft_strdup(input);
 		free(input);

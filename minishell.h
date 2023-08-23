@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 11:11:30 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 14:29:08 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include <sys/ioctl.h>
+
 extern int	error_code;
 
 typedef struct s_redirections

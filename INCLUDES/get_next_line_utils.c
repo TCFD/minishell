@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/05 17:09:57 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:02:40 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ char	*read_fd(int fd, int *verification, char **static_buff)
 	if (result_read && result_read > 0)
 	{
 		buff_tmp[result_read] = '\0';
-		cpy_tmp = ft_cpy(*static_buff, 1);
+		cpy_tmp = ft_strdup(*static_buff);
 		new_s_buff = ft_join(cpy_tmp, buff_tmp);
-		*static_buff = ft_cpy(new_s_buff, 1);
-		free(cpy_tmp);
-		free(buff_tmp);
+		*static_buff = ft_strdup(new_s_buff);
+		//free(cpy_tmp);
+		//free(buff_tmp);
 		return (*static_buff);
 	}
 	free(buff_tmp);
