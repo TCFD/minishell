@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 15:52:41 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:34:23 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*get_pwd(void)
 	
 	last_one = get_pwd_path();
 	current_dir = get_env_var("PWD=");
+	printf("get_env_var : %s\n", current_dir);
 	if (current_dir != NULL)
 		return (update_pwd(ft_strdup(current_dir))
 			, current_dir);

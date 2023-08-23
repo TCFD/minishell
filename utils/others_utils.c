@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/21 19:13:00 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:07:29 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ char	*get_char_until_limit(char *str, int lim)
 {
 	char	*new_one;
 	int		idx;
+	int		b;
 
-	new_one = malloc((lim + 1) * sizeof(char));
+	b = 0;
+	if (lim < 0)
+		b = 1;
+	new_one = malloc((lim + b + 1) * sizeof(char));
 	if (!new_one)
 		return (NULL);
 	idx = 0;

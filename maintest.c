@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 15:53:20 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:27:14 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
     char    *ipt;
     char    **spl;
-	char	*env_var;
 
     spl = ft_split(input, ' ');
     if (d_len(spl) > 2)
@@ -40,11 +39,9 @@ void    exit_func(t_cmd_and_opt *cmdopt, char *input)
     else
 	{
         ipt = NULL;
-	}	
-	env_var = get_env_var("PWD=");
-	free(env_var);
-	env_var = get_env_var("OLDPWD=");
-	free(env_var);
+	}
+	free(get_env_pwd());
+	free(get_env_oldpwd());
     free_cmdopt(cmdopt);
     rl_clear_history();
     free(input);
@@ -157,6 +154,8 @@ int	main(int ac, char **ag, char **env)
 	run_minishell(user, &cmdopt);
 	free_env_singleton();
 	update_pwd(NULL);
+	free(get_env_pwd());
+	free(get_env_oldpwd());
 	//exit_message(0);
 	return (0);
 }

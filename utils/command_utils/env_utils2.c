@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 19:16:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/23 10:35:20 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*get_env_var(char *var_name)
 		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0)
 		{
 			split_one = ft_split(env[idx], '=');
+			printf("split_one : %s\n", split_one[1]);
 			final = ft_strdup(split_one[1]);
 			return (free_d_array(split_one), final);
 		}

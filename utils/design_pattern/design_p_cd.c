@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:23:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/21 21:06:56 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:32:13 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	update_env_pwd(char *new_value)
 	static int	count;
 	t_singleton	*singleton;
 
-	count = 0;
 	count++ ;
 	singleton = get_env_instance();
 	if (count > 1 && singleton->env_pwd != NULL)
@@ -30,7 +29,6 @@ void	update_env_oldpwd(char *new_value)
 	static int	count;
 	t_singleton	*singleton;
 
-	count = 0;
 	count++ ;
 	singleton = get_env_instance();
 	if (count > 1 && singleton->env_oldpwd != NULL)
