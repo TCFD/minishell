@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 12:25:16 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:44:09 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,28 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 }
 
 // RUN MINISHELL
-void	run_minishell(char *user, t_cmd_and_opt *cmdopt)
+void	run_minishell(void)
 {
-	char	*input;
-	char	*prompt;
-	char	*join;
+	t_cmd_and_opt	cmdopt;
+	char			*input;
+	char			*prompt;
+	char			*join;
 
 	join = NULL;
+
+	init_cmdopt(&cmdopt);
+	verif_env_and_path(&cmdopt);
+
+	
 	shlvl_plus_one(&join);
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
-	minishell(input, cmdopt, prompt);
+	minishell(input, &cmdopt, prompt);
 	free(prompt);
-	free(user);
+	//free(user);
 	rl_clear_history();
 	shlvl_minus_one();
-	free_cmdopt(cmdopt);
+	free_cmdopt(&cmdopt);
 	//free(join);
 }
 
@@ -132,30 +138,68 @@ char	**alloc_env(char **env)
 	return (env_out);
 }
 
+char	*get_brut_cmd_result(char *cmd)
+{
+	t_cmd_and_opt	cmdopt;
+	char			*result;
+
+	init_cmdopt(&cmdopt);
+	verif_env_and_path(&cmdopt);
+	create_command(cmd, &cmdopt);
+	free(cmdopt.opt_ty_tb.tab[0]);
+	cmdopt.opt_ty_tb.tab[0] = ft_strdup(cmdopt.command_path);
+	result = get_execve_return(&cmdopt);
+	free_cmdopt(&cmdopt);
+	return (result);
+}
+
+
+void	initialise_home_path(void)
+{
+	t_cmd_and_opt	cmdopt;
+	char			*find_path;
+	char			**split_it;
+	char			*result;
+	char			*cmd;
+
+	init_cmdopt(&cmdopt);
+	verif_env_and_path(&cmdopt);
+	cmd = ft_join(ft_strdup("/bin/getent passwd "), ft_strdup(get_username()));
+	find_path = get_brut_cmd_result(cmd);
+	split_it = ft_split(find_path , ':');
+	result = ft_strdup(split_it[d_len(split_it) - 2]);
+	free(cmd);
+	free_d_array(split_it);
+	free(find_path);
+	//free_cmdopt(&cmdopt);
+	update_home_path(ft_strdup(result));
+	free(result);
+}
+
+
 // ----------- MAIN ----------- //
 int	main(int ac, char **ag, char **env)
 {
-	t_cmd_and_opt	cmdopt;
-	char			*user;
-
+	char	*user;
 	//welcome_to_minishell();
+	(void)ac;
+	(void)ag;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
-	verif_env_and_path(&cmdopt);
-	create_command("/bin/whoami", &cmdopt);
-	free(cmdopt.opt_ty_tb.tab[0]);
-	cmdopt.opt_ty_tb.tab[0] = ft_strdup(cmdopt.command_path);
-	user = get_execve_return(&cmdopt);
-	update_username(user);
-	free_cmdopt(&cmdopt);
-	if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
-		return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
-	run_minishell(user, &cmdopt);
+	user = get_brut_cmd_result("/bin/whoami");
+	update_username(ft_strdup(user));
+	free(user);
+	initialise_home_path();
+	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
+	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
+	run_minishell();
 	free_env_singleton();
 	update_pwd(NULL);
 	free(get_env_pwd());
 	free(get_env_oldpwd());
+	free(get_home_path());
+	free(get_username());
 	//exit_message(0);
 	return (0);
 }

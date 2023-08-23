@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/08/21 19:06:25 by rciaze           ###   ########.fr        #
+#    Updated: 2023/08/23 15:04:56 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS 		=	maintest.c								\
 				$(UTILS)dollar_completion.c				\
 				$(UTILS)others_utils.c					\
 				$(DESIGN_PATTERN)design_p_username.c	\
+				$(DESIGN_PATTERN)design_p_home_path.c	\
 				$(DESIGN_PATTERN)design_p_env.c			\
 				$(DESIGN_PATTERN)design_p_pwd.c			\
 				$(DESIGN_PATTERN)design_p_sign.c		\

@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 20:03:16 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:43:51 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_singleton
 	char	*pwd;
 	char	*env_pwd;
 	char	*env_oldpwd;
+	char	*home_path;
 	int		count;
 	int		sign_ctrl;
 }t_singleton;
@@ -149,7 +150,7 @@ char		*get_execve_return(t_cmd_and_opt *cmdopt);
 t_singleton	*get_singleton_instance(void);
 void		update_username(const char *newValue);
 void		free_last_value(void);
-const char	*get_username(void);
+char	*get_username(void);
 int			search_d_tab(t_cmd_and_opt *cmdopt, char *c);
 int			redirect_output(char **tab, int *stdout_save, int *filefd,
 				int which_case);
@@ -161,7 +162,6 @@ void		shlvl_plus_one(char **join_it);
 void		shlvl_minus_one(void);
 void		rebuild_env(void);
 void		verif_env_and_path(t_cmd_and_opt *cmdopt);
-t_singleton	*get_env_instance(void);
 void		free_singleton(void);
 void		update_env(char **new_value);
 char		**get_env(void);
@@ -216,7 +216,6 @@ void	print_pwd(void);
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
 void	free_d_int(int **elmt, int len);
 int		check_if_IFS(char c);
-t_singleton	*get_pwd_instance(void);
 char	*get_env_var(char *var_name);
 void	update_pwd(char *new_value);
 char	*get_pwd_path(void);
@@ -235,6 +234,9 @@ char	*get_env_oldpwd(void);
 void	free_env_singleton(void);
 
 void	exit_message(int code);
+
+void	update_home_path(char *new_value);
+char	*get_home_path(void);
 
 // ------- Pour le tester --------//
 
