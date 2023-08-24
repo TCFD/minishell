@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 19:46:44 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:29:37 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	bf_prd(char *str, int d, char *color)
 {
-	char	*str_cara;
 	char	*color_strdup;
 	int		idx_str;
 	int		idx;
@@ -28,16 +27,10 @@ void	bf_prd(char *str, int d, char *color)
 		idx = 0;
 		while (idx < d)
 			idx++ ;
-		str_cara = malloc(2 * sizeof(char));
-		str_cara[0] = str[idx_str];
-		str_cara[1] = '\0';
-		write(1, str_cara, 1);
-		free(str_cara);
+		write(1, &str[idx_str], 1);
 		idx_str++ ;
 	}
-	color_strdup = ft_strdup("\033[0m");
-	write(1, color_strdup, ft_strlen(color_strdup));
-	free(color_strdup);
+	write(1, "\033[0m", 5);
 }
 
 void	welcome_to_minishell(void)
@@ -114,7 +107,7 @@ char	*display_user_prompt(char *username)
 		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 
 	if (error_code == 0)
-		username = ft_join(ft_strdup("🤌 "), username);
+		username = ft_join(ft_strdup("🤌  "), username);
 	else
 		username = ft_join(ft_strdup("🖕 "), username);
 	result = ft_join(username, result);

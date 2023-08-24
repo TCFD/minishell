@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 16:27:09 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:44:06 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{
-			ft_printf("\033[31m%s\033[0m : %s\n", cmdopt->command_name,
+			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
-			return (free_cmdopt(cmdopt), exit(errno));
+			
+			return (free_cmdopt(cmdopt), ft_exit(errno));
 		}
 	}
 	update_sign_ctrl(1);
@@ -39,10 +40,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	signal(SIGQUIT, SIG_IGN);
 	update_sign_ctrl(0);
 	if (error_code == 130 && b == false)
-	{
-		//printf("error_code 130\n");
 		b = true;
-	}
 	else if (WIFEXITED(status))
 	{
 		b = false;
