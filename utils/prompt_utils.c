@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 19:46:44 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:29:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*display_user_prompt(char *username)
 		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 
 	if (error_code == 0)
-		username = ft_join(ft_strdup("🤌 "), username);
+		username = ft_join(ft_strdup("🤌  "), username);
 	else
 		username = ft_join(ft_strdup("🖕 "), username);
 	result = ft_join(username, result);

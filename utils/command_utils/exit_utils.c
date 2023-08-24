@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/23 19:41:33 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:30:56 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_exit(int code)
 	free(get_home_path());
 	free(get_username());
 	free_env_singleton();
-	bf_prd("\n➜ Outstanding •ᴗ• \033[5m🙏\033[0m\033[32m ?\n\n", 75000000, GREEN);
+	//bf_prd("\n➜ Outstanding •ᴗ• \033[5m🙏\033[0m\033[32m ?\n\n", 75000000, GREEN);
 	
 	exit(code);
 }

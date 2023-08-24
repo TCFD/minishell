@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 18:15:02 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:32:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	char	*last_entry;
 
 	i = 0;
-	last_entry = ft_strdup(NULL);
+	last_entry = ft_strdup("");
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
