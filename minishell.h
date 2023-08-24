@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 14:59:38 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:15:46 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void		free_t_array(char ***str);
 void		free_cmdopt(t_cmd_and_opt *cmdopt);
 void		init_cmdopt(t_cmd_and_opt *cmdopt);
 void		init_design_pattern(t_singleton *design_p);
-void		run_execve(t_cmd_and_opt *cmdopt);
-void		execute_command(t_cmd_and_opt *cmdopt);
+int			run_execve(t_cmd_and_opt *cmdopt);
+int			execute_command(t_cmd_and_opt *cmdopt);
 void		bf_prd(char *str, int d, char *color);
 void		unset_env_var(char *variable);
 void		unset_all_env_var(t_cmd_and_opt *cmdopt);
@@ -223,7 +223,7 @@ char	*get_env_var(char *var_name);
 void	update_pwd(char *new_value);
 char	*get_pwd_path(void);
 
-void		find_command(t_cmd_and_opt *cmdopt);
+int		find_command(t_cmd_and_opt *cmdopt);
 
 void	update_sign_ctrl(int value);
 int		get_sign_ctrl(void);

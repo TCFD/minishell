@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 20:56:20 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/24 21:17:57 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			create_command(input, cmdopt);
 			if (ft_strncmp(last_entry, input, ft_strlen(input) + ft_strlen(last_entry)))
 				add_history(input);
-			execute_command(cmdopt);
+			if (!execute_command(cmdopt))
+				return (free(prompt), free(last_entry), ft_exit(errno));
 		}
 		else
 			update_err_code(0);
@@ -90,8 +91,8 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		prompt = display_user_prompt((char *)get_username());
 		input = readline(prompt);
 	}
-	free(prompt);
 	free(last_entry);
+	free(prompt);
 	return ;
 }
 
@@ -113,7 +114,6 @@ void	run_minishell(void)
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
-	//free(prompt);
 	//free(user);
 	rl_clear_history();
 	shlvl_minus_one();

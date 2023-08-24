@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 14:44:06 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:16:30 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	run_execve(t_cmd_and_opt *cmdopt)
+int	run_execve(t_cmd_and_opt *cmdopt)
 {
 	static bool	b;
 	pid_t		pid;
@@ -23,7 +23,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 	signal(SIGQUIT, sig_handler);
 	if (pid == -1)
 		return ((void)update_err_code((int)errno),
-			perror("fork"), exit(EXIT_FAILURE));
+			perror("fork"), exit(EXIT_FAILURE), 1);
 	else if (pid == 0)
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
@@ -32,7 +32,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
 			
-			return (free_cmdopt(cmdopt), ft_exit(errno));
+			return (free_cmdopt(cmdopt), 0);
 		}
 	}
 	update_sign_ctrl(1);
@@ -47,6 +47,7 @@ void	run_execve(t_cmd_and_opt *cmdopt)
 		errno = WEXITSTATUS(status);
 		update_err_code((int)errno);
 	}
+	return (1);
 }
 
 /* 
@@ -72,7 +73,7 @@ int	cmp(char *cmd_name, char *cmd_name_2)
 	return (0);
 }
 
-void	find_command(t_cmd_and_opt *cmdopt)
+int	find_command(t_cmd_and_opt *cmdopt)
 {
 	if (cmp(cmdopt->command_name, "cd"))
 		cd_remake(cmdopt);
@@ -88,28 +89,34 @@ void	find_command(t_cmd_and_opt *cmdopt)
 		print_pwd();
 	else if (!cmdopt->command_path[0])
 		return (ft_printf("\033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127));
+				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127), 1);
 	else
-		run_execve(cmdopt);
+	{
+		if (!run_execve(cmdopt))
+			return (0);
+	}
+	return (1);
 }
 
-void	execute_command(t_cmd_and_opt *cmdopt)
+int	execute_command(t_cmd_and_opt *cmdopt)
 {
 	t_redirections	redirections;
 	bool			redir_out_bool;
 	bool			redir_in_bool;
 
 	if (!cmdopt->command_name)
-		return ;
+		return 1;
 	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
-		return ;
+		return 1;
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
-		return ;
+		return 1;
 	free(cmdopt->opt_ty_tb.tab[0]);
 	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
-	find_command(cmdopt);
+	if (!find_command(cmdopt))
+		return (0);
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
+	return (1);
 }
