@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/08/23 15:04:56 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/08/24 21:58:09 by zbp15            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS 		=	maintest.c								\
 				$(COMMAND_UTILS)execute_utils.c			\
 				$(COMMAND_UTILS)execute_utils2.c		\
 				$(COMMAND_UTILS)cd_utils.c				\
+				$(COMMAND_UTILS)cd_utils2.c				\
 				$(COMMAND_UTILS)echo_utils.c			\
 				$(COMMAND_UTILS)env_utils.c				\
 				$(COMMAND_UTILS)env_utils2.c			\

@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/24 14:51:50 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:55:48 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	search_if_file_exist(char *filename)
+{
+	int	filefd;
+
+	filefd = open(filename, O_RDONLY, 0666);
+	if (filefd == -1)
+		return ((void)ft_printf("Minishell : %s: ", filename), perror(""), 1);
+	close(filefd);
+	return (0);
+}
+
+// fuck norm
+void	remove_in_redirections2(char **tab, char *type, t_redirections *redi, int i)
+{
+	if (redi->list)
+		ft_lstadd_back(&redi->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+	else
+		redi->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+}
 
 void	restore_stdin(t_redirections *redir)
 {
@@ -51,7 +71,8 @@ void	temp_heredoc(char *str, char **random_adress)
 	close(fd);
 }
 
-int	redirect_input(char **tab, int *stdin_save, int *filefd, char **random_adress)
+int	redirect_input(char **tab, int *stdin_save, int *filefd,
+	char **random_adress)
 {
 	*stdin_save = dup(STDIN_FILENO);
 	if (*stdin_save == -1)

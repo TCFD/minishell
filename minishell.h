@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 21:15:46 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/24 21:57:55 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # define DOUBLE_Q			'\"'
 # define SPACE				' '
 # define NONE				'\0'
-# define S_R_RAFTER	">"
-# define D_R_RAFTER	">>"
-# define S_L_RAFTER	"<"
-# define D_L_RAFTER	"<<"
+# define S_R_RAFTER			">"
+# define D_R_RAFTER			">>"
+# define S_L_RAFTER			"<"
+# define D_L_RAFTER			"<<"
 # define PIPE				"|"
 
 # include <stdio.h>
@@ -215,6 +215,9 @@ void		update_err_code_exit(char *origin_code, int code_err);
 char	*get_pwd(void);
 char	*get_pwd_for_pwd(void);
 void	print_pwd(void);
+char	*join_by_value(char *var_name, char *value);
+void	write_env_oldpwd(char *oldpwd);
+void	write_env_pwd(char *pwd);
 
 void	exit_func(t_cmd_and_opt *cmdopt, char *input);
 void	free_d_int(int **elmt, int len);
@@ -222,7 +225,9 @@ int		check_if_IFS(char c);
 char	*get_env_var(char *var_name);
 void	update_pwd(char *new_value);
 char	*get_pwd_path(void);
-
+int	what_case_equal_c(char c, char c2);
+void	remove_in_redirections2(char **tab, char *type, t_redirections *redi, int i);
+int	search_if_file_exist(char *filename);
 int		find_command(t_cmd_and_opt *cmdopt);
 
 void	update_sign_ctrl(int value);

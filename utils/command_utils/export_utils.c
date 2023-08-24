@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 16:05:03 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:04:10 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int	export_name_unvalid(char *var)
 {
 	int	i;
 
+	if (var[0] == '=')
+		return (1);
 	i = -1;
-	while(var[++i] != '=' && var[i])
+	while (var[++i] != '=' && var[i])
 	{
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 			return (1);
@@ -31,28 +33,25 @@ void	export_var(char *var)
 {
 	char	**split_name;
 	char	**env;
-	//char	**new_env;
-//	char	*savetamere;
 	int		idx_var;
 
 	if (export_name_unvalid(var))
-		return ((void)update_err_code(1), (void)ft_printf("Minishell : export: "),
-			(void)ft_printf("`%s': identifiant non valable\n", var));
+		return ((void)update_err_code(1),
+			(void)ft_printf("Minishell : export: `%s':"
+				" identifiant non valable\n", var));
 	if (!ft_strchr(var, '='))
 		return ;
 	split_name = ft_split(var, '=');
-//	savetamere = ft_strdup(split_name[1]);
 	idx_var = ft_getenv_int(split_name[0]);
 	env = get_env();
 	if (idx_var != -1)
 	{
-		free(env[idx_var]); // Pose prb
+		free(env[idx_var]);
 		env[idx_var] = ft_strdup(var);
 		update_env(env);
 	}
 	else
 		update_env(double_a_realloc(env, ft_strdup(var)));
-//	split_name[1] = savetamere;
 	free_d_array(split_name);
 	update_err_code(0);
 }

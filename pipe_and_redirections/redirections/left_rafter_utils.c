@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/23 11:01:53 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:49:56 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 {
-	if (redirect_input(tab + i, &redir->stdin_save, &redir->file_in_fd, &redir->random_adress))
+	if (redirect_input(tab + i, &redir->stdin_save, &redir->file_in_fd,
+			&redir->random_adress))
 		return (0);
 	if (!tab[i + 2])
 		return (1);
@@ -28,17 +29,6 @@ int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 		i++;
 	}
 	return (1);
-}
-
-int	search_if_file_exist(char *filename)
-{
-	int	filefd;
-
-	filefd = open(filename, O_RDONLY, 0666);
-	if (filefd == -1)
-		return ((void)ft_printf("Minishell : %s: ", filename), perror(""), 1);
-	close(filefd);
-	return (0);
 }
 
 int	remove_in_redirections(char **tab, char *type, t_redirections *redi, int i)
@@ -65,10 +55,7 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redi, int i)
 		else if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
 			&& funct_counter == redi->counter)
 			return (add_rest_in(tab, type, i, redi));
-		if (redi->list)
-			ft_lstadd_back(&redi->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
-		else
-			redi->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+		remove_in_redirections2(tab, type, redi, i);
 	}
 	return (add_rest_in(tab, type, i, redi));
 }

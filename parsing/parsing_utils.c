@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 12:25:41 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:47:01 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	what_case_equal_c(char c, char c2)
+{
+	if ((c == SIMPLE_Q && c2 == SIMPLE_Q)
+		|| (c == DOUBLE_Q && c2 == DOUBLE_Q))
+		return (1);
+	return (0);
+}
 
 // IS PATH UNSET
 char	*is_path_unset(char *command_name, int imd_return)
@@ -28,15 +36,14 @@ char	*is_path_unset(char *command_name, int imd_return)
 		path_split = ft_split(env_path, ':');
 	else
 		path_split = ft_split(ft_strdup("/bin/usr:/bin"), ':');
-	idx = 0;
-	while (idx < d_len(path_split))
+	idx = -1;
+	while (++idx < d_len(path_split))
 	{
 		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
 		path2 = ft_join(path, ft_strdup(command_name));
 		if (access(path2, F_OK | X_OK) == 0)
 			return ((free_d_array(path_split)), free(command_name), path2);
 		free(path2);
-		idx++ ;
 	}
 	free_d_array(path_split);
 	free(command_name);

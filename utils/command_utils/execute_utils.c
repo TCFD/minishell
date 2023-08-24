@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 21:16:30 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/24 22:00:47 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		{
 			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
-			
 			return (free_cmdopt(cmdopt), 0);
 		}
 	}
@@ -89,7 +88,8 @@ int	find_command(t_cmd_and_opt *cmdopt)
 		print_pwd();
 	else if (!cmdopt->command_path[0])
 		return (ft_printf("\033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt), update_err_code(127), 1);
+				cmdopt->command_name), free_cmdopt(cmdopt),
+			update_err_code(127), 1);
 	else
 	{
 		if (!run_execve(cmdopt))
@@ -105,11 +105,11 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	bool			redir_in_bool;
 
 	if (!cmdopt->command_name)
-		return 1;
+		return (1);
 	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
-		return 1;
+		return (1);
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
-		return 1;
+		return (1);
 	free(cmdopt->opt_ty_tb.tab[0]);
 	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
 	if (!find_command(cmdopt))
