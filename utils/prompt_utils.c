@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 14:29:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/24 20:56:38 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	bf_prd(char *str, int d, char *color)
 {
-	char	*str_cara;
 	char	*color_strdup;
 	int		idx_str;
 	int		idx;
@@ -28,16 +27,10 @@ void	bf_prd(char *str, int d, char *color)
 		idx = 0;
 		while (idx < d)
 			idx++ ;
-		str_cara = malloc(2 * sizeof(char));
-		str_cara[0] = str[idx_str];
-		str_cara[1] = '\0';
-		write(1, str_cara, 1);
-		free(str_cara);
+		write(1, &str[idx_str], 1);
 		idx_str++ ;
 	}
-	color_strdup = ft_strdup("\033[0m");
-	write(1, color_strdup, ft_strlen(color_strdup));
-	free(color_strdup);
+	write(1, "\033[0m", 5);
 }
 
 void	welcome_to_minishell(void)
