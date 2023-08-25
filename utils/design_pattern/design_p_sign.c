@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 22:19:39 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 14:59:14 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:23:19 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,20 @@ int	get_sign_ctrl(void)
 	singleton = get_singleton_instance();
 	return (singleton->sign_ctrl);
 }
+
+void	update_last_sign(int value)
+{
+	t_singleton	*singleton;
+
+	singleton = get_singleton_instance();
+	singleton->sign_ctrl = value;
+}
+
+int	get_last_sign(void)
+{
+	t_singleton	*singleton;
+
+	singleton = get_singleton_instance();
+	return (singleton->sign_ctrl);
+}
+

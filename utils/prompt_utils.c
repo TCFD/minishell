@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/25 10:40:11 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/25 17:39:37 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,15 @@ char	*display_user_prompt(char *username)
 	else
 		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 
-	if (error_code == 0)
-		username = ft_join(ft_strdup("🤌 "), username);
+	/* if (error_code == 0 || get_last_sign() == 130)
+		username = ft_join(ft_strdup("\e[32m➜\e[0m "), username); //🤌
 	else
-		username = ft_join(ft_strdup("🖕 "), username);
+		username = ft_join(ft_strdup("\e[31m➜\e[0m "), username); //🖕 */
+
+	if (error_code == 0 || get_last_sign() == 130)
+		username = ft_join(ft_strdup("🤌  "), username); //🤌
+	else
+		username = ft_join(ft_strdup("🖕 "), username); //🖕
 	result = ft_join(username, result);
 	free(cwd);
 	return (result);

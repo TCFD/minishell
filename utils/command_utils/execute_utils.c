@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 22:00:47 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/25 17:11:07 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	find_command(t_cmd_and_opt *cmdopt)
 	else if (!cmdopt->command_path[0])
 		return (ft_printf("\033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt),
-			update_err_code(127), 1);
+				update_err_code(127), 1);
 	else
 	{
 		if (!run_execve(cmdopt))

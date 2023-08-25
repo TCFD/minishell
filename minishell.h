@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 21:57:55 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/25 17:24:25 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_singleton
 	char	*home_path;
 	int		count;
 	int		sign_ctrl;
+	int		last_sign;
 }t_singleton;
 
 typedef struct c_cd
@@ -246,6 +247,8 @@ void	update_home_path(char *new_value);
 char	*get_home_path(void);
 
 void	ft_exit(int code);
+void	update_last_sign(int value);
+int		get_last_sign(void);
 
 // ------- Pour le tester --------//
 

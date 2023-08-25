@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 21:17:57 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/25 17:47:42 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,25 @@ char	*getenv_check(char *str)
 }
 
 // EXIT FUNC
-void    exit_func(t_cmd_and_opt *cmdopt, char *input)
+void	exit_func(t_cmd_and_opt *cmdopt, char *input)
 {
-    char    *ipt;
-    char    **spl;
+	char	*ipt;
+	char	**spl;
 
-    spl = ft_split(input, ' ');
-    if (d_len(spl) > 2)
-        return ((void)ft_printf("bash: exit: trop d'arguments\n"),
-            free_cmdopt(cmdopt), free(input), free_d_array(spl),
-            exit(1));
-    if (spl[1])
-        ipt = ft_strdup(spl[1]);
-    else
-	{
-        ipt = NULL;
-	}
-    free_cmdopt(cmdopt);
-    rl_clear_history();
-    free(input);
-    free_d_array(spl);
-    exit_prg(ipt);
+	spl = ft_split(input, ' ');
+	if (d_len(spl) > 2)
+		return ((void)ft_printf("bash: exit: trop d'arguments\n"),
+			free_cmdopt(cmdopt), free(input), free_d_array(spl),
+			exit(1));
+	if (spl[1])
+		ipt = ft_strdup(spl[1]);
+	else
+		ipt = NULL;
+	free_cmdopt(cmdopt);
+	rl_clear_history();
+	free(input);
+	free_d_array(spl);
+	exit_prg(ipt);
 }
 
 // MINISHELL
@@ -73,14 +71,15 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			create_command(input, cmdopt);
 			if (ft_strncmp(last_entry, input, ft_strlen(input) + ft_strlen(last_entry)))
 				add_history(input);
-			if (!execute_command(cmdopt))
+			if (!execute_command(cmdopt)) //-------// + 25 lignes
 				return (free(prompt), free(last_entry), ft_exit(errno));
+			update_last_sign(error_code);
 		}
 		else
-			update_err_code(0);
-		if (error_code == 130)
+			update_last_sign(0);
+		if (get_last_sign() == 130)
 			ft_printf("\n");
-		if (error_code == 131)
+		if (get_last_sign() == 131)
 			ft_printf("Quit (core dumped)\n");
 		free_cmdopt(cmdopt);
 		free(last_entry);
@@ -196,5 +195,6 @@ int	main(int ac, char **ag, char **env)
 	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell();
+	printf("LAST error_code : %d\n", error_code);
 	return (ft_exit(error_code), 0);
 }
