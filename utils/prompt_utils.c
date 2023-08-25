@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 20:56:38 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/08/25 10:40:11 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*display_user_prompt(char *username)
 		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 
 	if (error_code == 0)
-		username = ft_join(ft_strdup("🤌  "), username);
+		username = ft_join(ft_strdup("🤌 "), username);
 	else
 		username = ft_join(ft_strdup("🖕 "), username);
 	result = ft_join(username, result);
