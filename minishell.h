@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/25 17:24:25 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:56:24 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ typedef struct s_singleton
 	int		sign_ctrl;
 	int		last_sign;
 }t_singleton;
+
+typedef struct s_singleton2
+{
+	int	env_i;
+}t_singleton2;
 
 typedef struct c_cd
 {
@@ -249,6 +254,11 @@ char	*get_home_path(void);
 void	ft_exit(int code);
 void	update_last_sign(int value);
 int		get_last_sign(void);
+
+void	update_env_detection(int new_value);
+int		get_env_detection(void);
+
+t_singleton2	*get_singleton2_instance(void);
 
 // ------- Pour le tester --------//
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/25 17:39:37 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:07:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ char	*display_user_prompt(char *username)
 	else
 		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
 
-	/* if (error_code == 0 || get_last_sign() == 130)
-		username = ft_join(ft_strdup("\e[32m➜\e[0m "), username); //🤌
-	else
-		username = ft_join(ft_strdup("\e[31m➜\e[0m "), username); //🖕 */
-
 	if (error_code == 0 || get_last_sign() == 130)
-		username = ft_join(ft_strdup("🤌  "), username); //🤌
+		username = ft_join(ft_strdup("\e[32m➜\e[0m "), username);
 	else
-		username = ft_join(ft_strdup("🖕 "), username); //🖕
+		username = ft_join(ft_strdup("\e[31m➜\e[0m "), username);
+
+	/* if (error_code == 0 || get_last_sign() == 130)
+		username = ft_join(ft_strdup("🤌 "), username);
+	else
+		username = ft_join(ft_strdup("🖕 "), username); */
 	result = ft_join(username, result);
 	free(cwd);
 	return (result);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 17:47:36 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/08/26 18:15:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 // VERIF ENV AND PATH
 void	verif_env_and_path(t_cmd_and_opt *cmdopt)
 {
-	cmdopt->path_unset = 0;
+	cmdopt->path_unset = 1;
 	if (!get_env()[0])
-		return (rebuild_env());
+		return (update_env_detection(1), rebuild_env());
 	if (ft_getenv("PATH"))
 	{
-		cmdopt->path_unset = 1;
+		cmdopt->path_unset = 0;
 		return ;
 	}
 	return ;

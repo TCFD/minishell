@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/25 17:47:42 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/26 19:03:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,5 @@ int	main(int ac, char **ag, char **env)
 	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell();
-	printf("LAST error_code : %d\n", error_code);
 	return (ft_exit(error_code), 0);
 }

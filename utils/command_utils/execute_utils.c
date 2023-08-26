@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/25 17:11:07 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:51:42 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	t_redirections	redirections;
 	bool			redir_out_bool;
 	bool			redir_in_bool;
+
+	// tester get_env_detection
 
 	if (!cmdopt->command_name)
 		return (1);

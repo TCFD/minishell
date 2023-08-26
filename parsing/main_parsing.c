@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/23 12:25:27 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/26 19:03:58 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	parse_that_shit(input, cmdopt);
 	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
 		return ;
-	if (cmdopt->path_unset == 0 && !ft_getenv("PATH"))
+	if (get_env_detection() == 1)
 	{
-		cmdopt->command_name = create_path
-			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 0);
-		cmdopt->command_path = ft_cpy(cmdopt->command_name, 0);
+		if (!ft_getenv("PATH"))
+		{
+			cmdopt->command_name = create_path
+				(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 0);
+			cmdopt->command_path = ft_cpy(cmdopt->command_name, 0);
+			return ;
+		}
+		update_env_detection(0);
 	}
-	else
-	{
-		cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
-		cmdopt->command_path = create_path
-			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
-	}
+	cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
 }

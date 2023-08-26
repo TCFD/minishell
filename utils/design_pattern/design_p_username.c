@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_username.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:54 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/23 15:43:41 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:56:09 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ t_singleton	*get_singleton_instance(void)
 {
 	static t_singleton	instance;
 
+	return (&instance);
+}
+
+t_singleton2	*get_singleton2_instance(void)
+{
+	static t_singleton2	instance;
 	return (&instance);
 }
 
