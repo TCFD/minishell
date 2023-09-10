@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 14:07:56 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 16:18:57 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 				add_history(input);
 			if (!execute_command(cmdopt)) //-------// + 25 lignes
 				return (free(prompt), free(last_entry), ft_exit(errno));
-			update_last_sign(error_code);
+			update_last_sign(g_error_code);
 		}
 		else
 			update_last_sign(0);
@@ -191,7 +191,7 @@ int	main(int ac, char **ag, char **env)
 	update_env(alloc_env(env));
 	split_it = ft_split(cmd, '|');
 	execute_pipex(split_it);
-	printf("END : error_code : %d\n", error_code);
+	printf("END : g_error_code : %d\n", g_error_code);
 	free_d_array(split_it);
 	free_env_singleton();
 	return (0);
@@ -212,5 +212,5 @@ int	main(int ac, char **ag, char **env)
 	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell();
-	return (ft_exit(error_code), 0); */
+	return (ft_exit(g_error_code), 0); */
 }

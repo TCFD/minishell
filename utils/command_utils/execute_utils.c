@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 14:14:15 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 15:47:23 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 	waitpid(pid, &status, 0);
 	signal(SIGQUIT, SIG_IGN);
 	update_sign_ctrl(0);
-	if (error_code == 130 && b == false)
+	if (g_error_code == 130 && b == false)
 		b = true;
 	else if (WIFEXITED(status))
 	{

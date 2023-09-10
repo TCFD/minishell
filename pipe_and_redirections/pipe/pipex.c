@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 15:25:10 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 15:47:23 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_func(t_fork_opt *fork_utils)
 	if (id == MK_DISPLAY_ENV)
 		free_d_array(fork_utils->str);
 	free_everything(fork_utils->cmdopt, true);
-	return (error_code);
+	return (g_error_code);
 }
 
 // ON FORK NOS BUILTINS //
@@ -101,7 +101,7 @@ int	find_command_pipex(t_cmd_and_opt *cmdopt)
 		if (!run_execve(cmdopt))
 			return (0);
 	}
-	return (error_code);
+	return (g_error_code);
 }
 
 // FONCTION PRINCIPALE DE PIPEX //

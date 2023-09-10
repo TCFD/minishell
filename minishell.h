@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 15:20:20 by wolf             ###   ########.fr       */
+/*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
+/*   Updated: 2023/09/10 16:13:58 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,13 @@
 # include <dirent.h>
 # include <sys/ioctl.h>
 
-extern int	error_code;
+// GLOBALE //
+extern int	g_error_code;
+/* 
+	
+	[---------| struct |---------]
 
+*/
 typedef struct s_redirections
 {
 	t_list	*list;
@@ -102,7 +107,7 @@ typedef	struct s_opt_tab
 	char	*type;
 }t_opt_tab;
 
-// S : COMMAND AND OPTION
+// CMDOPT //
 typedef struct s_command_and_option
 {
 	char			*command_name;
@@ -111,7 +116,7 @@ typedef struct s_command_and_option
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
-// S : DOLLAR
+// DOLLAR //
 typedef struct s_dollar
 {
 	int		start;
@@ -121,155 +126,178 @@ typedef struct s_dollar
 }t_dollar;
 
 
-char		**double_a_realloc(char **array, char *new_elmt);
-char		*getenv_check(char *str);
-char		*display_user_prompt(char *username);
-char		*stick_color(char *str, char *color);
-char		*create_path(char *command_name, int imd_return);
-char		*is_path_unset(char *command_name, int imd_return);
-void		create_command(char	*input, t_cmd_and_opt *cmdopt);
-void		welcome_to_minishell(void);
-void		sig_handler(int signum);
-void		cd_remake(t_cmd_and_opt *cmdopt);
-void		free_d_array(char **str);
-void		free_t_array(char ***str);
-void		free_cmdopt(t_cmd_and_opt *cmdopt);
-void		init_cmdopt(t_cmd_and_opt *cmdopt);
-void		init_design_pattern(t_singleton *design_p);
-int			run_execve(t_cmd_and_opt *cmdopt);
-int			execute_command(t_cmd_and_opt *cmdopt);
-void		bf_prd(char *str, int d, char *color);
-void		unset_env_var(char *variable);
-void		unset_all_env_var(t_cmd_and_opt *cmdopt);
-void		display_env(char **env, t_cmd_and_opt *cmdopt);
-int			check_if_same(char *s1, char *s2);
-int			d_len(char **str);
-int			t_len(char ***str);
-int			use_pipex(char *command);
-int			check_correct_quotes(char *input);
-void		parse_that_shit(char *input, t_cmd_and_opt *cmdopt);
-void		echo_remake(t_cmd_and_opt *cmdopt);
-char		*check_env_variables(char *input, int end);
-void		expand(char **dest, int start, int if_case);
-int			space_end_case(char **input, char **dest, char what_case,
-				char *type);
-int			cmp(char *cmd_name, char *cmd_name_2);
-char		*read_bytes(int *fd);
-char		*get_execve_return(t_cmd_and_opt *cmdopt);
-t_singleton	*get_singleton_instance(void);
-void		update_username(const char *newValue);
-void		free_last_value(void);
-char	*get_username(void);
-int			search_d_tab(t_cmd_and_opt *cmdopt, char *c);
-int			redirect_output(char **tab, int *stdout_save, int *filefd,
-				int which_case);
-void		restore_stdout(int stdout_save, int filefd);
-int			search_out_redirections(t_cmd_and_opt *cmdopt,
-				t_redirections *redir, bool *redir_bool);
-char		*find_chevrons(char **input, int end);
-void		shlvl_plus_one(char **join_it);
-void		shlvl_minus_one(void);
-void		rebuild_env(void);
-void		verif_env_and_path(t_cmd_and_opt *cmdopt);
-void		free_singleton(void);
-void		update_env(char **new_value);
-char		**get_env(void);
-char		*ft_getenv(char *var_name);
-int			ft_getenv_int(char *var_name);
-void		export_var(char *var);
-void		export_all_var(t_cmd_and_opt *cmdopt);
-
-char		**ft_d_strdup(char **tab);
-char		*get_char_until_limit(char *str, int lim);
-int			find_first_occurence(char *str, char cara);
-
-int			does_command_path_valid(char *cmd);
-int			verif_if_env_called(t_cmd_and_opt *cmdopt);
-
-void		update_err_code(int code_err);
-void		exit_prg(char *code_err);
-char		*get_pwd(void);
-void		print_pwd(void);
-
-void		exit_func(t_cmd_and_opt *cmdopt, char *input);
-int			get_word_index(char *str, char const *word);
-char		**list_to_d_tab(t_list *list);
-int			count_out_redirs(char **tab, char *type);
-int			count_in_redirs(char **tab, char *type, bool *heredoc);
-void		restore_stdin(t_redirections *redir);
-int			search_in_redirections(t_cmd_and_opt *cmdopt,
-				t_redirections *redir, bool *redir_bool);
-int			redirect_input(char **tab, int *stdin_save, int *filefd, char **random_adress);
-char		*replace_dollar(char what_case, char *input, int i, t_list **list);
-void		case_1(t_separators *sep, char **content, char *input,
-				t_list **list);
-void		case_2_or_3(t_separators *sep, char **content, char *input,
-				t_list **list);
-void		case_4_or_5(t_separators *sep, char **content, char *input, t_list **list);
-void		case_4_5_part_2(t_separators *sep, char **content, char *input, t_list **list);
-void		final_case(t_separators *sep, char **content, char *input,
-				t_list **list);
-int			check_valid_file_name(char **tab, char *type);
-void		set_separator(t_separators *sep, char *input);
-t_list		*all_tokens(char *input, t_list *list, int i, int len);
-void		lst_add(t_list **list, char **content, char type);
-void		temp_heredoc(char *str, char **random_adress);
-void		redo_path_and_name(t_cmd_and_opt *cmd);
-void		update_err_code_exit(char *origin_code, int code_err);
-
-
-char	*get_pwd(void);
-char	*get_pwd_for_pwd(void);
-void	print_pwd(void);
-char	*join_by_value(char *var_name, char *value);
-void	write_env_oldpwd(char *oldpwd);
-void	write_env_pwd(char *pwd);
-
-void	exit_func(t_cmd_and_opt *cmdopt, char *input);
-void	free_d_int(int **elmt, int len);
-int		check_if_IFS(char c);
-char	*get_env_var(char *var_name);
-void	update_pwd(char *new_value);
-char	*get_pwd_path(void);
-int	what_case_equal_c(char c, char c2);
-void	remove_in_redirections2(char **tab, char *type, t_redirections *redi, int i);
-int	search_if_file_exist(char *filename);
-int		find_command(t_cmd_and_opt *cmdopt);
-
-void	update_sign_ctrl(int value);
-int		get_sign_ctrl(void);
-
-void	stack_cpy(char *tab_stack, char *tab_heap);
-void	update_env_pwd(char *new_value);
-void	update_env_oldpwd(char *new_value);
-char	*get_env_pwd(void);
-char	*get_env_oldpwd(void);
-
-void	free_env_singleton(void);
-
-
-void	update_home_path(char *new_value);
-char	*get_home_path(void);
-
-void	ft_exit(int code);
-void	update_last_sign(int value);
-int		get_last_sign(void);
-
-void	update_env_detection(int new_value);
-int		get_env_detection(void);
-
-
-void	free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt);
 
 t_singleton2	*get_singleton2_instance(void);
+t_singleton		*get_singleton_instance(void);
+t_list			*all_tokens(char *input, t_list *list, int i, int len);
+t_list			*get_tokens(char *input);
+/* 
+	
+	[---------| char ** |---------]
+
+*/
+char			**alloc_env(char **env);
+char			**list_to_d_tab(t_list *list);
+char			**double_a_realloc(char **array, char *new_elmt);
+char			**ft_d_strdup(char **tab);
+char			**get_env(void);
+/* 
+	
+	[---------| char * |---------]
+
+*/
+char			*get_brut_cmd_result(char *cmd);
+char			*is_path_unset(char *command_name, int imd_return);
+char			*create_path(char *command_name, int imd_return);
+char			find_first_isf(char *input);
+char			which_one(char *input);
+char			search_first_separator(char *input, int len);
+char			*get_char_until_limit(char *str, int lim);
+char			*check_env_variables(char *input, int end);
+char			*d_t_case(char *input, t_list **list, t_dollar *dollar);
+char			*replace_dollar(char what_case, char *input, int i, t_list **list);
+char			*stick_color(char *str, char *color);
+char			*display_user_prompt(char *username);
+char			*join_by_value(char *var_name, char *value);
+char			*read_bytes(int *fd);
+char			*get_execve_return(t_cmd_and_opt *cmdopt);
+char			*brut_name(char *command_np);
+char			*get_env_var(char *var_name);
+char			*ft_getenv(char *var_name);
+char			*get_pwd(void);
+char			*get_pwd_for_pwd(void);
+char			*special_cara_cd(char *cd_arg);
+char			*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file);
+char			*get_pwd_path(void);
+char			*get_env_pwd(void);
+char			*get_env_oldpwd(void);
+char			*get_username(void);
+char			*get_home_path(void);
+char			*getenv_check(char *str);
+/* 
+
+	[---------| void |---------]
+
+*/
+void			exit_func(t_cmd_and_opt *cmdopt, char *input);
+void			minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt);
+void			run_minishell(void);
+void			initialise_home_path(void);
+void			redo_path_and_name(t_cmd_and_opt *cmd);
+void			remove_in_redirections2(char **tab, char *type, t_redirections *redi, int i);
+void			restore_stdin(t_redirections *redir);
+void			temp_heredoc(char *str, char **random_adress);
+void			lst_add(t_list **list, char **content, char type);
+void			restore_stdout(int stdout_save, int filefd);
+void			init_fork_opt(t_fork_opt *fork_utils);
+void			free_fork_opt(t_fork_opt *fork_utils);
+void			fork_it(t_fork_opt *fork_utils);
+void			execute_pipex(char **lst_cmd);
+void			case_1(t_separators *sep, char **content, char *input, t_list **list);
+void			case_2_or_3(t_separators *sep, char **content, char *input,
+					t_list **list);
+void			case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list);
+void			case_4_5_part_2(t_separators *sep, char **content, char *input,
+					t_list **list);
+void			final_case(t_separators *sep, char **content, char *input,
+					t_list **list);
+void			parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt);
+void			create_command(char	*input, t_cmd_and_opt *cmdopt);
+void			init_tabs(char char_tab[6], long int tab[6], char *input);
+void			set_separator(t_separators *sep, char *input);
+void			stack_cpy(char *tab_stack, char *tab_heap);
+void			bf_prd(char *str, int d, char *color);
+void			welcome_to_minishell(void);
+void			sig_handler(int signum);
+void			init_cmdopt(t_cmd_and_opt *cmdopt);
+void			init_design_pattern(t_singleton *design_p);
+void			free_d_int(int **elmt, int len);
+void			free_d_array(char **str);
+void			free_t_array(char ***str);
+void			free_cmdopt(t_cmd_and_opt *cmdopt);
+void			free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt);
+void			update_err_code(int code_err);
+void			write_env_oldpwd(char *oldpwd);
+void			write_env_pwd(char *pwd);
+void			ft_exit(int code);
+void			update_err_code_exit(char *origin_code, int code_err);
+void			exit_prg(char *code_err);
+void			export_var(char *var);
+void			export_all_var(t_cmd_and_opt *cmdopt);
+void			verif_env_and_path(t_cmd_and_opt *cmdopt);
+void			rebuild_env(void);
+void			unset_env_var(char *variable);
+void			unset_all_env_var(t_cmd_and_opt *cmdopt);
+void			display_env(char **env, t_cmd_and_opt *cmdopt);
+void			print_pwd(void);
+void			cd_remake(t_cmd_and_opt *cmdopt);
+void			skip_n(t_cmd_and_opt *cm, int *i, int *j, bool *boolean);
+void			echo_remake(t_cmd_and_opt *cm);
+void			shlvl_plus_one(char **join_it);
+void			shlvl_minus_one(void);
+void			update_env(char **new_value);
+void			update_env_detection(int new_value);
+void			free_env_singleton(void);
+void			update_sign_ctrl(int value);
+void			update_last_sign(int value);
+void			update_pwd(char *new_value);
+void			update_env_pwd(char *new_value);
+void			update_env_oldpwd(char *new_value);
+void			update_username(const char *newValue);
+void			free_last_value(void);
+void			update_home_path(char *new_value);
+/* 
+
+	[---------| int |---------]
+
+*/
+int				add_rest(char **tab, char *type, int i, t_redirections *redir);
+int				open_sub_file(char **tab, int *i, int *funct_counter);
+int				remove_redirections(char **tab, char *type, t_redirections *redir);
+int				search_out_redirections(t_cmd_and_opt *cmdopt,
+						t_redirections *redir, bool *redir_bool);
+int				search_if_file_exist(char *filename);
+int					redirect_input(char **tab, int *stdin_save, int *filefd,
+						char **random_adress);
+int				add_rest_in(char **tab, char *type, int i, t_redirections *redir);
+int				remove_in_redirections(char **tab, char *type, t_redirections *redi, int i);
+int				count_in_redirs(char **tab, char *type, bool *heredoc);
+int				search_in_redirections(t_cmd_and_opt *cmdopt,
+						t_redirections *redir, bool *redir_bool);
+int				redirect_output(char **tab, int *stdout_save, int *filefd, int which_case);
+int				count_out_redirs(char **tab, char *type);
+int				get_func(t_fork_opt *fork_utils);
+int				get_marker_value(t_fork_opt *fork_utils);
+int				find_command_pipex(t_cmd_and_opt *cmdopt);
+int				check_input(char *input);
+int				check_correct_quotes(char *input);
+int				what_case_equal_c(char c, char c2);
+int				does_command_path_valid(char *cmd);
+int				check_valid_file_name(char **t, char *type);
+int				heck_if_same(char *s1, char *s2);
+int				find_first_occurence(char *str, char cara);
+int				check_if_IFS(char c);
+int				find_first_non_valid(char *input, int i);
+int				get_word_index(char *str, char const *word);
+int				d_len(char **str);
+int				t_len(char ***str);
+int				run_execve(t_cmd_and_opt *cmdopt);
+int				cmp(char *cmd_name, char *cmd_name_2);
+int				find_command(t_cmd_and_opt *cmdopt);
+int				execute_command(t_cmd_and_opt *cmdopt);
+int				export_name_unvalid(char *var);
+int				verif_if_env_called(t_cmd_and_opt *cmdopt);
+int				ft_getenv_int(char *var_name);
+int				get_env_detection(void);
+int				get_sign_ctrl(void);
+int				get_last_sign(void);
 
 // ------- Pour le tester --------//
 
-char		*get_args_simple_into_tab(char **all_args);
-void		minishell_tester(char *input, t_cmd_and_opt *cmdopt);
-void		run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
+char			*get_args_simple_into_tab(char **all_args);
+void			minishell_tester(char *input, t_cmd_and_opt *cmdopt);
+void			run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
 
 // ------------------------------//
-
 
 #endif
