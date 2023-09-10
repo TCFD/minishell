@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/08/24 21:46:07 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/10 16:30:35 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	case_2_or_3(t_separators *sep, char **content, char *input,
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-	if (!check_if_IFS(input[sep->i]) && input[sep->i])
+	if (!check_if_ifs(input[sep->i]) && input[sep->i])
 		case_4_or_5(sep, content, input, list);
 	if (*content)
 		lst_add(list, content, sep->what_case);
@@ -57,7 +57,7 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 {
 	sep->tmp_i = ft_strlen(*content);
 	set_separator(sep, s1);
-	if ((sep->w_string < sep->s_string) || check_if_IFS(sep->separator))
+	if ((sep->w_string < sep->s_string) || check_if_ifs(sep->separator))
 	{
 		if (what_case_equal_c(sep->what_case, s1[sep->i]))
 			sep->i += 1;
@@ -83,7 +83,7 @@ void	case_4_5_part_2(t_separators *sep, char **ct,
 	char *input, t_list **list)
 {
 	set_separator(sep, input);
-	while ((check_if_IFS(sep->separator) || sep->separator == NONE)
+	while ((check_if_ifs(sep->separator) || sep->separator == NONE)
 		&& sep->s_string > 0)
 	{
 		if ((what_case_equal_c(sep->what_case, input[sep->i])))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 15:23:28 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:14:05 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	unset_env_var(char *variable)
 				ij++ ;
 			}
 			env_[i + ij - 1] = NULL;
-			break;
+			break ;
 		}
 		i++ ;
 	}

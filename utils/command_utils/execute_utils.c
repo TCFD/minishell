@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 15:47:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 17:20:18 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
-		{
 			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
-		}
-		free_cmdopt(cmdopt);
-		free_env_singleton();
+		free_everything(cmdopt, true);
 		exit(errno);
 	}
 	update_sign_ctrl(1);
 	waitpid(pid, &status, 0);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN); // 25
 	update_sign_ctrl(0);
 	if (g_error_code == 130 && b == false)
 		b = true;
@@ -88,10 +85,10 @@ int	find_command(t_cmd_and_opt *cmdopt)
 		export_all_var(cmdopt);
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
-	else if (!cmdopt->command_path[0])
+	else if (!ft_strchr(cmdopt->command_path, '/'))
 		return (ft_printf("\033[31m%s\033[0m : command not found\n",
 				cmdopt->command_name), free_cmdopt(cmdopt),
-				update_err_code(127), 1);
+			update_err_code(127), 1);
 	else
 	{
 		if (!run_execve(cmdopt))
@@ -105,8 +102,6 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	t_redirections	redirections;
 	bool			redir_out_bool;
 	bool			redir_in_bool;
-
-	// tester get_env_detection
 
 	if (!cmdopt->command_name)
 		return (1);

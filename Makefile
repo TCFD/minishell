@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/10 15:18:24 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/10 16:47:52 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS 		=	maintest.c								\
 				$(DESIGN_PATTERN)design_p_cd.c			\
 				$(GLOBAL)errno_management.c				\
 				$(MALLOC_UTILS)free_utils.c				\
+				$(MALLOC_UTILS)free_utils2.c			\
 				$(COMMAND_UTILS)shlvl_utils.c			\
 				$(MALLOC_UTILS)realloc_utils.c			\
 				$(COMMAND_UTILS)execute_utils.c			\

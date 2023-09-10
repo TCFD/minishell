@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 16:18:57 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 17:07:46 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	while (input != NULL)
 	{
 		init_cmdopt(cmdopt);
-		if (ft_strncmp(input, "exit", 4) == 0 && (check_if_IFS(input[4]) || input[4] == '\0'))
+		if (ft_strncmp(input, "exit", 4) == 0 && (check_if_ifs(input[4]) || input[4] == '\0'))
 			return (free(last_entry), free(prompt), exit_func(cmdopt, input));
-		while (check_if_IFS(input[i]))
+		while (check_if_ifs(input[i]))
 			i++;
 		if (input[i] && ft_strchr(input, '|'))
 		{
@@ -183,7 +183,7 @@ int	main(int ac, char **ag, char **env)
 {
 
 	// --------------- //
-	(void)ac;
+	/* (void)ac;
 	(void)ag;
 	char *cmd = "pwd | echo HELLO | export A=A | ."; //"cat Makefile | grep A | wc -l";
 	char **split_it;
@@ -194,11 +194,11 @@ int	main(int ac, char **ag, char **env)
 	printf("END : g_error_code : %d\n", g_error_code);
 	free_d_array(split_it);
 	free_env_singleton();
-	return (0);
+	return (0); */
 	// --------------- //
 
 	
-	/* char	*user;
+	char	*user;
 	//welcome_to_minishell();
 	(void)ac;
 	(void)ag;
@@ -212,5 +212,5 @@ int	main(int ac, char **ag, char **env)
 	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell();
-	return (ft_exit(g_error_code), 0); */
+	return (ft_exit(g_error_code), 0);
 }

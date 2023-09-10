@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 15:47:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 16:50:45 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int	get_word_index(char *str, char const *word)
 		word_idx = 0;
 		if (str[idx] == word[0])
 		{
-			while (str[idx + word_idx] && 
-				str[idx + word_idx] == word[word_idx])
+			while (str[idx + word_idx]
+				&& str[idx + word_idx] == word[word_idx])
 				word_idx++ ;
 			if (word_idx == (int)ft_strlen(word))
 				return (idx + word_idx);
@@ -74,7 +74,7 @@ int	get_word_index(char *str, char const *word)
 			idx += word_idx;
 		}
 		if (idx == (int)ft_strlen(str))
-			break;
+			break ;
 		idx++ ;
 	}
 	return (-1);
@@ -90,32 +90,21 @@ char	*display_user_prompt(char *username)
 	save_user = username;
 	username = stick_color(ft_join(ft_strdup(username),
 				ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
-
 	cwd = get_pwd();
 	if (cwd == NULL)
 		return (free(username), NULL);
-
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = 0;
-
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
-
-	if (user_len == 0) // Pour savoir si on est au dessus de "~"
+	if (user_len == 0)
 		result = stick_color(ft_join(ft_strdup(" "), result), ft_strdup(BLUE));
 	else
 		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
-
 	if (g_error_code == 0 || get_last_sign() == 130)
-		username = ft_join(ft_strdup("\e[32m➜\e[0m "), username);
-	else
-		username = ft_join(ft_strdup("\e[31m➜\e[0m "), username);
-
-	/* if (g_error_code == 0 || get_last_sign() == 130)
 		username = ft_join(ft_strdup("🤌 "), username);
 	else
-		username = ft_join(ft_strdup("🖕 "), username); */
+		username = ft_join(ft_strdup("🖕 "), username);
 	result = ft_join(username, result);
-	free(cwd);
-	return (result);
+	return (free(cwd), result);
 }

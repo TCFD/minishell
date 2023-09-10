@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/26 18:15:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 17:13:32 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	rebuild_env(void)
 	export_var(pwd);
 	export_var("SHLVL=1");
 	export_var("_=/usr/bin/env");
-	//free(pwd);
 	return ;
 }
 

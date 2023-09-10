@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/10 15:47:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 16:27:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	search_if_file_exist(char *filename)
 	return (0);
 }
 
-// fuck norm
-void	remove_in_redirections2(char **tab, char *type, t_redirections *redi, int i)
+// [tb = tab]  [ty = type]  [red = redirection]
+void	remove_in_redirections2(char **tb, char *ty, t_redirections *red, int i)
 {
-	if (redi->list)
-		ft_lstadd_back(&redi->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+	if (red->list)
+		ft_lstadd_back(&red->list, ft_lstnew(ft_strdup(tb[i]), ty[i]));
 	else
-		redi->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+		red->list = ft_lstnew(ft_strdup(tb[i]), ty[i]);
 }
 
 void	restore_stdin(t_redirections *redir)

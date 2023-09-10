@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_sign.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 22:19:39 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/25 17:23:19 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:14:29 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,3 @@ int	get_last_sign(void)
 	singleton = get_singleton_instance();
 	return (singleton->sign_ctrl);
 }
-

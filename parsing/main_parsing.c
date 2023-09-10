@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/08/26 19:03:58 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 16:30:35 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list	*all_tokens(char *input, t_list *list, int i, int len)
 			else
 				final_case(&sep, &content, input, &list);
 		}
-		while (check_if_IFS(input[sep.i]) && input[sep.i])
+		while (check_if_ifs(input[sep.i]) && input[sep.i])
 			sep.i += 1;
 	}
 	list = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/23 12:25:48 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/10 16:30:35 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	find_first_occurence(char *str, char cara)
 	return (-1);
 }
 
-int	check_if_IFS(char c)
+int	check_if_ifs(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n')
 		return (1);

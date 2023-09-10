@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   free_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 16:37:39 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/10 16:28:25 by wolf             ###   ########.fr       */
+/*   Created: 2023/09/10 16:46:34 by wolf              #+#    #+#             */
+/*   Updated: 2023/09/10 16:53:02 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "../../minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	free_str(char *str)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s1)
-		return (-1);
-	if (!s2)
-		return (1);
-	while (i < n && (s1[i] || s2[i]))
-	{
-		if (s1[i] == s2[i])
-			i++;
-		else
-		{
-			if ((unsigned char)s1[i] < (unsigned char)s2[i])
-				return (-1);
-			else
-				return (1);
-		}
-	}
-	return (0);
+	free(str);
+	str = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 16:13:58 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 17:07:54 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,8 @@ void			update_env_oldpwd(char *new_value);
 void			update_username(const char *newValue);
 void			free_last_value(void);
 void			update_home_path(char *new_value);
+void			free_str(char *str);
+
 /* 
 
 	[---------| int |---------]
@@ -276,7 +278,7 @@ int				does_command_path_valid(char *cmd);
 int				check_valid_file_name(char **t, char *type);
 int				heck_if_same(char *s1, char *s2);
 int				find_first_occurence(char *str, char cara);
-int				check_if_IFS(char c);
+int				check_if_ifs(char c);
 int				find_first_non_valid(char *input, int i);
 int				get_word_index(char *str, char const *word);
 int				d_len(char **str);

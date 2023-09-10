@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 14:26:37 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 17:07:59 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@ void	free_d_int(int **elmt, int len)
 	{
 		while (idx < len)
 		{
-        	free(elmt[idx]);
+			free(elmt[idx]);
 			idx++ ;
 		}
 	}
-    free(elmt);
+	free(elmt);
 }
 
 void	free_d_array(char **str)
 {
-	int idx;
-	int len;
+	int	idx;
+	int	len;
 
 	len = d_len(str);
 	if (str == NULL)
-		return;
+		return ;
 	idx = 0;
 	while (str[idx] && idx < len)
 	{
@@ -65,7 +65,7 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 	if (cmdopt->command_name)
 		free(cmdopt->command_name);
 	if (cmdopt->command_path)
-		free(cmdopt->command_path);	
+		free(cmdopt->command_path);
 	if (cmdopt->opt_ty_tb.type)
 		free(cmdopt->opt_ty_tb.type);
 	if (cmdopt->opt_ty_tb.tab != NULL)
