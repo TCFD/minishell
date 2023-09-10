@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/26 18:51:42 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 14:14:15 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		{
 			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
 				strerror(errno));
-			return (free_cmdopt(cmdopt), 0);
 		}
+		free_cmdopt(cmdopt);
+		free_env_singleton();
+		exit(errno);
 	}
 	update_sign_ctrl(1);
 	waitpid(pid, &status, 0);

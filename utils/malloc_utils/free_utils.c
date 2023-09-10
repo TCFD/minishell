@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/24 14:59:32 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/10 14:26:37 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_d_int(int **elmt, int len)
 	}
     free(elmt);
 }
-
 
 void	free_d_array(char **str)
 {
@@ -72,4 +71,16 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 	if (cmdopt->opt_ty_tb.tab != NULL)
 		free_d_array(cmdopt->opt_ty_tb.tab);
 	init_cmdopt(cmdopt);
+}
+
+void	free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt)
+{
+	if (f_cmdopt == true)
+		free_cmdopt(cmdopt);
+	update_pwd(NULL);
+	free(get_env_pwd());
+	free(get_env_oldpwd());
+	free(get_home_path());
+	free(get_username());
+	free_env_singleton();
 }

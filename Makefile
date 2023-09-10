@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/08/24 21:58:09 by zbp15            ###   ########.fr        #
+#    Updated: 2023/09/10 15:18:24 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC				=	gcc
 CLEANF 			=	@(find . -name "*.o" -type f -delete)
 OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
 INCLUDE			= 	INCLUDES
-PIPEX  			=	pipe_and_redirections/pipe/pipex_for_minishell/
+PIPEX  			=	pipe_and_redirections/pipe/
 REDIRECTIONS	=	pipe_and_redirections/redirections/
 UTILS  			=	utils/
 COMMAND_UTILS  	=	$(UTILS)command_utils/
@@ -65,7 +65,8 @@ SRCS 		=	maintest.c								\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
 				$(REDIRECTIONS)left_rafter_utils.c		\
 				$(REDIRECTIONS)left_rafter_utils2.c		\
-				$(PIPEX)pfm1.c							\
+				$(PIPEX)init_pipex_value.c				\
+				$(PIPEX)pipex.c							\
 
 # Couleurs
 BOLD		=	"\033[1m"

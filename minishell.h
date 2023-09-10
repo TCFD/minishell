@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:11:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/26 18:56:24 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 15:20:20 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "INCLUDES/libft.h"
-# include "pipe_and_redirections/pipe/pipex_for_minishell/pfm.h"
+# include "pipe_and_redirections/pipe/pipex.h"
 # include <signal.h>
 # include <errno.h>
 # include <stdbool.h>
@@ -257,6 +257,9 @@ int		get_last_sign(void);
 
 void	update_env_detection(int new_value);
 int		get_env_detection(void);
+
+
+void	free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt);
 
 t_singleton2	*get_singleton2_instance(void);
 

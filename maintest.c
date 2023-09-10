@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/26 19:03:48 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 14:07:56 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 			i++;
 		if (input[i] && ft_strchr(input, '|'))
 		{
-			pipex(input);
+			//pipex(input);
 			if (ft_strncmp(last_entry, input, ft_strlen(input) + ft_strlen(last_entry)))
 				add_history(input);
 		}
@@ -181,7 +181,24 @@ void	initialise_home_path(void)
 // ----------- MAIN ----------- //
 int	main(int ac, char **ag, char **env)
 {
-	char	*user;
+
+	// --------------- //
+	(void)ac;
+	(void)ag;
+	char *cmd = "pwd | echo HELLO | export A=A | ."; //"cat Makefile | grep A | wc -l";
+	char **split_it;
+
+	update_env(alloc_env(env));
+	split_it = ft_split(cmd, '|');
+	execute_pipex(split_it);
+	printf("END : error_code : %d\n", error_code);
+	free_d_array(split_it);
+	free_env_singleton();
+	return (0);
+	// --------------- //
+
+	
+	/* char	*user;
 	//welcome_to_minishell();
 	(void)ac;
 	(void)ag;
@@ -195,5 +212,5 @@ int	main(int ac, char **ag, char **env)
 	//if (ac > 2 && cmp(ag[1], "-c") && ag[2]) // POUR TESTER
 	//	return (run_minishell_tester(ag + 2, &cmdopt), 0); // POUR TESTER
 	run_minishell();
-	return (ft_exit(error_code), 0);
+	return (ft_exit(error_code), 0); */
 }
