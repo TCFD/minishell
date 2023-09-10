@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 17:07:59 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 18:52:54 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 		free(cmdopt->command_name);
 	if (cmdopt->command_path)
 		free(cmdopt->command_path);
+	if (cmdopt->tmp_utils.l_ety)
+		free_tmp_utils(&(cmdopt->tmp_utils));
 	if (cmdopt->opt_ty_tb.type)
 		free(cmdopt->opt_ty_tb.type);
 	if (cmdopt->opt_ty_tb.tab != NULL)

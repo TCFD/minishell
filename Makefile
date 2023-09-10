@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/10 16:47:52 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/10 17:51:24 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ GLOBAL			=	$(UTILS)global/
 QUOTES_STUFF  	=	quotes_stuff/
 PARSING		  	=	parsing/
 
-SRCS 		=	maintest.c								\
+SRCS 		=	main.c									\
+				run_minishell.c							\
 				pour_le_tester.c						\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\

@@ -6,17 +6,35 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 17:20:18 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/10 18:16:17 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	run_execve(t_cmd_and_opt *cmdopt)
+int	end_of_execve(pid_t pid)
 {
 	static bool	b;
-	pid_t		pid;
 	int			status;
+
+	update_sign_ctrl(1);
+	waitpid(pid, &status, 0);
+	signal(SIGQUIT, SIG_IGN);
+	update_sign_ctrl(0);
+	if (g_error_code == 130 && b == false)
+		b = true;
+	else if (WIFEXITED(status))
+	{
+		b = false;
+		errno = WEXITSTATUS(status);
+		update_err_code((int)errno);
+	}
+	return (1);
+}
+
+int	run_execve(t_cmd_and_opt *cmdopt)
+{
+	pid_t		pid;
 
 	errno = 0;
 	pid = fork();
@@ -33,19 +51,7 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		free_everything(cmdopt, true);
 		exit(errno);
 	}
-	update_sign_ctrl(1);
-	waitpid(pid, &status, 0);
-	signal(SIGQUIT, SIG_IGN); // 25
-	update_sign_ctrl(0);
-	if (g_error_code == 130 && b == false)
-		b = true;
-	else if (WIFEXITED(status))
-	{
-		b = false;
-		errno = WEXITSTATUS(status);
-		update_err_code((int)errno);
-	}
-	return (1);
+	return (end_of_execve(pid));
 }
 
 /* 
