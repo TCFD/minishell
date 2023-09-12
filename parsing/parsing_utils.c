@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/26 17:03:08 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 16:12:29 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*is_path_unset(char *command_name, int imd_return)
 	if (env_path)
 		path_split = ft_split(env_path, ':');
 	else
-		path_split = ft_split(ft_strdup("/bin/usr:/bin"), ':');
+		path_split = ft_split(ft_strdup("/bin/usr:/bin:/usr/sbin/:/sbin"), ':');
 	idx = -1;
 	while (++idx < d_len(path_split))
 	{
