@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 17:57:40 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 16:22:53 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ int	main(int ac, char **ag, char **env)
 	free(user);
 	initialise_home_path();
 	run_minishell();
+	if (get_fix_env_detection() == 1)
+		printf("\n");
 	return (ft_exit(g_error_code), 0);
 }

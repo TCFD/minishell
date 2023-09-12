@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 18:58:51 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 16:22:41 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_singleton
 typedef struct s_singleton2
 {
 	int	env_i;
+	int	fix_env_i;
 }t_singleton2;
 
 typedef struct c_cd
@@ -307,6 +308,8 @@ int				ft_getenv_int(char *var_name);
 int				get_env_detection(void);
 int				get_sign_ctrl(void);
 int				get_last_sign(void);
+
+int				get_fix_env_detection(void);
 
 // ------- Pour le tester --------//
 

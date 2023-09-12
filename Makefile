@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/10 17:51:24 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/12 16:27:06 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS 		=	main.c									\
 				$(DESIGN_PATTERN)design_p_username.c	\
 				$(DESIGN_PATTERN)design_p_home_path.c	\
 				$(DESIGN_PATTERN)design_p_env.c			\
+				$(DESIGN_PATTERN)design_p_env2.c		\
 				$(DESIGN_PATTERN)design_p_pwd.c			\
 				$(DESIGN_PATTERN)design_p_sign.c		\
 				$(DESIGN_PATTERN)design_p_cd.c			\

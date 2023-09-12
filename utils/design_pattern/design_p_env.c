@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:55:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/26 18:56:45 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 16:26:46 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	update_env_detection(int new_value)
 
 	singleton = get_singleton2_instance();
 	singleton->env_i = new_value;
+	if (new_value == 1)
+		singleton->fix_env_i = 1;
 }
 
 int	get_env_detection(void)
