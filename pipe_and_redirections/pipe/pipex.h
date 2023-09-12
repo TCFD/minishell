@@ -6,14 +6,13 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:24:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 15:36:30 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 16:54:53 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdarg.h>
 # define MK_CD_REMAKE 1
 # define MK_ECHO_REMAKE 2
 # define MK_UNSET_ALL_ENV_VAR 3
