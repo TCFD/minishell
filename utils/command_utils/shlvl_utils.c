@@ -3,46 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:54:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/08/22 16:07:04 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:44:38 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	shlvl_plus_one(char **join_it)
+void	env_var_plus_one(char *env_var)
 {
+	char	*join_it;
 	char	*shlvl;
 	int		value;
 
-	shlvl = ft_getenv("SHLVL");
+	shlvl = ft_getenv(env_var);
 	if (!shlvl)
 		return ;
 	value = ft_atoi(shlvl) + 1;
 	shlvl = ft_itoa(value);
 	if (!shlvl)
 		return ;
-	*join_it = ft_join(ft_strdup("SHLVL="), shlvl);
-	export_var(*join_it);
-	free(*join_it);
+	join_it = ft_join(ft_join(ft_strdup(env_var), ft_strdup("=")), shlvl);
+	export_var(join_it);
+	free(join_it);
 }
 
-void	shlvl_minus_one(void)
+void	env_var_minus_one(char *env_var)
 {
 	char	*join_it;
 	char	*shlvl;
 	int		value;
 
-	shlvl = ft_getenv("SHLVL");
+	shlvl = ft_getenv(env_var);
 	if (!shlvl)
 		return ;
 	value = ft_atoi(shlvl) - 1;
 	shlvl = ft_itoa(value);
 	if (!shlvl)
 		return ;
-	join_it = ft_join(ft_strdup("SHLVL="), shlvl);
+	join_it = ft_join(ft_join(ft_strdup(env_var), ft_strdup("=")), shlvl);
 	export_var(join_it);
 	free(join_it);
 }

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/12 16:22:41 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 17:43:38 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define S_L_RAFTER			"<"
 # define D_L_RAFTER			"<<"
 # define PIPE				"|"
+
+# define ANIME_TIME			25000000
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -243,8 +245,8 @@ void			print_pwd(void);
 void			cd_remake(t_cmd_and_opt *cmdopt);
 void			skip_n(t_cmd_and_opt *cm, int *i, int *j, bool *boolean);
 void			echo_remake(t_cmd_and_opt *cm);
-void			shlvl_plus_one(char **join_it);
-void			shlvl_minus_one(void);
+void			env_var_plus_one(char *env_var);
+void			env_var_minus_one(char *env_var);
 void			update_env(char **new_value);
 void			update_env_detection(int new_value);
 void			free_env_singleton(void);
@@ -258,6 +260,8 @@ void			free_last_value(void);
 void			update_home_path(char *new_value);
 void			free_str(char *str);
 void			free_tmp_utils(t_tmp_utils *tmp_utils);
+void			one_time_animation_start(void);
+void			one_time_animation_end(void);
 
 /* 
 
@@ -308,7 +312,6 @@ int				ft_getenv_int(char *var_name);
 int				get_env_detection(void);
 int				get_sign_ctrl(void);
 int				get_last_sign(void);
-
 int				get_fix_env_detection(void);
 
 // ------- Pour le tester --------//

@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/12 16:27:06 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/12 17:31:44 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ PARSING		  	=	parsing/
 
 SRCS 		=	main.c									\
 				run_minishell.c							\
-				pour_le_tester.c						\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
 				$(UTILS)prompt_utils.c					\

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/10 16:50:45 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/12 17:34:30 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,9 @@ void	bf_prd(char *str, int d, char *color)
 
 void	welcome_to_minishell(void)
 {
-	int		dl;
-
-	dl = 75000000;
-	bf_prd("\n\n\t\t>\t~ WELCOME TO MINISHELL ~", dl, GREEN);
-	bf_prd("\n\t\t>", dl, GREEN);
-	bf_prd("\n\t\t>\tMade by : tboldrin && rciaze ", dl, GREEN);
+	bf_prd("\n\n\t\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, GREEN);
+	bf_prd("\n\t\t>", ANIME_TIME, GREEN);
+	bf_prd("\n\t\t>\tMade by : tboldrin && rciaze ", ANIME_TIME, GREEN);
 	ft_printf("\n\n\n");
 }
 
