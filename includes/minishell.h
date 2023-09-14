@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:21:10 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 17:04:37 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,18 @@
 # define YELLOW				"\033[33m"
 # define BLUE				"\033[34m"
 # define PURPLE				"\033[35m"
+
+# define RED_1				"\033[31;1m"
+# define GREEN_1			"\033[32;1m"
+# define YELLOW_1			"\033[33;1m"
+# define BLUE_1				"\033[34;1m"
+# define PURPLE_1			"\033[35;1m"
+
+# define ANIM_C				GREEN
+# define CD_C				BLUE
+
 # define NC					"\033[0m"
+
 # define SIMPLE_Q			'\''
 # define DOUBLE_Q			'\"'
 # define SPACE				' '

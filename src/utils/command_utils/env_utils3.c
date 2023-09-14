@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:31:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 17:03:20 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void	one_time_animation_end(void)
 	if (str != NULL)
 	{
 		if (ft_atoi(str) == 1)
-			bf_prd("\n➜ Outstanding \033[5m🙏\033[0m\033[32m ?\n\n",
-				ANIME_TIME, GREEN);
+		{
+			bf_prd("\n➜ Outstanding \e[5m🙏\e[0m",
+				ANIME_TIME, ANIM_C);
+			bf_prd(" ?\n\n", ANIME_TIME, ANIM_C);
+		}
 		env_var_minus_one("ANIM_");
 	}
 }

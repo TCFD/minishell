@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:22:55 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 17:07:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,15 @@ void	bf_prd(char *str, int d, char *color)
 
 void	welcome_to_minishell(void)
 {
-	bf_prd("\n\n\t\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, GREEN);
-	bf_prd("\n\t\t>", ANIME_TIME, GREEN);
-	bf_prd("\n\t\t>\tMade by : tboldrin && rciaze ", ANIME_TIME, GREEN);
+	char	*users_c;
+
+	users_c = BLUE;
+	bf_prd("\n\n\t\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, ANIM_C);
+	bf_prd("\n\t\t>", ANIME_TIME, ANIM_C);
+	bf_prd("\n\t\t>\tMade by : ", ANIME_TIME, ANIM_C);
+	bf_prd("\e[3;1mtboldrin\e[0m", ANIME_TIME, users_c);
+	bf_prd(" && ", ANIME_TIME, ANIM_C);
+	bf_prd("\e[3;1mrciaze\e[0m ", ANIME_TIME, users_c);
 	ft_printf("\n\n\n");
 }
 
@@ -86,7 +92,7 @@ char	*display_user_prompt(char *username)
 
 	save_user = username;
 	username = stick_color(ft_join(ft_strdup(username),
-				ft_strdup("@minishell42:")), ft_strdup("\033[32;1m"));
+				ft_strdup("@minishell42:")), ft_strdup(GREEN_1));
 	cwd = get_pwd();
 	if (cwd == NULL)
 		return (free(username), NULL);
@@ -95,9 +101,9 @@ char	*display_user_prompt(char *username)
 		user_len = 0;
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
 	if (user_len == 0)
-		result = stick_color(ft_join(ft_strdup(" "), result), ft_strdup(BLUE));
+		result = stick_color(ft_join(ft_strdup(" "), result), ft_strdup(CD_C));
 	else
-		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(BLUE));
+		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(CD_C));
 	if (g_error_code == 0 || get_last_sign() == 130)
 		username = ft_join(ft_strdup("🤌 "), username);
 	else
