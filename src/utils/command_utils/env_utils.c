@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 17:25:20 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,8 @@ void	unset_all_env_var(t_cmd_and_opt *cmdopt)
 	int	idx;
 
 	idx = 0;
-	ft_printf("Debut unset\n");
 	while (cmdopt->opt_ty_tb.tab[++idx])
 		unset_env_var(cmdopt->opt_ty_tb.tab[idx]);
-	ft_printf("Fin unset\n");
 }
 
 // DISPLAY ENV
