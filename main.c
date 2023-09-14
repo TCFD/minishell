@@ -6,11 +6,11 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/12 17:32:51 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 16:19:34 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "includes/minishell.h"
 
 // RUN MINISHELL
 void	run_minishell(void)

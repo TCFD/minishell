@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/12 17:31:44 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/14 16:15:40 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,19 +16,23 @@ PFLAGES			=	-lreadline
 CC				=	gcc 
 CLEANF 			=	@(find . -name "*.o" -type f -delete)
 OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
-INCLUDE			= 	INCLUDES
-PIPEX  			=	pipe_and_redirections/pipe/
-REDIRECTIONS	=	pipe_and_redirections/redirections/
-UTILS  			=	utils/
+
+INCLUDE			= 	includes/
+SRC				=	src/
+
+UTILS  			=	$(SRC)utils/
+PARSING		  	=	$(SRC)parsing/
+
+PIPEX  			=	$(SRC)pipe_and_redirections/pipe/
+REDIRECTIONS	=	$(SRC)pipe_and_redirections/redirections/
+
 COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
 GLOBAL			=	$(UTILS)global/
-QUOTES_STUFF  	=	quotes_stuff/
-PARSING		  	=	parsing/
 
 SRCS 		=	main.c									\
-				run_minishell.c							\
+				$(SRC)run_minishell.c					\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
 				$(UTILS)prompt_utils.c					\
@@ -84,8 +88,8 @@ obj/%.o: %.c
 	@${CC} ${CFLAGS} -c $< -o $@
 
 $(NAME) : $(OBJ)
-	@make -s -C $(INCLUDE)
-	@mv $(INCLUDE)/libft.a .
+	@make -s -C $(INCLUDE)/libft_stuff
+	@mv $(INCLUDE)/libft_stuff/libft.a .
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
 	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
