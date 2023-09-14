@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 17:07:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 18:10:32 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	welcome_to_minishell(void)
 {
 	char	*users_c;
 
-	users_c = BLUE;
+	users_c = YELLOW;
 	bf_prd("\n\n\t\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, ANIM_C);
 	bf_prd("\n\t\t>", ANIME_TIME, ANIM_C);
 	bf_prd("\n\t\t>\tMade by : ", ANIME_TIME, ANIM_C);

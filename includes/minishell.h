@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 17:04:37 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/14 18:13:20 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,6 @@ char			**get_env(void);
 char			*get_brut_cmd_result(char *cmd);
 char			*is_path_unset(char *command_name, int imd_return);
 char			*create_path(char *command_name, int imd_return);
-char			find_first_isf(char *input);
-char			which_one(char *input);
-char			search_first_separator(char *input, int len);
 char			*get_char_until_limit(char *str, int lim);
 char			*check_env_variables(char *input, int end);
 char			*d_t_case(char *input, t_list **list, t_dollar *dollar);
@@ -196,6 +193,14 @@ char			*get_env_oldpwd(void);
 char			*get_username(void);
 char			*get_home_path(void);
 char			*getenv_check(char *str);
+/* 
+	
+	[---------| char |---------]
+
+*/
+char			find_first_isf(char *input);
+char			which_one(char *input);
+char			search_first_separator(char *input, int len);
 /* 
 
 	[---------| void |---------]
@@ -325,13 +330,5 @@ int				get_env_detection(void);
 int				get_sign_ctrl(void);
 int				get_last_sign(void);
 int				get_fix_env_detection(void);
-
-// ------- Pour le tester --------//
-
-char			*get_args_simple_into_tab(char **all_args);
-void			minishell_tester(char *input, t_cmd_and_opt *cmdopt);
-void			run_minishell_tester(char **args, t_cmd_and_opt *cmdopt);
-
-// ------------------------------//
 
 #endif
