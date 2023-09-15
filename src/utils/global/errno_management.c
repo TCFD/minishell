@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:44:30 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 19:30:20 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	update_err_code(int code_err)
 {
 	if (code_err == 13)
 		g_error_code = 126;
+	else if (code_err == 22)
+		g_error_code = 1;
 	else if (code_err == 5 || code_err == 9
 		|| code_err == 12 || code_err == 17
 		|| code_err == 25)
