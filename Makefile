@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/15 20:10:45 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/15 20:24:07 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,9 @@ COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
 GLOBAL			=	$(UTILS)global/
+
+ALL_H_FILES	=	$(INCLUDE)/minishell.h					\
+				$(INCLUDE)/pipex.h
 
 SRCS 		=	main.c									\
 				$(SRC)start_init.c						\
@@ -84,7 +87,7 @@ LIGHT_CYAN	=	"\033[96m"
 
 all : $(NAME)
 
-obj/%.o: %.c
+obj/%.o: %.c $(ALL_H_FILES)
 	@mkdir -p $(dir $@)
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
 	@${CC} ${CFLAGS} -c $< -o $@
