@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 18:58:22 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 20:10:18 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,6 @@ void			free_str(char *str);
 void			free_tmp_utils(t_tmp_utils *tmp_utils);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
-void			update_last_sign_ctrl(int value);
 /* 
 
 	[---------| int |---------]
@@ -336,7 +335,6 @@ int				get_env_detection(void);
 int				get_sign_ctrl(void);
 int				get_last_sign(void);
 int				get_fix_env_detection(void);
-int				get_last_sign_ctrl(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
 
 #endif

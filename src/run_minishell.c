@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 12:27:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 20:07:00 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,6 @@ void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 	}
 	else
 		update_last_sign(0);
-	if (get_last_sign_ctrl() == 1)
-	{
-		ft_printf("\n");
-		update_last_sign_ctrl(0);
-	}
 	if (get_last_sign() == 131)
 		ft_printf("Quit (core dumped)\n");
 }

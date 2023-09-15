@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 12:26:47 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 20:09:54 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,5 @@ void	sig_handler(int signum)
 	if (signum == SIGQUIT)
 		update_err_code(131);
 	else
-	{
-		update_last_sign_ctrl(0);
-		if (get_sign_ctrl() == 1)
-			update_last_sign_ctrl(1);
 		update_err_code(130);
-	}
 }
