@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 20:10:18 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 20:28:50 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define WHITE_1			"\033[37;1m"
 
 # define ANIM_C				GREEN
-# define CD_C				YELLOW
+# define CD_C				WHITE_1
 
 # define NC					"\033[0m"
 
