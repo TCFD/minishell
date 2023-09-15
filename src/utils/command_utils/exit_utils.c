@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 12:22:02 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_exit(int code)
 	free(get_home_path());
 	free(get_username());
 	free_env_singleton();
+	ft_printf("exit\n");
 	exit(code);
 }
 

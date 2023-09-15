@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 18:13:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 18:58:22 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 # define YELLOW				"\033[33m"
 # define BLUE				"\033[34m"
 # define PURPLE				"\033[35m"
+# define WHITE				"\033[37m"
 
 # define RED_1				"\033[31;1m"
 # define GREEN_1			"\033[32;1m"
 # define YELLOW_1			"\033[33;1m"
 # define BLUE_1				"\033[34;1m"
 # define PURPLE_1			"\033[35;1m"
+# define WHITE_1			"\033[37;1m"
 
 # define ANIM_C				GREEN
-# define CD_C				BLUE
+# define CD_C				YELLOW
 
 # define NC					"\033[0m"
 
@@ -98,14 +100,15 @@ typedef struct s_singleton
 	char	*env_oldpwd;
 	char	*home_path;
 	int		count;
-	int		sign_ctrl;
-	int		last_sign;
 }t_singleton;
 
 typedef struct s_singleton2
 {
 	int	env_i;
 	int	fix_env_i;
+	int	sign_ctrl;
+	int	last_sign_ctrl;
+	int	last_sign;
 }t_singleton2;
 
 typedef struct c_cd
@@ -175,6 +178,7 @@ char			*d_t_case(char *input, t_list **list, t_dollar *dollar);
 char			*replace_dollar(char what_case, char *input,
 					int i, t_list **list);
 char			*stick_color(char *str, char *color);
+char			*build_username_prompt(char *username);
 char			*display_user_prompt(char *username);
 char			*join_by_value(char *var_name, char *value);
 char			*read_bytes(int *fd);
@@ -193,6 +197,8 @@ char			*get_env_oldpwd(void);
 char			*get_username(void);
 char			*get_home_path(void);
 char			*getenv_check(char *str);
+char			*build_prompt(int u_len, char *builded_username,
+					char *building_result);
 /* 
 	
 	[---------| char |---------]
@@ -279,7 +285,7 @@ void			free_str(char *str);
 void			free_tmp_utils(t_tmp_utils *tmp_utils);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
-
+void			update_last_sign_ctrl(int value);
 /* 
 
 	[---------| int |---------]
@@ -330,5 +336,7 @@ int				get_env_detection(void);
 int				get_sign_ctrl(void);
 int				get_last_sign(void);
 int				get_fix_env_detection(void);
+int				get_last_sign_ctrl(void);
+int				man_minishell(t_cmd_and_opt *cmdopt);
 
 #endif

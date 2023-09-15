@@ -1,0 +1,47 @@
+.TH MINISHELL 1 "(Release Date: September 15, 2023)" "(Version: 1.0)" "Minishell Manual Page"
+
+.SH NAME
+minishell
+
+.SH SYNOPSIS
+.B minishell
+
+.SH DESCRIPTION
+Minishell is a 42 project aimed at creating a limited small shell.
+
+.SH OPTIONS
+.TP
+This program does not take any options.
+
+.SH EXAMPLES
+To run minishell, simply use the command:
+.PP
+.BR \fB./minishell\fR
+.PP
+
+.SH PROMPT ELMT
+.PP
+.VL 4
+.TS
+tab (@);
+l l l l.
+
+┌──(\fIuser\fR-minishell42)-[\fI~/42/minishell\fR] (\fI4\fR)
+└─\fI$\fR   |                      |          |
+  |   |                      |          |
+  |   username               |          |
+  |                          cd path    |
+  |                                     |
+  |                                     shlvl value
+  |
+  (blue : errno == 0)
+  (red  : errno != 0)
+.TE
+
+.SH AUTHORS
+rciaze && tboldrin
+.VL 1
+.TS
+l.
+
+.TE

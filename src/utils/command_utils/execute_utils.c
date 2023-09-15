@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 18:59:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
 	if (!find_command(cmdopt))
 		return (0);
+	ft_printf("\n");
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:43:49 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/04 15:55:28 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/15 18:13:54 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	*s1 = "abcabcd", *s2 = "abcd";
-	printf("%s\n", ft_strnstr(s1, s2, 7));
-	return (0);
-}
-*/

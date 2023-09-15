@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 18:10:32 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 18:34:20 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	welcome_to_minishell(void)
 	char	*users_c;
 
 	users_c = YELLOW;
-	bf_prd("\n\n\t\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, ANIM_C);
-	bf_prd("\n\t\t>", ANIME_TIME, ANIM_C);
-	bf_prd("\n\t\t>\tMade by : ", ANIME_TIME, ANIM_C);
+	bf_prd("\n\n\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, ANIM_C);
+	bf_prd("\n\t>", ANIME_TIME, ANIM_C);
+	bf_prd("\n\t>\tMade by : ", ANIME_TIME, ANIM_C);
 	bf_prd("\e[3;1mtboldrin\e[0m", ANIME_TIME, users_c);
 	bf_prd(" && ", ANIME_TIME, ANIM_C);
 	bf_prd("\e[3;1mrciaze\e[0m ", ANIME_TIME, users_c);
@@ -91,23 +91,14 @@ char	*display_user_prompt(char *username)
 	int		user_len;
 
 	save_user = username;
-	username = stick_color(ft_join(ft_strdup(username),
-				ft_strdup("@minishell42:")), ft_strdup(GREEN_1));
+	username = build_username_prompt(username);
 	cwd = get_pwd();
 	if (cwd == NULL)
 		return (free(username), NULL);
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = 0;
-	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" $ "));
-	if (user_len == 0)
-		result = stick_color(ft_join(ft_strdup(" "), result), ft_strdup(CD_C));
-	else
-		result = stick_color(ft_join(ft_strdup(" ~"), result), ft_strdup(CD_C));
-	if (g_error_code == 0 || get_last_sign() == 130)
-		username = ft_join(ft_strdup("🤌 "), username);
-	else
-		username = ft_join(ft_strdup("🖕 "), username);
-	result = ft_join(username, result);
+	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" \e[32m]"));
+	result = build_prompt(user_len, username, result);
 	return (free(cwd), result);
 }

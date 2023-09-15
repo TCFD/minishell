@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 18:14:01 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	execute_pipex(char **lst_cmd)
 		create_command(lst_cmd[idx], &cmdopt);
 		find_command_pipex(&cmdopt);
 		free_cmdopt(&cmdopt);
-		printf("\n");
+		ft_printf("\n");
 		idx++ ;
 	}
 }

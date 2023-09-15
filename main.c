@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 17:36:00 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/15 19:03:34 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_minishell(void)
 	init_cmdopt(&cmdopt);
 	verif_env_and_path(&cmdopt);
 	env_var_plus_one("SHLVL");
-	one_time_animation_start();
+	//one_time_animation_start();
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
@@ -51,42 +51,6 @@ char	**alloc_env(char **env)
 	return (env_out);
 }
 
-char	*get_brut_cmd_result(char *cmd)
-{
-	t_cmd_and_opt	cmdopt;
-	char			*result;
-
-	init_cmdopt(&cmdopt);
-	verif_env_and_path(&cmdopt);
-	create_command(cmd, &cmdopt);
-	free(cmdopt.opt_ty_tb.tab[0]);
-	cmdopt.opt_ty_tb.tab[0] = ft_strdup(cmdopt.command_path);
-	result = get_execve_return(&cmdopt);
-	free_cmdopt(&cmdopt);
-	return (result);
-}
-
-void	initialise_home_path(void)
-{
-	t_cmd_and_opt	cmdopt;
-	char			*find_path;
-	char			**split_it;
-	char			*result;
-	char			*cmd;
-
-	init_cmdopt(&cmdopt);
-	verif_env_and_path(&cmdopt);
-	cmd = ft_join(ft_strdup("/bin/getent passwd "), ft_strdup(get_username()));
-	find_path = get_brut_cmd_result(cmd);
-	split_it = ft_split(find_path, ':');
-	result = ft_strdup(split_it[d_len(split_it) - 2]);
-	free(cmd);
-	free_d_array(split_it);
-	free(find_path);
-	update_home_path(ft_strdup(result));
-	free(result);
-}
-
 int	main(int ac, char **ag, char **env)
 {
 	char	*user;
@@ -102,7 +66,7 @@ int	main(int ac, char **ag, char **env)
 	initialise_home_path();
 	run_minishell();
 	if (get_fix_env_detection() == 1)
-		printf("\n");
-	one_time_animation_end();
+		ft_printf("\n");
+	//one_time_animation_end();
 	return (ft_exit(g_error_code), 0);
 }
