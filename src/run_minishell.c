@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 20:07:00 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 15:13:32 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		free_cmdopt(cmdopt);
 		tmp.l_ety = ft_strdup(input);
 		tmp.prompt = display_user_prompt((char *)get_username());
-		free_str(input);
+		free_str(&input);
 		input = readline(tmp.prompt);
 	}
 	return (free_tmp_utils(&tmp));

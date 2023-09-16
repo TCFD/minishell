@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/14 16:22:55 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 15:20:41 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*replace_dollar(char what_case, char *input, int i, t_list **list)
 	if (ft_strchr(input, '$')
 		&& find_first_non_valid(ft_strchr(input, '$'), 1) != 1)
 		input = replace_dollar(what_case, input, i, list);
-	if (!input[0])
-		free_str(input);
+	if (!input && input[0] == '\0')
+		free_str(&input);
 	return (free(dollar.tmp_dup), free(dollar.env_var), input);
 }
