@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 18:34:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 00:30:16 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*display_user_prompt(char *username)
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = 0;
-	result = ft_join(ft_strdup(cwd + user_len), ft_strdup(" \e[32m]"));
+	result = ft_join(ft_strdup(cwd + user_len), ft_strdup("\e[32m]"));
 	result = build_prompt(user_len, username, result);
 	return (free(cwd), result);
 }

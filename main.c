@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 19:03:34 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 01:03:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_minishell(void)
 	init_cmdopt(&cmdopt);
 	verif_env_and_path(&cmdopt);
 	env_var_plus_one("SHLVL");
-	//one_time_animation_start();
+	one_time_animation_start();
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
@@ -67,6 +67,5 @@ int	main(int ac, char **ag, char **env)
 	run_minishell();
 	if (get_fix_env_detection() == 1)
 		ft_printf("\n");
-	//one_time_animation_end();
 	return (ft_exit(g_error_code), 0);
 }

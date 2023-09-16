@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 20:28:50 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 01:01:56 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define D_L_RAFTER			"<<"
 # define PIPE				"|"
 
-# define ANIME_TIME			25000000
+# define ANIME_TIME			15000000
 
 # include <stdio.h>
 # include <stdlib.h>

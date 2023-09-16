@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 14:20:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 14:20:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ char	*build_prompt(int u_len, char *builded_username, char *building_result)
 	r = building_result;
 	r = ft_join(r, ft_strdup("\n\e[32m└─\e[0m"));
 	if (g_error_code == 0 || get_last_sign() == 130)
-		r = ft_join(r, ft_strdup("\e[34;1m$ "));
+		r = ft_join(r, ft_strdup("\e[34m➤ "));
 	else
-		r = ft_join(r, ft_strdup("\e[31;1m$ "));
+		r = ft_join(r, ft_strdup("\e[31;1m➤ "));
 	if (u_len == 0)
-		r = stick_color(ft_join(ft_strdup(" "), r), ft_strdup(CD_C));
+		r = stick_color(ft_join(ft_strdup(""), r), ft_strdup(CD_C));
 	else
-		r = stick_color(ft_join(ft_strdup(" ~"), r), ft_strdup(CD_C));
+		r = stick_color(ft_join(ft_strdup("~"), r), ft_strdup(CD_C));
 	r = ft_join(builded_username, r);
 	return (r);
 }
