@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 15:33:32 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 15:34:07 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define D_L_RAFTER			"<<"
 # define PIPE				"|"
 
-# define ANIME_TIME			15000000
+# define ANIME_TIME			5000000
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -281,7 +281,7 @@ void			update_env_oldpwd(char *new_value);
 void			update_username(const char *newValue);
 void			free_last_value(void);
 void			update_home_path(char *new_value);
-void			free_str(char *str);
+void			free_str(char **str);
 void			free_tmp_utils(t_tmp_utils *tmp_utils);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
