@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/16 19:06:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_pwd(void)
 			, current_dir);
 	current_dir = malloc(1024);
 	if (getcwd(current_dir, 1024) == NULL)
-		return (free(current_dir), (void)update_err_code((int)errno),
+		return (free(current_dir),
 			ft_strdup(last_one));
 	update_err_code(0);
 	last_one = ft_cpy(current_dir, 0);
