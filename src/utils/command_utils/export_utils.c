@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/17 11:55:13 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	export_name_unvalid(char *var)
 {
 	int	i;
 
+	if (ft_atoi(var) == 0 && var[0] == '0')
+		return (1);
+	if (ft_atoi(var) != 0)
+		return (1);
 	if (var[0] == '=')
 		return (1);
 	i = -1;
