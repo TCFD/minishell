@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:54:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 18:49:25 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	env_var_plus_one(char *env_var)
 	shlvl = ft_getenv(env_var);
 	if (!shlvl)
 		return ;
-	value = ft_atoi(shlvl) + 1;
+	value = ft_atoi(shlvl);
+	if (value < 0)
+		return (export_var("SHLVL=0"));
 	shlvl = ft_itoa(value);
 	if (!shlvl)
 		return ;

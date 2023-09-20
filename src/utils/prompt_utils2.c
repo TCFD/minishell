@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 19:17:35 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:47:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*build_username_prompt(char *username)
 {
 	char	*shlvl_value;
 
-	if (ft_getenv("SHLVL"))
+	if (ft_atoi(ft_getenv("SHLVL")) >= 0)
 	{
 		shlvl_value = ft_join(ft_strdup("\e[32m (\e[0m"),
 				ft_join(ft_strdup(ft_getenv("SHLVL")),
