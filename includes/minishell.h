@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 19:17:56 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:38:08 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_tmp_utils
 {
 	char	*l_ety;
 	char	*prompt;
+	int		check;
 }t_tmp_utils;
 
 // CMDOPT //
@@ -212,7 +213,6 @@ char			search_first_separator(char *input, int len);
 	[---------| void |---------]
 
 */
-void			exit_func(t_cmd_and_opt *cmdopt, char *input);
 void			minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt);
 void			run_minishell(void);
 void			initialise_home_path(void);
@@ -285,6 +285,11 @@ void			free_str(char **str);
 void			free_tmp_utils(t_tmp_utils *tmp_utils);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
+void			add_cmd_to_history_and_run(t_tmp_utils *tmp,
+					t_cmd_and_opt *cmdopt, char *input, int i);
+void			check_to_add_history(t_tmp_utils *tmp, char *input);
+void			loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt,
+					char *input, int i);
 /* 
 
 	[---------| int |---------]
@@ -336,5 +341,6 @@ int				get_sign_ctrl(void);
 int				get_last_sign(void);
 int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
+int				exit_func(t_cmd_and_opt *cmdopt, char *input);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/16 19:17:47 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:19:38 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exit(int code)
 {
 	ft_printf("exit\n");
-	one_time_animation_end();
+	//one_time_animation_end();
 	update_pwd(NULL);
 	free(get_env_pwd());
 	free(get_env_oldpwd());

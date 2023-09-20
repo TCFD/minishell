@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/14 16:22:55 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:33:16 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ int	check_if_ifs(char c)
 	return (0);
 }
 
-void	stack_cpy(char *tab_stack, char *tab_heap)
+void	add_cmd_to_history_and_run(t_tmp_utils *tmp,
+	t_cmd_and_opt *cmdopt, char *input, int i)
 {
-	size_t	len_tab_heap;
-
-	len_tab_heap = ft_strlen(tab_heap) + 1;
-	if (len_tab_heap >= 1024)
-		return ((void)ft_printf("Allocation Error : len(tab_heap) >= 1024\n"));
-	ft_strlcpy(tab_stack, tab_heap, len_tab_heap);
+	if (tmp->check == 1)
+		return (check_to_add_history(tmp, input));
+	return (loop_it(tmp, cmdopt, input, i));
 }
