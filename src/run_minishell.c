@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 13:32:25 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:21:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		while (check_if_ifs(input[i]))
 			i++;
 		add_cmd_to_history_and_run(&tmp, cmdopt, input, i);
-		free_cmdopt(cmdopt);
+		if (cmdopt)
+			free_cmdopt(cmdopt);
 		tmp.l_ety = ft_strdup(input);
 		tmp.prompt = display_user_prompt((char *)get_username());
 		free_str(&input);

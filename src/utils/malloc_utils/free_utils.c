@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 15:58:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	free_d_array(char **str)
 		str[idx] = NULL;
 		idx++ ;
 	}
-	if (len >= 1)
-		free(str);
+	//if (len >= 1)
+	free(str);
 }
 
 void	free_t_array(char ***str)

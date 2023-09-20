@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 15:58:22 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ char	**list_to_d_tab(t_list *list)
 {
 	int		i;
 	char	**tab;
+	int		size;
 
-	tab = ft_calloc(ft_lstsize(list) + 1, sizeof(char *));
+	size = ft_lstsize(list);
+	tab = ft_calloc(size + 1, sizeof(char *));
 	i = 0;
 	while (list)
 	{
