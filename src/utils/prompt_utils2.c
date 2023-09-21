@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:03:02 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/21 20:56:57 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	*build_username_prompt(char *username)
 {
 	char	*shlvl_value;
 
-	if (ft_atoi(ft_getenv("SHLVL")) >= 0)
+	shlvl_value = ft_getenv("SHLVL");
+	if (shlvl_value && ft_atoi(shlvl_value) >= 0)
 	{
 		shlvl_value = ft_join(ft_strdup("\e[32m (\e[0m"),
 				ft_join(ft_strdup(ft_getenv("SHLVL")),

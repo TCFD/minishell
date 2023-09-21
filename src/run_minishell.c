@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:56:56 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/21 19:50:00 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 	{
 		create_command(input, cmdopt);
 		check_to_add_history(tmp, input);
+		if (cmdopt->command_name[0] == '#')
+			return ((void)ft_printf("\n"));
 		if (!execute_command(cmdopt))
 			return (free_tmp_utils(tmp), ft_exit(errno));
 		if (get_last_sign() >= 0)

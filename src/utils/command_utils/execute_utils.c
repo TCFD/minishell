@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:56:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/21 20:57:40 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,19 @@
 
 int	end_of_execve(pid_t pid, char *cmd_name)
 {
-	static bool	b;
 	int			status;
 
 	update_sign_ctrl(1);
 	waitpid(pid, &status, 0);
 	signal(SIGQUIT, SIG_IGN);
 	update_sign_ctrl(0);
-	if (g_error_code == 130 && b == false)
-		b = true;
-	else if (WIFEXITED(status) && b == true)
+	if (WIFEXITED(status))
 	{
-		b = false;
 		errno = WEXITSTATUS(status);
 		update_err_code((int)errno);
 	}
 	else if (WIFSIGNALED(status))
 		update_err_code(verif_signal(status, cmd_name));
-	else
-		update_err_code(errno);
 	return (1);
 }
 
@@ -57,21 +51,6 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 	}
 	return (end_of_execve(pid, cmdopt->command_name));
 }
-
-/* 
-char	*brut_name(char *command_np)
-{
-	char	**str_split;
-	char	*brut_command_name;
-
-	if (!ft_strchr(command_np, '/'))
-		return (command_np);
-	str_split = ft_split(command_np, '/');
-	brut_command_name = ft_strdup(str_split[d_len(str_split) - 1]);
-	free_d_array(str_split);
-	free(command_np);
-	return (brut_command_name);
-} */
 
 int	cmp(char *cmd_name, char *cmd_name_2)
 {
