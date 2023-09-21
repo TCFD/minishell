@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 15:21:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/20 19:18:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,7 @@ void	check_to_add_history(t_tmp_utils *tmp, char *input)
 // POUR PIPEX --> PREMIERE CONDITION
 void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 {
-	if (input[i] && ft_strchr(input, '|'))
-	{
-		if (ft_strncmp(tmp->l_ety, input,
-				ft_strlen(input) + ft_strlen(tmp->l_ety)))
-			add_history(input);
-	}
-	else if (input[i])
+	if (input[i])
 	{
 		create_command(input, cmdopt);
 		check_to_add_history(tmp, input);
