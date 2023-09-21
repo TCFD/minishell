@@ -3,121 +3,158 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 18:14:01 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/21 18:35:38 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// ON EXECUTE LA BONNE FONCTION //
-int	get_func(t_fork_opt *fork_utils)
+int	count_pipes(t_opt_tab opt)
 {
-	int	id;
+	int	i;
+	int	counter;
 
-	id = fork_utils->cmd_id;
-	if (id == MK_CD_REMAKE)
-		cd_remake(fork_utils->cmdopt);
-	if (id == MK_ECHO_REMAKE)
-		echo_remake(fork_utils->cmdopt);
-	if (id == MK_UNSET_ALL_ENV_VAR)
-		unset_all_env_var(fork_utils->cmdopt);
-	if (id == MK_DISPLAY_ENV)
-		display_env(fork_utils->str, fork_utils->cmdopt);
-	if (id == MK_EXPORT_ALL_VAR)
-		export_all_var(fork_utils->cmdopt);
-	if (id == MK_PRINT_PWD)
-		print_pwd();
-	if (id == MK_DISPLAY_ENV)
-		free_d_array(fork_utils->str);
-	free_everything(fork_utils->cmdopt, true);
-	return (g_error_code);
+	counter = 0;
+	i = 0;
+	while (opt.tab[i])
+	{
+		if (opt.tab[i][0] == '|' && opt.type[i] != SIMPLE_Q
+			&& opt.type[i] != DOUBLE_Q)
+			counter++;
+		i++;
+	}
+	return (counter);
 }
 
-// ON FORK NOS BUILTINS //
-void	fork_it(t_fork_opt *fork_utils)
+int	get_next_pipe(t_opt_tab opt, int j)
 {
-	int		pid;
-	int		status;
-
-	pid = fork();
-	if (pid < 0)
-		return (perror("pid"), (void)1);
-	if (pid == 0)
-		exit(get_func(fork_utils));
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
+	while (opt.tab[j])
 	{
-		errno = WEXITSTATUS(status);
-		update_err_code((int)errno);
+			if (opt.tab[j][0] == '|' && opt.type[j] != SIMPLE_Q
+			&& opt.type[j] != DOUBLE_Q)
+			return (j);
+		j++;
+	}
+	return (d_len(opt.tab));
+}
+
+void	get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old, int st, int end)
+{
+	int	i;
+	int	j;
+	
+	new->opt_ty_tb.tab = ft_calloc(end - st + 1, sizeof(char *));
+	new->opt_ty_tb.type = ft_calloc(end - st + 1, sizeof(char));
+	i = st;
+	j = 0;
+	while (i < end)
+	{
+		new->opt_ty_tb.tab[j] = ft_strdup(old->opt_ty_tb.tab[i]);
+		new->opt_ty_tb.type[j] = old->opt_ty_tb.type[i];
+		i++;
+		j++;
+	}
+	new->opt_ty_tb.tab[j] = NULL;
+	new->opt_ty_tb.type[j] = '\0';
+	new->command_name = ft_strdup(new->opt_ty_tb.tab[0]);
+	new->command_path = create_path(ft_strdup(new->opt_ty_tb.tab[0]), 1);
+	new->is_child = true;
+}
+
+void	close_all_pipes(t_pipe *pipe_s)
+{
+	int	i;
+
+	i = -1;
+	while (++i < pipe_s->nb_of_pipes)
+	{
+		close(pipe_s->pipe_fd[i][0]);
+		close(pipe_s->pipe_fd[i][1]);
 	}
 }
 
-// ON IDENTIFIT LES FONCTIONS EN UTILISANT DES "MARKER" //
-int	get_marker_value(t_fork_opt *fork_utils)
+void	launch_pipex(t_cmd_and_opt *cmdopt)
 {
-	t_cmd_and_opt	*cmdopt;
+	t_cmd_and_opt	**cmdopt_tab;
+	t_pipe			pipe_s;
+	int				i;
+	int				j;
+	int				next_pipe;
 
-	cmdopt = fork_utils->cmdopt;
-	if (cmp(cmdopt->command_name, "cd"))
-		return (MK_CD_REMAKE);
-	else if (cmp(cmdopt->command_name, "echo"))
-		return (MK_ECHO_REMAKE);
-	else if (cmp(cmdopt->command_name, "unset"))
-		return (MK_UNSET_ALL_ENV_VAR);
-	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
-		return (MK_DISPLAY_ENV);
-	else if (cmp(cmdopt->command_name, "export"))
-		return (MK_EXPORT_ALL_VAR);
-	else if (cmp(cmdopt->command_name, "pwd"))
-		return (MK_PRINT_PWD);
-	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf("\033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt),
-			update_err_code(127), -1);
-	return (0);
-}
-
-// TROUVER ET EXECUTER LA FONCTION EN FORK //
-int	find_command_pipex(t_cmd_and_opt *cmdopt)
-{
-	t_fork_opt	fork_utils;
-	int			mk;
-
-	init_fork_opt(&fork_utils);
-	fork_utils.cmdopt = cmdopt;
-	mk = get_marker_value(&fork_utils);
-	if (mk != 0)
+	pipe_s.nb_of_pipes = count_pipes(cmdopt->opt_ty_tb);
+	pipe_s.nb_of_forks = pipe_s.nb_of_pipes + 1;
+	cmdopt_tab = malloc(sizeof(t_cmd_and_opt *) * pipe_s.nb_of_forks);
+	pipe_s.pid = malloc(sizeof(int) * pipe_s.nb_of_forks);
+	pipe_s.pipe_fd = malloc(sizeof(int [2]) * pipe_s.nb_of_pipes);
+	if (!pipe_s.pid || !pipe_s.pipe_fd || !cmdopt_tab)
+		return (ft_printf("Minishell: malloc error\n"), ft_exit(errno));
+	i = -1;
+	j = 0;
+	while (++i < pipe_s.nb_of_forks)
 	{
-		if (mk == 4)
-			fork_utils.str = get_env();
-		fork_utils.cmd_id = mk;
-		fork_it(&fork_utils);
+		next_pipe = get_next_pipe(cmdopt->opt_ty_tb, j);
+		cmdopt_tab[i] = malloc(sizeof(t_cmd_and_opt));
+		if (!cmdopt_tab[i])
+			return (ft_printf("Minishell: malloc error\n"), ft_exit(errno));
+		get_new_cmdopt(cmdopt_tab[i], cmdopt, j, next_pipe);
+		j = next_pipe + 1;
 	}
-	if (mk == 0)
+	/* for (int k = -1; ++k < pipe_s.nb_of_forks;)
 	{
-		if (!run_execve(cmdopt))
-			return (0);
-	}
-	return (g_error_code);
-}
-
-// FONCTION PRINCIPALE DE PIPEX //
-void	execute_pipex(char **lst_cmd)
-{
-	t_cmd_and_opt	cmdopt;
-	int				idx;
-
-	idx = 0;
-	init_cmdopt(&cmdopt);
-	while (lst_cmd[idx])
+		printf("cmdopt_tab[%d]->command_name = %s\n", k, cmdopt_tab[k]->command_name);
+		for (int q = -1; ++q < d_len(cmdopt_tab[k]->opt_ty_tb.tab);)
+		{
+			printf("\tcmdopt_tab[%d]->opt_ty_tb.tab[%d] = %s\n", k, q, cmdopt_tab[k]->opt_ty_tb.tab[q]);
+		}
+	} */
+	i = -1;
+	while (++i < pipe_s.nb_of_pipes)
 	{
-		create_command(lst_cmd[idx], &cmdopt);
-		find_command_pipex(&cmdopt);
-		free_cmdopt(&cmdopt);
-		ft_printf("\n");
-		idx++ ;
+		pipe_s.pipe_fd[i] = ft_calloc(sizeof(int), 2);
+		if (pipe_s.pipe_fd[i] == NULL)
+			return (ft_printf("Minishell: ft_calloc error\n"), ft_exit(errno));
+		if (pipe(pipe_s.pipe_fd[i]) < 0)
+			return (ft_printf("Minishell: pipe error\n"), ft_exit(errno));
 	}
+	pipe_s.pid[0] = fork();
+	if (pipe_s.pid[0] < 0)
+		return (ft_printf("Minishell: fork error\n"), ft_exit(errno));
+	if (pipe_s.pid[0] == 0)
+	{
+		dup2(pipe_s.pipe_fd[0][1], STDOUT_FILENO);
+		close_all_pipes(&pipe_s);
+		execute_command(cmdopt_tab[0]);
+	}
+	i = 1;
+	while (i < pipe_s.nb_of_pipes)
+	{
+		pipe_s.pid[i] = fork();
+		if (pipe_s.pid[i] < 0)
+			return (perror(NULL));
+		if (pipe_s.pid[i] == 0)
+		{
+			dup2(pipe_s.pipe_fd[i - 1][0], STDIN_FILENO);
+			dup2(pipe_s.pipe_fd[i][1], STDOUT_FILENO);
+			close_all_pipes(&pipe_s);
+			execute_command(cmdopt_tab[i]);
+		}
+		i++;
+	}
+	pipe_s.pid[i] = fork();
+	if (pipe_s.pid[i] < 0)
+		return (perror(NULL));
+	if (pipe_s.pid[i] == 0)
+	{
+		dup2(pipe_s.pipe_fd[i - 1][0], STDIN_FILENO);
+		close_all_pipes(&pipe_s);
+		execute_command(cmdopt_tab[i]);
+	}
+	close_all_pipes(&pipe_s);
+	i = -1;
+	while (++i < pipe_s.nb_of_forks)
+		waitpid(pipe_s.pid[i], NULL, 0);
+	
 }

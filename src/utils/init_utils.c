@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:35:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:22:55 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/21 18:23:44 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ void	init_cmdopt(t_cmd_and_opt *cmdopt)
 	cmdopt->tmp_utils.l_ety = NULL;
 	cmdopt->tmp_utils.prompt = NULL;
 	cmdopt->path_unset = 0;
+	cmdopt->is_child = false;
 }

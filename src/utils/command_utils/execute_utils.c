@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 16:26:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/21 18:36:11 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,24 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 	pid_t		pid;
 
 	errno = 0;
-	pid = fork();
 	signal(SIGQUIT, sig_handler);
-	if (pid == -1)
-		return ((void)update_err_code((int)errno),
-			perror("fork"), exit(EXIT_FAILURE), 1);
-	else if (pid == 0)
+	if (!cmdopt->is_child)
+	{
+		pid = fork();
+		if (pid == -1)
+			return ((void)update_err_code((int)errno),
+				perror("fork"), exit(EXIT_FAILURE), 1);
+		else if (pid == 0)
+		{
+			if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
+				== -1)
+				ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
+					strerror(errno));
+			free_everything(cmdopt, true);
+			exit(errno);
+		}
+	}
+	else
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
@@ -124,10 +136,12 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 		if (!find_command(cmdopt))
 			return (0);
 	}
-	//ft_printf("\n");
+	ft_printf("\n");
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
+	if (cmdopt->is_child)
+		exit(g_error_code);
 	return (1);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/15 20:24:07 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/21 14:37:10 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ ALL_H_FILES	=	$(INCLUDE)/minishell.h					\
 SRCS 		=	main.c									\
 				$(SRC)start_init.c						\
 				$(SRC)run_minishell.c					\
+				$(SRC)run_minishell_utils.c				\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
 				$(UTILS)prompt_utils.c					\

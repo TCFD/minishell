@@ -6,22 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 19:18:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/21 15:15:26 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// GETENV CHECK
-char	*getenv_check(char *str)
-{
-	char	*found_it;
-
-	found_it = ft_getenv(str);
-	if (found_it == NULL)
-		return (NULL);
-	return (found_it);
-}
 
 // EXIT FUNC
 int	exit_func(t_cmd_and_opt *cmdopt, char *input)
@@ -45,13 +34,6 @@ int	exit_func(t_cmd_and_opt *cmdopt, char *input)
 	return (ft_exit(0), 0);
 }
 
-void	check_to_add_history(t_tmp_utils *tmp, char *input)
-{
-	if (ft_strncmp(tmp->l_ety, input,
-			ft_strlen(input) + ft_strlen(tmp->l_ety)))
-		add_history(input);
-}
-
 // POUR PIPEX --> PREMIERE CONDITION
 void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 {
@@ -59,8 +41,13 @@ void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 	{
 		create_command(input, cmdopt);
 		check_to_add_history(tmp, input);
-		if (!execute_command(cmdopt))
-			return (free_tmp_utils(tmp), ft_exit(errno));
+		if (!check_if_pipe(cmdopt->opt_ty_tb))
+		{
+			if (!execute_command(cmdopt))
+				return (free_tmp_utils(tmp), ft_exit(errno));
+		}
+		else
+			launch_pipex(cmdopt);
 		update_last_sign(g_error_code);
 	}
 	else

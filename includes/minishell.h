@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 19:15:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/21 18:23:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ extern int	g_error_code;
 	[---------| struct |---------]
 
 */
+typedef struct s_pipe
+{
+	t_cmd_and_opt	*cmdopt;
+	int				nb_of_pipes;
+	int				nb_of_forks;
+	int				**pipe_fd;
+	int				*pid;
+}t_pipe;
+
+
 typedef struct s_redirections
 {
 	t_list	*list;
@@ -111,7 +121,7 @@ typedef struct s_singleton2
 	int	last_sign;
 }t_singleton2;
 
-typedef struct c_cd
+typedef struct s_cd
 {
 	char	*env_pwd;
 	char	*env_old_pwd;
@@ -138,6 +148,7 @@ typedef struct s_command_and_option
 	char			*command_name;
 	char			*command_path;
 	int				path_unset;
+	bool			is_child;
 	t_opt_tab		opt_ty_tb;
 	t_tmp_utils		tmp_utils;
 }t_cmd_and_opt;
@@ -290,6 +301,7 @@ void			add_cmd_to_history_and_run(t_tmp_utils *tmp,
 void			check_to_add_history(t_tmp_utils *tmp, char *input);
 void			loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt,
 					char *input, int i);
+void			launch_pipex(t_cmd_and_opt *cmdopt);
 /* 
 
 	[---------| int |---------]
@@ -342,6 +354,8 @@ int				get_last_sign(void);
 int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
 int				exit_func(t_cmd_and_opt *cmdopt, char *input);
+int				check_if_pipe(t_opt_tab	opt);
+
 /* 
 
 	[---------| bool |---------]
