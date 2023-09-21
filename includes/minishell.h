@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 13:38:08 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:15:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,5 +342,11 @@ int				get_last_sign(void);
 int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
 int				exit_func(t_cmd_and_opt *cmdopt, char *input);
+/* 
+
+	[---------| bool |---------]
+
+*/
+bool			is_there_a_command(t_opt_tab opt);
 
 #endif

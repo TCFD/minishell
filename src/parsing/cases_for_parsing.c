@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/16 15:26:19 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 16:10:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ void	case_4_5_part_2(t_separators *sep, char **ct,
 		sep->tmp_i = ft_strlen(*ct);
 		*ct = ft_join(*ct,
 				ft_substr(input + sep->i, 0, sep->w_string));
-		if (sep->what_case != '\'' || (sep->what_case == '\''
-				&& sep->w_string > 0))
+		if (sep->what_case != SIMPLE_Q)
 			*ct = replace_dollar(sep->what_case, *ct, sep->tmp_i, list);
 		sep->i += sep->w_string;
 		if (sep->what_case == SIMPLE_Q || sep->what_case == DOUBLE_Q)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/21 13:40:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 	if (file == NULL && is_malloc == true)
 		free(f);
 	if (file == NULL)
-		return (closedir(file), (void)update_err_code((int)errno), (void)
-			ft_printf("Minishell: cd: %s: %s\n",
-				tmp_name, strerror(errno)), NULL);
+		return ((void)ft_printf("Minishell: cd: %s: ", tmp_name), perror(NULL),
+			closedir(file), (void)update_err_code((int)errno), NULL);
 	closedir(file);
 	if (is_malloc == true)
 		return (f);

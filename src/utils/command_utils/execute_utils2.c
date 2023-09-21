@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 18:59:35 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/20 19:15:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,24 @@ char	*get_execve_return(t_cmd_and_opt *cmdopt)
 		return (read_bytes(pipefd));
 	}
 	return (NULL);
+}
+
+bool	is_there_a_command(t_opt_tab opt)
+{
+	int	i;
+
+	if (!opt.tab)
+		return (false);
+	i = 0;
+	while (opt.tab[i])
+	{
+		if ((opt.tab[i][0] == '>' || opt.tab[i][0] == '<')
+			&& opt.type[i] != SIMPLE_Q && opt.type[i] != DOUBLE_Q)
+			i++;
+		else
+			return (true);
+		if (opt.tab[i])
+			i++;
+	}
+	return (false);
 }

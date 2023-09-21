@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 13:32:25 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:18:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,7 @@ void	check_to_add_history(t_tmp_utils *tmp, char *input)
 // POUR PIPEX --> PREMIERE CONDITION
 void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 {
-	if (input[i] && ft_strchr(input, '|'))
-	{
-		if (ft_strncmp(tmp->l_ety, input,
-				ft_strlen(input) + ft_strlen(tmp->l_ety)))
-			add_history(input);
-	}
-	else if (input[i])
+	if (input[i])
 	{
 		create_command(input, cmdopt);
 		check_to_add_history(tmp, input);
@@ -95,7 +89,8 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		while (check_if_ifs(input[i]))
 			i++;
 		add_cmd_to_history_and_run(&tmp, cmdopt, input, i);
-		free_cmdopt(cmdopt);
+		if (cmdopt)
+			free_cmdopt(cmdopt);
 		tmp.l_ety = ft_strdup(input);
 		tmp.prompt = display_user_prompt((char *)get_username());
 		free_str(&input);
