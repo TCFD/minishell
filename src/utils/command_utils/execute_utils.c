@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 16:26:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/21 18:56:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	end_of_execve(pid_t pid)
+int	end_of_execve(pid_t pid, char *cmd_name)
 {
 	static bool	b;
 	int			status;
@@ -23,12 +23,16 @@ int	end_of_execve(pid_t pid)
 	update_sign_ctrl(0);
 	if (g_error_code == 130 && b == false)
 		b = true;
-	else if (WIFEXITED(status))
+	else if (WIFEXITED(status) && b == true)
 	{
 		b = false;
 		errno = WEXITSTATUS(status);
 		update_err_code((int)errno);
 	}
+	else if (WIFSIGNALED(status))
+		update_err_code(verif_signal(status, cmd_name));
+	else
+		update_err_code(errno);
 	return (1);
 }
 
@@ -51,7 +55,7 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		free_everything(cmdopt, true);
 		exit(errno);
 	}
-	return (end_of_execve(pid));
+	return (end_of_execve(pid, cmdopt->command_name));
 }
 
 /* 
@@ -124,7 +128,7 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 		if (!find_command(cmdopt))
 			return (0);
 	}
-	//ft_printf("\n");
+	ft_printf("\n");
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)

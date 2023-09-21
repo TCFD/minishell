@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 19:15:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/21 18:53:10 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,23 @@ bool	is_there_a_command(t_opt_tab opt)
 			i++;
 	}
 	return (false);
+}
+
+int	verif_signal(int status, char *cmd_name)
+{
+	int	signal_code;
+
+	signal_code = WTERMSIG(status);
+	if (signal_code == SIGSEGV)
+		return (printf("Minishell: Segmentation fault [%s]\n", cmd_name), 139);
+	else
+	{
+		if (signal_code != 2 && signal_code != 3)
+			return (printf("Minishell: Process completed\n"), 143);
+	}
+	if (signal_code == 2)
+		return (130);
+	if (signal_code == 3)
+		return (131);
+	return (errno);
 }

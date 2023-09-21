@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 19:15:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/21 17:39:32 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,7 @@ int				get_last_sign(void);
 int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
 int				exit_func(t_cmd_and_opt *cmdopt, char *input);
+int				verif_signal(int status, char *cmd_name);
 /* 
 
 	[---------| bool |---------]
