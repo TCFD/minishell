@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/22 20:11:49 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/22 22:23:18 by zbp15            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,9 @@ SRCS 		=	main.c									\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
 				$(REDIRECTIONS)left_rafter_utils.c		\
 				$(REDIRECTIONS)left_rafter_utils2.c		\
-				$(PIPEX)init_pipex_value.c				\
+				$(PIPEX)childs.c							\
+				$(PIPEX)init_pipex.c							\
+				$(PIPEX)pipex_utils.c							\
 				$(PIPEX)pipex.c							\
 
 # Couleurs

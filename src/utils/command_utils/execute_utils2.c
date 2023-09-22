@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 19:15:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 22:29:33 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,32 @@ bool	is_there_a_command(t_opt_tab opt)
 			i++;
 	}
 	return (false);
+}
+
+int	end_of_execve(pid_t pid)
+{
+	static bool	b;
+	int			status;
+
+	update_sign_ctrl(1);
+	waitpid(pid, &status, 0);
+	signal(SIGQUIT, SIG_IGN);
+	update_sign_ctrl(0);
+	if (g_error_code == 130 && b == false)
+		b = true;
+	else if (WIFEXITED(status))
+	{
+		b = false;
+		errno = WEXITSTATUS(status);
+		update_err_code((int)errno);
+	}
+	return (1);
+}
+
+int	cmp(char *cmd_name, char *cmd_name_2)
+{
+	if (ft_strncmp(cmd_name, cmd_name_2, ft_strlen(cmd_name_2)) == 0
+		&& ft_strlen(cmd_name) == ft_strlen(cmd_name_2))
+		return (1);
+	return (0);
 }

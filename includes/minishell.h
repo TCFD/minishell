@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 20:49:30 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/22 22:26:16 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ extern int	g_error_code;
 */
 typedef struct s_pipe
 {
-	t_cmd_and_opt	*cmdopt;
+	t_cmd_and_opt	**cmdopt_tab;
 	int				nb_of_pipes;
 	int				nb_of_forks;
 	int				**pipe_fd;
@@ -300,6 +300,17 @@ void			update_prompt(char *new_prompt);;
 void			update_last_entry(char *last_entry);
 void			init_prompt_last_entry(void);
 void			free_prompt_last_entry(void);
+void			first_child(t_pipe *pipe_s);
+void			n_child(t_pipe *pipe_s, int *i);
+void			last_child(t_pipe *pipe_s, int *i);
+void			init_sub_cmdopt(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
+void			init_pipes(t_pipe *pipe_s);
+void			init_pipex(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
+void			close_all_pipes(t_pipe *pipe_s);
+void			free_pipe(t_pipe *pipe_s);
+void			malloc_pipes(t_pipe *pipe_s);
+void			get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old,
+					int st, int end);
 /* 
 
 	[---------| int |---------]
@@ -353,6 +364,9 @@ int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
 int				exit_func(t_cmd_and_opt *cmdopt, char *input);
 int				check_if_pipe(t_opt_tab	opt);
+int				count_pipes(t_opt_tab opt);
+int				get_next_pipe(t_opt_tab opt, int j);
+int				end_of_execve(pid_t pid);
 
 /* 
 
