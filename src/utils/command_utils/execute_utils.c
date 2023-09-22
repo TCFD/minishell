@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:36:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 19:54:09 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,13 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 		if (!find_command(cmdopt))
 			return (0);
 	}
-	ft_printf("\n");
+	if (!cmdopt->is_child)
+		ft_printf("\n");
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 	if (cmdopt->is_child)
-		exit(g_error_code);
+		ft_exit(errno, false);	
 	return (1);
 }

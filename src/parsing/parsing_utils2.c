@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:27:47 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/14 16:22:55 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/22 18:46:15 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,5 @@ void	set_separator(t_separators *sep, char *input)
 		sep->w_string = ft_strlen(input + sep->i);
 	if (sep->s_string < 0)
 		sep->s_string = ft_strlen(input + sep->i);
+	sep->in_quote = false;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:23:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 19:32:42 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_separators
 	char		tmp;
 	int			i;
 	int			tmp_i;
+	bool		in_quote;
 }t_separators;
 
 typedef struct s_singleton
@@ -265,7 +266,7 @@ void			free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt);
 void			update_err_code(int code_err);
 void			write_env_oldpwd(char *oldpwd);
 void			write_env_pwd(char *pwd);
-void			ft_exit(int code);
+void			ft_exit(int code, bool msg);
 void			update_err_code_exit(char *origin_code, int code_err);
 void			exit_prg(char *code_err);
 void			export_var(char *var);

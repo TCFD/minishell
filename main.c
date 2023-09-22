@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/20 13:20:02 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:32:52 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ int	main(int ac, char **ag, char **env)
 	run_minishell();
 	if (get_fix_env_detection() == 1)
 		ft_printf("\n");
-	return (ft_exit(g_error_code), 0);
+	return (ft_exit(g_error_code, true), 0);
 }

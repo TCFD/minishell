@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 15:15:26 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 19:53:41 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	exit_func(t_cmd_and_opt *cmdopt, char *input)
 	free(input);
 	free_d_array(spl);
 	exit_prg(ipt);
-	return (ft_exit(0), 0);
+	return (ft_exit(0, true), 0);
 }
 
 // POUR PIPEX --> PREMIERE CONDITION
@@ -44,7 +44,7 @@ void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 		if (!check_if_pipe(cmdopt->opt_ty_tb))
 		{
 			if (!execute_command(cmdopt))
-				return (free_tmp_utils(tmp), ft_exit(errno));
+				return (free_tmp_utils(tmp), ft_exit(errno, true));
 		}
 		else
 			launch_pipex(cmdopt);

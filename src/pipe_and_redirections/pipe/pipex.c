@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:35:38 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 19:33:24 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 
 	pipe_s.nb_of_pipes = count_pipes(cmdopt->opt_ty_tb);
 	pipe_s.nb_of_forks = pipe_s.nb_of_pipes + 1;
-	cmdopt_tab = malloc(sizeof(t_cmd_and_opt *) * pipe_s.nb_of_forks);
-	pipe_s.pid = malloc(sizeof(int) * pipe_s.nb_of_forks);
-	pipe_s.pipe_fd = malloc(sizeof(int [2]) * pipe_s.nb_of_pipes);
+	cmdopt_tab = ft_calloc(sizeof(t_cmd_and_opt *), pipe_s.nb_of_forks);
+	pipe_s.pid = ft_calloc(sizeof(int), pipe_s.nb_of_forks);
+	pipe_s.pipe_fd = ft_calloc(sizeof(int [2]), pipe_s.nb_of_pipes);
 	if (!pipe_s.pid || !pipe_s.pipe_fd || !cmdopt_tab)
-		return (ft_printf("Minishell: malloc error\n"), ft_exit(errno));
+		return (ft_printf("Minishell: malloc error\n"), ft_exit(errno, true));
 	i = -1;
 	j = 0;
 	while (++i < pipe_s.nb_of_forks)
 	{
 		next_pipe = get_next_pipe(cmdopt->opt_ty_tb, j);
-		cmdopt_tab[i] = malloc(sizeof(t_cmd_and_opt));
+		cmdopt_tab[i] = ft_calloc(sizeof(t_cmd_and_opt), 1);
 		if (!cmdopt_tab[i])
-			return (ft_printf("Minishell: malloc error\n"), ft_exit(errno));
+			return (ft_printf("Minishell: malloc error\n"), ft_exit(errno, true));
 		get_new_cmdopt(cmdopt_tab[i], cmdopt, j, next_pipe);
 		j = next_pipe + 1;
 	}
@@ -115,13 +115,13 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	{
 		pipe_s.pipe_fd[i] = ft_calloc(sizeof(int), 2);
 		if (pipe_s.pipe_fd[i] == NULL)
-			return (ft_printf("Minishell: ft_calloc error\n"), ft_exit(errno));
+			return (ft_printf("Minishell: ft_calloc error\n"), ft_exit(errno, true));
 		if (pipe(pipe_s.pipe_fd[i]) < 0)
-			return (ft_printf("Minishell: pipe error\n"), ft_exit(errno));
+			return (ft_printf("Minishell: pipe error\n"), ft_exit(errno, true));
 	}
 	pipe_s.pid[0] = fork();
 	if (pipe_s.pid[0] < 0)
-		return (ft_printf("Minishell: fork error\n"), ft_exit(errno));
+		return (ft_printf("Minishell: fork error\n"), ft_exit(errno, true));
 	if (pipe_s.pid[0] == 0)
 	{
 		dup2(pipe_s.pipe_fd[0][1], STDOUT_FILENO);
