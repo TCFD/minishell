@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/21 14:37:10 by rciaze           ###   ########.fr        #
+#    Updated: 2023/09/22 20:11:49 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS 		=	main.c									\
 				$(DESIGN_PATTERN)design_p_pwd.c			\
 				$(DESIGN_PATTERN)design_p_sign.c		\
 				$(DESIGN_PATTERN)design_p_cd.c			\
+				$(DESIGN_PATTERN)design_p_tmp.c			\
 				$(GLOBAL)errno_management.c				\
 				$(MALLOC_UTILS)free_utils.c				\
 				$(MALLOC_UTILS)free_utils2.c			\

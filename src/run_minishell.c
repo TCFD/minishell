@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 19:53:41 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/22 20:33:38 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int	exit_func(t_cmd_and_opt *cmdopt, char *input)
 }
 
 // POUR PIPEX --> PREMIERE CONDITION
-void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
+void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 {
 	if (input[i])
 	{
 		create_command(input, cmdopt);
-		check_to_add_history(tmp, input);
+		check_to_add_history(input);
 		if (!check_if_pipe(cmdopt->opt_ty_tb))
 		{
 			if (!execute_command(cmdopt))
-				return (free_tmp_utils(tmp), ft_exit(errno, true));
+				return (ft_exit(errno, true));
 		}
 		else
 			launch_pipex(cmdopt);
@@ -59,29 +59,28 @@ void	loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt, char *input, int i)
 // MINISHELL
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
-	t_tmp_utils	tmp;
+	int			check;
 	int			i;
 
 	i = 0;
-	tmp.l_ety = ft_strdup("");
-	tmp.prompt = ft_strdup(prompt);
+	init_prompt_last_entry();
+	update_last_entry(ft_strdup(" "));
+	update_prompt(ft_strdup(prompt));
 	free(prompt);
 	while (input != NULL)
 	{
-		tmp.check = 0;
-		cmdopt->tmp_utils = tmp;
+		check = 0;
 		if (ft_strncmp(input, "exit", 4) == 0
 			&& (check_if_ifs(input[4]) || input[4] == '\0'))
-			tmp.check = exit_func(cmdopt, input);
+			check = exit_func(cmdopt, input);
 		while (check_if_ifs(input[i]))
 			i++;
-		add_cmd_to_history_and_run(&tmp, cmdopt, input, i);
-		if (cmdopt)
-			free_cmdopt(cmdopt);
-		tmp.l_ety = ft_strdup(input);
-		tmp.prompt = display_user_prompt((char *)get_username());
+		add_cmd_to_history_and_run(check, cmdopt, input, i);
+		free_cmdopt(cmdopt);
+		update_last_entry(ft_strdup(input));
+		update_prompt(display_user_prompt((char *)get_username()));
 		free_str(&input);
-		input = readline(tmp.prompt);
+		input = readline(get_prompt());
 	}
-	return (free_tmp_utils(&tmp));
+	return (free_prompt_last_entry());
 }

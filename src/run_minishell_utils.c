@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:36:32 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/21 15:49:42 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 20:49:44 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ char	*getenv_check(char *str)
 	return (found_it);
 }
 
-void	check_to_add_history(t_tmp_utils *tmp, char *input)
+void	check_to_add_history(char *input)
 {
-	if (ft_strncmp(tmp->l_ety, input,
-			ft_strlen(input) + ft_strlen(tmp->l_ety)))
+	if (ft_strncmp(get_last_entry(), input,
+			ft_strlen(input) + ft_strlen(get_last_entry())))
 		add_history(input);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 19:33:24 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/22 20:43:39 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,9 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	close_all_pipes(&pipe_s);
 	i = -1;
 	while (++i < pipe_s.nb_of_forks)
-		waitpid(pipe_s.pid[i], NULL, 0);
-	
+		waitpid(pipe_s.pid[i], NULL, 0);	
+
+	i = -1;
+	while (++i < pipe_s.nb_of_forks)
+		free_cmdopt(cmdopt_tab[i]);
 }
