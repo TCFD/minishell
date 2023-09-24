@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 17:19:38 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/22 22:13:14 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	free_cmdopt(t_cmd_and_opt *cmdopt)
 		free(cmdopt->command_name);
 	if (cmdopt->command_path)
 		free(cmdopt->command_path);
-	if (cmdopt->tmp_utils.l_ety)
-		free_tmp_utils(&(cmdopt->tmp_utils));
 	if (cmdopt->opt_ty_tb.type)
 		free(cmdopt->opt_ty_tb.type);
 	if (cmdopt->opt_ty_tb.tab != NULL)
@@ -83,5 +81,6 @@ void	free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt)
 	free(get_env_oldpwd());
 	free(get_home_path());
 	free(get_username());
+	free_prompt_last_entry();
 	free_env_singleton();
 }

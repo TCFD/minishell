@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_utils.c                                    :+:      :+:    :+:   */
+/*   minishell_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:06:51 by wolf             ###   ########.fr       */
+/*   Created: 2023/09/24 16:48:20 by wolf              #+#    #+#             */
+/*   Updated: 2023/09/24 17:46:24 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	sig_handler(int signum)
+int	minishell_with_arg(t_cmd_and_opt *cmdopt)
 {
-	if (!rl_done)
+	int	fail;
+
+	fail = 0;
+	if (cmdopt->opt_ty_tb.tab[1])
 	{
-		rl_replace_line("", 0);
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_on_new_line();
+		ft_printf("Minishell: minishell does not take any arguments.\n\n");
+		update_err_code(1);
+		fail = 1;
 	}
-	if (get_sign_ctrl() == 1)
-		update_last_sign(-1);
-	else
-		update_last_sign(0);
-	if (signum == SIGQUIT)
-		return (update_err_code(131));
-	else
-		update_err_code(130);
+	change_underscore_value(cmdopt, false);
+	return (fail);
 }

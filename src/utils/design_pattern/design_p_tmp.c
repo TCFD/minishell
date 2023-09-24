@@ -1,45 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   design_p_sign.c                                    :+:      :+:    :+:   */
+/*   design_p_tmp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 22:19:39 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:07:12 by wolf             ###   ########.fr       */
+/*   Created: 2023/09/22 19:58:36 by wolf              #+#    #+#             */
+/*   Updated: 2023/09/22 22:10:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	update_sign_ctrl(int value)
+void	update_prompt(char *new_prompt)
 {
 	t_singleton2	*singleton2;
 
 	singleton2 = get_singleton2_instance();
-	singleton2->sign_ctrl = value;
+	if (singleton2->prompt != NULL)
+		free(singleton2->prompt);
+	singleton2->prompt = new_prompt;
 }
 
-int	get_sign_ctrl(void)
+char	*get_prompt(void)
 {
 	t_singleton2	*singleton2;
 
 	singleton2 = get_singleton2_instance();
-	return (singleton2->sign_ctrl);
+	return (singleton2->prompt);
 }
 
-void	update_last_sign(int value)
+void	update_last_entry(char *last_entry)
 {
 	t_singleton2	*singleton2;
 
 	singleton2 = get_singleton2_instance();
-	singleton2->last_sign = value;
+	if (singleton2->l_ety != NULL)
+		free(singleton2->l_ety);
+	singleton2->l_ety = last_entry;
 }
 
-int	get_last_sign(void)
+char	*get_last_entry(void)
 {
 	t_singleton2	*singleton2;
 
 	singleton2 = get_singleton2_instance();
-	return (singleton2->last_sign);
+	return (singleton2->l_ety);
+}
+
+void	free_prompt_last_entry(void)
+{
+	t_singleton2	*singleton2;
+
+	singleton2 = get_singleton2_instance();
+	free(singleton2->prompt);
+	free(singleton2->l_ety);
+	init_prompt_last_entry();
 }

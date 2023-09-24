@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 20:57:40 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 17:35:18 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	end_of_execve(pid_t pid, char *cmd_name)
 
 	update_sign_ctrl(1);
 	waitpid(pid, &status, 0);
-	signal(SIGQUIT, SIG_IGN);
 	update_sign_ctrl(0);
+	signal(SIGQUIT, SIG_IGN);
 	if (WIFEXITED(status))
 	{
 		errno = WEXITSTATUS(status);
@@ -76,12 +76,12 @@ int	find_command(t_cmd_and_opt *cmdopt)
 		print_pwd();
 	else if (!ft_strchr(cmdopt->command_path, '/'))
 		return (ft_printf("\033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt),
-			update_err_code(127), 1);
+				cmdopt->command_name), change_underscore_value(cmdopt, false),
+			free_cmdopt(cmdopt), update_err_code(127), 0);
 	else
 	{
 		if (!run_execve(cmdopt))
-			return (0);
+			return (-1);
 	}
 	return (1);
 }
@@ -102,12 +102,11 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 		return (free_cmdopt(cmdopt), 1);
 	if (does_cmd_exist)
 	{
-		free(cmdopt->opt_ty_tb.tab[0]);
-		cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
-		if (!find_command(cmdopt))
+		if (!cmd_exist(cmdopt))
 			return (0);
 	}
-	ft_printf("\n");
+	else
+		change_underscore_value_void(false);
 	if (redir_in_bool)
 		restore_stdin(&redirections);
 	if (redir_out_bool)

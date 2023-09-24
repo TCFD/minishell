@@ -6,7 +6,7 @@
 #    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/15 20:24:07 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/24 17:36:38 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ ALL_H_FILES	=	$(INCLUDE)/minishell.h					\
 SRCS 		=	main.c									\
 				$(SRC)start_init.c						\
 				$(SRC)run_minishell.c					\
+				$(SRC)run_minishell2.c					\
+				$(SRC)minishell_args.c					\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
 				$(UTILS)prompt_utils.c					\
@@ -51,13 +53,16 @@ SRCS 		=	main.c									\
 				$(DESIGN_PATTERN)design_p_pwd.c			\
 				$(DESIGN_PATTERN)design_p_sign.c		\
 				$(DESIGN_PATTERN)design_p_cd.c			\
+				$(DESIGN_PATTERN)design_p_tmp.c			\
 				$(GLOBAL)errno_management.c				\
 				$(MALLOC_UTILS)free_utils.c				\
 				$(MALLOC_UTILS)free_utils2.c			\
-				$(COMMAND_UTILS)shlvl_utils.c			\
 				$(MALLOC_UTILS)realloc_utils.c			\
+				$(COMMAND_UTILS)shlvl_utils.c			\
+				$(COMMAND_UTILS)underscore_value.c		\
 				$(COMMAND_UTILS)execute_utils.c			\
 				$(COMMAND_UTILS)execute_utils2.c		\
+				$(COMMAND_UTILS)execute_utils3.c		\
 				$(COMMAND_UTILS)cd_utils.c				\
 				$(COMMAND_UTILS)cd_utils2.c				\
 				$(COMMAND_UTILS)echo_utils.c			\

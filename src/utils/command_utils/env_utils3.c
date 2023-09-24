@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:31:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 17:03:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/23 00:05:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	one_time_animation_start(void)
 		if (get_fix_env_detection() != 1)
 		{
 			welcome_to_minishell();
-			export_var("ANIM_=1");
+			export_var("ANIM_=1", false);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 17:39:32 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 17:43:36 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,13 @@ typedef struct s_singleton
 
 typedef struct s_singleton2
 {
-	int	env_i;
-	int	fix_env_i;
-	int	sign_ctrl;
-	int	last_sign_ctrl;
-	int	last_sign;
+	char	*l_ety;
+	char	*prompt;
+	int		env_i;
+	int		fix_env_i;
+	int		sign_ctrl;
+	int		last_sign_ctrl;
+	int		last_sign;
 }t_singleton2;
 
 typedef struct c_cd
@@ -125,13 +127,6 @@ typedef struct s_opt_tab
 	char	*type;
 }t_opt_tab;
 
-typedef struct s_tmp_utils
-{
-	char	*l_ety;
-	char	*prompt;
-	int		check;
-}t_tmp_utils;
-
 // CMDOPT //
 typedef struct s_command_and_option
 {
@@ -139,7 +134,6 @@ typedef struct s_command_and_option
 	char			*command_path;
 	int				path_unset;
 	t_opt_tab		opt_ty_tb;
-	t_tmp_utils		tmp_utils;
 }t_cmd_and_opt;
 
 // DOLLAR //
@@ -200,6 +194,8 @@ char			*get_home_path(void);
 char			*getenv_check(char *str);
 char			*build_prompt(int u_len, char *builded_username,
 					char *building_result);
+char			*get_prompt(void);
+char			*get_last_entry(void);
 /* 
 	
 	[---------| char |---------]
@@ -257,7 +253,7 @@ void			write_env_pwd(char *pwd);
 void			ft_exit(int code);
 void			update_err_code_exit(char *origin_code, int code_err);
 void			exit_prg(char *code_err);
-void			export_var(char *var);
+void			export_var(char *var, bool update_g);
 void			export_all_var(t_cmd_and_opt *cmdopt);
 void			verif_env_and_path(t_cmd_and_opt *cmdopt);
 void			rebuild_env(void);
@@ -282,14 +278,20 @@ void			update_username(const char *newValue);
 void			free_last_value(void);
 void			update_home_path(char *new_value);
 void			free_str(char **str);
-void			free_tmp_utils(t_tmp_utils *tmp_utils);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
-void			add_cmd_to_history_and_run(t_tmp_utils *tmp,
-					t_cmd_and_opt *cmdopt, char *input, int i);
-void			check_to_add_history(t_tmp_utils *tmp, char *input);
-void			loop_it(t_tmp_utils *tmp, t_cmd_and_opt *cmdopt,
+void			add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
 					char *input, int i);
+void			check_to_add_history(char *input);
+void			loop_it(t_cmd_and_opt *cmdopt,
+					char *input, int i);
+void			update_prompt(char *new_prompt);
+void			update_last_entry(char *last_entry);
+void			init_prompt_last_entry(void);
+void			free_prompt_last_entry(void);
+void			change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g);
+void			change_underscore_value_void(bool update_g);
+void			check_sign_return(int minishell_call);
 /* 
 
 	[---------| int |---------]
@@ -343,6 +345,11 @@ int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
 int				exit_func(t_cmd_and_opt *cmdopt, char *input);
 int				verif_signal(int status, char *cmd_name);
+int				go_to_cmd(t_cmd_and_opt *cmdopt);
+int				minishell_with_arg(t_cmd_and_opt *cmdopt);
+int				check_if_input_minishell(t_cmd_and_opt *cmdopt,
+					char *input);
+int				cmd_exist(t_cmd_and_opt *cmdopt);
 /* 
 
 	[---------| bool |---------]

@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_utils.c                                    :+:      :+:    :+:   */
+/*   execute_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:06:51 by wolf             ###   ########.fr       */
+/*   Created: 2023/09/24 17:35:49 by wolf              #+#    #+#             */
+/*   Updated: 2023/09/24 17:36:08 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	sig_handler(int signum)
+int	cmd_exist(t_cmd_and_opt *cmdopt)
 {
-	if (!rl_done)
-	{
-		rl_replace_line("", 0);
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_on_new_line();
-	}
-	if (get_sign_ctrl() == 1)
-		update_last_sign(-1);
-	else
-		update_last_sign(0);
-	if (signum == SIGQUIT)
-		return (update_err_code(131));
-	else
-		update_err_code(130);
+	free(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
+	if (!go_to_cmd(cmdopt))
+		return (0);
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/20 13:19:38 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:40:37 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_exit(int code)
 	free(get_env_oldpwd());
 	free(get_home_path());
 	free(get_username());
+	free_prompt_last_entry();
 	free_env_singleton();
 	exit(code);
 }
@@ -34,7 +35,7 @@ void	update_err_code_exit(char *origin_code, int code_err)
 		return (free(str), free(origin_code), ft_exit(EXIT_FAILURE));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
 		return (
-			ft_printf("Minishell: exit: %s : argument numérique nécessaire\n",
+			ft_printf("Minishell: exit: %s : required numeric argument\n",
 				origin_code), free(str), free(origin_code), ft_exit(2));
 	code_err = code_err % 256;
 	errno = code_err;

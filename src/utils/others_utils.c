@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/20 13:33:16 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:19:55 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int	check_if_ifs(char c)
 	return (0);
 }
 
-void	add_cmd_to_history_and_run(t_tmp_utils *tmp,
-	t_cmd_and_opt *cmdopt, char *input, int i)
+void	add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
+		char *input, int i)
 {
-	if (tmp->check == 1)
-		return (check_to_add_history(tmp, input));
-	return (loop_it(tmp, cmdopt, input, i));
+	if (check == 1)
+		return (check_to_add_history(input));
+	return (loop_it(cmdopt, input, i));
 }

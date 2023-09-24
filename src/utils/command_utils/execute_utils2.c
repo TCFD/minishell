@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 18:53:10 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 17:42:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,28 @@ int	verif_signal(int status, char *cmd_name)
 
 	signal_code = WTERMSIG(status);
 	if (signal_code == SIGSEGV)
-		return (printf("Minishell: Segmentation fault [%s]\n", cmd_name), 139);
+		return (
+			ft_printf("Minishell: Segmentation fault [%s]\n", cmd_name), 139);
 	else
 	{
 		if (signal_code != 2 && signal_code != 3)
-			return (printf("Minishell: Process completed\n"), 143);
+			return (ft_printf("Minishell: Process completed\n"), 143);
 	}
 	if (signal_code == 2)
 		return (130);
 	if (signal_code == 3)
 		return (131);
 	return (errno);
+}
+
+int	go_to_cmd(t_cmd_and_opt *cmdopt)
+{
+	int	f_cmd;
+
+	f_cmd = find_command(cmdopt);
+	if (f_cmd < 0)
+		return (0);
+	if (f_cmd != 0)
+		change_underscore_value(cmdopt, false);
+	return (1);
 }

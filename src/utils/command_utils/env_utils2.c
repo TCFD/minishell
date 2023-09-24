@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/23 00:03:52 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	rebuild_env(void)
 
 	pwd_print = get_pwd();
 	pwd = ft_join(ft_strdup("PWD="), pwd_print);
-	export_var(pwd);
-	export_var("SHLVL=0");
-	export_var("_=/usr/bin/env");
+	export_var(pwd, true);
+	export_var("SHLVL=0", true);
+	export_var("_=/usr/bin/env", true);
 	return ;
 }
 

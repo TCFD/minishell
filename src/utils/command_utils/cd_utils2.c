@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:56:59 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/23 00:03:41 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char	*join_by_value(char *var_name, char *value)
 void	write_env_oldpwd(char *oldpwd)
 {
 	update_env_oldpwd(oldpwd);
-	export_var(get_env_oldpwd());
+	export_var(get_env_oldpwd(), true);
 }
 
 void	write_env_pwd(char *pwd)
 {
 	update_env_pwd(pwd);
-	export_var(get_env_pwd());
+	export_var(get_env_pwd(), true);
 }

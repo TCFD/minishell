@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/17 11:55:13 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/23 00:03:21 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	export_name_unvalid(char *var)
 }
 
 // EXPORT VAR
-void	export_var(char *var)
+void	export_var(char *var, bool update_g)
 {
 	char	**split_name;
 	char	**env;
@@ -57,7 +57,8 @@ void	export_var(char *var)
 	else
 		update_env(double_a_realloc(env, ft_strdup(var)));
 	free_d_array(split_name);
-	update_err_code(0);
+	if (update_g == true)
+		update_err_code(0);
 }
 
 // EXPORT ALL VAR
@@ -77,6 +78,6 @@ void	export_all_var(t_cmd_and_opt *cmdopt)
 		return ((void)update_err_code(0));
 	}
 	while (cmdopt->opt_ty_tb.tab[++idx])
-		export_var(cmdopt->opt_ty_tb.tab[idx]);
+		export_var(cmdopt->opt_ty_tb.tab[idx], true);
 	verif_env_and_path(cmdopt);
 }

@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/21 15:57:04 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 17:02:03 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,11 @@ int	main(int ac, char **ag, char **env)
 {
 	char	*user;
 
-	(void)ac;
 	(void)ag;
+	if (ac > 1)
+		return (
+			ft_printf("\n\t\e[32m./minishell\e[m does not take any arguments.\n"),
+			ft_printf("\n\tRead minishell man. End of program.\n"), 1);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
