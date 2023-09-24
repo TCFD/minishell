@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 20:33:38 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 21:19:02 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exit_func(t_cmd_and_opt *cmdopt, char *input)
 
 	spl = ft_split(input, ' ');
 	if (d_len(spl) > 2)
-		return ((void)ft_printf("Minishell: exit: trop d'arguments\n"),
+		return ((void)ft_printf(2, "Minishell: exit: trop d'arguments\n"),
 			free_d_array(spl), update_err_code(1), 1);
 	if (spl[1])
 		ipt = ft_strdup(spl[1]);
@@ -53,7 +53,7 @@ void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 	else
 		update_last_sign(0);
 	if (get_last_sign() == 131)
-		ft_printf("Quit (core dumped)\n");
+		ft_printf(STDERR_FILENO, "Quit (core dumped)\n");
 }
 
 // MINISHELL

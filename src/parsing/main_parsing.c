@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/21 16:00:56 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/24 21:20:34 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 	if (!input[0])
 		return ;
 	if (!check_correct_quotes(input))
-		return ((void)(ft_printf("Minishell : incorect quotes.\n")));
+		return ((void)(ft_printf(2, "Minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
 	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
 		return ;
@@ -99,5 +99,9 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		update_env_detection(0);
 	}
 	cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
-	cmdopt->command_path = create_path(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
+	if (cmdopt->command_name[0])
+		cmdopt->command_path = create_path
+			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
+	else
+		cmdopt->command_path = NULL;
 }

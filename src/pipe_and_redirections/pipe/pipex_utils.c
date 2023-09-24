@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:18:58 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/22 22:31:40 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/24 21:23:23 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ void	malloc_pipes(t_pipe *pipe_s)
 	pipe_s->pid = ft_calloc(sizeof(int), pipe_s->nb_of_forks);
 	pipe_s->pipe_fd = ft_calloc(sizeof(int [2]), pipe_s->nb_of_pipes);
 	if (!pipe_s->pid || !pipe_s->pipe_fd || !pipe_s->cmdopt_tab)
-		return (ft_printf("Minishell: malloc error\n"), ft_exit(errno, true));
+	{
+		return (ft_printf(STDERR_FILENO, "Minishell: malloc error\n"),
+			ft_exit(errno, true));
+	}
 }

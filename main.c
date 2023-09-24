@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 19:32:52 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/24 21:06:14 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int	main(int ac, char **ag, char **env)
 	initialise_home_path();
 	run_minishell();
 	if (get_fix_env_detection() == 1)
-		ft_printf("\n");
+		ft_printf(STDERR_FILENO, "\n");
 	return (ft_exit(g_error_code, true), 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 19:06:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 21:34:38 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	print_pwd(void)
 	pwd_print = get_pwd_for_pwd();
 	if (pwd_print == NULL)
 		pwd_print = get_pwd_path();
-	ft_printf("%s\n", pwd_print);
+	ft_printf(STDOUT_FILENO, "%s\n", pwd_print);
 	free(pwd_print);
 }

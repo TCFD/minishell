@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:07:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 22:17:40 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/24 21:22:35 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	first_child(t_pipe *pipe_s)
 {
 	pipe_s->pid[0] = fork();
 	if (pipe_s->pid[0] < 0)
-		return (ft_printf("Minishell: fork error\n"), ft_exit(errno, true));
+		return (ft_printf(2, "Minishell: fork error\n"), ft_exit(errno, true));
 	if (pipe_s->pid[0] == 0)
 	{
 		dup2(pipe_s->pipe_fd[0][1], STDOUT_FILENO);

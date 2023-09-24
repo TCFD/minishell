@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 00:30:16 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 21:24:57 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	welcome_to_minishell(void)
 	bf_prd("\e[3;1mtboldrin\e[0m", ANIME_TIME, users_c);
 	bf_prd(" && ", ANIME_TIME, ANIM_C);
 	bf_prd("\e[3;1mrciaze\e[0m ", ANIME_TIME, users_c);
-	ft_printf("\n\n\n");
+	ft_printf(STDERR_FILENO, "\n\n\n");
 }
 
 char	*stick_color(char *str, char *color)

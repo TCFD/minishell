@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 17:25:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 21:28:46 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 	(void)(cmdopt);
 	idx = -1;
 	while (env[++idx])
-		ft_printf("%s\n", env[idx]);
+		ft_printf(STDOUT_FILENO, "%s\n", env[idx]);
 }

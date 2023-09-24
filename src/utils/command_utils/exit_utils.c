@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/22 20:34:10 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 21:36:56 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_exit(int code, bool msg)
 {
 	if (msg)
 	{
-		ft_printf("exit\n");
+		ft_printf(STDOUT_FILENO, "exit\n");
 		//one_time_animation_end();
 	}
 	update_pwd(NULL);
@@ -37,9 +37,11 @@ void	update_err_code_exit(char *origin_code, int code_err)
 	if (!str)
 		return (free(str), free(origin_code), ft_exit(EXIT_FAILURE, true));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
-		return (
-			ft_printf("Minishell: exit: %s : argument numérique nécessaire\n",
-				origin_code), free(str), free(origin_code), ft_exit(2, true));
+	{
+		ft_printf(2, "Minishell: exit: %s : argument numérique nécessaire"
+			"\n", origin_code);
+		return (free(str), free(origin_code), ft_exit(2, true));
+	}
 	code_err = code_err % 256;
 	errno = code_err;
 	update_err_code(code_err);

@@ -6,7 +6,7 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 22:32:50 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/24 21:43:58 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	execve_child(t_cmd_and_opt *cmdopt, pid_t *pid)
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
-			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
-				strerror(errno));
+			ft_printf(2, "Minishell : \033[31m%s\033[0m : %s\n",
+				cmdopt->command_name, strerror(errno));
 		free_everything(cmdopt, true);
 		exit(errno);
 	}
@@ -46,8 +46,8 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{
-			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
-				strerror(errno));
+			ft_printf(2, "Minishell : \033[31m%s\033[0m : %s\n",
+				cmdopt->command_name, strerror(errno));
 			return (1);
 		}
 	}
@@ -84,8 +84,8 @@ int	find_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
 	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf("\033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt),
+		return (ft_printf(2, "Minishell : \033[31m%s\033[0m : command not"
+				" found\n", cmdopt->command_name), free_cmdopt(cmdopt),
 			update_err_code(127), 1);
 	else
 	{
@@ -119,6 +119,6 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
 	if (!cmdopt->is_child)
-		ft_printf("\n");
+		ft_printf(STDERR_FILENO, "\n");
 	return (1);
 }
