@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 17:42:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 19:33:16 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	verif_signal(int status, char *cmd_name)
 	else
 	{
 		if (signal_code != 2 && signal_code != 3)
-			return (ft_printf("Minishell: Process completed\n"), 143);
+			return (ft_printf("\nMinishell: Process completed\n"), 143);
 	}
 	if (signal_code == 2)
 		return (130);
