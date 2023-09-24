@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/24 16:50:17 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/24 20:57:23 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		return ((void)(ft_printf("Minishell : incorect quotes.\n")));
 	parse_that_shit(input, cmdopt);
 	if (check_valid_file_name(cmdopt->opt_ty_tb.tab, cmdopt->opt_ty_tb.type))
-		return ;
+		return (update_err_code(2));
 	if (get_env_detection() == 1)
 	{
 		if (!ft_getenv("PATH"))
