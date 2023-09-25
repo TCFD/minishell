@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 17:43:36 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 11:42:37 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,13 +343,14 @@ int				get_sign_ctrl(void);
 int				get_last_sign(void);
 int				get_fix_env_detection(void);
 int				man_minishell(t_cmd_and_opt *cmdopt);
-int				exit_func(t_cmd_and_opt *cmdopt, char *input);
+int				exit_func(char *input);
 int				verif_signal(int status, char *cmd_name);
 int				go_to_cmd(t_cmd_and_opt *cmdopt);
 int				minishell_with_arg(t_cmd_and_opt *cmdopt);
 int				check_if_input_minishell(t_cmd_and_opt *cmdopt,
 					char *input);
 int				cmd_exist(t_cmd_and_opt *cmdopt);
+int				not_digit(char *potential_digits);
 /* 
 
 	[---------| bool |---------]

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 17:41:14 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 11:42:13 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,22 @@ char	*getenv_check(char *str)
 }
 
 // EXIT FUNC
-int	exit_func(t_cmd_and_opt *cmdopt, char *input)
+int	exit_func(char *input)
 {
 	char	*ipt;
 	char	**spl;
 
 	spl = ft_split(input, ' ');
-	if (d_len(spl) > 2)
-		return ((void)ft_printf("Minishell: exit: too many arguments.\n"),
+	if (d_len(spl) > 2 && not_digit(spl[1]))
+	{
+		return (
+			(void)ft_printf("Minishell: exit: too many arguments.\n"),
 			free_d_array(spl), update_err_code(1), 1);
+	}
 	if (spl[1])
 		ipt = ft_strdup(spl[1]);
 	else
 		ipt = NULL;
-	free_cmdopt(cmdopt);
 	rl_clear_history();
 	free(input);
 	free_d_array(spl);
@@ -53,7 +55,7 @@ void	check_to_add_history(char *input)
 }
 
 void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
-{	
+{
 	int	minishell_call;
 
 	minishell_call = 0;
@@ -92,7 +94,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		check = 0;
 		if (ft_strncmp(input, "exit", 4) == 0
 			&& (check_if_ifs(input[4]) || input[4] == '\0'))
-			check = exit_func(cmdopt, input);
+			check = exit_func(input);
 		while (check_if_ifs(input[i]))
 			i++;
 		add_cmd_to_history_and_run(check, cmdopt, input, i);
