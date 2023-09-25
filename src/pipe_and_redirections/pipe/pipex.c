@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 13:01:29 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 17:00:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old, int st, int end)
 	new->is_child = true;
 }
 
-void launch_heredoc(t_cmd_and_opt *cmdopt, t_list *heredoc_files)
+void launch_heredoc(t_cmd_and_opt *cmdopt)
 {
 	int		i;
 	char	*filename;
@@ -76,13 +76,10 @@ void launch_heredoc(t_cmd_and_opt *cmdopt, t_list *heredoc_files)
 			ft_strlen(cmdopt->opt_ty_tb.tab[i])) && cmdopt->opt_ty_tb.type[i]
 			!= SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q)
 		{
-			filename = ft_itoa((long int)&filename);
 			free(cmdopt->opt_ty_tb.tab[i]);
 			cmdopt->opt_ty_tb.tab[i] = ft_strdup("<");
 			i++;
 			temp_heredoc(cmdopt->opt_ty_tb.tab[i], &filename);
-			heredoc_files->next = ft_lstnew(ft_strdup(filename), NONE);
-			heredoc_files = heredoc_files->next;
 			free(cmdopt->opt_ty_tb.tab[i]);
 			cmdopt->opt_ty_tb.tab[i] = ft_strdup(filename);
 			free(filename);
@@ -93,25 +90,28 @@ void launch_heredoc(t_cmd_and_opt *cmdopt, t_list *heredoc_files)
 void	launch_pipex(t_cmd_and_opt *cmdopt)
 {
 	t_pipe			pipe_s;
-	t_list			*heredoc_files;
-	t_list			**heredoc_save;
 	int				i;
 
 	//Les pipes n'aimes pas trop qu'on fasse un heredoc dedans.
 	//Donc, on les fait avant de lancer les pipes.
 	//Pour quand meme avoir acces au donnes, on stock les fichiers dans un tableau.
 	//On supprime tous ces fichiers a la fin de l'execution des pipes.
-	heredoc_save = &heredoc_files;
-	heredoc_files = ft_lstnew("", NONE);
-	launch_heredoc(cmdopt, heredoc_files);
+	launch_heredoc(cmdopt);
 	init_pipex(&pipe_s, cmdopt);
 	first_child(&pipe_s);
 	n_child(&pipe_s, &i);
 	last_child(&pipe_s, &i);
 	close_all_pipes(&pipe_s);
 	i = -1;
+	int	status;
 	while (++i < pipe_s.nb_of_forks)
-		waitpid(pipe_s.pid[i], NULL, 0);
+		waitpid(pipe_s.pid[i], &status, 0);
+	if (WIFEXITED(status))
+	{
+		errno = WEXITSTATUS(status);
+		update_err_code((int)errno);
+	}
+	else if (WIFSIGNALED(status))
+		update_err_code(verif_signal(status, pipe_s.cmdopt_tab[i]->opt_ty_tb.tab[0]));
 	free_pipe(&pipe_s);
-	ft_lstclear(heredoc_save);
 }

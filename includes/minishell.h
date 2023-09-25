@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:35:55 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 16:44:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,7 +379,7 @@ int				not_digit(char *potential_digits);
 int				check_if_pipe(t_opt_tab	opt);
 int				count_pipes(t_opt_tab opt);
 int				get_next_pipe(t_opt_tab opt, int j);
-int				end_of_execve(pid_t pid);
+int				end_of_execve(pid_t pid, char *cmd_name);
 
 /* 
 

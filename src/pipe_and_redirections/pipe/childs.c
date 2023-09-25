@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:07:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 11:37:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 17:10:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	first_child(t_pipe *pipe_s)
 		close_all_pipes(pipe_s);
 		execute_command(pipe_s->cmdopt_tab[0]);
 		free_pipe(pipe_s);
-		ft_exit(g_error_code, false);
+		ft_exit(errno, false);
 	}
 }
 
@@ -42,7 +42,7 @@ void	n_child(t_pipe *pipe_s, int *i)
 			close_all_pipes(pipe_s);
 			execute_command(pipe_s->cmdopt_tab[*i]);
 			free_pipe(pipe_s);
-			ft_exit(g_error_code, false);
+			ft_exit(errno, false);
 		}
 		*i += 1;
 	}
@@ -59,6 +59,6 @@ void	last_child(t_pipe *pipe_s, int *i)
 		close_all_pipes(pipe_s);
 		execute_command(pipe_s->cmdopt_tab[*i]);
 		free_pipe(pipe_s);
-		ft_exit(g_error_code, false);
+		ft_exit(errno, false);
 	}
 }

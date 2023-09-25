@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:29:55 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 17:11:41 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	run_minishell(void)
 {
 	t_cmd_and_opt	cmdopt;
 	char			*input;
-	char			*prompt;\e
+	char			*prompt;
 
 	init_cmdopt(&cmdopt);
 	verif_env_and_path(&cmdopt);
@@ -57,10 +57,12 @@ int	main(int ac, char **ag, char **env)
 
 	(void)ag;
 	if (ac > 1)
-		return (
-			ft_printf("\n\t\001\e[32m\002./minishell\001\e[m\002 does not"
-				" take any arguments.\n"),
-			ft_printf("\n\tRead minishell man. End of program.\n"), 1);
+	{
+		ft_printf(2, "\n\t\e[32m./minishell\e[m");
+		ft_printf(2, " does not take any arguments.\n");
+		ft_printf(2, "\n\tRead minishell man. End of program.\n");
+		return (1);
+	}
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));

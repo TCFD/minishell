@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:37:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 16:47:23 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ int	exit_func(char *input)
 	return (ft_exit(0, true), 0);
 }
 
-void	check_to_add_history(char *input)
-{
-	if (ft_strncmp(get_last_entry(), input,
-			ft_strlen(input) + ft_strlen(get_last_entry())))
-		add_history(input);
-}
-
 void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 {
 	int	minishell_call;
@@ -50,20 +43,24 @@ void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 	if (input[i])
 	{
 		if (input[i] == '#')
-			return (check_to_add_history(input), (void)ft_printf("\n"));
+			return (check_to_add_history(input), (void)ft_printf(2, "\n"));
 		create_command(input, cmdopt);
 		minishell_call = check_if_input_minishell(cmdopt, input);
 		if (minishell_call < 0)
 			return ;
 		check_to_add_history(input);
-		if (!execute_command(cmdopt))
-			return (ft_exit(errno, true));
+		if (!check_if_pipe(cmdopt->opt_ty_tb))
+		{
+			if (!execute_command(cmdopt))
+				return (ft_exit(errno, true));
+		}
+		else
+			launch_pipex(cmdopt);
 		if (get_last_sign() < 0)
 			check_sign_return(minishell_call);
 	}
 	else
 		update_last_sign(0);
-	//ft_printf("\n");
 }
 
 // MINISHELL

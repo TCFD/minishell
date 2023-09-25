@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:32:19 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 11:42:22 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:43:32 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	check_sign_return(int minishell_call)
 	if (minishell_call == 0)
 	{
 		if (g_error_code == 131)
-			ft_printf("Quit (core dumped)\n");
+			ft_printf(2, "Quit (core dumped)\n");
 		else
-			ft_printf("\n");
+			ft_printf(2, "\n");
 	}
 	update_last_sign(0);
 }
