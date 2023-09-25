@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:03:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:32:12 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	export_var(char *var, bool update_g)
 
 	if (export_name_unvalid(var))
 		return ((void)update_err_code(1),
-			(void)ft_printf("Minishell : export: `%s':"
+			(void)ft_printf(STDERR_FILENO, "Minishell : export: `%s':"
 				" identifiant non valable\n", var));
 	if (!ft_strchr(var, '='))
 		return ;
@@ -74,7 +74,8 @@ void	export_all_var(t_cmd_and_opt *cmdopt)
 	{
 		env = get_env();
 		while (env[++sub_idx])
-			ft_printf("%sdeclare -x %s%s\n", NC, env[sub_idx], NC);
+			ft_printf(STDOUT_FILENO, "%sdeclare -x %s%s\n", NC,
+				env[sub_idx], NC);
 		return ((void)update_err_code(0));
 	}
 	while (cmdopt->opt_ty_tb.tab[++idx])

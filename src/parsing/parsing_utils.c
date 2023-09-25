@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 20:57:28 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:30:11 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ int	check_valid_file_name(char **t, char *type)
 				&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
 			{
 				if (t[i + 1])
-					return (ft_printf("Minishell : syntax error near unexpected"
-							" token '%s'\n", t[i + 1]));
-				return (ft_printf("Minishell : syntax error near unexpected"
-						" token 'newline'\n"));
+					return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
+							" near unexpected token '%s'\n", t[i + 1]));
+				return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
+						" near unexpected token 'newline'\n"));
 			}
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:08:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:30:34 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	display_env(char **env, t_cmd_and_opt *cmdopt)
 	idx = -1;
 	change_underscore_value(cmdopt, true);
 	while (env[++idx])
-		ft_printf("%s\n", env[idx]);
+		ft_printf(STDOUT_FILENO, "%s\n", env[idx]);
 }

@@ -6,22 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 15:11:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 16:37:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// GETENV CHECK
-char	*getenv_check(char *str)
-{
-	char	*found_it;
-
-	found_it = ft_getenv(str);
-	if (found_it == NULL)
-		return (NULL);
-	return (found_it);
-}
 
 // EXIT FUNC
 int	exit_func(char *input)
@@ -32,8 +21,7 @@ int	exit_func(char *input)
 	spl = ft_split(input, ' ');
 	if (d_len(spl) > 2 && not_digit(spl[1]))
 	{
-		return (
-			(void)ft_printf("Minishell: exit: too many arguments.\n"),
+		return ((void)ft_printf(2, "Minishell: exit: too many arguments.\n"),
 			free_d_array(spl), update_err_code(1), 1);
 	}
 	if (spl[1])
@@ -44,7 +32,7 @@ int	exit_func(char *input)
 	free(input);
 	free_d_array(spl);
 	exit_prg(ipt);
-	return (ft_exit(0), 0);
+	return (ft_exit(0, true), 0);
 }
 
 void	check_to_add_history(char *input)
@@ -69,7 +57,7 @@ void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 			return ;
 		check_to_add_history(input);
 		if (!execute_command(cmdopt))
-			return (ft_exit(errno));
+			return (ft_exit(errno, true));
 		if (get_last_sign() < 0)
 			check_sign_return(minishell_call);
 	}

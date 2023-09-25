@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/24 17:36:38 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/25 16:33:25 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS 		=	main.c									\
 				$(SRC)run_minishell.c					\
 				$(SRC)run_minishell2.c					\
 				$(SRC)minishell_args.c					\
+				$(SRC)run_minishell_utils.c				\
 				$(UTILS)len_utils.c						\
 				$(UTILS)signals_utils.c					\
 				$(UTILS)prompt_utils.c					\
@@ -81,7 +82,9 @@ SRCS 		=	main.c									\
 				$(REDIRECTIONS)right_rafter_utils2.c	\
 				$(REDIRECTIONS)left_rafter_utils.c		\
 				$(REDIRECTIONS)left_rafter_utils2.c		\
-				$(PIPEX)init_pipex_value.c				\
+				$(PIPEX)childs.c							\
+				$(PIPEX)init_pipex.c							\
+				$(PIPEX)pipex_utils.c							\
 				$(PIPEX)pipex.c							\
 
 # Couleurs
@@ -95,7 +98,7 @@ all : $(NAME)
 obj/%.o: %.c $(ALL_H_FILES)
 	@mkdir -p $(dir $@)
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o $@ -I includes
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)/libft_stuff

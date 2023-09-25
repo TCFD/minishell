@@ -3,121 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/15 18:14:01 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 13:01:29 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// ON EXECUTE LA BONNE FONCTION //
-int	get_func(t_fork_opt *fork_utils)
+int	count_pipes(t_opt_tab opt)
 {
-	int	id;
+	int	i;
+	int	counter;
 
-	id = fork_utils->cmd_id;
-	if (id == MK_CD_REMAKE)
-		cd_remake(fork_utils->cmdopt);
-	if (id == MK_ECHO_REMAKE)
-		echo_remake(fork_utils->cmdopt);
-	if (id == MK_UNSET_ALL_ENV_VAR)
-		unset_all_env_var(fork_utils->cmdopt);
-	if (id == MK_DISPLAY_ENV)
-		display_env(fork_utils->str, fork_utils->cmdopt);
-	if (id == MK_EXPORT_ALL_VAR)
-		export_all_var(fork_utils->cmdopt);
-	if (id == MK_PRINT_PWD)
-		print_pwd();
-	if (id == MK_DISPLAY_ENV)
-		free_d_array(fork_utils->str);
-	free_everything(fork_utils->cmdopt, true);
-	return (g_error_code);
+	counter = 0;
+	i = 0;
+	while (opt.tab[i])
+	{
+		if (opt.tab[i][0] == '|' && opt.type[i] != SIMPLE_Q
+			&& opt.type[i] != DOUBLE_Q)
+			counter++;
+		i++;
+	}
+	return (counter);
 }
 
-// ON FORK NOS BUILTINS //
-void	fork_it(t_fork_opt *fork_utils)
+int	get_next_pipe(t_opt_tab opt, int j)
 {
-	int		pid;
-	int		status;
-
-	pid = fork();
-	if (pid < 0)
-		return (perror("pid"), (void)1);
-	if (pid == 0)
-		exit(get_func(fork_utils));
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
+	while (opt.tab[j])
 	{
-		errno = WEXITSTATUS(status);
-		update_err_code((int)errno);
+		if (opt.tab[j][0] == '|' && opt.type[j] != SIMPLE_Q
+		&& opt.type[j] != DOUBLE_Q)
+			return (j);
+		j++;
+	}
+	return (d_len(opt.tab));
+}
+
+void	get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old, int st, int end)
+{
+	int	i;
+	int	j;
+
+	new->opt_ty_tb.tab = ft_calloc(end - st + 1, sizeof(char *));
+	new->opt_ty_tb.type = ft_calloc(end - st + 1, sizeof(char));
+	i = st;
+	j = 0;
+	while (i < end)
+	{
+		new->opt_ty_tb.tab[j] = ft_strdup(old->opt_ty_tb.tab[i]);
+		new->opt_ty_tb.type[j] = old->opt_ty_tb.type[i];
+		i++;
+		j++;
+	}
+	new->opt_ty_tb.tab[j] = NULL;
+	new->opt_ty_tb.type[j] = '\0';
+	new->command_name = ft_strdup(new->opt_ty_tb.tab[0]);
+	new->command_path = create_path(ft_strdup(new->opt_ty_tb.tab[0]), 1);
+	new->is_child = true;
+}
+
+void launch_heredoc(t_cmd_and_opt *cmdopt, t_list *heredoc_files)
+{
+	int		i;
+	char	*filename;
+
+	i = -1;
+	while (cmdopt->opt_ty_tb.tab[++i])
+	{
+		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], D_L_RAFTER,
+			ft_strlen(cmdopt->opt_ty_tb.tab[i])) && cmdopt->opt_ty_tb.type[i]
+			!= SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q)
+		{
+			filename = ft_itoa((long int)&filename);
+			free(cmdopt->opt_ty_tb.tab[i]);
+			cmdopt->opt_ty_tb.tab[i] = ft_strdup("<");
+			i++;
+			temp_heredoc(cmdopt->opt_ty_tb.tab[i], &filename);
+			heredoc_files->next = ft_lstnew(ft_strdup(filename), NONE);
+			heredoc_files = heredoc_files->next;
+			free(cmdopt->opt_ty_tb.tab[i]);
+			cmdopt->opt_ty_tb.tab[i] = ft_strdup(filename);
+			free(filename);
+		}
 	}
 }
 
-// ON IDENTIFIT LES FONCTIONS EN UTILISANT DES "MARKER" //
-int	get_marker_value(t_fork_opt *fork_utils)
+void	launch_pipex(t_cmd_and_opt *cmdopt)
 {
-	t_cmd_and_opt	*cmdopt;
+	t_pipe			pipe_s;
+	t_list			*heredoc_files;
+	t_list			**heredoc_save;
+	int				i;
 
-	cmdopt = fork_utils->cmdopt;
-	if (cmp(cmdopt->command_name, "cd"))
-		return (MK_CD_REMAKE);
-	else if (cmp(cmdopt->command_name, "echo"))
-		return (MK_ECHO_REMAKE);
-	else if (cmp(cmdopt->command_name, "unset"))
-		return (MK_UNSET_ALL_ENV_VAR);
-	else if (verif_if_env_called(cmdopt) && !cmdopt->opt_ty_tb.tab[1])
-		return (MK_DISPLAY_ENV);
-	else if (cmp(cmdopt->command_name, "export"))
-		return (MK_EXPORT_ALL_VAR);
-	else if (cmp(cmdopt->command_name, "pwd"))
-		return (MK_PRINT_PWD);
-	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf("\033[31m%s\033[0m : command not found\n",
-				cmdopt->command_name), free_cmdopt(cmdopt),
-			update_err_code(127), -1);
-	return (0);
-}
-
-// TROUVER ET EXECUTER LA FONCTION EN FORK //
-int	find_command_pipex(t_cmd_and_opt *cmdopt)
-{
-	t_fork_opt	fork_utils;
-	int			mk;
-
-	init_fork_opt(&fork_utils);
-	fork_utils.cmdopt = cmdopt;
-	mk = get_marker_value(&fork_utils);
-	if (mk != 0)
-	{
-		if (mk == 4)
-			fork_utils.str = get_env();
-		fork_utils.cmd_id = mk;
-		fork_it(&fork_utils);
-	}
-	if (mk == 0)
-	{
-		if (!run_execve(cmdopt))
-			return (0);
-	}
-	return (g_error_code);
-}
-
-// FONCTION PRINCIPALE DE PIPEX //
-void	execute_pipex(char **lst_cmd)
-{
-	t_cmd_and_opt	cmdopt;
-	int				idx;
-
-	idx = 0;
-	init_cmdopt(&cmdopt);
-	while (lst_cmd[idx])
-	{
-		create_command(lst_cmd[idx], &cmdopt);
-		find_command_pipex(&cmdopt);
-		free_cmdopt(&cmdopt);
-		ft_printf("\n");
-		idx++ ;
-	}
+	//Les pipes n'aimes pas trop qu'on fasse un heredoc dedans.
+	//Donc, on les fait avant de lancer les pipes.
+	//Pour quand meme avoir acces au donnes, on stock les fichiers dans un tableau.
+	//On supprime tous ces fichiers a la fin de l'execution des pipes.
+	heredoc_save = &heredoc_files;
+	heredoc_files = ft_lstnew("", NONE);
+	launch_heredoc(cmdopt, heredoc_files);
+	init_pipex(&pipe_s, cmdopt);
+	first_child(&pipe_s);
+	n_child(&pipe_s, &i);
+	last_child(&pipe_s, &i);
+	close_all_pipes(&pipe_s);
+	i = -1;
+	while (++i < pipe_s.nb_of_forks)
+		waitpid(pipe_s.pid[i], NULL, 0);
+	free_pipe(&pipe_s);
+	ft_lstclear(heredoc_save);
 }

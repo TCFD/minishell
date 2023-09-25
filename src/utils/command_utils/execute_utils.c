@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 17:35:18 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:40:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,44 @@ int	end_of_execve(pid_t pid, char *cmd_name)
 	return (1);
 }
 
+int	execve_child(t_cmd_and_opt *cmdopt, pid_t *pid)
+{
+	*pid = fork();
+	if (*pid == -1)
+		return ((void)update_err_code((int)errno),
+			perror("fork"), exit(EXIT_FAILURE), 1);
+	else if (*pid == 0)
+	{
+		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
+			== -1)
+			ft_printf(2, "Minishell : \033[31m%s\033[0m : %s\n",
+				cmdopt->command_name, strerror(errno));
+		free_everything(cmdopt, true);
+		exit(errno);
+	}
+	return (0);
+}
+
 int	run_execve(t_cmd_and_opt *cmdopt)
 {
 	pid_t		pid;
 
 	errno = 0;
-	pid = fork();
 	signal(SIGQUIT, sig_handler);
-	if (pid == -1)
-		return ((void)update_err_code((int)errno),
-			perror("fork"), exit(EXIT_FAILURE), 1);
-	else if (pid == 0)
+	if (!cmdopt->is_child)
+	{
+		if (execve_child(cmdopt, &pid))
+			return (1);
+	}
+	else
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
-			ft_printf("Minishell : \033[31m%s\033[0m : %s\n", cmdopt->command_name,
-				strerror(errno));
-		free_everything(cmdopt, true);
-		exit(errno);
+		{
+			ft_printf(2, "Minishell : \033[31m%s\033[0m : %s\n",
+				cmdopt->command_name, strerror(errno));
+			return (1);
+		}
 	}
 	return (end_of_execve(pid, cmdopt->command_name));
 }
@@ -75,7 +95,7 @@ int	find_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "pwd"))
 		print_pwd();
 	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf("\033[31m%s\033[0m : command not found\n",
+		return (ft_printf(2, "Minishell : \001\033[31m\002%s\001\033[0m\002 : command not found\n",
 				cmdopt->command_name), change_underscore_value(cmdopt, false),
 			free_cmdopt(cmdopt), update_err_code(127), 0);
 	else
@@ -91,16 +111,14 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	t_redirections	redirections;
 	bool			redir_out_bool;
 	bool			redir_in_bool;
-	bool			does_cmd_exist;
 
-	does_cmd_exist = is_there_a_command(cmdopt->opt_ty_tb);
 	if (!cmdopt->command_name)
 		return (1);
 	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
 		return (free_cmdopt(cmdopt), 1);
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
 		return (free_cmdopt(cmdopt), 1);
-	if (does_cmd_exist)
+	if (is_there_a_command(cmdopt->opt_ty_tb))
 	{
 		if (!cmd_exist(cmdopt))
 			return (0);
@@ -111,5 +129,7 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
+	if (!cmdopt->is_child)
+		ft_printf(STDERR_FILENO, "\n");
 	return (1);
 }

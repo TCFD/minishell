@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/16 15:12:39 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 12:12:04 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "minishell.h"
 
 int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 {
 	if (redirect_input(tab + i, &redir->stdin_save, &redir->file_in_fd,
 			&redir->random_adress))
 		return (0);
-	if (!tab[i + 2])
+	if (!tab[i + 2]) 	
 		return (1);
 	i += 2;
 	while (tab[i])

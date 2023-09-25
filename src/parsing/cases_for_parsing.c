@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/20 16:10:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/22 18:48:14 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,14 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 	if ((sep->w_string < sep->s_string) || check_if_ifs(sep->separator))
 	{
 		if (what_case_equal_c(sep->what_case, s1[sep->i]))
+		{
 			sep->i += 1;
+			sep->in_quote = true;
+		}
 		*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
 					ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
 		sep->i += ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i);
-		if (what_case_equal_c(sep->what_case, s1[sep->i]))
+		if (what_case_equal_c(sep->what_case, s1[sep->i]) && sep->in_quote)
 			sep->i += 1;
 	}
 	else if (sep->w_string == sep->s_string)
@@ -75,7 +78,7 @@ void	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 	}
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
 		*content = replace_dollar(sep->what_case, *content, sep->tmp_i, list);
-	if (s1[sep->i])
+	if (s1[sep->i] && !check_if_ifs(s1[sep->i]))
 		case_4_5_part_2(sep, content, s1, list);
 }
 
@@ -86,8 +89,11 @@ void	case_4_5_part_2(t_separators *sep, char **ct,
 	while ((check_if_ifs(sep->separator) || sep->separator == NONE)
 		&& sep->s_string > 0)
 	{
-		if ((what_case_equal_c(sep->what_case, input[sep->i])))
+		if (what_case_equal_c(sep->what_case, input[sep->i]))
+		{
 			sep->i += 1;
+			sep->in_quote = true;
+		}
 		if (!input[sep->i])
 			break ;
 		sep->w_string = ft_strchr(input + sep->i, sep->what_case)
@@ -100,7 +106,7 @@ void	case_4_5_part_2(t_separators *sep, char **ct,
 		if (sep->what_case != SIMPLE_Q)
 			*ct = replace_dollar(sep->what_case, *ct, sep->tmp_i, list);
 		sep->i += sep->w_string;
-		if (sep->what_case == SIMPLE_Q || sep->what_case == DOUBLE_Q)
+		if (what_case_equal_c(sep->what_case, input[sep->i]) && sep->in_quote)
 			sep->i += 1;
 		set_separator(sep, input);
 	}

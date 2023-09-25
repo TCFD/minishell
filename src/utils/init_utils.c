@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:35:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 22:20:04 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:30:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ void	init_cmdopt(t_cmd_and_opt *cmdopt)
 	cmdopt->opt_ty_tb.type = NULL;
 	cmdopt->opt_ty_tb.tab = NULL;
 	cmdopt->path_unset = 0;
+	cmdopt->is_child = false;
+}
+
+void	init_prompt_last_entry(void)
+{
+	t_singleton2	*singleton2;
+
+	singleton2 = get_singleton2_instance();
+	singleton2->prompt = NULL;
+	singleton2->l_ety = NULL;
 }
 
 void	init_prompt_last_entry(void)

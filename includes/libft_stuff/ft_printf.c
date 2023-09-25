@@ -6,36 +6,36 @@
 /*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:33:27 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/07 16:16:58 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/24 20:59:15 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	write_it(char c, va_list arg)
+int	write_it(char c, va_list arg, int fd)
 {
 	int		len;
 
 	if (c == 'c')
-		len = write_char(va_arg(arg, int));
+		len = write_char(va_arg(arg, int), fd);
 	if (c == 's')
-		len = write_str(va_arg(arg, char *));
+		len = write_str(va_arg(arg, char *), fd);
 	if (c == 'p')
-		len = write_addr(va_arg(arg, void *), "0123456789abcdef");
+		len = write_addr(va_arg(arg, void *), "0123456789abcdef", fd);
 	if (c == 'd' || c == 'i')
-		len = write_int(va_arg(arg, int));
+		len = write_int(va_arg(arg, int), fd);
 	if (c == 'u')
-		len = write_unsigned_int(va_arg(arg, int));
+		len = write_unsigned_int(va_arg(arg, int), fd);
 	if (c == 'x')
-		len = write_hexa("0123456789abcdef", va_arg(arg, unsigned int));
+		len = write_hexa("0123456789abcdef", va_arg(arg, unsigned int), fd);
 	if (c == 'X')
-		len = write_hexa("0123456789ABCDEF", va_arg(arg, unsigned int));
+		len = write_hexa("0123456789ABCDEF", va_arg(arg, unsigned int), fd);
 	if (c == '%')
-		len = write(2, "%", 1);
+		len = write(fd, "%", 1);
 	return (len);
 }
 
-int	ft_printf(const char *fmt, ...)
+int	ft_printf(int fd, const char *fmt, ...)
 {
 	va_list	arg;
 	int		i;
@@ -49,12 +49,12 @@ int	ft_printf(const char *fmt, ...)
 		if (fmt[i] == '%')
 		{
 			i++ ;
-			counter += write_it(fmt[i], arg) - 2;
+			counter += write_it(fmt[i], arg, fd) - 2;
 			i++ ;
 		}
 		else
 		{
-			write(2, &fmt[i], 1);
+			write(fd, &fmt[i], 1);
 			i++ ;
 		}
 	}

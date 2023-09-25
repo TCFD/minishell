@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:19:03 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/25 16:38:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	welcome_to_minishell(void)
 	bf_prd("\001\e[3;1m\002tboldrin\001\e[0m\002", ANIME_TIME, users_c);
 	bf_prd(" && ", ANIME_TIME, ANIM_C);
 	bf_prd("\001\e[3;1m\002rciaze\001\e[0m\002 ", ANIME_TIME, users_c);
-	ft_printf("\n\n\n");
+	ft_printf(STDERR_FILENO, "\n\n\n");
 }
 
 char	*stick_color(char *str, char *color)

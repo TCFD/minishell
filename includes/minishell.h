@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 11:42:37 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:35:55 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,20 @@ extern int	g_error_code;
 	[---------| struct |---------]
 
 */
+
+typedef struct s_pipe
+{
+	t_cmd_and_opt	**cmdopt_tab;
+	int				nb_of_pipes;
+	int				nb_of_forks;
+	int				**pipe_fd;
+	int				*pid;
+}t_pipe;
+
 typedef struct s_redirections
 {
 	t_list	*list;
-	int		counter;
+	int		counter;            
 	int		stdout_save;
 	int		stdin_save;
 	int		file_in_fd;
@@ -89,6 +99,7 @@ typedef struct s_separators
 	char		tmp;
 	int			i;
 	int			tmp_i;
+	bool		in_quote;
 }t_separators;
 
 typedef struct s_singleton
@@ -113,7 +124,7 @@ typedef struct s_singleton2
 	int		last_sign;
 }t_singleton2;
 
-typedef struct c_cd
+typedef struct s_cd
 {
 	char	*env_pwd;
 	char	*env_old_pwd;
@@ -133,6 +144,7 @@ typedef struct s_command_and_option
 	char			*command_name;
 	char			*command_path;
 	int				path_unset;
+	bool			is_child;
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
@@ -250,7 +262,7 @@ void			free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt);
 void			update_err_code(int code_err);
 void			write_env_oldpwd(char *oldpwd);
 void			write_env_pwd(char *pwd);
-void			ft_exit(int code);
+void			ft_exit(int code, bool msg);
 void			update_err_code_exit(char *origin_code, int code_err);
 void			exit_prg(char *code_err);
 void			export_var(char *var, bool update_g);
@@ -285,13 +297,26 @@ void			add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
 void			check_to_add_history(char *input);
 void			loop_it(t_cmd_and_opt *cmdopt,
 					char *input, int i);
-void			update_prompt(char *new_prompt);
+void			launch_pipex(t_cmd_and_opt *cmdopt);
+void			update_prompt(char *new_prompt);;
 void			update_last_entry(char *last_entry);
 void			init_prompt_last_entry(void);
 void			free_prompt_last_entry(void);
+void			first_child(t_pipe *pipe_s);
+void			n_child(t_pipe *pipe_s, int *i);
+void			last_child(t_pipe *pipe_s, int *i);
+void			init_sub_cmdopt(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
+void			init_pipes(t_pipe *pipe_s);
+void			init_pipex(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
+void			close_all_pipes(t_pipe *pipe_s);
+void			free_pipe(t_pipe *pipe_s);
+void			malloc_pipes(t_pipe *pipe_s);
+void			get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old,
+					int st, int end);	
 void			change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g);
 void			change_underscore_value_void(bool update_g);
 void			check_sign_return(int minishell_call);
+					
 /* 
 
 	[---------| int |---------]
@@ -351,6 +376,11 @@ int				check_if_input_minishell(t_cmd_and_opt *cmdopt,
 					char *input);
 int				cmd_exist(t_cmd_and_opt *cmdopt);
 int				not_digit(char *potential_digits);
+int				check_if_pipe(t_opt_tab	opt);
+int				count_pipes(t_opt_tab opt);
+int				get_next_pipe(t_opt_tab opt, int j);
+int				end_of_execve(pid_t pid);
+
 /* 
 
 	[---------| bool |---------]
