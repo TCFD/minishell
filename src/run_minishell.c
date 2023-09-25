@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 11:42:13 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:11:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 	}
 	else
 		update_last_sign(0);
-	ft_printf("\n");
+	//ft_printf("\n");
 }
 
 // MINISHELL
