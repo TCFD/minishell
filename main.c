@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 17:02:03 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:21:00 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	main(int ac, char **ag, char **env)
 	(void)ag;
 	if (ac > 1)
 		return (
-			ft_printf("\n\t\e[32m./minishell\e[m does not take any arguments.\n"),
+			ft_printf("\n\t\001\e[32m\002./minishell\001\e[m\002 does not"
+				" take any arguments.\n"),
 			ft_printf("\n\tRead minishell man. End of program.\n"), 1);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);

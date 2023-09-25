@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/16 00:30:16 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:19:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	welcome_to_minishell(void)
 	bf_prd("\n\n\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, ANIM_C);
 	bf_prd("\n\t>", ANIME_TIME, ANIM_C);
 	bf_prd("\n\t>\tMade by : ", ANIME_TIME, ANIM_C);
-	bf_prd("\e[3;1mtboldrin\e[0m", ANIME_TIME, users_c);
+	bf_prd("\001\e[3;1m\002tboldrin\001\e[0m\002", ANIME_TIME, users_c);
 	bf_prd(" && ", ANIME_TIME, ANIM_C);
-	bf_prd("\e[3;1mrciaze\e[0m ", ANIME_TIME, users_c);
+	bf_prd("\001\e[3;1m\002rciaze\001\e[0m\002 ", ANIME_TIME, users_c);
 	ft_printf("\n\n\n");
 }
 
@@ -98,7 +98,7 @@ char	*display_user_prompt(char *username)
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = 0;
-	result = ft_join(ft_strdup(cwd + user_len), ft_strdup("\e[32m]"));
+	result = ft_join(ft_strdup(cwd + user_len), ft_strdup("\001\e[32m\002]"));
 	result = build_prompt(user_len, username, result);
 	return (free(cwd), result);
 }

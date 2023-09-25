@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:31:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:05:21 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/25 16:20:20 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	one_time_animation_end(void)
 	{
 		if (ft_atoi(str) == 1)
 		{
-			bf_prd("\n➜ Outstanding \e[5m🙏\e[0m",
+			bf_prd("\n➜ Outstanding \001\e[5m\002🙏\001\e[0m\002",
 				ANIME_TIME, ANIM_C);
 			bf_prd(" ?\n\n", ANIME_TIME, ANIM_C);
 		}
