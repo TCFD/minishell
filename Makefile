@@ -6,7 +6,7 @@
 #    By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/24 18:31:50 by zbp15            ###   ########.fr        #
+#    Updated: 2023/09/25 12:12:55 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ all : $(NAME)
 obj/%.o: %.c $(ALL_H_FILES)
 	@mkdir -p $(dir $@)
 	@echo $(BOLD)$(LIGHT_CYAN)Compiling $<... $(RESET)
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -c $< -o $@ -I includes
 
 $(NAME) : $(OBJ)
 	@make -s -C $(INCLUDE)/libft_stuff

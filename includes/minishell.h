@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/22 22:26:16 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/25 13:17:11 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ extern int	g_error_code;
 	[---------| struct |---------]
 
 */
+
 typedef struct s_pipe
 {
 	t_cmd_and_opt	**cmdopt_tab;
@@ -79,7 +80,7 @@ typedef struct s_pipe
 typedef struct s_redirections
 {
 	t_list	*list;
-	int		counter;
+	int		counter;            
 	int		stdout_save;
 	int		stdin_save;
 	int		file_in_fd;
