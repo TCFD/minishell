@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:44:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 15:03:26 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_pipe
 typedef struct s_redirections
 {
 	t_list	*list;
-	int		counter;            
+	int		counter;
 	int		stdout_save;
 	int		stdin_save;
 	int		file_in_fd;
@@ -316,7 +316,7 @@ void			get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old,
 void			change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g);
 void			change_underscore_value_void(bool update_g);
 void			check_sign_return(int minishell_call);
-					
+
 /* 
 
 	[---------| int |---------]

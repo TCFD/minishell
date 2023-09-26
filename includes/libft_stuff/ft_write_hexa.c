@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write_hexa.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:27:28 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/24 21:38:44 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/26 14:53:41 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	size_str(char *str)
 	return (count_len);
 }
 
-int	write_hexa(char *base, unsigned int integer, int fd)
+int	write_hexa(char *base, unsigned int integer, t_buff *buff_struct)
 {
 	int		idx;
 	int		len_integer;
@@ -44,7 +44,7 @@ int	write_hexa(char *base, unsigned int integer, int fd)
 	len_integer = size_integer(integer);
 	if (integer == 0)
 	{
-		len_integer = write_char('0', fd);
+		len_integer = write_char('0', buff_struct);
 		return (len_integer);
 	}
 	if (len_integer == 1 || len_integer == 2)
@@ -59,7 +59,7 @@ int	write_hexa(char *base, unsigned int integer, int fd)
 		integer /= 16;
 	}
 	hexa[idx] = '\0';
-	len_integer = write_str_reverse(hexa, fd);
+	len_integer = write_str_reverse(hexa, buff_struct);
 	free(hexa);
 	return (len_integer);
 }
@@ -77,7 +77,7 @@ int	size_malloc(int len_base, long long unsigned int integer)
 	return (i);
 }
 
-int	write_addr(void *pointeur, char *base, int fd)
+int	write_addr(void *pointeur, char *base, t_buff *buff_struct)
 {
 	long long unsigned int		recupaddr;
 	int							len;
@@ -85,9 +85,9 @@ int	write_addr(void *pointeur, char *base, int fd)
 	char						*tab;
 
 	if (!pointeur)
-		return (write_str("(nil)", fd));
+		return (write_str("(nil)", buff_struct));
 	if ((long long int)pointeur == -1)
-		return (write_str("0xffffffffffffffff", fd));
+		return (write_str("0xffffffffffffffff", buff_struct));
 	recupaddr = (long long unsigned int)pointeur;
 	tab = malloc((size_malloc(size_str(base), recupaddr) + 1) * sizeof(char));
 	if (!tab)
@@ -100,8 +100,8 @@ int	write_addr(void *pointeur, char *base, int fd)
 		count++ ;
 	}
 	tab[count] = '\0';
-	write(fd, "0x", 2);
-	len = write_str_reverse(tab, fd);
+	write_str("0x", buff_struct);
+	len = write_str_reverse(tab, buff_struct);
 	free(tab);
 	return (len + 2);
 }

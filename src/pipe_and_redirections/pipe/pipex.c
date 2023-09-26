@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 17:00:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:35:38 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old, int st, int end)
 	new->is_child = true;
 }
 
-void launch_heredoc(t_cmd_and_opt *cmdopt)
+void	launch_heredoc(t_cmd_and_opt *cmdopt)
 {
 	int		i;
 	char	*filename;
@@ -72,8 +72,8 @@ void launch_heredoc(t_cmd_and_opt *cmdopt)
 	i = -1;
 	while (cmdopt->opt_ty_tb.tab[++i])
 	{
-		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], D_L_RAFTER,
-			ft_strlen(cmdopt->opt_ty_tb.tab[i])) && cmdopt->opt_ty_tb.type[i]
+		if (ft_strnstr(cmdopt->opt_ty_tb.tab[i], D_L_RAFTER, ft_strlen
+				(cmdopt->opt_ty_tb.tab[i])) && cmdopt->opt_ty_tb.type[i]
 			!= SIMPLE_Q && cmdopt->opt_ty_tb.type[i] != DOUBLE_Q)
 		{
 			free(cmdopt->opt_ty_tb.tab[i]);
@@ -91,11 +91,8 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 {
 	t_pipe			pipe_s;
 	int				i;
+	int				status;
 
-	//Les pipes n'aimes pas trop qu'on fasse un heredoc dedans.
-	//Donc, on les fait avant de lancer les pipes.
-	//Pour quand meme avoir acces au donnes, on stock les fichiers dans un tableau.
-	//On supprime tous ces fichiers a la fin de l'execution des pipes.
 	launch_heredoc(cmdopt);
 	init_pipex(&pipe_s, cmdopt);
 	first_child(&pipe_s);
@@ -103,7 +100,6 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	last_child(&pipe_s, &i);
 	close_all_pipes(&pipe_s);
 	i = -1;
-	int	status;
 	while (++i < pipe_s.nb_of_forks)
 		waitpid(pipe_s.pid[i], &status, 0);
 	if (WIFEXITED(status))
@@ -112,6 +108,7 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 		update_err_code((int)errno);
 	}
 	else if (WIFSIGNALED(status))
-		update_err_code(verif_signal(status, pipe_s.cmdopt_tab[i]->opt_ty_tb.tab[0]));
+		update_err_code(verif_signal
+			(status, pipe_s.cmdopt_tab[i]->opt_ty_tb.tab[0]));
 	free_pipe(&pipe_s);
 }

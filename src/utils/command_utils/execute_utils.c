@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 17:11:41 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:36:07 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,6 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		}
 	}
 	return (end_of_execve(pid, cmdopt->command_name));
-}
-
-int	cmp(char *cmd_name, char *cmd_name_2)
-{
-	if (ft_strncmp(cmd_name, cmd_name_2, ft_strlen(cmd_name_2)) == 0
-		&& ft_strlen(cmd_name) == ft_strlen(cmd_name_2))
-		return (1);
-	return (0);
 }
 
 int	find_command(t_cmd_and_opt *cmdopt)

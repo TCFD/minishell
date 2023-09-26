@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_write.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:46:29 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/24 20:58:30 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/26 14:58:32 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	write_str(char *str, int fd)
+int	write_str(char *str, t_buff *buff_struct)
 {
 	int	i;
 
@@ -21,41 +21,43 @@ int	write_str(char *str, int fd)
 		str = "(null)";
 	while (str[i])
 	{
-		write(fd, &(str[i]), 1);
+		is_buff_full(buff_struct);
+		buff_struct->buff[buff_struct->buff_i++] = str[i];
 		i++ ;
 	}
 	return (i);
 }
 
-int	write_char(char c, int fd)
+int	write_char(char c, t_buff *buff_struct)
 {
-	write(fd, &c, 1);
+	is_buff_full(buff_struct);
+	buff_struct->buff[buff_struct->buff_i++] = c;
 	return (1);
 }
 
-int	write_int(int nb, int fd)
+int	write_int(int nb, t_buff *buff_struct)
 {
 	int		len;
 	char	*tab;
 
 	tab = int_ft_itoa(nb);
-	len = write_str(tab, fd);
+	len = write_str(tab, buff_struct);
 	free(tab);
 	return (len);
 }
 
-int	write_unsigned_int(unsigned int nb, int fd)
+int	write_unsigned_int(unsigned int nb, t_buff *buff_struct)
 {
 	int		len;
 	char	*tab;
 
 	tab = unsigned_ft_itoa(nb);
-	len = write_str(tab, fd);
+	len = write_str(tab, buff_struct);
 	free(tab);
 	return (len);
 }
 
-int	write_str_reverse(char *str, int fd)
+int	write_str_reverse(char *str, t_buff *buff_struct)
 {
 	int		len_str;
 	int		idx;
@@ -66,7 +68,7 @@ int	write_str_reverse(char *str, int fd)
 	idx = 0;
 	while (str[idx])
 	{
-		write_char(str[len_str - (idx + 1)], fd);
+		write_char(str[len_str - (idx + 1)], buff_struct);
 		idx++ ;
 	}
 	return (idx);

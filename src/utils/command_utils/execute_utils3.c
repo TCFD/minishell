@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:35:49 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/24 17:36:08 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/26 14:36:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,12 @@ int	cmd_exist(t_cmd_and_opt *cmdopt)
 	if (!go_to_cmd(cmdopt))
 		return (0);
 	return (1);
+}
+
+int	cmp(char *cmd_name, char *cmd_name_2)
+{
+	if (ft_strncmp(cmd_name, cmd_name_2, ft_strlen(cmd_name_2)) == 0
+		&& ft_strlen(cmd_name) == ft_strlen(cmd_name_2))
+		return (1);
+	return (0);
 }
