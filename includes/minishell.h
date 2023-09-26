@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 15:03:26 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 18:19:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,7 @@ void			update_home_path(char *new_value);
 void			free_str(char **str);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
-void			add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
+void			add_cmd_to_history_and_run(t_cmd_and_opt *cmdopt,
 					char *input, int i);
 void			check_to_add_history(char *input);
 void			loop_it(t_cmd_and_opt *cmdopt,
@@ -316,7 +316,7 @@ void			get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old,
 void			change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g);
 void			change_underscore_value_void(bool update_g);
 void			check_sign_return(int minishell_call);
-
+void			check_exit(t_cmd_and_opt *cmdopt);
 /* 
 
 	[---------| int |---------]

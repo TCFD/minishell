@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/25 16:30:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 18:21:37 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ int	check_if_ifs(char c)
 	return (0);
 }
 
-void	add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
+/*void	add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
 		char *input, int i)
 {
 	if (check == 1)
 		return (check_to_add_history(input));
 	return (loop_it(cmdopt, input, i));
 }
+*/

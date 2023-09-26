@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/24 21:37:30 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/26 17:57:06 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	search_if_file_exist(char *filename)
 	filefd = open(filename, O_RDONLY, 0666);
 	if (filefd == -1)
 	{
+		update_err_code(errno);
 		ft_printf(STDERR_FILENO, "Minishell : %s: ", filename);
 		perror("");
 		return (1);
@@ -89,7 +90,7 @@ int	redirect_input(char **tab, int *stdin_save, int *filefd,
 	else
 		*filefd = open(tab[1], O_RDONLY, 0666);
 	if (*filefd == -1)
-		return ((void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
+		return (update_err_code(errno), (void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
 	if (dup2(*filefd, STDIN_FILENO) == -1)
 		return (perror("Failed to redirect stdin"), 1);
 	return (0);

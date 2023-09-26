@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/20 15:54:02 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 17:59:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	open_sub_file(char **tab, int *i, int *funct_counter)
 	else
 		fd = open(tab[*i + 1], O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
-		return (perror("Failed to open file"), 0);
+		return (update_err_code(errno), (void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
 	if (close(fd) == -1)
 		return (perror("Failed to close file"), 0);
 	*i += 1;

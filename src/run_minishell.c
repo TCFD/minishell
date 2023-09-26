@@ -6,13 +6,14 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:47:23 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/26 18:21:28 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // EXIT FUNC
+/* 
 int	exit_func(char *input)
 {
 	char	*ipt;
@@ -21,8 +22,8 @@ int	exit_func(char *input)
 	spl = ft_split(input, ' ');
 	if (d_len(spl) > 2 && not_digit(spl[1]))
 	{
-		return ((void)ft_printf(2, "Minishell: exit: too many arguments.\n"),
-			free_d_array(spl), update_err_code(1), 1);
+		return ((void)ft_printf(2, "exit\nMinishell: exit: too many arguments."
+			"\n"), free_d_array(spl), update_err_code(1), 1);
 	}
 	if (spl[1])
 		ipt = ft_strdup(spl[1]);
@@ -32,8 +33,8 @@ int	exit_func(char *input)
 	free(input);
 	free_d_array(spl);
 	exit_prg(ipt);
-	return (ft_exit(0, true), 0);
-}
+	return (ft_exit(ft_atoi(ipt), true), 0);
+} */
 
 void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 {
@@ -66,7 +67,6 @@ void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 // MINISHELL
 void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 {
-	int			check;
 	int			i;
 
 	i = 0;
@@ -76,13 +76,10 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	free(prompt);
 	while (input != NULL)
 	{
-		check = 0;
-		if (ft_strncmp(input, "exit", 4) == 0
-			&& (check_if_ifs(input[4]) || input[4] == '\0'))
-			check = exit_func(input);
 		while (check_if_ifs(input[i]))
 			i++;
-		add_cmd_to_history_and_run(check, cmdopt, input, i);
+		loop_it(cmdopt, input, i);
+		// add_cmd_to_history_and_run(cmdopt, input, i);
 		free_cmdopt(cmdopt);
 		update_last_entry(ft_strdup(input));
 		update_prompt(display_user_prompt((char *)get_username()));
