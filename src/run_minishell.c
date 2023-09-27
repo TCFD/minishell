@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 18:21:28 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 14:37:48 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 		update_prompt(display_user_prompt((char *)get_username()));
 		free_str(&input);
 		input = readline(get_prompt());
+		//input = readline("\x1b[36mminishell$\x1b[0m ");
 	}
 	return (free_prompt_last_entry());
 }

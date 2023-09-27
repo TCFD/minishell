@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:53 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 11:51:16 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define D_L_RAFTER			"<<"
 # define PIPE				"|"
 
-# define ANIME_TIME			5000000
+# define ANIME_TIME			50000000
 
 # include <stdio.h>
 # include <stdlib.h>

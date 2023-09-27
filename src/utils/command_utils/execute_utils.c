@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 18:22:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 14:39:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	execve_child(t_cmd_and_opt *cmdopt, pid_t *pid)
 	{
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
-			ft_printf(2, "Minishell : \033[31m%s\033[0m : %s\n",
+			ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : %s\n",
 				cmdopt->command_name, strerror(errno));
 		free_everything(cmdopt, true);
 		exit(errno);
@@ -64,7 +64,7 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 		if (execve(cmdopt->command_path, cmdopt->opt_ty_tb.tab, get_env())
 			== -1)
 		{
-			ft_printf(2, "Minishell : \033[31m%s\033[0m : %s\n",
+			ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : %s\n",
 				cmdopt->command_name, strerror(errno));
 			return (1);
 		}
@@ -89,7 +89,7 @@ int	find_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "exit"))
 		check_exit(cmdopt);
 	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf(2, "Minishell : \033[31m%s\033[0m : command not found\n",
+		return (ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002` : command not found\n",
 				cmdopt->command_name), change_underscore_value(cmdopt, false),
 			free_cmdopt(cmdopt), update_err_code(127), 0);
 	else
