@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 18:21:28 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 10:49:36 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exit_func(char *input)
 	char	**spl;
 
 	spl = ft_split(input, ' ');
-	if (d_len(spl) > 2 && not_digit(spl[1]))
+	if (d_len(spl) > 2 && is_digit(spl[1]))
 	{
 		return ((void)ft_printf(2, "exit\nMinishell: exit: too many arguments."
 			"\n"), free_d_array(spl), update_err_code(1), 1);

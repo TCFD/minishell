@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:18:58 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/24 21:23:23 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/09/27 13:42:03 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,19 @@ void	malloc_pipes(t_pipe *pipe_s)
 		return (ft_printf(STDERR_FILENO, "Minishell: malloc error\n"),
 			ft_exit(errno, true));
 	}
+}
+
+void	ft_exit_pipex(t_pipe *pipe_s, int code, bool msg)
+{
+	if (msg)
+		ft_printf(STDOUT_FILENO, "exit\n");
+	update_pwd(NULL);
+	free(get_env_pwd());
+	free(get_env_oldpwd());
+	free(get_home_path());
+	free(get_username());
+	free_prompt_last_entry();
+	free_env_singleton();
+	free_pipe(pipe_s);
+	exit(code);
 }

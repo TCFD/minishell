@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/27 10:54:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 13:50:58 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	redirect_output(char **tab, int *stdout_save, int *filefd, int which_case)
 	else
 		*filefd = open(tab[1], O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (*filefd == -1)
-		return (update_err_code(errno), (void)ft_printf(2, "Minishell : %s: "
-				, tab[1]), perror(""), 1);
+		return (update_err_code(errno),
+			(void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
 	if (dup2(*filefd, STDOUT_FILENO) == -1)
 		return (perror("Failed to redirect stdout"), 1);
 	return (0);
