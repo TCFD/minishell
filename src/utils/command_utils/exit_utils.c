@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/26 18:17:13 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 10:54:18 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	update_err_code_exit(char *origin_code, int code_err)
 void	exit_prg(char *code_err)
 {
 	if (ft_len(code_err) > 0 && code_err[0] != '\0')
-		update_err_code_exit(code_err, ft_atoi(code_err));		
+		update_err_code_exit(code_err, ft_atoi(code_err));
 	if (code_err)
 		free(code_err);
 }

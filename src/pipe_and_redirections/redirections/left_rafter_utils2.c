@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/26 17:57:06 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 10:53:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	redirect_input(char **tab, int *stdin_save, int *filefd,
 	else
 		*filefd = open(tab[1], O_RDONLY, 0666);
 	if (*filefd == -1)
-		return (update_err_code(errno), (void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
+		return (update_err_code(errno), (void)ft_printf(2, "Minishell : %s: "
+				, tab[1]), perror(""), 1);
 	if (dup2(*filefd, STDIN_FILENO) == -1)
 		return (perror("Failed to redirect stdin"), 1);
 	return (0);
