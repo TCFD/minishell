@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 13:42:34 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:15:26 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define D_L_RAFTER			"<<"
 # define PIPE				"|"
 
-# define ANIME_TIME			5000000
+# define ANIME_TIME			50000000
 
 # include <stdio.h>
 # include <stdlib.h>

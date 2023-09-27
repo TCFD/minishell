@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 17:11:41 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 14:31:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_minishell(void)
 	init_cmdopt(&cmdopt);
 	verif_env_and_path(&cmdopt);
 	env_var_plus_one("SHLVL");
-	//one_time_animation_start();
+	one_time_animation_start();
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
@@ -58,12 +58,12 @@ int	main(int ac, char **ag, char **env)
 	(void)ag;
 	if (ac > 1)
 	{
-		ft_printf(2, "\n\t\e[32m./minishell\e[m");
+		ft_printf(2, "\n\t\001\e[32m\002./minishell\001\e[m\002");
 		ft_printf(2, " does not take any arguments.\n");
 		ft_printf(2, "\n\tRead minishell man. End of program.\n");
 		return (1);
 	}
-	signal(SIGINT, sig_handler);
+ 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");
