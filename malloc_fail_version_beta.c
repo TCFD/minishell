@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_fail_version_beta.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:39:59 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 17:29:49 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/28 18:38:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/minishell.h"
 
-char	*ft_join_v(char *s1, char *s2)
+char	*ft_join_no_strdup(char *s1, char *s2)
 {
 	char	*str;
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/28 16:42:11 by wolf             ###   ########.fr        #
+#    Updated: 2023/09/28 18:23:46 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRCS 		=	main.c									\
 				$(COMMAND_UTILS)exit_utils.c			\
 				$(PARSING)parsing_utils.c				\
 				$(PARSING)parsing_utils2.c				\
+				$(PARSING)parsing_utils3.c				\
 				$(PARSING)check_correct_quotes.c		\
 				$(PARSING)main_parsing.c				\
 				$(PARSING)cases_for_parsing.c 			\

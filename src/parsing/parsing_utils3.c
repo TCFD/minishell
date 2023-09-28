@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils2.c                                      :+:      :+:    :+:   */
+/*   parsing_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 16:46:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 14:01:12 by rciaze           ###   ########.fr       */
+/*   Created: 2023/09/28 14:32:34 by rciaze            #+#    #+#             */
+/*   Updated: 2023/09/28 14:38:23 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	free_str(char **str)
+int	lst_add(t_list **list, char **content, char type)
 {
-	free(*str);
-	*str = NULL;
-}
-
-void	malloc_failure(void)
-{
-	perror("Critical error: (malloc probably failed)");
-	ft_exit(EXIT_FAILURE, true);
+	(*list)->content = ft_strdup(*content);
+	free(*content);
+	if (!(*list)->content)
+		return (0);
+	(*list)->type = type;
+	(*list)->next = ft_lstnew("", NONE);
+	if (!(*list)->next)
+		return (0);
+	(*list) = (*list)->next;
+	return (1);
 }
