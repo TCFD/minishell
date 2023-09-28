@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/28 14:40:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 19:02:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ t_list	*get_tokens(char *input)
 
 	list = ft_lstnew("", '\0');
 	if (!list)
-		return (free(input), malloc_failure(), NULL);
+		return (free(input), malloc_fail(), NULL);
 	tmp = list;
 	i = 0;
 	while (input[i] == SPACE)
 		i += 1;
 	if (!all_tokens(input, tmp, i, ft_strlen(input)))
-		return (ft_lstclear(&list), free(input), malloc_failure(), NULL);
+		return (ft_lstclear(&list), free(input), malloc_fail(), NULL);
 	return (list);
 }
 
@@ -78,7 +78,7 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 
 	input = ft_strdup(tmp);
 	if (!input)
-		malloc_failure();
+		malloc_fail();
 	list = get_tokens(input);
 	temp_list = list;
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));

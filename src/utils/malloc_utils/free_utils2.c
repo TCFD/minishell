@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:46:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 14:01:12 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 19:02:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_str(char **str)
 	*str = NULL;
 }
 
-void	malloc_failure(void)
+void	malloc_fail(void)
 {
 	perror("Critical error: (malloc probably failed)");
 	ft_exit(EXIT_FAILURE, true);

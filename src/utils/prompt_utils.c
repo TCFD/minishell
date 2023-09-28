@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 13:36:30 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:17:14 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*stick_color(char *str, char *color)
 {
 	char	*new_str;
 
-	new_str = ft_join(color, str);
-	new_str = ft_join(new_str, ft_strdup(NC));
+	new_str = ft_join_no_strdup(color, str);
+	new_str = ft_join_strdup_right(new_str, NC);
 	return (new_str);
 }
 
@@ -100,5 +100,7 @@ char	*display_user_prompt(char *username)
 		user_len = 0;
 	result = ft_join(ft_strdup(cwd + user_len), ft_strdup("\001\e[32m\002]"));
 	result = build_prompt(user_len, username, result);
+	if (!result)
+		return (free(cwd), free(username), malloc_fail(), NULL);
 	return (free(cwd), result);
 }

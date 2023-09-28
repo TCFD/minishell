@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:46:03 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:38:25 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/28 18:45:45 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void	initialise_home_path(void)
 
 	init_cmdopt(&cmdopt);
 	verif_env_and_path(&cmdopt);
-	cmd = ft_join(ft_strdup("/bin/getent passwd "), ft_strdup(get_username()));
+	cmd = ft_join_strdup("/bin/getent passwd ", get_username());
+	if (!cmd)
+		return(free_cmdopt(&cmdopt), ft_exit(EXIT_FAILURE, false));
 	find_path = get_brut_cmd_result(cmd);
 	split_it = ft_split(find_path, ':');
 	result = ft_strdup(split_it[d_len(split_it) - 2]);

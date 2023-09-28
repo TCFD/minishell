@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 18:37:35 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 19:02:48 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,10 +208,10 @@ char			*build_prompt(int u_len, char *builded_username,
 					char *building_result);
 char			*get_prompt(void);
 char			*get_last_entry(void);
-char	*ft_join_no_strdup(char *s1, char *s2)
-char	*ft_join_strdup(char *s1, char *s2)
-char	*ft_join_strdup_right(char *s1, char *s2)
-char	*ft_join_strdup_left(char *s1, char *s2)
+char	*ft_join_no_strdup(char *s1, char *s2);
+char	*ft_join_strdup(char *s1, char *s2);
+char	*ft_join_strdup_right(char *s1, char *s2);
+char	*ft_join_strdup_left(char *s1, char *s2);
 
 
 /* 
@@ -321,7 +321,7 @@ void			change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g);
 void			change_underscore_value_void(bool update_g);
 void			check_sign_return(int minishell_call);
 void			check_exit(t_cmd_and_opt *cmdopt);
-void			malloc_failure(void);
+void			malloc_fail(void);
 /* 
 
 	[---------| int |---------]
