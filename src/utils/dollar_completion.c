@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/25 14:15:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:27:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,4 @@ char	*replace_dollar(char what_case, char *input, int i, t_list **list)
 	if (!input && input[0] == '\0')
 		free_str(&input);
 	return (free(dollar.tmp_dup), free(dollar.env_var), input);
-}
+	}
