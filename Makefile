@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/25 16:33:25 by rciaze           ###   ########.fr        #
+#    Updated: 2023/09/28 16:42:11 by wolf             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ ALL_H_FILES	=	$(INCLUDE)/minishell.h					\
 				$(INCLUDE)/pipex.h
 
 SRCS 		=	main.c									\
+				malloc_fail_version_beta.c				\
 				$(SRC)start_init.c						\
 				$(SRC)run_minishell.c					\
 				$(SRC)run_minishell2.c					\
