@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/27 14:28:51 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 16:15:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ char	*special_cara_cd(char *cd_arg)
 char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 {
 	char	*f;
-	char	*tmp_name;
 
 	f = special_cara_cd(cmdopt->opt_ty_tb.tab[1]);
 	if (!f)
 		return (NULL);
-	tmp_name = f;
 	if ('~' == f[0])
 	{
 		is_malloc = true;
@@ -54,8 +52,9 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 	if (file == NULL && is_malloc == true)
 		free(f);
 	if (file == NULL)
-		return ((void)ft_printf(2, "Minishell: cd: %s: ", tmp_name),
-			perror(NULL), closedir(file), (void)update_err_code((int)errno),
+		return ((void)ft_printf(2, "Minishell: cd: %s\n",
+				"No such file or directory"),
+			closedir(file), (void)update_err_code((int)errno),
 			NULL);
 	closedir(file);
 	if (is_malloc == true)

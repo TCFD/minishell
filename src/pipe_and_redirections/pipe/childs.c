@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   childs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:07:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 17:49:07 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 13:41:32 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,20 @@ void	n_child(t_pipe *pipe_s, int *i)
 	}
 }
 
+void	check_first_exit_arg(t_pipe *pipe_s, t_cmd_and_opt *cmdopt)
+{
+	char	**tab;
+
+	tab = cmdopt->opt_ty_tb.tab;
+	if (d_len(tab) >= 2 && is_digit(tab[1]))
+		return (ft_exit_pipex(pipe_s,
+				ft_atoi(tab[1]) % 256, false));
+	else if (d_len(tab) == 1)
+		return (ft_exit_pipex(pipe_s, 0, false));
+}
+
 void	last_child(t_pipe *pipe_s, int *i)
 {
-	int	exit_value;
-
 	pipe_s->pid[*i] = fork();
 	if (pipe_s->pid[*i] < 0)
 		return (perror(NULL));
@@ -73,10 +83,8 @@ void	last_child(t_pipe *pipe_s, int *i)
 		close_all_pipes(pipe_s);
 		execute_command(pipe_s->cmdopt_tab[*i]);
 		if (cmp(pipe_s->cmdopt_tab[*i]->command_name, "exit"))
-			exit_value = g_error_code;
-		else
-			exit_value = errno;
+			check_first_exit_arg(pipe_s, pipe_s->cmdopt_tab[*i]);
 		free_pipe(pipe_s);
-		ft_exit(exit_value, false);
+		ft_exit(g_error_code, false);
 	}
 }

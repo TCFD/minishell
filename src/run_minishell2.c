@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:32:19 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 15:07:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 11:07:48 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ void	check_sign_return(int minishell_call)
 	update_last_sign(0);
 }
 
-int	not_digit(char *potential_digits)
+int	is_digit(char *potential_digits)
 {
 	int	idx;
 
 	idx = 0;
+	if (potential_digits[idx] == '-')
+		idx++ ;
 	while (potential_digits[idx] >= 48
 		&& potential_digits[idx] <= 57)
 		idx++ ;

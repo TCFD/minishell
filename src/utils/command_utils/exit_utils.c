@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/27 10:54:18 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 13:50:11 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	if_code(char *ipt)
 	str = ft_itoa(ft_atoi(ipt));
 	if (ft_strncmp(str, ipt, ft_len(ipt)) != 0)
 	{
-		ft_printf(2, "exit\nMinishell: exit: %s : numeric argument required.\n",
+		ft_printf(2, "Minishell: exit: %s : numeric argument required.\n",
 			ipt);
 		update_err_code(2);
 	}
@@ -34,9 +34,11 @@ void	check_exit(t_cmd_and_opt *cmdopt)
 	char	*ipt;
 
 	ipt = NULL;
-	if (d_len(cmdopt->opt_ty_tb.tab) > 2 && not_digit(cmdopt->opt_ty_tb.tab[1]))
-		return ((void)ft_printf(2, "exit\nMinishell: exit: too many arguments."
+	if (d_len(cmdopt->opt_ty_tb.tab) > 2 && is_digit(cmdopt->opt_ty_tb.tab[1]))
+	{
+		return ((void)ft_printf(2, "Minishell: exit: too many arguments."
 				"\n"), update_err_code(1));
+	}
 	if (cmdopt->opt_ty_tb.tab[1])
 		ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
 	if (!cmdopt->is_child)
@@ -76,7 +78,7 @@ void	update_err_code_exit(char *origin_code, int code_err)
 		return (free(str), free(origin_code), ft_exit(EXIT_FAILURE, true));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
 	{
-		ft_printf(2, "exit\nMinishell: exit: %s : numeric argument required.\n",
+		ft_printf(2, "Minishell: exit: %s : numeric argument required.\n",
 			origin_code);
 		if (origin_code)
 			free(origin_code);

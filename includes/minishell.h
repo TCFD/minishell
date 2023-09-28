@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 14:47:57 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:07:08 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ void			free_t_array(char ***str);
 void			free_cmdopt(t_cmd_and_opt *cmdopt);
 void			free_everything(t_cmd_and_opt *cmdopt, bool f_cmdopt);
 void			update_err_code(int code_err);
+void			update_err_code_pipe(int code_err, bool exit_pipe);
 void			write_env_oldpwd(char *oldpwd);
 void			write_env_pwd(char *pwd);
 void			ft_exit(int code, bool msg);
@@ -373,7 +374,7 @@ int				minishell_with_arg(t_cmd_and_opt *cmdopt);
 int				check_if_input_minishell(t_cmd_and_opt *cmdopt,
 					char *input);
 int				cmd_exist(t_cmd_and_opt *cmdopt);
-int				not_digit(char *potential_digits);
+int				is_digit(char *potential_digits);
 int				check_if_pipe(t_opt_tab	opt);
 int				count_pipes(t_opt_tab opt);
 int				get_next_pipe(t_opt_tab opt, int j);

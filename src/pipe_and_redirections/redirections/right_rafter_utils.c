@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/27 10:53:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/27 13:51:08 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	open_sub_file(char **tab, int *i, int *funct_counter)
 	else
 		fd = open(tab[*i + 1], O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
-		return (update_err_code(errno), (void)ft_printf(2, "Minishell : %s: "
-				, tab[1]), perror(""), 1);
+		return (update_err_code(errno),
+			(void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
 	if (close(fd) == -1)
 		return (perror("Failed to close file"), 0);
 	*i += 1;
