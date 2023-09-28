@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 18:07:08 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:37:35 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,12 @@ char			*build_prompt(int u_len, char *builded_username,
 					char *building_result);
 char			*get_prompt(void);
 char			*get_last_entry(void);
+char	*ft_join_no_strdup(char *s1, char *s2)
+char	*ft_join_strdup(char *s1, char *s2)
+char	*ft_join_strdup_right(char *s1, char *s2)
+char	*ft_join_strdup_left(char *s1, char *s2)
+
+
 /* 
 	
 	[---------| char |---------]
