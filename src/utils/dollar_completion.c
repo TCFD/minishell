@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/28 18:01:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:20:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	set_dollar(t_dollar *dollar, char *content, int i)
 	dollar->tmp_dup = ft_strdup(content);
 	free(content);
 	if (!dollar->tmp_dup)
-		return (perror("Critical error, probably a malloc"), ft_exit(EXIT_FAILURE, false), 0);
+		return (0);
 	dollar->start = ft_strchr(dollar->tmp_dup + i, '$') - dollar->tmp_dup;
 	dollar->end = find_first_non_valid(dollar->tmp_dup, dollar->start + 1);
 	if (dollar->tmp_dup[0] != '$' && dollar->end <= 0)
@@ -114,12 +114,20 @@ char	*replace_dollar(char what_case, char *content, int i, t_list **list)
 	if (!set_dollar(&dollar, content, i))
 		return (NULL);
 	content = ft_substr(dollar.tmp_dup, 0, dollar.start);
+	if (!content)
+		return (free(dollar.tmp_dup), free(dollar.env_var), NULL);
 	if (what_case != DOUBLE_Q && ft_strchr(dollar.env_var, ' '))
 		return (d_t_case(content, list, &dollar));
 	if (dollar.env_var[0])
+	{
 		content = ft_join(content, ft_strdup(dollar.env_var));
+		if (!content)
+			return (free(dollar.tmp_dup), free(dollar.env_var), NULL);
+	}
 	content = ft_join(content, ft_substr(dollar.tmp_dup, dollar.end,
 				ft_strlen(dollar.tmp_dup) - dollar.end));
+	if (!content)
+			return (free(dollar.tmp_dup), free(dollar.env_var), NULL);
 	if (ft_strchr(content, '$')
 		&& find_first_non_valid(ft_strchr(content, '$'), 1) != 1)
 		content = replace_dollar(what_case, content, i, list);
