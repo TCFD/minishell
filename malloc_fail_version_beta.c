@@ -6,11 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:39:59 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 18:38:10 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 20:30:18 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 char	*ft_join_no_strdup(char *s1, char *s2)
 {

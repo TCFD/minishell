@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/28 18:23:46 by rciaze           ###   ########.fr        #
+#    Updated: 2023/09/28 20:27:33 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRCS 		=	main.c									\
 				$(UTILS)prompt_utils.c					\
 				$(UTILS)prompt_utils2.c					\
 				$(UTILS)init_utils.c					\
-				$(UTILS)dollar_completion.c				\
 				$(UTILS)others_utils.c					\
 				$(DESIGN_PATTERN)design_p_username.c	\
 				$(DESIGN_PATTERN)design_p_home_path.c	\
@@ -77,6 +76,8 @@ SRCS 		=	main.c									\
 				$(PARSING)parsing_utils.c				\
 				$(PARSING)parsing_utils2.c				\
 				$(PARSING)parsing_utils3.c				\
+				$(PARSING)dollar_completion.c			\
+				$(PARSING)dollar_completion_utils.c		\
 				$(PARSING)check_correct_quotes.c		\
 				$(PARSING)main_parsing.c				\
 				$(PARSING)cases_for_parsing.c 			\

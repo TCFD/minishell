@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 18:07:16 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 20:33:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ int	find_command(t_cmd_and_opt *cmdopt)
 	else if (cmp(cmdopt->command_name, "exit"))
 		check_exit(cmdopt);
 	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : command not found\n",
-				cmdopt->command_name), change_underscore_value(cmdopt, false),
-			free_cmdopt(cmdopt), update_err_code(127), 0);
+		return (ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : "
+				"command not found\n", cmdopt->command_name),
+			change_underscore_value(cmdopt, false), free_cmdopt(cmdopt),
+			update_err_code(127), 0);
 	else
 		if (!run_execve(cmdopt))
 			return (-1);

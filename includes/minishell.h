@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 18:37:35 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 20:41:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ typedef struct s_dollar
 	int		end;
 	char	*tmp_dup;
 	char	*env_var;
+	int		i;
+	char	what_case;
 }t_dollar;
 
 t_singleton2	*get_singleton2_instance(void);
@@ -208,12 +210,10 @@ char			*build_prompt(int u_len, char *builded_username,
 					char *building_result);
 char			*get_prompt(void);
 char			*get_last_entry(void);
-char	*ft_join_no_strdup(char *s1, char *s2)
-char	*ft_join_strdup(char *s1, char *s2)
-char	*ft_join_strdup_right(char *s1, char *s2)
-char	*ft_join_strdup_left(char *s1, char *s2)
-
-
+char			*ft_join_no_strdup(char *s1, char *s2);
+char			*ft_join_strdup(char *s1, char *s2);
+char			*ft_join_strdup_right(char *s1, char *s2);
+char			*ft_join_strdup_left(char *s1, char *s2);
 /* 
 	
 	[---------| char |---------]
@@ -240,14 +240,6 @@ void			init_fork_opt(t_fork_opt *fork_utils);
 void			free_fork_opt(t_fork_opt *fork_utils);
 void			fork_it(t_fork_opt *fork_utils);
 void			execute_pipex(char **lst_cmd);
-void			case_2_or_3(t_separators *sep, char **content, char *input,
-					t_list **list);
-void			case_4_or_5(t_separators *sep, char **content,
-					char *s1, t_list **list);
-void			case_4_5_part_2(t_separators *sep, char **content, char *input,
-					t_list **list);
-void			final_case(t_separators *sep, char **content, char *input,
-					t_list **list);
 void			parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt);
 void			create_command(char	*input, t_cmd_and_opt *cmdopt);
 void			init_tabs(char char_tab[6], long int tab[6], char *input);
@@ -322,6 +314,8 @@ void			change_underscore_value_void(bool update_g);
 void			check_sign_return(int minishell_call);
 void			check_exit(t_cmd_and_opt *cmdopt);
 void			malloc_failure(void);
+void			free_dollar(t_dollar *dollar);
+
 /* 
 
 	[---------| int |---------]
@@ -385,11 +379,21 @@ int				check_if_pipe(t_opt_tab	opt);
 int				count_pipes(t_opt_tab opt);
 int				get_next_pipe(t_opt_tab opt, int j);
 int				end_of_execve(pid_t pid, char *cmd_name);
-int				case_1(t_separators *sep, char **content, char *input, 
+int				case_1(t_separators *sep, char **content, char *input,
 					t_list **list);
 int				all_tokens(char *input, t_list *list, int i, int len);
 int				lst_add(t_list **list, char **content, char type);
-/* 
+int				d_t_case_loop(char **split_tab, char *input,
+					t_dollar *dollar, t_list **list);
+int				case_2_or_3(t_separators *sep, char **content, char *input,
+						t_list **list);
+int				case_4_or_5(t_separators *sep, char **content,
+						char *s1, t_list **list);
+int				case_4_5_part_2(t_separators *sep, char **content, char *input,
+						t_list **list);
+int				final_case(t_separators *sep, char **content, char *input,
+						t_list **list);
+/*
 
 	[---------| bool |---------]
 

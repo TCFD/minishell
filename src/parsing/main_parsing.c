@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/28 14:40:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:08:34 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int	switch_func(t_separators *sep, char **content, char *input, t_list **list)
 	{
 		if (sep->what_case == SIMPLE_Q || sep->what_case == DOUBLE_Q)
 		{
-			case_2_or_3(sep, content, input, list);
+			if (!case_2_or_3(sep, content, input, list))
+				return (0);
 		}
 		else
 		{
-			final_case(sep, content, input, list);
+			if (!final_case(sep, content, input, list))
+				return (0);
 		}
 	}
 	return (1);
@@ -43,7 +45,7 @@ int	all_tokens(char *input, t_list *list, int i, int len)
 	{
 		set_separator(&sep, input);
 		if (!switch_func(&sep, &content, input, &list))
-				return (0);
+			return (0);
 		while (check_if_ifs(input[sep.i]) && input[sep.i])
 			sep.i += 1;
 	}
