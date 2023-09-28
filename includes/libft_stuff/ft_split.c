@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:13:25 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/27 08:54:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 22:07:16 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*remplit_mot(char *str, char charset, int *cut)
 		i++ ;
 	tab = malloc((i + 1) * sizeof(char));
 	if (!tab)
-		free(tab);
+		return (free(tab), NULL);
 	a = 0;
 	while (a < i)
 	{
@@ -90,6 +90,8 @@ char	**ft_split(char const *s, char c)
 		while (*nwstr == c)
 			nwstr++;
 		tab[a] = remplit_mot(nwstr, c, &cut);
+		if (!tab[a])
+			return (NULL);
 		nwstr = nwstr + cut;
 		mot-- ;
 		a++ ;

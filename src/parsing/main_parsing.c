@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/28 19:02:48 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/28 22:11:40 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,17 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	list = get_tokens(input);
 	temp_list = list;
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
+	if (!cmdopt->opt_ty_tb.tab)
+		return (free_cmdopt(cmdopt), malloc_fail());
 	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
+	if (!cmdopt->opt_ty_tb.type)
+		return (free_cmdopt(cmdopt), malloc_fail());
 	i = 0;
 	while (temp_list->next)
 	{
 		cmdopt->opt_ty_tb.tab[i] = ft_strdup(temp_list->content);
+		if (!cmdopt->opt_ty_tb.tab[i])
+			return (free_cmdopt(cmdopt), malloc_fail());
 		cmdopt->opt_ty_tb.type[i] = temp_list->type;
 		temp_list = temp_list->next;
 		i++;
@@ -118,6 +124,8 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		update_env_detection(0);
 	}
 	cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
+	if (!cmdopt->command_name)
+		return (free_cmdopt(cmdopt), malloc_fail());
 	if (cmdopt->command_name[0])
 		cmdopt->command_path = create_path
 			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);

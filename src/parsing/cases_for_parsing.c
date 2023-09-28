@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/28 14:45:55 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:46:47 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void	final_case(t_separators *sep, char **content, char *input,
 	t_list **list)
 {
 	*content = ft_substr(input + sep->i, 0, sep->w_string);
+	if (!*content)
+		return ;
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
 		*content = replace_dollar(sep->what_case, *content, 0, list);

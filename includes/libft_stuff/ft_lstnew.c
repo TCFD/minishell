@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:03:18 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/07/05 19:54:01 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:42:53 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_list	*ft_lstnew(char *content, char type)
 	t_list	*str;
 
 	str = ft_calloc(sizeof(t_list), 1);
+	if (!str)
+		return (NULL);
 	if (!content[0])
 		str->content = NULL;
 	else

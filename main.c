@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 14:07:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 22:06:02 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	main(int ac, char **ag, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");
+	if (!user)
+		return (malloc_fail(), 1);
 	update_username(ft_strdup(user));
 	free(user);
 	initialise_home_path();
