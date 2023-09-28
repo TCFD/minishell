@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/28 18:20:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:26:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,11 @@ char	*replace_dollar(char what_case, char *content, int i, t_list **list)
 		return (d_t_case(content, list, &dollar));
 	if (dollar.env_var[0])
 	{
-		content = ft_join(content, ft_strdup(dollar.env_var));
+		content = ft_join_strdup_right(content, dollar.env_var);
 		if (!content)
 			return (free(dollar.tmp_dup), free(dollar.env_var), NULL);
 	}
-	content = ft_join(content, ft_substr(dollar.tmp_dup, dollar.end,
-				ft_strlen(dollar.tmp_dup) - dollar.end));
+	content = ft_join(content, ft_substr(dollar.tmp_dup, dollar.end, ft_strlen(dollar.tmp_dup) - dollar.end));
 	if (!content)
 			return (free(dollar.tmp_dup), free(dollar.env_var), NULL);
 	if (ft_strchr(content, '$')
