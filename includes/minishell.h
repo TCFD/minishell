@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 11:51:16 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:47:57 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,8 @@ typedef struct s_dollar
 
 t_singleton2	*get_singleton2_instance(void);
 t_singleton		*get_singleton_instance(void);
-t_list			*all_tokens(char *input, t_list *list, int i, int len);
 t_list			*get_tokens(char *input);
+
 /* 
 	
 	[---------| char ** |---------]
@@ -182,7 +182,7 @@ char			*create_path(char *command_name, int imd_return);
 char			*get_char_until_limit(char *str, int lim);
 char			*check_env_variables(char *input, int end);
 char			*d_t_case(char *input, t_list **list, t_dollar *dollar);
-char			*replace_dollar(char what_case, char *input,
+char			*replace_dollar(char what_case, char *content,
 					int i, t_list **list);
 char			*stick_color(char *str, char *color);
 char			*build_username_prompt(char *username);
@@ -229,14 +229,11 @@ void			remove_in_redirections2(char **tab, char *type,
 					t_redirections *redi, int i);
 void			restore_stdin(t_redirections *redir);
 void			temp_heredoc(char *str, char **random_adress);
-void			lst_add(t_list **list, char **content, char type);
 void			restore_stdout(int stdout_save, int filefd);
 void			init_fork_opt(t_fork_opt *fork_utils);
 void			free_fork_opt(t_fork_opt *fork_utils);
 void			fork_it(t_fork_opt *fork_utils);
 void			execute_pipex(char **lst_cmd);
-void			case_1(t_separators *sep, char **content,
-					char *input, t_list **list);
 void			case_2_or_3(t_separators *sep, char **content, char *input,
 					t_list **list);
 void			case_4_or_5(t_separators *sep, char **content,
@@ -317,6 +314,7 @@ void			change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g);
 void			change_underscore_value_void(bool update_g);
 void			check_sign_return(int minishell_call);
 void			check_exit(t_cmd_and_opt *cmdopt);
+void			malloc_failure(void);
 /* 
 
 	[---------| int |---------]
@@ -380,7 +378,10 @@ int				check_if_pipe(t_opt_tab	opt);
 int				count_pipes(t_opt_tab opt);
 int				get_next_pipe(t_opt_tab opt, int j);
 int				end_of_execve(pid_t pid, char *cmd_name);
-
+int				case_1(t_separators *sep, char **content, char *input, 
+					t_list **list);
+int				all_tokens(char *input, t_list *list, int i, int len);
+int				lst_add(t_list **list, char **content, char type);
 /* 
 
 	[---------| bool |---------]

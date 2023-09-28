@@ -6,13 +6,34 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/25 16:30:04 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:40:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_list	*all_tokens(char *input, t_list *list, int i, int len)
+int	switch_func(t_separators *sep, char **content, char *input, t_list **list)
+{
+	if (sep->s_string < sep->w_string)
+	{
+		if (!case_1(sep, content, input, list))
+			return (0);
+	}
+	else
+	{
+		if (sep->what_case == SIMPLE_Q || sep->what_case == DOUBLE_Q)
+		{
+			case_2_or_3(sep, content, input, list);
+		}
+		else
+		{
+			final_case(sep, content, input, list);
+		}
+	}
+	return (1);
+}
+
+int	all_tokens(char *input, t_list *list, int i, int len)
 {
 	char			*content;
 	t_separators	sep;
@@ -21,20 +42,13 @@ t_list	*all_tokens(char *input, t_list *list, int i, int len)
 	while (sep.i < len)
 	{
 		set_separator(&sep, input);
-		if (sep.s_string < sep.w_string)
-			case_1(&sep, &content, input, &list);
-		else
-		{
-			if (sep.what_case == SIMPLE_Q || sep.what_case == DOUBLE_Q)
-				case_2_or_3(&sep, &content, input, &list);
-			else
-				final_case(&sep, &content, input, &list);
-		}
+		if (!switch_func(&sep, &content, input, &list))
+				return (0);
 		while (check_if_ifs(input[sep.i]) && input[sep.i])
 			sep.i += 1;
 	}
 	list = NULL;
-	return (list);
+	return (1);
 }
 
 t_list	*get_tokens(char *input)
@@ -44,11 +58,14 @@ t_list	*get_tokens(char *input)
 	int		i;
 
 	list = ft_lstnew("", '\0');
+	if (!list)
+		return (free(input), malloc_failure(), NULL);
 	tmp = list;
 	i = 0;
 	while (input[i] == SPACE)
 		i += 1;
-	all_tokens(input, tmp, i, ft_strlen(input));
+	if (!all_tokens(input, tmp, i, ft_strlen(input)))
+		return (ft_lstclear(&list), free(input), malloc_failure(), NULL);
 	return (list);
 }
 
@@ -60,6 +77,8 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	int		i;
 
 	input = ft_strdup(tmp);
+	if (!input)
+		malloc_failure();
 	list = get_tokens(input);
 	temp_list = list;
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));

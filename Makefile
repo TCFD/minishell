@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/25 16:33:25 by rciaze           ###   ########.fr        #
+#    Updated: 2023/09/28 14:33:00 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS 		=	main.c									\
 				$(COMMAND_UTILS)exit_utils.c			\
 				$(PARSING)parsing_utils.c				\
 				$(PARSING)parsing_utils2.c				\
+				$(PARSING)parsing_utils3.c				\
 				$(PARSING)check_correct_quotes.c		\
 				$(PARSING)main_parsing.c				\
 				$(PARSING)cases_for_parsing.c 			\

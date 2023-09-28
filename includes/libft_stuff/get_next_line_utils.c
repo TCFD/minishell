@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/10 16:29:23 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/28 17:44:41 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_join(char *s1, char *s2)
 	char	*new_str;
 	int		idx_count;
 	int		s1_len;
+
 
 	if (!s1)
 		return (s2);

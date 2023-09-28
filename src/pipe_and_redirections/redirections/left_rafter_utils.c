@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/26 14:35:55 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:32:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,6 @@ int	remove_in_redirections(char **tab, char *type, t_redirections *redi, int i)
 		remove_in_redirections2(tab, type, redi, i);
 	}
 	return (add_rest_in(tab, type, i, redi));
-}
-
-void	lst_add(t_list **list, char **content, char type)
-{
-	(*list)->content = ft_strdup(*content);
-	free(*content);
-	(*list)->type = type;
-	(*list)->next = ft_lstnew("", NONE);
-	(*list) = (*list)->next;
 }
 
 int	count_in_redirs(char **tab, char *type, bool *heredoc)

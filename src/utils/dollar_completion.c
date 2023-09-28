@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/25 14:15:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:01:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*check_env_variables(char *input, int end)
 	if (end == 1)
 		return (ft_strdup("$"));
 	value = ft_substr(input, start, end - start);
+	if (!value)
+		return (NULL);
 	if (!ft_strncmp(value, "$?", ft_strlen(value)))
 		return (free(value), ft_itoa(g_error_code));
 	return_value = ft_strdup(ft_getenv(value + 1));
@@ -84,31 +86,44 @@ char	*d_t_case(char *input, t_list **list, t_dollar *dollar)
 	return (input_modif(split_tab, j, dollar, list));
 }
 
-char	*replace_dollar(char what_case, char *input, int i, t_list **list)
+int	set_dollar(t_dollar *dollar, char *content, int i)
+{
+	int		len;
+	
+	dollar->tmp_dup = ft_strdup(content);
+	free(content);
+	if (!dollar->tmp_dup)
+		return (perror("Critical error, probably a malloc"), ft_exit(EXIT_FAILURE, false), 0);
+	dollar->start = ft_strchr(dollar->tmp_dup + i, '$') - dollar->tmp_dup;
+	dollar->end = find_first_non_valid(dollar->tmp_dup, dollar->start + 1);
+	if (dollar->tmp_dup[0] != '$' && dollar->end <= 0)
+		dollar->end = ft_strlen(dollar->tmp_dup);
+	len = dollar->end - dollar->start;
+	dollar->env_var = check_env_variables(dollar->tmp_dup + dollar->start, len);
+	if (!dollar->env_var)
+		return (free(dollar->tmp_dup), 0);
+	return (1);
+}
+
+char	*replace_dollar(char what_case, char *content, int i, t_list **list)
 {
 	t_dollar	dollar;
 
-	if (input[i] != '$' && !ft_strchr(input + i, '$'))
-		return (input);
-	dollar.tmp_dup = ft_strdup(input);
-	free(input);
-	dollar.start = ft_strchr(dollar.tmp_dup + i, '$') - dollar.tmp_dup;
-	dollar.end = find_first_non_valid(dollar.tmp_dup, dollar.start + 1);
-	if (dollar.tmp_dup[0] != '$' && dollar.end <= 0)
-		dollar.end = ft_strlen(dollar.tmp_dup);
-	dollar.env_var = check_env_variables(dollar.tmp_dup + dollar.start,
-			dollar.end - dollar.start);
-	input = ft_substr(dollar.tmp_dup, 0, dollar.start);
+	if (content[i] != '$' && !ft_strchr(content + i, '$'))
+		return (content);
+	if (!set_dollar(&dollar, content, i))
+		return (NULL);
+	content = ft_substr(dollar.tmp_dup, 0, dollar.start);
 	if (what_case != DOUBLE_Q && ft_strchr(dollar.env_var, ' '))
-		return (d_t_case(input, list, &dollar));
+		return (d_t_case(content, list, &dollar));
 	if (dollar.env_var[0])
-		input = ft_join(input, ft_strdup(dollar.env_var));
-	input = ft_join(input, ft_substr(dollar.tmp_dup, dollar.end,
+		content = ft_join(content, ft_strdup(dollar.env_var));
+	content = ft_join(content, ft_substr(dollar.tmp_dup, dollar.end,
 				ft_strlen(dollar.tmp_dup) - dollar.end));
-	if (ft_strchr(input, '$')
-		&& find_first_non_valid(ft_strchr(input, '$'), 1) != 1)
-		input = replace_dollar(what_case, input, i, list);
-	if (!input && input[0] == '\0')
-		free_str(&input);
-	return (free(dollar.tmp_dup), free(dollar.env_var), input);
+	if (ft_strchr(content, '$')
+		&& find_first_non_valid(ft_strchr(content, '$'), 1) != 1)
+		content = replace_dollar(what_case, content, i, list);
+	if (!content && content[0] == '\0')
+		free_str(&content);
+	return (free(dollar.tmp_dup), free(dollar.env_var), content);
 }
