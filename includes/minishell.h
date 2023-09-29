@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 12:33:58 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:35:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ typedef struct s_command_and_option
 	t_opt_tab		opt_ty_tb;
 }t_cmd_and_opt;
 
-// DOLLAR //
+// DOLLAR //0
 typedef struct s_dollar
 {
 	int		start;

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 20:32:50 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:29:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	*build_prompt(int u_len, char *builded_username, char *building_result)
 	r = building_result;
 	r = ft_join(r, ft_strdup("\n\001\e[32m\002└─\001\e[0m\002"));
 	if (g_error_code == 0 || get_last_sign() == 130)
-		r = ft_join(r, ft_strdup("\001\e[34m\002➤\001\e[0m"));
+		r = ft_join(r, ft_strdup("\001\e[34m\002➤ \001\e[0m"));
 	else
-		r = ft_join(r, ft_strdup("\001\e[31;1m\002➤\001\e[0m"));
+		r = ft_join(r, ft_strdup("\001\e[31;1m\002➤ \001\e[0m"));
 	if (u_len == 0)
 		r = stick_color(ft_join(ft_strdup(""), r),
 				ft_strdup("\001\033[37;1m\002"));

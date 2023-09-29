@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 20:33:39 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:29:45 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,5 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 		restore_stdin(&redirections);
 	if (redir_out_bool)
 		restore_stdout(redirections.stdout_save, redirections.file_out_fd);
-	if (!cmdopt->is_child)
-		ft_printf(STDERR_FILENO, "\n");
 	return (1);
 }
