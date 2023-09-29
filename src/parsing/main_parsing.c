@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/29 19:37:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 19:48:57 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,11 @@ t_list	*get_tokens(char *input)
 	return (list);
 }
 
-void	free_backwards(char **tab, int i)
-{
-	while (--i >= 0)
-		free(tab[i]);
-	free(tab);
-}
-
 void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 {
 	t_list	*list;
 	t_list	*temp_list;
 	char	*input;
-	int		i;
 
 	input = ft_strdup(tmp);
 	if (!input)
@@ -96,18 +88,7 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
 	if (!cmdopt->opt_ty_tb.type)
 		return (ft_lstclear(&list), malloc_failure());
-	i = 0;
-	while (temp_list->next)
-	{
-		cmdopt->opt_ty_tb.tab[i] = ft_strdup(temp_list->content);
-		if (!cmdopt->opt_ty_tb.tab[i])
-			return (free(cmdopt->opt_ty_tb.type), malloc_failure());
-		cmdopt->opt_ty_tb.type[i] = temp_list->type;
-		temp_list = temp_list->next;
-		i++;
-	}
-	cmdopt->opt_ty_tb.tab[i] = NULL;
-	cmdopt->opt_ty_tb.type[i] = '\0';
+	fill_cmdopt(cmdopt, temp_list);
 	ft_lstclear(&list);
 	free(input);
 }

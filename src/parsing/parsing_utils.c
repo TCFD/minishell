@@ -6,19 +6,11 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 19:33:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 19:54:58 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	what_case_equal_c(char c, char c2)
-{
-	if ((c == SIMPLE_Q && c2 == SIMPLE_Q)
-		|| (c == DOUBLE_Q && c2 == DOUBLE_Q))
-		return (1);
-	return (0);
-}
 
 // IS PATH UNSET
 char	*is_path_unset(char *command_name, int imd_return)
@@ -89,6 +81,28 @@ char	*create_path(char *command_name, int imd_return)
 	return (is_path_unset(strdup_cmd, imd_return));
 }
 
+int	print_err_msg(char **t, int i, int what_case)
+{
+	if (what_case == 1)
+	{
+		return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
+				" near unexpected token '%s'\n", t[i + 1]));
+	}
+	if (what_case == 2)
+	{
+		return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
+				" near unexpected token 'newline'\n"));
+	}
+	if (what_case == 3)
+	{
+		return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
+				" near unexpected token '|'\n"));
+	}
+	if (t[i + 1])
+		return (print_err_msg(t, i, 1));
+	return (print_err_msg(t, i, 2));
+}
+
 int	check_valid_file_name(char **t, char *type)
 {
 	int	i;
@@ -105,20 +119,12 @@ int	check_valid_file_name(char **t, char *type)
 					|| ft_strnstr(t[i + 1], S_R_RAFTER, ft_strlen(t[i + 1]))
 					|| ft_strnstr(t[i + 1], PIPE, ft_strlen(t[i + 1])))
 				&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
-			{
-				if (t[i + 1])
-					return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
-							" near unexpected token '%s'\n", t[i + 1]));
-				return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
-						" near unexpected token 'newline'\n"));
-			}
+				return (print_err_msg(t, i, 0));
 		}
 		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i])))
 		{
 			if (!t[i + 1] || i == 0 || !t[i - 1])
-				return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
-						" near unexpected token '|'\n"));
-					
+				return (print_err_msg(t, i, 3));
 		}
 	}
 	return (0);

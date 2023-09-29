@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 18:19:29 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:08:19 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ int	export_name_unvalid(char *var)
 }
 
 // EXPORT VAR
-void	export_var(char *var, bool update_g)
+void	export_var(char *var, bool update_g, char **env)
 {
 	char	**split_name;
-	char	**env;
 	int		idx_var;
 
 	if (export_name_unvalid(var))
@@ -47,11 +46,12 @@ void	export_var(char *var, bool update_g)
 		return ;
 	split_name = ft_split(var, '=');
 	idx_var = ft_getenv_int(split_name[0]);
-	env = get_env();
 	if (idx_var != -1)
 	{
 		free(env[idx_var]);
 		env[idx_var] = ft_strdup(var);
+		if (!env[idx_var])
+			return (free_d_array(split_name), malloc_failure());
 		update_env(env);
 	}
 	else
@@ -79,6 +79,6 @@ void	export_all_var(t_cmd_and_opt *cmdopt)
 		return ((void)update_err_code(0));
 	}
 	while (cmdopt->opt_ty_tb.tab[++idx])
-		export_var(cmdopt->opt_ty_tb.tab[idx], true);
+		export_var(cmdopt->opt_ty_tb.tab[idx], true, get_env());
 	verif_env_and_path(cmdopt);
 }

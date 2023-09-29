@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:31:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 13:32:04 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 20:07:16 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	one_time_animation_start(void)
 		if (get_fix_env_detection() != 1)
 		{
 			welcome_to_minishell();
-			export_var("ANIM_=1", false);
+			export_var("ANIM_=1", false, get_env());
 		}
 	}
 	else

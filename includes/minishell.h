@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 16:35:19 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 20:06:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ void			write_env_pwd(char *pwd);
 void			ft_exit(int code, bool msg);
 void			update_err_code_exit(char *origin_code, int code_err);
 void			exit_prg(char *code_err);
-void			export_var(char *var, bool update_g);
+void			export_var(char *var, bool update_g, char **env);
 void			export_all_var(t_cmd_and_opt *cmdopt);
 void			verif_env_and_path(t_cmd_and_opt *cmdopt);
 void			rebuild_env(void);
@@ -319,7 +319,7 @@ void			case_2(t_separators *sep, char **content, char *input);
 void			case_3(t_separators *sep, char **content, char *input);
 void			case_4(t_separators *sep, char **content, char *s1);
 void			case_5(t_separators *sep, char **content, char *s1);
-
+void			fill_cmdopt(t_cmd_and_opt *cmdopt, t_list *temp_list);
 /* 
 
 	[---------| int |---------]
@@ -390,15 +390,15 @@ int				lst_add(t_list **list, char **content, char type);
 int				d_t_case_loop(char **split_tab, char *input,
 					t_dollar *dollar, t_list **list);
 int				case_2_or_3(t_separators *sep, char **content, char *input,
-						t_list **list);
+					t_list **list);
 int				case_4_or_5(t_separators *sep, char **content,
-						char *s1, t_list **list);
+					char *s1, t_list **list);
 int				case_4_5_part_2(t_separators *sep, char **content, char *input,
-						t_list **list);
+					t_list **list);
 int				final_case(t_separators *sep, char **content, char *input,
-						t_list **list);
+					t_list **list);
 int				i_dont_like_norme(char **ct, t_separators *sep, char *input,
-						t_list **list);
+					t_list **list);
 /*
 
 	[---------| bool |---------]

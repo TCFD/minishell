@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:03:52 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/29 20:07:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	rebuild_env(void)
 
 	pwd_print = get_pwd();
 	pwd = ft_join(ft_strdup("PWD="), pwd_print);
-	export_var(pwd, true);
-	export_var("SHLVL=0", true);
-	export_var("_=/usr/bin/env", true);
+	export_var(pwd, true, get_env());
+	export_var("SHLVL=0", true, get_env());
+	export_var("_=/usr/bin/env", true, get_env());
 	return ;
 }
 

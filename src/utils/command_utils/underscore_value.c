@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   underscore_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:54:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:31:11 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/29 20:06:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g)
 	else
 		last_cmd = "";
 	var = ft_join(ft_strdup("_="), ft_strdup(last_cmd));
-	export_var(var, update_g);
+	export_var(var, update_g, get_env());
 	free(var);
 	return ;
 }
@@ -38,7 +38,7 @@ void	change_underscore_value_void(bool update_g)
 	char		*var;
 
 	var = ft_join(ft_strdup("_="), ft_strdup(""));
-	export_var(var, update_g);
+	export_var(var, update_g, get_env());
 	free(var);
 	return ;
 }

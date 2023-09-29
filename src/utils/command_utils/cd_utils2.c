@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:56:59 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/23 00:03:41 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/29 20:06:57 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char	*join_by_value(char *var_name, char *value)
 void	write_env_oldpwd(char *oldpwd)
 {
 	update_env_oldpwd(oldpwd);
-	export_var(get_env_oldpwd(), true);
+	export_var(get_env_oldpwd(), true, get_env());
 }
 
 void	write_env_pwd(char *pwd)
 {
 	update_env_pwd(pwd);
-	export_var(get_env_pwd(), true);
+	export_var(get_env_pwd(), true, get_env());
 }
