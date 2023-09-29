@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   childs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:07:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 19:07:25 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/30 00:47:40 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	first_child(t_pipe *pipe_s)
 
 	pipe_s->pid[0] = fork();
 	if (pipe_s->pid[0] < 0)
-		return (ft_printf(2, "Minishell: fork error\n"), ft_exit(errno, true));
+		return (free_pipe(pipe_s), malloc_failure());
 	if (pipe_s->pid[0] == 0)
 	{
 		dup2(pipe_s->pipe_fd[0][1], STDOUT_FILENO);
@@ -42,7 +42,7 @@ void	n_child(t_pipe *pipe_s, int *i)
 	{
 		pipe_s->pid[*i] = fork();
 		if (pipe_s->pid[*i] < 0)
-			return (perror(NULL));
+			return (free_pipe(pipe_s), malloc_failure());
 		if (pipe_s->pid[*i] == 0)
 		{
 			dup2(pipe_s->pipe_fd[*i - 1][0], STDIN_FILENO);
@@ -78,7 +78,7 @@ void	last_child(t_pipe *pipe_s, int *i)
 {
 	pipe_s->pid[*i] = fork();
 	if (pipe_s->pid[*i] < 0)
-		return (perror(NULL));
+		return (free_pipe(pipe_s), malloc_failure());
 	if (pipe_s->pid[*i] == 0)
 	{
 		dup2(pipe_s->pipe_fd[*i - 1][0], STDIN_FILENO);

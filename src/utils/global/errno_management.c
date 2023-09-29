@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errno_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:44:30 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/27 13:41:43 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/30 00:59:48 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	exit_code(int code)
 	if (pid < 0)
 		return (perror("exit_code"), EXIT_FAILURE);
 	if (pid == 0)
-		exit(code);
+		ft_exit(code, false);
 	waitpid(pid, &status, 0);
 	if (WEXITSTATUS(status))
 		return (WEXITSTATUS(status));

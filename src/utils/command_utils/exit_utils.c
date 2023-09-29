@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/29 19:58:51 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/30 01:24:26 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_exit(int code, bool msg)
 	if (msg)
 	{
 		ft_printf(STDOUT_FILENO, "exit\n");
-		//one_time_animation_end();
+		one_time_animation_end();
 	}
 	update_pwd(NULL);
 	free(get_env_pwd());

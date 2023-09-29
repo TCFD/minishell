@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/27 13:51:08 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/30 01:03:05 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ void	redo_path_and_name(t_cmd_and_opt *cmd)
 	free(cmd->command_path);
 	if (cmd->path_unset == 0 && !ft_getenv("PATH"))
 	{
-		cmd->command_name = create_path(ft_strdup(cmd->opt_ty_tb.tab[0]), 0);
+		cmd->command_name = create_path(cmd->opt_ty_tb.tab[0], 0);
 		cmd->command_path = ft_cpy(cmd->command_name, 0);
 	}
 	else
 	{
 		cmd->command_name = ft_strdup(cmd->opt_ty_tb.tab[0]);
-		cmd->command_path = create_path(ft_strdup(cmd->opt_ty_tb.tab[0]), 1);
+		cmd->command_path = create_path(cmd->opt_ty_tb.tab[0], 1);
 	}
 }
 

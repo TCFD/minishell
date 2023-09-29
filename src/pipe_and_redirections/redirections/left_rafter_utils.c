@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/28 14:32:10 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/30 01:11:29 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	else
 		*redir_bool = true;
 	redir->list = NULL;
+	redir->random_adress = NULL;
 	if (remove_in_redirections(cmdopt->opt_ty_tb.tab,
 			cmdopt->opt_ty_tb.type, redir, -1) == 0)
 		return (ft_lstclear(&redir->list), 0);

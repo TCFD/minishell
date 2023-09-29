@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 19:10:29 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/30 00:59:22 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old, int st, int end)
 	new->opt_ty_tb.tab[j] = NULL;
 	new->opt_ty_tb.type[j] = '\0';
 	new->command_name = ft_strdup(new->opt_ty_tb.tab[0]);
-	new->command_path = create_path(ft_strdup(new->opt_ty_tb.tab[0]), 1);
+	new->command_path = create_path(new->opt_ty_tb.tab[0], 1);
 	new->is_child = true;
 }
 
@@ -102,7 +102,7 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	i = -1;
 	while (++i < pipe_s.nb_of_forks)
 		waitpid(pipe_s.pid[i], &status, 0);
-	i -= 1;
+	free_pipe(&pipe_s);
 	if (WIFEXITED(status))
 	{
 		errno = WEXITSTATUS(status);
@@ -111,5 +111,4 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	else if (WIFSIGNALED(status))
 		update_err_code_pipe(WIFSIGNALED(status),
 			true);
-	free_pipe(&pipe_s);
 }
