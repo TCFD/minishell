@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 14:41:48 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 14:55:53 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,16 @@ char	*replace_dollar(char what_case, char *content, int i, t_list **list)
 		return (malloc_failure(), NULL);
 	content = ft_substr(dollar.tmp_dup, 0, dollar.start);
 	if (!content)
-		return (free_dollar(&dollar), "1");
+		return (free_dollar(&dollar), malloc_failure(), NULL);
 	if (what_case != DOUBLE_Q && ft_strchr(dollar.env_var, ' '))
 		return (d_t_case(content, list, &dollar));
 	if (dollar.env_var[0])
 	{
 		content = ft_join_strdup_right(content, dollar.env_var);
 		if (!content)
-			return (free_dollar(&dollar), "1");
+			return (free_dollar(&dollar), malloc_failure(), NULL);
 	}
 	if (!replace_dollar_2(&dollar, &content, list))
-		return ("1");
+		return (malloc_failure(), NULL);
 	return (free_dollar(&dollar), content);
 }

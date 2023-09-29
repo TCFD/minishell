@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   case_for_parsing2.c                                :+:      :+:    :+:   */
+/*   cases_for_parsing2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:31:27 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 12:35:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 14:56:42 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ int	i_dont_like_norme(char **ct, t_separators *sep, char *input, t_list **list)
 	if (!(*ct))
 		return (0);
 	if (sep->what_case != SIMPLE_Q)
-	{
 		*ct = replace_dollar(sep->what_case, *ct, sep->tmp_i, list);
-		if (!(*ct))
-			return (0);
-	}
 	return (1);
 }

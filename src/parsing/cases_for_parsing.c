@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 14:31:22 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 14:56:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ int	case_1(t_separators *sep, char **content, char *input, t_list **list)
 		return (0);
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
-	{
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-		if (!(*content))
-			return (0);
-	}
 	if (*content)
 	{
 		if (!lst_add(list, content, SPACE))
@@ -47,11 +43,7 @@ int	case_2_or_3(t_separators *sep, char **content, char *input,
 	if (!(*content))
 		return (0);
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
-	{
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-		if (*content )
-			return (0);
-	}
 	if (!check_if_ifs(input[sep->i]) && input[sep->i])
 	{
 		if (!case_4_or_5(sep, content, input, list))
@@ -76,11 +68,7 @@ int	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 	if (!(*content))
 		return (0);
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
-	{
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-		if (!(*content))
-			return (0);
-	}	
 	if (s1[sep->i] && !check_if_ifs(s1[sep->i]))
 		case_4_5_part_2(sep, content, s1, list);
 	return (1);
@@ -123,11 +111,7 @@ int	final_case(t_separators *sep, char **content, char *input,
 		return (0);
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
-	{
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-		if(!(*content))
-			return (0);
-	}
 	if (*content)
 	{
 		if (!lst_add(list, content, SPACE))
