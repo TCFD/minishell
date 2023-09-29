@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:48:48 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/07 16:13:44 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/29 18:18:26 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 int	ft_atoi(const char *nptr)
 {
@@ -17,6 +19,8 @@ int	ft_atoi(const char *nptr)
 	int	s;
 
 	i = 0;
+	if (!nptr)
+		return (malloc_failure(), 1);
 	while (nptr[i] == ' ' || (nptr[i] >= 7 && nptr[i] <= 13))
 		i++ ;
 	res = 0;
