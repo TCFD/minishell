@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/29 17:58:49 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 18:52:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 {
-	if (!input[0])
+	if (!input || !input[0])
 		return ;
 	if (!check_correct_quotes(input))
 		return ((void)(ft_printf(2, "Minishell : incorect quotes.\n")));
@@ -126,16 +126,18 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		if (!ft_getenv("PATH"))
 		{
 			cmdopt->command_name = create_path
-				(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 0);
+				(cmdopt->opt_ty_tb.tab[0], 0);
 			cmdopt->command_path = ft_cpy(cmdopt->command_name, 0);
 			return ;
 		}
 		update_env_detection(0);
 	}
 	cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
+	if (!cmdopt->command_name)
+		return (free_cmdopt(cmdopt), malloc_failure());
 	if (cmdopt->command_name[0])
 		cmdopt->command_path = create_path
-			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
+			(cmdopt->opt_ty_tb.tab[0], 1);
 	else
 		cmdopt->command_path = NULL;
 }

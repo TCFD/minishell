@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:30:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 18:42:17 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,14 @@ int	does_command_path_valid(char *cmd)
 // CREATE PATH
 char	*create_path(char *command_name, int imd_return)
 {
-	if (ft_strchr(command_name, '/'))
-		return (command_name);
-	return (is_path_unset(command_name, imd_return));
+	char	*strdup_cmd;
+
+	strdup_cmd = ft_strdup(command_name);
+	if (!strdup_cmd)
+		return (malloc_failure(), NULL);
+	if (ft_strchr(strdup_cmd, '/'))
+		return (strdup_cmd);
+	return (is_path_unset(strdup_cmd, imd_return));
 }
 
 int	check_valid_file_name(char **t, char *type)
