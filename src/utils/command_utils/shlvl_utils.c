@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:54:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:04:36 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/29 18:22:57 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	env_var_minus_one(char *env_var)
 	if (!shlvl)
 		return ;
 	join_it = ft_join(ft_join(ft_strdup(env_var), ft_strdup("=")), shlvl);
+	if (!join_it)
+		return (malloc_failure());
 	export_var(join_it, false);
 	free(join_it);
 }

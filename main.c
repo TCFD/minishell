@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 14:07:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:40:12 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **ag, char **env)
 		ft_printf(2, "\n\tRead minishell man. End of program.\n");
 		return (1);
 	}
- 	signal(SIGINT, sig_handler);
+	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");

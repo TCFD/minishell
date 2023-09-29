@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:46:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 14:01:12 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 19:57:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,10 @@ void	malloc_failure(void)
 {
 	perror("Critical error: (malloc probably failed)");
 	ft_exit(EXIT_FAILURE, true);
+}
+
+void	free_dollar(t_dollar *dollar)
+{
+	free(dollar->tmp_dup);
+	free(dollar->env_var);
 }
