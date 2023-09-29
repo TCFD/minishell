@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   childs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:07:23 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 13:41:32 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:07:25 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ void	check_first_exit_arg(t_pipe *pipe_s, t_cmd_and_opt *cmdopt)
 	char	**tab;
 
 	tab = cmdopt->opt_ty_tb.tab;
-	if (d_len(tab) >= 2 && is_digit(tab[1]))
+	if (d_len(tab) == 2 && is_digit(tab[1]))
 		return (ft_exit_pipex(pipe_s,
 				ft_atoi(tab[1]) % 256, false));
+	if (d_len(tab) > 2 && is_digit(tab[1]))
+		return (ft_exit_pipex(pipe_s, 1, false));
 	else if (d_len(tab) == 1)
 		return (ft_exit_pipex(pipe_s, 0, false));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:14:17 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 11:59:59 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:10:29 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	t_pipe			pipe_s;
 	int				i;
 	int				status;
-	char			**tab;
 
 	launch_heredoc(cmdopt);
 	init_pipex(&pipe_s, cmdopt);
@@ -104,14 +103,13 @@ void	launch_pipex(t_cmd_and_opt *cmdopt)
 	while (++i < pipe_s.nb_of_forks)
 		waitpid(pipe_s.pid[i], &status, 0);
 	i -= 1;
-	tab = pipe_s.cmdopt_tab[i]->opt_ty_tb.tab;
 	if (WIFEXITED(status))
 	{
 		errno = WEXITSTATUS(status);
-		update_err_code(errno);
+		update_err_code_pipe(errno, true);
 	}
 	else if (WIFSIGNALED(status))
-		update_err_code(verif_signal
-			(status, tab[0]));
+		update_err_code_pipe(WIFSIGNALED(status),
+			true);
 	free_pipe(&pipe_s);
 }
