@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 14:56:33 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:34:42 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 	sep->tmp_i = ft_strlen(*content);
 	set_separator(sep, s1);
 	if ((sep->w_string < sep->s_string) || check_if_ifs(sep->separator))
-		case_4(sep, content, s1);
+		case_4(sep, content5bce4080be9bc01e85fd81b1c41c668c4900c645, s1);
 	else if (sep->w_string == sep->s_string)
 		case_5(sep, content, s1);
 	if (!(*content))

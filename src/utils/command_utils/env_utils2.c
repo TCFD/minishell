@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/23 00:03:52 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/28 21:58:08 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ char	*get_env_var(char *var_name)
 		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0)
 		{
 			split_one = ft_split(env[idx], '=');
+			if (!split_one)
+				return (malloc_fail(), NULL);
 			final = ft_strdup(split_one[1]);
+			if (!final)
+				return (free_d_array(split_one), malloc_fail(), NULL);
 			return (free_d_array(split_one), final);
 		}
 		idx++ ;

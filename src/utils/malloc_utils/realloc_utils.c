@@ -6,7 +6,7 @@
 /*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/09/28 21:56:35 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ char	**double_a_realloc(char **array, char *new_elmt)
 	}
 	idx = -1;
 	while (++idx < len)
+	{
 		new_one[idx] = ft_strdup(array[idx]);
+		if (!new_one[idx])
+			return (malloc_fail(), NULL);
+	}
 	new_one[idx] = new_elmt;
 	new_one[idx + 1] = NULL;
 	free_d_array(array);

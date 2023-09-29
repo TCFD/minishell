@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:35:49 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/26 14:36:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:56:52 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	cmd_exist(t_cmd_and_opt *cmdopt)
 {
 	free(cmdopt->opt_ty_tb.tab[0]);
 	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
+	if (!cmdopt->opt_ty_tb.tab[0])
+		return (free_cmdopt(cmdopt), malloc_fail(), 1);
 	if (!go_to_cmd(cmdopt))
 		return (0);
 	return (1);

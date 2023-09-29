@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/28 21:08:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 14:39:52 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ t_list	*get_tokens(char *input)
 
 	list = ft_lstnew("", '\0');
 	if (!list)
-		return (free(input), malloc_failure(), NULL);
+		return (free(input), malloc_fail(), NULL);
 	tmp = list;
 	i = 0;
 	while (input[i] == SPACE)
 		i += 1;
 	if (!all_tokens(input, tmp, i, ft_strlen(input)))
-		return (ft_lstclear(&list), free(input), malloc_failure(), NULL);
+		return (ft_lstclear(&list), free(input), malloc_fail(), NULL);
 	return (list);
 }
 
@@ -80,15 +80,21 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 
 	input = ft_strdup(tmp);
 	if (!input)
-		malloc_failure();
+		malloc_fail();
 	list = get_tokens(input);
 	temp_list = list;
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
+	if (!cmdopt->opt_ty_tb.tab)
+		return (free_cmdopt(cmdopt), malloc_fail());
 	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
+	if (!cmdopt->opt_ty_tb.type)
+		return (free_cmdopt(cmdopt), malloc_fail());
 	i = 0;
 	while (temp_list->next)
 	{
 		cmdopt->opt_ty_tb.tab[i] = ft_strdup(temp_list->content);
+		if (!cmdopt->opt_ty_tb.tab[i])
+			return (free_cmdopt(cmdopt), malloc_fail());
 		cmdopt->opt_ty_tb.type[i] = temp_list->type;
 		temp_list = temp_list->next;
 		i++;
@@ -120,6 +126,8 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		update_env_detection(0);
 	}
 	cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
+	if (!cmdopt->command_name)
+		return (free_cmdopt(cmdopt), malloc_fail());
 	if (cmdopt->command_name[0])
 		cmdopt->command_path = create_path
 			(ft_strdup(cmdopt->opt_ty_tb.tab[0]), 1);
