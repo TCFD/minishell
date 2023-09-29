@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 18:42:17 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:33:11 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,13 @@ int	check_valid_file_name(char **t, char *type)
 				return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
 						" near unexpected token 'newline'\n"));
 			}
+		}
+		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i])))
+		{
+			if (!t[i + 1] || i == 0 || !t[i - 1])
+				return (ft_printf(STDERR_FILENO, "Minishell : syntax error"
+						" near unexpected token '|'\n"));
+					
 		}
 	}
 	return (0);

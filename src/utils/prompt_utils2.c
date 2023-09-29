@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 18:10:56 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:43:16 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ char	*build_prompt(int u_len, char *builded_username, char *building_result)
 	else
 		r = ft_join_strdup_right(r, "\001\e[31;1m\002➤ \001\e[0m");
 	if (u_len == 0)
-		r = stick_color(ft_join_strdup_left("", r), ft_join_strdup("\001\033[37;1m", "\002"));
+		r = stick_color(ft_join_strdup_left("", r),
+				ft_join_strdup("\001\033[37;1m", "\002"));
 	else
-		r = stick_color(ft_join_strdup_left("~", r), ft_join_strdup("\001\033[37;1m", "\002"));
+		r = stick_color(ft_join_strdup_left("~", r),
+				ft_join_strdup("\001\033[37;1m", "\002"));
 	r = ft_join_no_strdup(builded_username, r);
 	return (r);
 }
