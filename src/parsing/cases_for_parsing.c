@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 14:39:58 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:47:00 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,6 @@ int	case_1(t_separators *sep, char **content, char *input, t_list **list)
 	return (1);
 }
 
-void	case_2(t_separators *sep, char **content, char *input)
-{
-	sep->i += 1;
-	*content = ft_substr(input + sep->i, 0,
-			ft_strchr(input + sep->i, sep->what_case) - (input + sep->i));
-	sep->i += ft_strlen(*content) + 1;
-}
-
-void	case_3(t_separators *sep, char **content, char *input)
-{
-	*content = ft_substr(input + sep->i, 0,
-			ft_strchr(input + sep->i, sep->what_case) - (input + sep->i));
-	sep->i += ft_strlen(*content);
-	sep->what_case = 0;
-}
-
 int	case_2_or_3(t_separators *sep, char **content, char *input,
 	t_list **list)
 {
@@ -65,7 +49,7 @@ int	case_2_or_3(t_separators *sep, char **content, char *input,
 	if (sep->what_case != '\'' || (sep->what_case == '\'' && sep->w_string > 0))
 	{
 		*content = replace_dollar(sep->what_case, *content, 0, list);
-		if (!(*content))
+		if (*content )
 			return (0);
 	}
 	if (!check_if_ifs(input[sep->i]) && input[sep->i])
@@ -81,33 +65,12 @@ int	case_2_or_3(t_separators *sep, char **content, char *input,
 	return (1);
 }
 
-void	case_4(t_separators *sep, char **content, char *s1)
-{
-	if (what_case_equal_c(sep->what_case, s1[sep->i]))
-	{
-		sep->i += 1;
-		sep->in_quote = true;
-	}
-	*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
-				ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i)));
-	sep->i += ft_strchr(s1 + sep->i, sep->what_case) - (s1 + sep->i);
-	if (what_case_equal_c(sep->what_case, s1[sep->i]) && sep->in_quote)
-		sep->i += 1;
-}
-
-void	case_5(t_separators *sep, char **content, char *s1)
-{
-	*content = ft_join(*content, ft_substr(s1 + sep->i, 0,
-				ft_strlen(s1 + sep->i)));
-	sep->i += ft_strlen(s1 + sep->i);
-}
-
 int	case_4_or_5(t_separators *sep, char **content, char *s1, t_list **list)
 {
 	sep->tmp_i = ft_strlen(*content);
 	set_separator(sep, s1);
 	if ((sep->w_string < sep->s_string) || check_if_ifs(sep->separator))
-		case_4(sep, content, s1);
+		case_4(sep, content5bce4080be9bc01e85fd81b1c41c668c4900c645, s1);
 	else if (sep->w_string == sep->s_string)
 		case_5(sep, content, s1);
 	if (!(*content))
@@ -142,10 +105,8 @@ int	case_4_5_part_2(t_separators *sep, char **ct,
 		if (sep->w_string < 0)
 			sep->w_string = ft_strlen(input + sep->i);
 		sep->tmp_i = ft_strlen(*ct);
-		*ct = ft_join(*ct,
-				ft_substr(input + sep->i, 0, sep->w_string));
-		if (sep->what_case != SIMPLE_Q)
-			*ct = replace_dollar(sep->what_case, *ct, sep->tmp_i, list);
+		if (!i_dont_like_norme(ct, sep, input, list))
+			return (0);
 		sep->i += sep->w_string;
 		if (what_case_equal_c(sep->what_case, input[sep->i]) && sep->in_quote)
 			sep->i += 1;
@@ -158,12 +119,19 @@ int	final_case(t_separators *sep, char **content, char *input,
 	t_list **list)
 {
 	*content = ft_substr(input + sep->i, 0, sep->w_string);
-	if (!*content)
-		return ;
+	if (!(*content))
+		return (0);
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
+	{
 		*content = replace_dollar(sep->what_case, *content, 0, list);
+		if(!(*content))
+			return (0);
+	}
 	if (*content)
-		lst_add(list, content, SPACE);
+	{
+		if (!lst_add(list, content, SPACE))
+			return (0);
+	}
 	return (1);
 }

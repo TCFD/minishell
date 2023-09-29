@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 14:40:45 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:47:23 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,6 +315,11 @@ void			check_sign_return(int minishell_call);
 void			check_exit(t_cmd_and_opt *cmdopt);
 void			malloc_failure(void);
 void			free_dollar(t_dollar *dollar);
+void			case_2(t_separators *sep, char **content, char *input);
+void			case_3(t_separators *sep, char **content, char *input);
+void			case_4(t_separators *sep, char **content, char *s1);
+void			case_5(t_separators *sep, char **content, char *s1);
+
 /* 
 
 	[---------| int |---------]
@@ -391,6 +396,8 @@ int				case_4_or_5(t_separators *sep, char **content,
 int				case_4_5_part_2(t_separators *sep, char **content, char *input,
 						t_list **list);
 int				final_case(t_separators *sep, char **content, char *input,
+						t_list **list);
+int				i_dont_like_norme(char **ct, t_separators *sep, char *input,
 						t_list **list);
 /*
 
