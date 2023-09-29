@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_fail_version_beta.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:39:59 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 20:30:18 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 14:41:01 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_join_no_strdup(char *s1, char *s2)
 {
 	char	*str;
 
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
 	str = ft_join(s1, s2);
 	if (!str)
 		return (ft_exit(EXIT_FAILURE, false), NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:30:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 19:42:42 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ char	*is_path_unset(char *command_name, int imd_return)
 	idx = -1;
 	while (++idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
-		path2 = ft_join(path, ft_strdup(command_name));
+		path = ft_join_strdup(path_split[idx], "/");
+		path2 = ft_join_strdup_right(path, command_name);
+		if (!path2)
+			return (free(command_name), free_d_array(path_split), malloc_fail(), NULL);
 		if (access(path2, F_OK | X_OK) == 0)
 			return ((free_d_array(path_split)), free(command_name), path2);
 		free(path2);
 	}
-	free_d_array(path_split);
-	return (command_name);
+	return (free_d_array(path_split), command_name);
 }
 
 // DOES COMMAND PATH VALID
@@ -65,15 +66,16 @@ int	does_command_path_valid(char *cmd)
 	idx = 0;
 	while (idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
-		path2 = ft_join(path, ft_strdup(cmd));
+		path = ft_join_strdup(path_split[idx], "/");
+		path2 = ft_join_strdup_right(path, cmd);
+		if (!path2)
+			return (free(cmd), free_d_array(path_split), malloc_fail(), 1);
 		if (access(path2, F_OK | X_OK) == 0)
 			return ((free(cmd)), (free_d_array(path_split), free(path2)), 1);
 		free(path2);
 		idx++ ;
 	}
-	free_d_array(path_split);
-	return (0);
+	return (free_d_array(path_split), 0);
 }
 
 // CREATE PATH

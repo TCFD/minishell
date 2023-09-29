@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   others_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/26 18:21:37 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:11:18 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,28 @@ int	check_if_ifs(char c)
 	return (loop_it(cmdopt, input, i));
 }
 */
+
+char	*ft_join(char *s1, char *s2)
+{
+	char	*new_str;
+	int		idx_count;
+	int		s1_len;
+
+
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	s1_len = ft_len(s1);
+	new_str = malloc((s1_len + ft_len(s2) + 1) * sizeof(char));
+	if (!new_str)
+		return (free(s1), free(s2), NULL);
+	idx_count = -1;
+	while (++idx_count < s1_len)
+		new_str[idx_count] = s1[idx_count];
+	idx_count = -1;
+	while (++idx_count < ft_len(s2))
+		new_str[idx_count + s1_len] = s2[idx_count];
+	new_str[idx_count + s1_len] = '\0';
+	return ((free(s1), free(s2)), new_str);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/28 20:41:03 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 14:40:45 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,6 @@ void			check_sign_return(int minishell_call);
 void			check_exit(t_cmd_and_opt *cmdopt);
 void			malloc_failure(void);
 void			free_dollar(t_dollar *dollar);
-
 /* 
 
 	[---------| int |---------]

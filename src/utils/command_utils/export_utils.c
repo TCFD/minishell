@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:32:12 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/28 22:24:45 by wolf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 int	export_name_unvalid(char *var)
 {
 	int	i;
+
+	if (!var)
+		return (malloc_fail(), 1);
 
 	if (ft_atoi(var) == 0 && var[0] == '0')
 		return (1);
@@ -46,6 +49,8 @@ void	export_var(char *var, bool update_g)
 	if (!ft_strchr(var, '='))
 		return ;
 	split_name = ft_split(var, '=');
+	if (!split_name)
+		return (malloc_fail());
 	idx_var = ft_getenv_int(split_name[0]);
 	env = get_env();
 	if (idx_var != -1)
@@ -55,7 +60,12 @@ void	export_var(char *var, bool update_g)
 		update_env(env);
 	}
 	else
-		update_env(double_a_realloc(env, ft_strdup(var)));
+	{
+		var = ft_strdup(var);
+		if (!var)
+			return (malloc_fail());
+		update_env(double_a_realloc(env, var));
+	}
 	free_d_array(split_name);
 	if (update_g == true)
 		update_err_code(0);
