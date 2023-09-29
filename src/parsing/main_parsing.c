@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/29 17:51:06 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:58:49 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	temp_list = list;
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
 	if (!cmdopt->opt_ty_tb.tab)
-		return (ft_lstclear(&list), malloc_failure);
+		return (ft_lstclear(&list), malloc_failure());
 	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
 	if (!cmdopt->opt_ty_tb.type)
-		return (ft_lstclear(&list), malloc_failure);
+		return (ft_lstclear(&list), malloc_failure());
 	i = 0;
 	while (temp_list->next)
 	{
