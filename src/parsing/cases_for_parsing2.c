@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_for_parsing2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:31:27 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 19:48:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/01 18:43:14 by zbp15            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	case_3(t_separators *sep, char **content, char *input)
 	*content = ft_substr(input + sep->i, 0,
 			ft_strchr(input + sep->i, sep->what_case) - (input + sep->i));
 	sep->i += ft_strlen(*content);
+	if (content[0][ft_strlen(*content) - 1] == '$'
+		&& input[sep->i] == sep->what_case)
+		content[0][ft_strlen(*content) - 1] = '\0';
 	sep->what_case = 0;
 }
 
@@ -56,6 +59,9 @@ int	i_dont_like_norme(char **ct, t_separators *sep, char *input, t_list **list)
 	tmp = ft_substr(input + sep->i, 0, sep->w_string);
 	if (!tmp)
 		return (0);
+	if (tmp[ft_strlen(tmp) - 1] == '$'
+		&& input[sep->i + ft_strlen(tmp)] == sep->what_case)
+		tmp[ft_strlen(tmp) - 1] = '\0';
 	*ct = ft_join(*ct, tmp);
 	if (!(*ct))
 		return (0);
