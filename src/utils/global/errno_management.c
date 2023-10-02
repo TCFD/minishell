@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errno_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:44:30 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/30 00:59:48 by raphael          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:33:21 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void	update_err_code(int code_err)
 		g_error_code = 0;
 	else
 		g_error_code = code_err;
+}
+
+void	update_err_code_force(int code_err, bool force)
+{
+	if (force)
+	{
+		g_error_code = code_err;
+		return ;
+	}
+	return (update_err_code(code_err));
 }
 
 int	exit_code(int code)

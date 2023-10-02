@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:32:19 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 11:07:48 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:55:21 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	is_digit(char *potential_digits)
 	int	idx;
 
 	idx = 0;
-	if (potential_digits[idx] == '-')
+	if (potential_digits[idx] == '-'
+		|| potential_digits[idx] == '+')
 		idx++ ;
 	while (potential_digits[idx] >= 48
 		&& potential_digits[idx] <= 57)
