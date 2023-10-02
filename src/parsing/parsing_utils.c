@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 16:02:30 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/02 20:53:49 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	check_valid_file_name(char **t, char *type)
 				return (print_err_msg(t, i, 0));
 		}
 		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i]))
-				&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
+			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 		{
 			if (!t[i + 1] || i == 0 || !t[i - 1])
 				return (print_err_msg(t, i, 3));

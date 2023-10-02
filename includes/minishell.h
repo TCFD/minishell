@@ -6,31 +6,31 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 15:33:48 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:34:52 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define RED				"\033[31m"
-# define GREEN				"\033[32m"
-# define YELLOW				"\033[33m"
-# define BLUE				"\033[34m"
-# define PURPLE				"\033[35m"
-# define WHITE				"\033[37m"
+# define RED				"\001\e[31m\002"
+# define GREEN				"\001\e[92m\002"
+# define YELLOW				"\001\e[33m\002"
+# define BLUE				"\001\e[96m\002"
+# define PURPLE				"\001\e[35m\002"
+# define WHITE				"\001\e[37m\002"
 
-# define RED_1				"\033[31;1m"
-# define GREEN_1			"\033[32;1m"
-# define YELLOW_1			"\033[33;1m"
-# define BLUE_1				"\033[34;1m"
-# define PURPLE_1			"\033[35;1m"
-# define WHITE_1			"\033[37;1m"
+# define RED_1				"\001\e[31;1m\002"
+# define GREEN_1			"\001\e[32;1m\002"
+# define YELLOW_1			"\001\e[33;1m\002"
+# define BLUE_1				"\001\e[96m\002"
+# define PURPLE_1			"\001\e[35;1m\002"
+# define WHITE_1			"\001\e[37;1m\002"
 
 # define ANIM_C				GREEN
 # define CD_C				WHITE_1
 
-# define NC					"\033[0m"
+# define NC					"\001\e[0m\002"
 
 # define SIMPLE_Q			'\''
 # define DOUBLE_Q			'\"'
@@ -214,6 +214,7 @@ char			*ft_join_no_strdup(char *s1, char *s2);
 char			*ft_join_strdup(char *s1, char *s2);
 char			*ft_join_strdup_right(char *s1, char *s2);
 char			*ft_join_strdup_left(char *s1, char *s2);
+char			*build_color(char *c1, char *str, bool dup_str);
 /* 
 	
 	[---------| char |---------]

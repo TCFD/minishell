@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/02 15:49:14 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:35:11 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_exit(int code, bool msg)
 	if (msg)
 	{
 		ft_printf(STDOUT_FILENO, "exit\n");
-		//one_time_animation_end();
+		one_time_animation_end();
 	}
 	update_pwd(NULL);
 	free(get_env_pwd());

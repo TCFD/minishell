@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 18:32:42 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:35:59 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	bf_prd(char *str, int d, char *color)
 		write(1, &str[idx_str], 1);
 		idx_str++ ;
 	}
-	write(1, "\001\e[0m\002", 7);
+	write(1, NC, 7);
 }
 
 void	welcome_to_minishell(void)
@@ -41,19 +41,10 @@ void	welcome_to_minishell(void)
 	bf_prd("\n\n\t>\t~ WELCOME TO MINISHELL ~", ANIME_TIME, ANIM_C);
 	bf_prd("\n\t>", ANIME_TIME, ANIM_C);
 	bf_prd("\n\t>\tMade by : ", ANIME_TIME, ANIM_C);
-	bf_prd("\001\e[3;1m\001tboldrin\001\e[0m\002", ANIME_TIME, users_c);
+	bf_prd("\001\e[3m\001tboldrin\001\e[0m\002", ANIME_TIME, users_c);
 	bf_prd(" && ", ANIME_TIME, ANIM_C);
-	bf_prd("\001\e[3;1m\002rciaze\001\e[0m\002 ", ANIME_TIME, users_c);
+	bf_prd("\001\e[3m\002rciaze\001\e[0m\002 ", ANIME_TIME, users_c);
 	ft_printf(STDERR_FILENO, "\n\n\n");
-}
-
-char	*stick_color(char *str, char *color)
-{
-	char	*new_str;
-
-	new_str = ft_join_no_strdup(color, str);
-	new_str = ft_join_strdup_right(new_str, NC);
-	return (new_str);
 }
 
 int	get_word_index(char *str, char const *word)
@@ -98,9 +89,10 @@ char	*display_user_prompt(char *username)
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = 0;
-	result = ft_join_strdup(cwd + user_len, "\001\e[32m\002]");
+	result = ft_join_strdup_left(cwd + user_len, build_color(GREEN, "]", 1));
 	if (!result)
 		return (free(cwd), free(username), malloc_failure(), NULL);
+	result = ft_join_strdup_right(result, "\n");
 	result = build_prompt(user_len, username, result);
 	if (!result)
 		return (free(cwd), free(username), malloc_failure(), NULL);
