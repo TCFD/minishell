@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 17:29:45 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/02 15:37:37 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	end_of_execve(pid_t pid, char *cmd_name)
 	if (WIFEXITED(status))
 	{
 		errno = WEXITSTATUS(status);
+		if (cmp(cmd_name, "./minishell"))
+			return (update_err_code_force(errno, true), 1);
 		update_err_code((int)errno);
 	}
 	else if (WIFSIGNALED(status))

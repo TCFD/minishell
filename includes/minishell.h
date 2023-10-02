@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 20:06:10 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/02 15:33:48 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ void			case_3(t_separators *sep, char **content, char *input);
 void			case_4(t_separators *sep, char **content, char *s1);
 void			case_5(t_separators *sep, char **content, char *s1);
 void			fill_cmdopt(t_cmd_and_opt *cmdopt, t_list *temp_list);
+void			update_err_code_force(int code_err, bool force);
 /* 
 
 	[---------| int |---------]

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/01 18:42:47 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/10/02 15:49:14 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	check_exit(t_cmd_and_opt *cmdopt)
 		ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
 	if (!cmdopt->is_child)
 	{
+		free_cmdopt(cmdopt);
 		exit_prg(ipt);
 		ft_exit(g_error_code, true);
 	}
@@ -57,7 +58,7 @@ void	ft_exit(int code, bool msg)
 	if (msg)
 	{
 		ft_printf(STDOUT_FILENO, "exit\n");
-		one_time_animation_end();
+		//one_time_animation_end();
 	}
 	update_pwd(NULL);
 	free(get_env_pwd());
@@ -75,7 +76,7 @@ void	update_err_code_exit(char *origin_code, int code_err)
 
 	str = ft_itoa(code_err);
 	if (!str)
-		return (free(str), free(origin_code), ft_exit(EXIT_FAILURE, true));
+		return (free(origin_code), ft_exit(EXIT_FAILURE, true));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
 	{
 		ft_printf(2, "Minishell: exit: %s : numeric argument required.\n",
@@ -95,8 +96,19 @@ void	update_err_code_exit(char *origin_code, int code_err)
 
 void	exit_prg(char *code_err)
 {
+	char	*tmp;
+
 	if (ft_len(code_err) > 0 && code_err[0] != '\0')
+	{
+		if (code_err && code_err[0] == '+'
+			&& (code_err[1] >= 48 && code_err[1] <= 57))
+		{
+			tmp = ft_strdup(code_err + 1);
+			free(code_err);
+			code_err = tmp;
+		}
 		update_err_code_exit(code_err, ft_atoi(code_err));
+	}
 	if (code_err)
 		free(code_err);
 }
