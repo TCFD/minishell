@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/30 01:11:29 by raphael          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:54:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ int	count_in_redirs(char **tab, char *type, bool *heredoc)
 	return (counter);
 }
 
+void	test(int signum)
+{
+	(void)signum;
+	close(0);
+	printf("\n");
+	update_err_code(130);
+}
+
 int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	bool *redir_bool)
 {
@@ -96,10 +104,12 @@ int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	redir->random_adress = NULL;
 	if (remove_in_redirections(cmdopt->opt_ty_tb.tab,
 			cmdopt->opt_ty_tb.type, redir, -1) == 0)
-		return (ft_lstclear(&redir->list), 0);
+			return (ft_lstclear(&redir->list), 0);
+	signal(SIGINT, sig_handler);
 	free_d_array(cmdopt->opt_ty_tb.tab);
 	cmdopt->opt_ty_tb.tab = list_to_d_tab(redir->list);
 	redo_path_and_name(cmdopt);
 	ft_lstclear(&redir->list);
 	return (1);
 }
+

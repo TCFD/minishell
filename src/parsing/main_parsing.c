@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/29 19:48:57 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/02 14:45:25 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_list	*get_tokens(char *input)
 		return (free(input), malloc_failure(), NULL);
 	tmp = list;
 	i = 0;
-	while (input[i] == SPACE)
+	while (input[i] && check_if_ifs(input[i]))
 		i += 1;
 	if (!all_tokens(input, tmp, i, ft_strlen(input)))
 		return (ft_lstclear(&list), free(input), malloc_failure(), NULL);
