@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 19:54:58 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/02 16:02:30 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ int	check_valid_file_name(char **t, char *type)
 				&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
 				return (print_err_msg(t, i, 0));
 		}
-		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i])))
+		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i]))
+				&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 		{
 			if (!t[i + 1] || i == 0 || !t[i - 1])
 				return (print_err_msg(t, i, 3));

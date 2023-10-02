@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 19:42:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/02 16:24:35 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	minishell(char *input, t_cmd_and_opt *cmdopt, char *prompt)
 	free(prompt);
 	while (input != NULL)
 	{
-		while (check_if_ifs(input[i]))
-			i++;
 		loop_it(cmdopt, input, i);
 		free_cmdopt(cmdopt);
 		update_last_entry(ft_strdup(input));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/30 01:12:52 by raphael          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:37:17 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	temp_heredoc(char *str, char **random_adress)
 	while (1)
 	{
 		line = readline("Not-Heredoc> ");
-		if (!line || g_error_code == 130)
+		if (!line)
 			break ;
 		if (ft_strncmp(line, str, ft_strlen(str) + ft_strlen(str)) == 0)
 		{
