@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 14:46:49 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:49:12 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define RED_1				"\001\e[31;1m\002"
 # define GREEN_1			"\001\e[32;1m\002"
 # define YELLOW_1			"\001\e[33;1m\002"
-# define BLUE_1				"\001\e[96;1;2m\002"
+# define BLUE_1				"\001\e[96;1m\002"
 # define PURPLE_1			"\001\e[35;1m\002"
 # define WHITE_1			"\001\e[37;1m\002"
 
@@ -68,16 +68,26 @@ extern int	g_error_code;
 
 */
 
+typedef struct s_garbage_lst_triple
+{	
+	void						***pointer;
+	struct s_garbage_lst_triple	*next;	
+}t_garbage_lst_triple;
+
 typedef struct s_garbage_lst
-{
-	void		**pointer;
-	t_garbage	*next;	
+{	
+	void					**pointer;
+	struct s_garbage_lst	*next;	
 }t_garbage_lst;
 
 typedef struct s_garbage
 {
-	int				len_of_lst;
-	t_garbage_lst	*head;
+	int						len_of_lst;
+	int						len_of_lst_triple;
+	t_garbage_lst			*head;
+	t_garbage_lst			*tail;
+	t_garbage_lst_triple	*head_triple;
+	t_garbage_lst_triple	*tail_triple;
 }t_garbage;
 
 typedef struct s_pipe
@@ -175,6 +185,14 @@ t_singleton2	*get_singleton2_instance(void);
 t_singleton		*get_singleton_instance(void);
 t_list			*get_tokens(char *input);
 
+t_garbage_lst_triple	*new_elmt_triple(void ***pointer_to);
+void					garbage_add_triple(void ***pointer);
+
+
+t_garbage		*start_garbage(void);
+t_garbage_lst	*new_elmt(void **pointer_to);
+t_garbage		*get_garbage(void);
+
 /* 
 	
 	[---------| char ** |---------]
@@ -227,6 +245,7 @@ char			*ft_join_strdup(char *s1, char *s2);
 char			*ft_join_strdup_right(char *s1, char *s2);
 char			*ft_join_strdup_left(char *s1, char *s2);
 char			*build_color(char *c1, char *str, bool dup_str);
+char			*ft_strdup_protect(char *str);
 /* 
 	
 	[---------| char |---------]
@@ -249,9 +268,6 @@ void			remove_in_redirections2(char **tab, char *type,
 void			restore_stdin(t_redirections *redir);
 void			temp_heredoc(char *str, char **random_adress);
 void			restore_stdout(int stdout_save, int filefd);
-void			init_fork_opt(t_fork_opt *fork_utils);
-void			free_fork_opt(t_fork_opt *fork_utils);
-void			fork_it(t_fork_opt *fork_utils);
 void			execute_pipex(char **lst_cmd);
 void			parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt);
 void			create_command(char	*input, t_cmd_and_opt *cmdopt);
@@ -334,6 +350,9 @@ void			case_4(t_separators *sep, char **content, char *s1);
 void			case_5(t_separators *sep, char **content, char *s1);
 void			fill_cmdopt(t_cmd_and_opt *cmdopt, t_list *temp_list);
 void			update_err_code_force(int code_err, bool force);
+void			garbage_add(void **pointer);
+void			free_garbage(void);
+void			add_d_t_garbage(void **double_array, int len);
 /* 
 
 	[---------| int |---------]
@@ -358,8 +377,6 @@ int				search_in_redirections(t_cmd_and_opt *cmdopt,
 int				redirect_output(char **tab, int *stdout_save,
 					int *filefd, int which_case);
 int				count_out_redirs(char **tab, char *type);
-int				get_func(t_fork_opt *fork_utils);
-int				get_marker_value(t_fork_opt *fork_utils);
 int				find_command_pipex(t_cmd_and_opt *cmdopt);
 int				check_input(char *input);
 int				check_correct_quotes(char *input);

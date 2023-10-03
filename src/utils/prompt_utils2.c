@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 14:46:41 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:01:33 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	*err_code_char(void)
 	if (!tmp)
 		return (malloc_failure(), NULL);
 	return (tmp);
-	
 }
 
 char	*build_prompt(int u_len, char *builded_username, char *building_result)

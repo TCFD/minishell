@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/09/29 12:36:29 by rciaze           ###   ########.fr        #
+#    Updated: 2023/10/03 17:08:52 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ COMMAND_UTILS  	=	$(UTILS)command_utils/
 MALLOC_UTILS	=	$(UTILS)malloc_utils/
 DESIGN_PATTERN  =   $(UTILS)design_pattern/
 GLOBAL			=	$(UTILS)global/
+GARBAGE			=	$(UTILS)garbage_utils/
 
 ALL_H_FILES		=	$(INCLUDE)/minishell.h					\
 					$(INCLUDE)/pipex.h
@@ -55,6 +56,7 @@ SRCS 			=	main.c									\
 					$(DESIGN_PATTERN)design_p_sign.c		\
 					$(DESIGN_PATTERN)design_p_cd.c			\
 					$(DESIGN_PATTERN)design_p_tmp.c			\
+					$(DESIGN_PATTERN)design_p_garbage.c		\
 					$(GLOBAL)errno_management.c				\
 					$(MALLOC_UTILS)free_utils.c				\
 					$(MALLOC_UTILS)free_utils2.c			\
@@ -90,6 +92,8 @@ SRCS 			=	main.c									\
 					$(PIPEX)init_pipex.c					\
 					$(PIPEX)pipex_utils.c					\
 					$(PIPEX)pipex.c							\
+					$(GARBAGE)ft_garbage.c					\
+					$(GARBAGE)ft_garbage_triple.c
 # Couleurs
 BOLD		=	"\033[1m"
 RESET		=	"\033[0m"

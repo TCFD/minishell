@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:55:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/10/03 16:31:53 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	update_env(char **new_value)
 	t_singleton	*singleton;
 
 	singleton = get_singleton_instance();
-	if (singleton && singleton->env != NULL)
-	{
-		singleton->env = new_value;
-		return ;
-	}
 	singleton->env = new_value;
 }
 

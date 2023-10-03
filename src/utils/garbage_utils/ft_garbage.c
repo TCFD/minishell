@@ -3,51 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   ft_garbage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:28:15 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/03 14:43:36 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/03 19:55:50 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../../includes/minishell.h"
 
+// Doit etre call en debut de programme
 t_garbage	*start_garbage(void)
 {
-	t_garbage	garbage;
+	t_garbage	*garbage;
 
-	garbage.head = NULL;
-	garbage.len_of_lst = 0;
-	return (&garbage);
+	garbage = get_garbage();
+	garbage->head = NULL;
+	garbage->tail = NULL;
+	garbage->len_of_lst = 0;
+	return (garbage);
 }
 
 t_garbage_lst	*new_elmt(void **pointer_to)
 {
-	t_garbage_lst	new;
+	t_garbage_lst	*new;
 
+	new = malloc(sizeof(t_garbage_lst));
+	if (!new)
+		malloc_failure();
 	if (!pointer_to)
-		new.pointer = NULL;
+		new->pointer = NULL;
 	else
-		new.pointer = pointer_to;
-	new.next = NULL;
-	return (&new);
+		new->pointer = pointer_to;
+	new->next = NULL;
+	return (new);
 }
 
-void	garbage_add(t_garbage *garbage, t_garbage_lst *new)
+// Doit etre call quand nouvelle allocation
+void	garbage_add(void **pointer)
 {
-	new->next = garbage->head;
-	garbage->head = new;
+	t_garbage		*garbage;
+	t_garbage_lst	*new;
+
+	garbage = get_garbage();
+	new = new_elmt(pointer);
+	if (garbage->head == NULL)
+	{
+		garbage->head = new;
+		garbage->tail = new;
+	}
+	garbage->tail->next = new;
+	garbage->tail = garbage->tail->next;
 	garbage->len_of_lst++;
 }
 
-void	free_garbage(t_garbage *garbage)
+// Doit etre call dans les secu malloc
+void	free_garbage(void)
 {
-	int	i;
+	t_garbage				*garbage;
+	t_garbage_lst			*save;
+	t_garbage_lst			*temp;
+	t_garbage_lst_triple	*t_save;
+	t_garbage_lst_triple	*t_temp;
+	int				i;
 
 	i = -1;
+	garbage = get_garbage();
+	save = garbage->head; 
 	while (++i < garbage->len_of_lst)
 	{
-		if (garbage->head[i].pointer)
-			free(garbage->head[i].pointer);
+		if (*(save->pointer))
+		{
+			free(*(save->pointer));
+			*(save->pointer) = NULL;
+		}
+		temp = save->next;
+		free(save);
+		save = temp;
 	}
+	i = -1;
+	t_save = garbage->head_triple; 
+	while (++i < garbage->len_of_lst_triple)
+	{
+		if (*(t_save->pointer))
+		{
+			free(*(t_save->pointer));
+			*(t_save->pointer) = NULL;
+		}
+		t_temp = t_save->next;
+		free(t_save);
+		t_save = t_temp;
+	}
+}
+
+// Doit etre call quand nouveau tableau 2D
+void	add_d_t_garbage(void **double_array, int len)
+{
+	int			i;
+
+	i = -1;
+	while (++i < len)
+		garbage_add(&double_array[i]);
 }
