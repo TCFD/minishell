@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 19:59:59 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:31:50 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ void	run_minishell(void)
 	free_cmdopt(&cmdopt);
 }
 
-char	*ft_strdup_protect(char *str)
-{
-	char	*new_str;
-
-	new_str = ft_strdup(str);
-	if (!new_str)
-		return (malloc_failure(), NULL);
-	//garbage_add((void **)&new_str);
-	return (new_str);
-}
-
 char	**alloc_env(char **env)
 {
 	char	**env_out;
@@ -52,10 +41,10 @@ char	**alloc_env(char **env)
 	env_out = malloc((d_len(env) + 1) * sizeof(char *));
 	if (!env_out)
 		return (ft_exit(EXIT_FAILURE, true), NULL);
-	//garbage_add_triple((void ***)&env_out);
-	/* char *str1 = ft_strdup("test1");
+	garbage_add_triple((void **)env_out);
+	/* char *str1 = ft_strdup_protect("test1");
 	garbage_add((void **)&str1);
-	char *str2 = ft_strdup("test2");
+	char *str2 = ft_strdup_protect("test2");
 	garbage_add((void **)&str2); */
 	while (env[idx])
 	{
@@ -84,8 +73,8 @@ int	main(int ac, char **ag, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");
-	update_username(ft_strdup(user));
-	free(user);
+	update_username(ft_strdup_protect(user));
+//	free(user);
 	initialise_home_path();
 	run_minishell();
 	if (get_fix_env_detection() == 1)

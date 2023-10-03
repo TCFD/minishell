@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 19:49:12 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:39:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ extern int	g_error_code;
 
 typedef struct s_garbage_lst_triple
 {	
-	void						***pointer;
+	void						**pointer;
 	struct s_garbage_lst_triple	*next;	
 }t_garbage_lst_triple;
 
 typedef struct s_garbage_lst
 {	
-	void					**pointer;
+	void					*pointer;
 	struct s_garbage_lst	*next;	
 }t_garbage_lst;
 
@@ -185,12 +185,12 @@ t_singleton2	*get_singleton2_instance(void);
 t_singleton		*get_singleton_instance(void);
 t_list			*get_tokens(char *input);
 
-t_garbage_lst_triple	*new_elmt_triple(void ***pointer_to);
-void					garbage_add_triple(void ***pointer);
+t_garbage_lst_triple	*new_elmt_triple(void **pointer_to);
+void					garbage_add_triple(void **pointer);
 
 
 t_garbage		*start_garbage(void);
-t_garbage_lst	*new_elmt(void **pointer_to);
+t_garbage_lst	*new_elmt(void *pointer_to);
 t_garbage		*get_garbage(void);
 
 /* 
@@ -203,11 +203,15 @@ char			**list_to_d_tab(t_list *list);
 char			**double_a_realloc(char **array, char *new_elmt);
 char			**ft_d_strdup(char **tab);
 char			**get_env(void);
+char			**ft_split_protect(char *str, char c);
+
 /* 
 	
 	[---------| char * |---------]
 
 */
+char			*ft_substr_protect(char *str, int start, int len);
+char			*ft_join(char *s1, char *s2);
 char			*get_brut_cmd_result(char *cmd);
 char			*is_path_unset(char *command_name, int imd_return);
 char			*create_path(char *command_name, int imd_return);
@@ -350,7 +354,7 @@ void			case_4(t_separators *sep, char **content, char *s1);
 void			case_5(t_separators *sep, char **content, char *s1);
 void			fill_cmdopt(t_cmd_and_opt *cmdopt, t_list *temp_list);
 void			update_err_code_force(int code_err, bool force);
-void			garbage_add(void **pointer);
+void			garbage_add(void *pointer);
 void			free_garbage(void);
 void			add_d_t_garbage(void **double_array, int len);
 /* 

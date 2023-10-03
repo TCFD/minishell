@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/27 13:50:58 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:56:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**list_to_d_tab(t_list *list)
 	i = 0;
 	while (list)
 	{
-		tab[i] = ft_strdup(list->content);
+		tab[i] = ft_strdup_protect(list->content);
 		list = list->next;
 		i++;
 	}

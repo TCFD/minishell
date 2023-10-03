@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/28 20:36:58 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/03 20:55:05 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,6 @@ char	*output_result(char **static_buff, int idx_null_cara)
 	final_result[idx_start] = '\0';
 	new_buff_static(static_buff, idx_null_cara);
 	return (final_result);
-}
-
-/////// FT JOIN
-char	*ft_join(char *s1, char *s2)
-{
-	char	*new_str;
-	int		idx_count;
-	int		s1_len;
-
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
-	s1_len = ft_len(s1);
-	new_str = malloc((s1_len + ft_len(s2) + 1) * sizeof(char));
-	if (!new_str)
-		return (free(s1), free(s2), NULL);
-	idx_count = -1;
-	while (++idx_count < s1_len)
-		new_str[idx_count] = s1[idx_count];
-	idx_count = -1;
-	while (++idx_count < ft_len(s2))
-		new_str[idx_count + s1_len] = s2[idx_count];
-	new_str[idx_count + s1_len] = '\0';
-	return ((free(s1), free(s2)), new_str);
 }
 
 /////// READ FD

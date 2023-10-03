@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 19:58:53 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:15:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	bf_prd(char *str, int d, char *color)
 	int		idx_str;
 	int		idx;
 
-	color_strdup = ft_strdup(color);
+	color_strdup = ft_strdup_protect(color);
 	idx_str = 0;
 	write(1, color_strdup, ft_strlen(color));
-	free(color_strdup);
+	//free(color_strdup);
 	while (str[idx_str])
 	{
 		idx = 0;
@@ -85,16 +85,16 @@ char	*display_user_prompt(char *username)
 	username = build_username_prompt(username);
 	cwd = get_pwd();
 	if (cwd == NULL)
-		return (free(username), NULL);
+		return (NULL);
 	user_len = get_word_index(cwd, save_user);
 	if (user_len == -1)
 		user_len = 0;
 	result = ft_join_strdup_left(cwd + user_len, build_color(GREEN, "]", 1));
 	if (!result)
-		return (free(cwd), free(username), malloc_failure(), NULL);
+		return (malloc_failure(), NULL);
 	result = ft_join_strdup_right(result, "\n");
 	result = build_prompt(user_len, username, result);
 	if (!result)
-		return (free(cwd), free(username), malloc_failure(), NULL);
-	return (free(cwd), result);
+		return (malloc_failure(), NULL);
+	return (result);
 }

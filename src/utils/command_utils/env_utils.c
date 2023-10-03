@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 16:05:29 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:29:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	unset_env_var(char *variable)
 			ij = 1;
 			while (env_[i + ij - 1])
 			{
-				if (ij == 1)
-					free(env_[i + ij - 1]);
+//				if (ij == 1)
+//					free(env_[i + ij - 1]);
 				env_[i + ij - 1] = env_[i + ij];
 				ij++ ;
 			}

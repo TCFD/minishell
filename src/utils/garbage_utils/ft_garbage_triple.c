@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_garbage_triple.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:04:18 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 19:39:04 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:25:15 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_garbage_lst_triple	*new_elmt_triple(void ***pointer_to)
+t_garbage_lst_triple	*new_elmt_triple(void **pointer_to)
 {
 	t_garbage_lst_triple	*new;
 
@@ -28,7 +28,7 @@ t_garbage_lst_triple	*new_elmt_triple(void ***pointer_to)
 }
 
 // Doit etre call quand nouvelle allocation
-void	garbage_add_triple(void ***pointer)
+void	garbage_add_triple(void **pointer)
 {
 	t_garbage				*garbage;
 	t_garbage_lst_triple	*new;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/30 01:03:05 by raphael          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:56:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	add_rest(char **tab, char *type, int i, t_redirections *redir)
 	while (tab[i])
 	{
 		if (redir->list)
-			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup_protect(tab[i]), type[i]));
 		else
-			redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+			redir->list = ft_lstnew(ft_strdup_protect(tab[i]), type[i]);
 		i++;
 	}
 	return (1);
@@ -77,9 +77,9 @@ int	remove_redirections(char **tab, char *type, t_redirections *redir)
 			&& funct_counter == redir->counter)
 			return (add_rest(tab, type, i, redir));
 		if (redir->list)
-			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup_protect(tab[i]), type[i]));
 		else
-			redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+			redir->list = ft_lstnew(ft_strdup_protect(tab[i]), type[i]);
 	}
 	return (add_rest(tab, type, i, redir));
 }
@@ -95,7 +95,7 @@ void	redo_path_and_name(t_cmd_and_opt *cmd)
 	}
 	else
 	{
-		cmd->command_name = ft_strdup(cmd->opt_ty_tb.tab[0]);
+		cmd->command_name = ft_strdup_protect(cmd->opt_ty_tb.tab[0]);
 		cmd->command_path = create_path(cmd->opt_ty_tb.tab[0], 1);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   left_rafter_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/30 01:11:29 by raphael          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:56:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	add_rest_in(char **tab, char *type, int i, t_redirections *redir)
 	while (tab[i])
 	{
 		if (redir->list)
-			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup(tab[i]), type[i]));
+			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup_protect(tab[i]), type[i]));
 		else
-			redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+			redir->list = ft_lstnew(ft_strdup_protect(tab[i]), type[i]);
 		i++;
 	}
 	return (1);

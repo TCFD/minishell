@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_garbage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:28:15 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/03 19:55:50 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:24:23 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_garbage	*start_garbage(void)
 	return (garbage);
 }
 
-t_garbage_lst	*new_elmt(void **pointer_to)
+t_garbage_lst	*new_elmt(void *pointer_to)
 {
 	t_garbage_lst	*new;
 
@@ -40,7 +40,7 @@ t_garbage_lst	*new_elmt(void **pointer_to)
 }
 
 // Doit etre call quand nouvelle allocation
-void	garbage_add(void **pointer)
+void	garbage_add(void *pointer)
 {
 	t_garbage		*garbage;
 	t_garbage_lst	*new;
@@ -55,6 +55,7 @@ void	garbage_add(void **pointer)
 	garbage->tail->next = new;
 	garbage->tail = garbage->tail->next;
 	garbage->len_of_lst++;
+//	ft_printf(2, "j'ajoute l'adresse %p\n", garbage->tail->pointer);
 }
 
 // Doit etre call dans les secu malloc
@@ -72,10 +73,10 @@ void	free_garbage(void)
 	save = garbage->head; 
 	while (++i < garbage->len_of_lst)
 	{
-		if (*(save->pointer))
+		if (save->pointer)
 		{
-			free(*(save->pointer));
-			*(save->pointer) = NULL;
+			free(save->pointer);
+			save->pointer = NULL;
 		}
 		temp = save->next;
 		free(save);
@@ -85,10 +86,10 @@ void	free_garbage(void)
 	t_save = garbage->head_triple; 
 	while (++i < garbage->len_of_lst_triple)
 	{
-		if (*(t_save->pointer))
+		if (t_save->pointer)
 		{
-			free(*(t_save->pointer));
-			*(t_save->pointer) = NULL;
+			free(t_save->pointer);
+			t_save->pointer = NULL;
 		}
 		t_temp = t_save->next;
 		free(t_save);
@@ -103,5 +104,5 @@ void	add_d_t_garbage(void **double_array, int len)
 
 	i = -1;
 	while (++i < len)
-		garbage_add(&double_array[i]);
+		garbage_add((void *)double_array[i]);
 }

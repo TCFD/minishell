@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 20:53:49 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:39:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,17 @@ char	*is_path_unset(char *command_name, int imd_return)
 	if (!env_path && imd_return)
 		return (command_name);
 	if (env_path)
-		path_split = ft_split(env_path, ':');
+		path_split = ft_split_protect(env_path, ':');
 	else
-		path_split = ft_split(ft_strdup("/bin/usr:/bin:/usr/sbin/:/sbin"), ':');
+		path_split = ft_split_protect(ft_strdup_protect("/bin/usr:/bin:/usr/sbin/:/sbin"), ':');
 	idx = -1;
 	while (++idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
-		path2 = ft_join(path, ft_strdup(command_name));
+		path = ft_join(ft_strdup_protect(path_split[idx]), ft_strdup_protect("/"));
+		path2 = ft_join(path, ft_strdup_protect(command_name));
 		if (access(path2, F_OK | X_OK) == 0)
-			return ((free_d_array(path_split)), free(command_name), path2);
-		free(path2);
+			return (path2);
 	}
-	free_d_array(path_split);
 	return (command_name);
 }
 
@@ -53,15 +51,14 @@ int	does_command_path_valid(char *cmd)
 	env_path = ft_getenv("PATH");
 	if (!env_path)
 		return (0);
-	path_split = ft_split(env_path, ':');
+	path_split = ft_split_protect(env_path, ':');
 	idx = 0;
 	while (idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
-		path2 = ft_join(path, ft_strdup(cmd));
+		path = ft_join(ft_strdup_protect(path_split[idx]), ft_strdup_protect("/"));
+		path2 = ft_join(path, ft_strdup_protect(cmd));
 		if (access(path2, F_OK | X_OK) == 0)
-			return ((free(cmd)), (free_d_array(path_split), free(path2)), 1);
-		free(path2);
+			return (1);
 		idx++ ;
 	}
 	free_d_array(path_split);
@@ -73,7 +70,7 @@ char	*create_path(char *command_name, int imd_return)
 {
 	char	*strdup_cmd;
 
-	strdup_cmd = ft_strdup(command_name);
+	strdup_cmd = ft_strdup_protect(command_name);
 	if (!strdup_cmd)
 		return (malloc_failure(), NULL);
 	if (ft_strchr(strdup_cmd, '/'))

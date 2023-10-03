@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/27 10:35:37 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:28:57 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ char	*get_pwd(void)
 	last_one = get_pwd_path();
 	current_dir = get_env_var("PWD=");
 	if (current_dir != NULL)
-		return (update_pwd(ft_strdup(current_dir))
+		return (update_pwd(ft_strdup_protect(current_dir))
 			, current_dir);
 	current_dir = malloc(1024);
+	garbage_add((void *)current_dir);
 	if (getcwd(current_dir, 1024) == NULL)
 		return (free(current_dir),
-			ft_strdup(last_one));
+			ft_strdup_protect(last_one));
 	update_err_code(0);
 	last_one = ft_cpy(current_dir, 0);
+	garbage_add((void *)last_one);
 	update_pwd(last_one);
 	return (current_dir);
 }
@@ -41,11 +43,11 @@ char	*get_pwd_for_pwd(void)
 	current_dir = get_env_var("PWD=");
 	if (current_dir != NULL)
 		return ((update_err_code(0)), update_pwd(current_dir),
-			ft_strdup(current_dir));
+			ft_strdup_protect(current_dir));
 	current_dir = malloc(1024);
 	if (getcwd(current_dir, 1024) == NULL)
 		return (free(current_dir), update_err_code(0),
-			ft_strdup(last_one));
+			ft_strdup_protect(last_one));
 	update_err_code(0);
 	last_one = ft_cpy(current_dir, 0);
 	update_pwd(last_one);

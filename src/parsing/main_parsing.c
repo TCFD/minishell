@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/03 14:43:29 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/03 21:18:26 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ t_list	*get_tokens(char *input)
 
 	list = ft_lstnew("", '\0');
 	if (!list)
-		return (free(input), malloc_failure(), NULL);
+		return (malloc_failure(), NULL);
 	tmp = list;
 	i = 0;
 	while (input[i] && check_if_ifs(input[i]))
 		i += 1;
 	if (!all_tokens(input, tmp, i, ft_strlen(input)))
-		return (ft_lstclear(&list), free(input), malloc_failure(), NULL);
+		return (ft_lstclear(&list), malloc_failure(), NULL);
 	return (list);
 }
 
@@ -77,7 +77,7 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	t_list	*temp_list;
 	char	*input;
 
-	input = ft_strdup(tmp);
+	input = ft_strdup_protect(tmp);
 	if (!input)
 		malloc_failure();
 	list = get_tokens(input);
@@ -85,12 +85,13 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
 	if (!cmdopt->opt_ty_tb.tab)
 		return (ft_lstclear(&list), malloc_failure());
+	garbage_add_triple((void *)cmdopt->opt_ty_tb.tab);
 	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
 	if (!cmdopt->opt_ty_tb.type)
 		return (ft_lstclear(&list), malloc_failure());
+	garbage_add_triple((void *)cmdopt->opt_ty_tb.type);
 	fill_cmdopt(cmdopt, temp_list);
 	ft_lstclear(&list);
-	free(input);
 }
 
 void	create_command(char	*input, t_cmd_and_opt *cmdopt)
@@ -111,7 +112,7 @@ void	create_command(char	*input, t_cmd_and_opt *cmdopt)
 		}
 		update_env_detection(0);
 	}
-	cmdopt->command_name = ft_strdup(cmdopt->opt_ty_tb.tab[0]);
+	cmdopt->command_name = ft_strdup_protect(cmdopt->opt_ty_tb.tab[0]);
 	if (!cmdopt->command_name)
 		return (free_cmdopt(cmdopt), malloc_failure());
 	if (cmdopt->command_name[0])

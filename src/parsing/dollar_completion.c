@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 18:47:27 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:42:37 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,25 @@ char	*d_t_case(char *input, t_list **list, t_dollar *dollar)
 			+ ft_strlen(input));
 	input = ft_join_strdup_right(input, dollar->env_var);
 	if (!input)
-		return (free_dollar(dollar), NULL);
-	tmp = ft_substr(input, 0, start_of_search);
-	if (!tmp)
-		return (free_dollar(dollar), free(input), NULL);
+		return (NULL);
+	tmp = ft_substr_protect(input, 0, start_of_search);
 	if (tmp[0])
 	{
 		if (!lst_add(list, &tmp, ' '))
-			return (free_dollar(dollar), free(input), NULL);
+			return (NULL);
 	}
-	split_tab = ft_split(input + start_of_search, ' ');
-	if (!split_tab)
-		return (free_dollar(dollar), free(input), NULL);
+	split_tab = ft_split_protect(input + start_of_search, ' ');
 	j = d_t_case_loop(split_tab, input, dollar, list);
 	if (j == -1)
-		return (free_dollar(dollar), free(input), NULL);
-	return (free(input), input_modif(split_tab, j, dollar, list));
+		return (NULL);
+	return (input_modif(split_tab, j, dollar, list));
 }
 
 int	set_dollar(t_dollar *dollar, char *content, int i, char what_case)
 {
 	int		len;
 
-	dollar->tmp_dup = ft_strdup(content);
-	free(content);
+	dollar->tmp_dup = ft_strdup_protect(content);
 	if (!dollar->tmp_dup)
 		return (0);
 	dollar->start = ft_strchr(dollar->tmp_dup + i, '$') - dollar->tmp_dup;
@@ -77,7 +72,7 @@ int	set_dollar(t_dollar *dollar, char *content, int i, char what_case)
 	len = dollar->end - dollar->start;
 	dollar->env_var = check_env_variables(dollar->tmp_dup + dollar->start, len);
 	if (!dollar->env_var)
-		return (free(dollar->tmp_dup), 0);
+		return (0);
 	dollar->i = i;
 	dollar->what_case = what_case;
 	return (1);
@@ -87,7 +82,7 @@ int	replace_dollar_2(t_dollar *dollar, char **content, t_list **list)
 {
 	char		*tmp;
 
-	tmp = ft_substr(dollar->tmp_dup, dollar->end,
+	tmp = ft_substr_protect(dollar->tmp_dup, dollar->end,
 			ft_strlen(dollar->tmp_dup) - dollar->end);
 	if (!tmp)
 		return (free_dollar(dollar), free(*content), 0);
@@ -114,18 +109,18 @@ char	*replace_dollar(char what_case, char *content, int i, t_list **list)
 		return (content);
 	if (!set_dollar(&dollar, content, i, what_case))
 		return (malloc_failure(), NULL);
-	content = ft_substr(dollar.tmp_dup, 0, dollar.start);
+	content = ft_substr_protect(dollar.tmp_dup, 0, dollar.start);
 	if (!content)
-		return (free_dollar(&dollar), malloc_failure(), NULL);
+		return (malloc_failure(), NULL);
 	if (what_case != DOUBLE_Q && ft_strchr(dollar.env_var, ' '))
 		return (d_t_case(content, list, &dollar));
 	if (dollar.env_var[0])
 	{
 		content = ft_join_strdup_right(content, dollar.env_var);
 		if (!content)
-			return (free_dollar(&dollar), malloc_failure(), NULL);
+			return (malloc_failure(), NULL);
 	}
 	if (!replace_dollar_2(&dollar, &content, list))
 		return (malloc_failure(), NULL);
-	return (free_dollar(&dollar), content);
+	return (content);
 }

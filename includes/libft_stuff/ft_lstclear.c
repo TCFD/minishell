@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:27:36 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/08/07 19:24:21 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:58:49 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_lstclear(t_list **lst)
 	d_list = *(lst);
 	while (i-- > 0)
 	{
-		free(d_list->content);
+//		free(d_list->content);
 		temp = d_list->next;
 		free(d_list);
 		d_list = temp;

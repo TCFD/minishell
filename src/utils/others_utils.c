@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/26 18:21:37 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/03 21:14:25 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_char_until_limit(char *str, int lim)
 		idx++;
 	}
 	new_one[idx] = '\0';
-	free(str);
+	//free(str);
 	return (new_one);
 }
 
@@ -59,6 +59,31 @@ int	check_if_ifs(char c)
 	if (c == ' ' || c == '\t' || c == '\n')
 		return (1);
 	return (0);
+}
+
+char	*ft_join(char *s1, char *s2)
+{
+	char	*new_str;
+	int		idx_count;
+	int		s1_len;
+
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	s1_len = ft_len(s1);
+	new_str = malloc((s1_len + ft_len(s2) + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
+	idx_count = -1;
+	while (++idx_count < s1_len)
+		new_str[idx_count] = s1[idx_count];
+	idx_count = -1;
+	while (++idx_count < ft_len(s2))
+		new_str[idx_count + s1_len] = s2[idx_count];
+	new_str[idx_count + s1_len] = '\0';
+	garbage_add((void *)new_str);
+	return (new_str);
 }
 
 /*void	add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
