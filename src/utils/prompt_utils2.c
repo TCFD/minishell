@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 21:34:25 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:32:34 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,16 @@ char	*err_code_char(void)
 		tmp = ft_strdup("SIGINT");
 	else if (g_error_code == 131)
 		tmp = ft_strdup("SIGQUIT");
+	else if (g_error_code == 139)
+		tmp = ft_strdup("SIGSEGV");
+	else if (g_error_code == 143)
+		tmp = ft_strdup("SIGTERM");
 	else
 		tmp = ft_itoa(g_error_code);
 	if (!tmp)
 		return (malloc_failure(), NULL);
 	return (tmp);
+	
 }
 
 char	*build_prompt(int u_len, char *builded_username, char *building_result)

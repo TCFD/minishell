@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 21:34:52 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:39:18 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define RED_1				"\001\e[31;1m\002"
 # define GREEN_1			"\001\e[32;1m\002"
 # define YELLOW_1			"\001\e[33;1m\002"
-# define BLUE_1				"\001\e[96m\002"
+# define BLUE_1				"\001\e[96;1;2m\002"
 # define PURPLE_1			"\001\e[35;1m\002"
 # define WHITE_1			"\001\e[37;1m\002"
 
