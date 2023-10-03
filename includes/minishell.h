@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 21:34:52 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:33:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ extern int	g_error_code;
 	[---------| struct |---------]
 
 */
+
+typedef struct s_garbage_lst
+{
+	void		**pointer;
+	t_garbage	*next;	
+}t_garbage_lst;
+
+typedef struct s_garbage
+{
+	int				len_of_lst;
+	t_garbage_lst	*head;
+}t_garbage;
 
 typedef struct s_pipe
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 21:34:25 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:43:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*build_username_prompt(char *username)
 	if (!shlvl_value)
 		return (malloc_failure(), NULL);
 	username = build_color(BLUE_1, ft_join_strdup(username, "@minishell42"), 0);
-	username = ft_join_no_strdup(build_color(GREEN, "┌──(", true), build_color(NC, username, false));
+	username = ft_join_no_strdup(build_color(GREEN, "┌──(", true),
+			build_color(NC, username, false));
 	username = ft_join_no_strdup(username, shlvl_value);
 	username = ft_join_no_strdup(username, build_color(GREEN, ")-[", true));
 	if (!username)
