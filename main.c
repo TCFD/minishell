@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 18:24:30 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:01:39 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ char	**alloc_env(char **env)
 
 	idx = 0;
 	env_out = ft_malloc((d_len(env) + 1) * sizeof(char *));
-	if (!env_out)
-		return (ft_exit(EXIT_FAILURE, true), NULL);
 	while (env[idx])
 	{
 		env_out[idx] = ft_strdup(env[idx]);
