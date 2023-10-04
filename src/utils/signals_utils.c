@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:47:28 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 15:03:50 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:37:00 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	sig_handler(int signum)
 		rl_replace_line("", 0);
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_on_new_line();
+		ft_printf(2, "ctrl c pressed\n");
 	}
 	if (get_sign_ctrl() == 1)
 		update_last_sign(-1);

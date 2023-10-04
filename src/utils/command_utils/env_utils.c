@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 10:33:51 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/25 16:30:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/03 21:29:13 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_getenv(char *var_name)
 	idx = 0;
 	env = get_env();
 	errno = 0;
-	while (env[idx])
+	while (env && env[idx])
 	{
 		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0
 			&& env[idx][ft_strlen(var_name)] == '=')
@@ -66,8 +66,8 @@ void	unset_env_var(char *variable)
 			ij = 1;
 			while (env_[i + ij - 1])
 			{
-				if (ij == 1)
-					free(env_[i + ij - 1]);
+//				if (ij == 1)
+//					free(env_[i + ij - 1]);
 				env_[i + ij - 1] = env_[i + ij];
 				ij++ ;
 			}

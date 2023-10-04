@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   design_p_garbage.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/08 10:24:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:27:58 by rciaze           ###   ########.fr       */
+/*   Created: 2023/10/03 15:32:54 by tboldrin          #+#    #+#             */
+/*   Updated: 2023/10/03 15:36:03 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../../../includes/minishell.h"
 
-typedef struct s_command_and_option	t_cmd_and_opt;
-typedef struct s_pipe				t_pipe;
-typedef void (*f_func);
+t_garbage	*get_garbage(void)
+{
+	static t_garbage	instance;
 
-void	ft_exit_pipex(int code, bool msg);
+	return (&instance);
+}
 
-#endif

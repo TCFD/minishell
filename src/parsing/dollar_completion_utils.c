@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:25:31 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/28 20:34:45 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ char	*check_env_variables(char *input, int end)
 	if (!value)
 		return (NULL);
 	if (!ft_strncmp(value, "$?", ft_strlen(value)))
-		return (free(value), ft_itoa(g_error_code));
+	{
+		return_value = ft_itoa(g_error_code);
+		//garbage_add((void *)return_value);
+		return (return_value);
+	}
 	return_value = ft_strdup(ft_getenv(value + 1));
-	free(value);
 	return (return_value);
 }
 
-int	d_t_case_loop(char **split_tab, char *input,
-	t_dollar *dollar, t_list **list)
+int	d_t_case_loop(char **split_tab, t_list **list)
 {
 	int		j;
 	char	*tmp;
@@ -56,10 +58,7 @@ int	d_t_case_loop(char **split_tab, char *input,
 	while (split_tab[++j + 1])
 	{
 		tmp = ft_strdup(split_tab[j]);
-		if (!tmp)
-			return (free_dollar(dollar), free(input), -1);
-		if (!lst_add(list, &tmp, ' '))
-			return (free_dollar(dollar), free(input), -1);
+		lst_add(list, &tmp, ' ');
 	}
 	return (j);
 }

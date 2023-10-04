@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:10:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/11/28 14:37:20 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:20:48 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+#include "../../includes/minishell.h"
 
 char	*fill_it(int size, int sign, int n)
 {
@@ -19,9 +20,7 @@ char	*fill_it(int size, int sign, int n)
 	int		first_pos;
 	char	*tab;
 
-	tab = malloc((size + sign + 1) * sizeof(char));
-	if (!tab)
-		return (NULL);
+	tab = ft_malloc((size + sign + 1) * sizeof(char));
 	i = 0;
 	if (sign == 1)
 	{

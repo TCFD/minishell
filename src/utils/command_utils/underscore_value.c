@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:54:44 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 20:06:46 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:32:23 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	change_underscore_value(t_cmd_and_opt *cmdopt, bool update_g)
 		last_cmd = "";
 	var = ft_join(ft_strdup("_="), ft_strdup(last_cmd));
 	export_var(var, update_g, get_env());
-	free(var);
+//	free(var);
 	return ;
 }
 
@@ -39,6 +39,5 @@ void	change_underscore_value_void(bool update_g)
 
 	var = ft_join(ft_strdup("_="), ft_strdup(""));
 	export_var(var, update_g, get_env());
-	free(var);
 	return ;
 }

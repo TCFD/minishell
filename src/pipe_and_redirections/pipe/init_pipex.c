@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbp15 <zbp15@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:20:45 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/24 21:23:02 by zbp15            ###   ########.fr       */
+/*   Updated: 2023/10/04 14:13:17 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_sub_cmdopt(t_pipe *pipe_s, t_cmd_and_opt *cmdopt)
 		next_pipe = get_next_pipe(cmdopt->opt_ty_tb, j);
 		pipe_s->cmdopt_tab[i] = ft_calloc(sizeof(t_cmd_and_opt), 1);
 		if (!pipe_s->cmdopt_tab[i])
-			return (ft_printf(STDERR_FILENO, "Minishell: malloc error\n"),
+			return (ft_printf(STDERR_FILENO, "Minishell: ft_malloc error\n"),
 				ft_exit(errno, true));
 		get_new_cmdopt(pipe_s->cmdopt_tab[i], cmdopt, j, next_pipe);
 		j = next_pipe + 1;

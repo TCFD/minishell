@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:32:34 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 19:50:18 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	lst_add(t_list **list, char **content, char type)
 {
 	(*list)->content = ft_strdup(*content);
-	if (content)
-		free(*content);
 	if (!(*list)->content)
 		return (0);
 	(*list)->type = type;

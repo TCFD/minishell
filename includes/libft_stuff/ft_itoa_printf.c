@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_printf.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:10:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/12/14 15:59:28 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:21:04 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "../../includes/minishell.h"
 
 int	ft_power(int a, int b)
 {
@@ -33,9 +34,7 @@ char	*int_fill_it(int size, int sign, int n)
 	int		first_pos;
 	char	*tab;
 
-	tab = malloc(1 + (size + sign) * sizeof(char));
-	if (!tab)
-		return (NULL);
+	tab = ft_malloc(1 + (size + sign) * sizeof(char));
 	i = 0;
 	if (sign == 1)
 	{
@@ -62,7 +61,7 @@ char	*unsigned_int_fill_it(int size, unsigned int n)
 	int		first_pos;
 	char	*tab;
 
-	tab = malloc(1 + (size) * sizeof(char));
+	tab = ft_malloc(1 + (size) * sizeof(char));
 	if (!tab)
 		return (NULL);
 	i = 0;

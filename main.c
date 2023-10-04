@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 12:41:20 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ char	**alloc_env(char **env)
 	int		idx;
 
 	idx = 0;
-	env_out = malloc((d_len(env) + 1) * sizeof(char *));
+	
+	env_out = ft_malloc((d_len(env) + 1) * sizeof(char *));
 	if (!env_out)
-		return (exit(EXIT_FAILURE), NULL);
+		return (ft_exit(EXIT_FAILURE, true), NULL);
+	//garbage_add((void *)env_out);
 	while (env[idx])
 	{
 		env_out[idx] = ft_strdup(env[idx]);
-		if (!env_out[idx])
-			return (free(env_out), exit(EXIT_FAILURE), NULL);
 		idx++ ;
 	}
 	env_out[idx] = NULL;
@@ -63,12 +63,13 @@ int	main(int ac, char **ag, char **env)
 		ft_printf(2, "\n\tRead minishell man. End of program.\n");
 		return (1);
 	}
+	start_garbage();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");
 	update_username(ft_strdup(user));
-	free(user);
+//	free(user);
 	initialise_home_path();
 	run_minishell();
 	if (get_fix_env_detection() == 1)

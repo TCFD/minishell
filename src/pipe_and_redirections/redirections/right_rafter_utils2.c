@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   right_rafter_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/09/27 13:50:58 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ char	**list_to_d_tab(t_list *list)
 
 	size = ft_lstsize(list);
 	tab = ft_calloc(size + 1, sizeof(char *));
+	if (!tab)
+		return (malloc_failure(), NULL);
+	//garbage_add((void *)tab);
 	i = 0;
 	while (list)
 	{
@@ -69,4 +72,18 @@ int	count_out_redirs(char **tab, char *type)
 			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 			counter++;
 	return (counter);
+}
+
+void	redo_path_and_name(t_cmd_and_opt *cmd)
+{
+	if (cmd->path_unset == 0 && !ft_getenv("PATH"))
+	{
+		cmd->command_name = create_path(cmd->opt_ty_tb.tab[0], 0);
+		cmd->command_path = ft_cpy(cmd->command_name, 0);
+	}
+	else
+	{
+		cmd->command_name = ft_strdup(cmd->opt_ty_tb.tab[0]);
+		cmd->command_path = create_path(cmd->opt_ty_tb.tab[0], 1);
+	}
 }

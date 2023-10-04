@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/29 19:54:58 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,16 @@ char	*is_path_unset(char *command_name, int imd_return)
 	if (env_path)
 		path_split = ft_split(env_path, ':');
 	else
-		path_split = ft_split(ft_strdup("/bin/usr:/bin:/usr/sbin/:/sbin"), ':');
+		path_split = ft_split
+			(ft_strdup("/bin/usr:/bin:/usr/sbin/:/sbin"), ':');
 	idx = -1;
 	while (++idx < d_len(path_split))
 	{
 		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
 		path2 = ft_join(path, ft_strdup(command_name));
 		if (access(path2, F_OK | X_OK) == 0)
-			return ((free_d_array(path_split)), free(command_name), path2);
-		free(path2);
+			return (path2);
 	}
-	free_d_array(path_split);
 	return (command_name);
 }
 
@@ -57,11 +56,11 @@ int	does_command_path_valid(char *cmd)
 	idx = 0;
 	while (idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
+		path = ft_join(ft_strdup(path_split[idx]), 
+			ft_strdup("/"));
 		path2 = ft_join(path, ft_strdup(cmd));
 		if (access(path2, F_OK | X_OK) == 0)
-			return ((free(cmd)), (free_d_array(path_split), free(path2)), 1);
-		free(path2);
+			return (1);
 		idx++ ;
 	}
 	free_d_array(path_split);
@@ -121,7 +120,8 @@ int	check_valid_file_name(char **t, char *type)
 				&& type[i + 1] != SIMPLE_Q && type[i + 1] != DOUBLE_Q)
 				return (print_err_msg(t, i, 0));
 		}
-		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i])))
+		else if (ft_strnstr(t[i], PIPE, ft_strlen(t[i]))
+			&& type[i] != SIMPLE_Q && type[i] != DOUBLE_Q)
 		{
 			if (!t[i + 1] || i == 0 || !t[i - 1])
 				return (print_err_msg(t, i, 3));

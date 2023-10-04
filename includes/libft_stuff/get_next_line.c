@@ -6,11 +6,12 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:50:17 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/23 15:04:43 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../../includes/minishell.h"
 
 ////// GET NEXT LINE ----
 char	*get_next_line(int fd)
@@ -36,13 +37,13 @@ int	ft_len(char *str)
 	return (count);
 }
 
-////// MALLOC && FILL ----
+////// ft_malloc && FILL ----
 char	*malloc_fill(char *content)
 {
 	char	*result;
 	int		idx;
 
-	result = malloc((1 + ft_len(content)) * sizeof(char));
+	result = ft_malloc((1 + ft_len(content)) * sizeof(char));
 	if (!result)
 		return (NULL);
 	idx = 0;
@@ -77,10 +78,11 @@ char	*ft_cpy(const char *what_to_cpy, int possible_to_free)
 	int		size;
 	int		count;
 
+	(void)(possible_to_free);
 	size = ft_len((char *)what_to_cpy);
-	cpy_out = malloc((size + 1) * sizeof(char));
+	cpy_out = ft_malloc((size + 1) * sizeof(char));
 	if (!cpy_out)
-		return (NULL);
+		return (malloc_failure(), NULL);
 	count = 0;
 	while (what_to_cpy[count] && count < size)
 	{
@@ -88,7 +90,6 @@ char	*ft_cpy(const char *what_to_cpy, int possible_to_free)
 		count++ ;
 	}
 	cpy_out[count] = '\0';
-	if (possible_to_free)
-		free((char *)what_to_cpy);
+	//garbage_add(cpy_out);
 	return (cpy_out);
 }

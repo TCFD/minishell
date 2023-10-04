@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:33:45 by tboldrin          #+#    #+#             */
-/*   Updated: 2022/11/26 16:25:17 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:21:27 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+#include "../../includes/minishell.h"
 
 int	verif(char c, char *s)
 {
@@ -59,8 +60,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i = idxstart(s1, set);
 	a = idxend(s1_len, s1, set);
 	if (i == (a - 1) && i == s1_len)
-		return ("");
-	tab = malloc(((s1_len - (a - 1) - i) + 1) * sizeof(char));
+		return (ft_strdup(""));
+	tab = ft_malloc(((s1_len - (a - 1) - i) + 1) * sizeof(char));
 	if (!tab)
 		return (NULL);
 	b = i;

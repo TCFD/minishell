@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   realloc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	**double_a_realloc(char **array, char *new_elmt)
 	len = 0;
 	if (array != NULL)
 		len = d_len(array);
-	new_one = malloc((len + 2) * sizeof(char *));
+	new_one = ft_malloc((len + 2) * sizeof(char *));
+	//garbage_add((void *)new_one);
 	if (!new_one)
 	{
 		free_d_array(array);
@@ -32,7 +33,6 @@ char	**double_a_realloc(char **array, char *new_elmt)
 		new_one[idx] = ft_strdup(array[idx]);
 	new_one[idx] = new_elmt;
 	new_one[idx + 1] = NULL;
-	free_d_array(array);
 	return (new_one);
 }
 
@@ -43,13 +43,13 @@ char	**ft_d_strdup(char **tab)
 	int		sub_idx;
 
 	idx = -1;
-	new_one = malloc((d_len(tab) + 1) * sizeof(char *));
+	new_one = ft_malloc((d_len(tab) + 1) * sizeof(char *));
 	if (!new_one)
 		return (NULL);
 	while (tab[++idx])
 	{
 		sub_idx = -1;
-		new_one[idx] = malloc((ft_strlen(tab[idx]) + 1) * sizeof(char));
+		new_one[idx] = ft_malloc((ft_strlen(tab[idx]) + 1) * sizeof(char));
 		if (!new_one[idx])
 		{
 			while (--idx >= 0)

@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 15:33:48 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:27:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define RED				"\033[31m"
-# define GREEN				"\033[32m"
-# define YELLOW				"\033[33m"
-# define BLUE				"\033[34m"
-# define PURPLE				"\033[35m"
-# define WHITE				"\033[37m"
+# define RED				"\001\e[31m\002"
+# define GREEN				"\001\e[92m\002"
+# define YELLOW				"\001\e[33m\002"
+# define BLUE				"\001\e[96m\002"
+# define PURPLE				"\001\e[35m\002"
+# define WHITE				"\001\e[37m\002"
 
-# define RED_1				"\033[31;1m"
-# define GREEN_1			"\033[32;1m"
-# define YELLOW_1			"\033[33;1m"
-# define BLUE_1				"\033[34;1m"
-# define PURPLE_1			"\033[35;1m"
-# define WHITE_1			"\033[37;1m"
+# define RED_1				"\001\e[31;1m\002"
+# define GREEN_1			"\001\e[32;1m\002"
+# define YELLOW_1			"\001\e[33;1m\002"
+# define BLUE_1				"\001\e[96;1m\002"
+# define PURPLE_1			"\001\e[35;1m\002"
+# define WHITE_1			"\001\e[37;1m\002"
 
 # define ANIM_C				GREEN
 # define CD_C				WHITE_1
 
-# define NC					"\033[0m"
+# define NC					"\001\e[0m\002"
 
 # define SIMPLE_Q			'\''
 # define DOUBLE_Q			'\"'
@@ -67,6 +67,19 @@ extern int	g_error_code;
 	[---------| struct |---------]
 
 */
+
+typedef struct s_garbage_lst
+{	
+	void					*pointer;
+	struct s_garbage_lst	*next;	
+}t_garbage_lst;
+
+typedef struct s_garbage
+{
+	int						len_of_lst;
+	t_garbage_lst			*head;
+	t_garbage_lst			*tail;
+}t_garbage;
 
 typedef struct s_pipe
 {
@@ -163,6 +176,17 @@ t_singleton2	*get_singleton2_instance(void);
 t_singleton		*get_singleton_instance(void);
 t_list			*get_tokens(char *input);
 
+t_garbage		*start_garbage(void);
+t_garbage_lst	*new_elmt(void *pointer_to);
+t_garbage		*get_garbage(void);
+
+
+/* 
+	
+	[---------| void * |---------]
+
+*/
+void	*ft_malloc(size_t size);
 /* 
 	
 	[---------| char ** |---------]
@@ -173,11 +197,13 @@ char			**list_to_d_tab(t_list *list);
 char			**double_a_realloc(char **array, char *new_elmt);
 char			**ft_d_strdup(char **tab);
 char			**get_env(void);
+
 /* 
 	
 	[---------| char * |---------]
 
 */
+char			*ft_join(char *s1, char *s2);
 char			*get_brut_cmd_result(char *cmd);
 char			*is_path_unset(char *command_name, int imd_return);
 char			*create_path(char *command_name, int imd_return);
@@ -214,6 +240,7 @@ char			*ft_join_no_strdup(char *s1, char *s2);
 char			*ft_join_strdup(char *s1, char *s2);
 char			*ft_join_strdup_right(char *s1, char *s2);
 char			*ft_join_strdup_left(char *s1, char *s2);
+char			*build_color(char *c1, char *str, bool dup_str);
 /* 
 	
 	[---------| char |---------]
@@ -236,9 +263,6 @@ void			remove_in_redirections2(char **tab, char *type,
 void			restore_stdin(t_redirections *redir);
 void			temp_heredoc(char *str, char **random_adress);
 void			restore_stdout(int stdout_save, int filefd);
-void			init_fork_opt(t_fork_opt *fork_utils);
-void			free_fork_opt(t_fork_opt *fork_utils);
-void			fork_it(t_fork_opt *fork_utils);
 void			execute_pipex(char **lst_cmd);
 void			parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt);
 void			create_command(char	*input, t_cmd_and_opt *cmdopt);
@@ -305,7 +329,6 @@ void			init_sub_cmdopt(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
 void			init_pipes(t_pipe *pipe_s);
 void			init_pipex(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
 void			close_all_pipes(t_pipe *pipe_s);
-void			free_pipe(t_pipe *pipe_s);
 void			malloc_pipes(t_pipe *pipe_s);
 void			get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old,
 					int st, int end);	
@@ -321,6 +344,9 @@ void			case_4(t_separators *sep, char **content, char *s1);
 void			case_5(t_separators *sep, char **content, char *s1);
 void			fill_cmdopt(t_cmd_and_opt *cmdopt, t_list *temp_list);
 void			update_err_code_force(int code_err, bool force);
+void			garbage_add(void *pointer);
+void			free_garbage(void);
+void			add_d_t_garbage(void **double_array, int len);
 /* 
 
 	[---------| int |---------]
@@ -345,8 +371,6 @@ int				search_in_redirections(t_cmd_and_opt *cmdopt,
 int				redirect_output(char **tab, int *stdout_save,
 					int *filefd, int which_case);
 int				count_out_redirs(char **tab, char *type);
-int				get_func(t_fork_opt *fork_utils);
-int				get_marker_value(t_fork_opt *fork_utils);
 int				find_command_pipex(t_cmd_and_opt *cmdopt);
 int				check_input(char *input);
 int				check_correct_quotes(char *input);
@@ -388,8 +412,7 @@ int				case_1(t_separators *sep, char **content, char *input,
 					t_list **list);
 int				all_tokens(char *input, t_list *list, int i, int len);
 int				lst_add(t_list **list, char **content, char type);
-int				d_t_case_loop(char **split_tab, char *input,
-					t_dollar *dollar, t_list **list);
+int				d_t_case_loop(char **split_tab, t_list **list);
 int				case_2_or_3(t_separators *sep, char **content, char *input,
 					t_list **list);
 int				case_4_or_5(t_separators *sep, char **content,

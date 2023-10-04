@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/02 15:53:57 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:36:56 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	restore_stdin(t_redirections *redir)
 	close(redir->file_in_fd);
 	close(redir->stdin_save);
 	if (redir->heredoc)
-	{
 		unlink(redir->random_adress);
-		free(redir->random_adress);
-	}
 }
 
 void	temp_heredoc(char *str, char **random_adress)
@@ -56,8 +53,6 @@ void	temp_heredoc(char *str, char **random_adress)
 	long int	random;
 	char		*line;
 
-	if (*random_adress)
-		free(*random_adress);
 	random = (long int)random_adress;
 	*random_adress = ft_itoa(random);
 	*random_adress = ft_join(ft_strdup("/tmp/"), *random_adress);
@@ -65,7 +60,8 @@ void	temp_heredoc(char *str, char **random_adress)
 	line = readline("Not-Heredoc> ");
 	while (line)
 	{
-		if (!line || g_error_code == 130)
+		line = readline("Not-Heredoc> ");
+		if (!line)
 			break ;
 		if (ft_strncmp(line, str, ft_strlen(str) + ft_strlen(str)) == 0)
 		{

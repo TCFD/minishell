@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 16:23:14 by rciaze            #+#    #+#             */
-/*   Updated: 2023/09/29 14:56:33 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ int	case_1(t_separators *sep, char **content, char *input, t_list **list)
 	else if (sep->s_string == 0)
 		sep->s_string += 1;
 	*content = ft_substr(input + sep->i, 0, sep->s_string);
-	if (!(*content))
-		return (0);
 	sep->i += ft_strlen(*content);
 	if (sep->what_case != '\'')
 		*content = replace_dollar(sep->what_case, *content, 0, list);
 	if (*content)
 	{
 		if (!lst_add(list, content, SPACE))
-			return (0);
+			return (malloc_failure(), 0);
 	}
 	return (1);
 }
