@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:39:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	rebuild_env(void)
 	char	*pwd;
 
 	pwd_print = get_pwd();
-	pwd = ft_join(ft_strdup_protect("PWD="), pwd_print);
+	pwd = ft_join(ft_strdup("PWD="), pwd_print);
 	export_var(pwd, true, get_env());
 	export_var("SHLVL=0", true, get_env());
 	export_var("_=/usr/bin/env", true, get_env());
@@ -53,8 +53,8 @@ char	*get_env_var(char *var_name)
 	{
 		if (ft_strncmp(var_name, env[idx], ft_strlen(var_name)) == 0)
 		{
-			split_one = ft_split_protect(env[idx], '=');
-			final = ft_strdup_protect(split_one[1]);
+			split_one = ft_split(env[idx], '=');
+			final = ft_strdup(split_one[1]);
 			return (free_d_array(split_one), final);
 		}
 		idx++ ;

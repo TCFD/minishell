@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:39:03 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:27:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,6 @@ extern int	g_error_code;
 
 */
 
-typedef struct s_garbage_lst_triple
-{	
-	void						**pointer;
-	struct s_garbage_lst_triple	*next;	
-}t_garbage_lst_triple;
-
 typedef struct s_garbage_lst
 {	
 	void					*pointer;
@@ -83,11 +77,8 @@ typedef struct s_garbage_lst
 typedef struct s_garbage
 {
 	int						len_of_lst;
-	int						len_of_lst_triple;
 	t_garbage_lst			*head;
 	t_garbage_lst			*tail;
-	t_garbage_lst_triple	*head_triple;
-	t_garbage_lst_triple	*tail_triple;
 }t_garbage;
 
 typedef struct s_pipe
@@ -185,14 +176,17 @@ t_singleton2	*get_singleton2_instance(void);
 t_singleton		*get_singleton_instance(void);
 t_list			*get_tokens(char *input);
 
-t_garbage_lst_triple	*new_elmt_triple(void **pointer_to);
-void					garbage_add_triple(void **pointer);
-
-
 t_garbage		*start_garbage(void);
 t_garbage_lst	*new_elmt(void *pointer_to);
 t_garbage		*get_garbage(void);
 
+
+/* 
+	
+	[---------| void * |---------]
+
+*/
+void	*ft_malloc(size_t size);
 /* 
 	
 	[---------| char ** |---------]
@@ -203,14 +197,12 @@ char			**list_to_d_tab(t_list *list);
 char			**double_a_realloc(char **array, char *new_elmt);
 char			**ft_d_strdup(char **tab);
 char			**get_env(void);
-char			**ft_split_protect(char *str, char c);
 
 /* 
 	
 	[---------| char * |---------]
 
 */
-char			*ft_substr_protect(char *str, int start, int len);
 char			*ft_join(char *s1, char *s2);
 char			*get_brut_cmd_result(char *cmd);
 char			*is_path_unset(char *command_name, int imd_return);
@@ -249,7 +241,6 @@ char			*ft_join_strdup(char *s1, char *s2);
 char			*ft_join_strdup_right(char *s1, char *s2);
 char			*ft_join_strdup_left(char *s1, char *s2);
 char			*build_color(char *c1, char *str, bool dup_str);
-char			*ft_strdup_protect(char *str);
 /* 
 	
 	[---------| char |---------]
@@ -338,7 +329,6 @@ void			init_sub_cmdopt(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
 void			init_pipes(t_pipe *pipe_s);
 void			init_pipex(t_pipe *pipe_s, t_cmd_and_opt *cmdopt);
 void			close_all_pipes(t_pipe *pipe_s);
-void			free_pipe(t_pipe *pipe_s);
 void			malloc_pipes(t_pipe *pipe_s);
 void			get_new_cmdopt(t_cmd_and_opt *new, t_cmd_and_opt *old,
 					int st, int end);	
@@ -422,8 +412,7 @@ int				case_1(t_separators *sep, char **content, char *input,
 					t_list **list);
 int				all_tokens(char *input, t_list *list, int i, int len);
 int				lst_add(t_list **list, char **content, char type);
-int				d_t_case_loop(char **split_tab, char *input,
-					t_dollar *dollar, t_list **list);
+int				d_t_case_loop(char **split_tab, t_list **list);
 int				case_2_or_3(t_separators *sep, char **content, char *input,
 					t_list **list);
 int				case_4_or_5(t_separators *sep, char **content,

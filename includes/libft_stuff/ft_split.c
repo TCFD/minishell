@@ -6,12 +6,13 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:13:25 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/06/27 08:54:59 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:15:21 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stddef.h>
+#include "../../includes/minishell.h"
 
 int	verif_charset(char c, char charset)
 {
@@ -55,7 +56,7 @@ char	*remplit_mot(char *str, char charset, int *cut)
 	i = 0;
 	while (str[i] && !verif_charset(str[i], charset))
 		i++ ;
-	tab = malloc((i + 1) * sizeof(char));
+	tab = ft_malloc((i + 1) * sizeof(char));
 	if (!tab)
 		free(tab);
 	a = 0;
@@ -81,7 +82,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	nwstr = (char *)s;
 	mot = compte_mot(nwstr, c);
-	tab = malloc((mot + 1) * sizeof(char *));
+	tab = ft_malloc((mot + 1) * sizeof(char *));
 	if (!tab)
 		return (NULL);
 	a = 0;

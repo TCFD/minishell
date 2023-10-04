@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:39:21 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/03 20:56:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ int	add_rest(char **tab, char *type, int i, t_redirections *redir)
 	while (tab[i])
 	{
 		if (redir->list)
-			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup_protect(tab[i]), type[i]));
+			ft_lstadd_back(&redir->list,
+				ft_lstnew(ft_strdup(tab[i]), type[i]));
 		else
-			redir->list = ft_lstnew(ft_strdup_protect(tab[i]), type[i]);
+			redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
 		i++;
 	}
 	return (1);
@@ -55,6 +56,15 @@ int	open_sub_file(char **tab, int *i, int *funct_counter)
 	return (1);
 }
 
+void	how_list_add(char **tab, char *type, t_redirections *redir, int i)
+{
+	if (redir->list)
+		ft_lstadd_back(&redir->list,
+			ft_lstnew(ft_strdup(tab[i]), type[i]));
+	else
+		redir->list = ft_lstnew(ft_strdup(tab[i]), type[i]);
+}
+
 int	remove_redirections(char **tab, char *type, t_redirections *redir)
 {
 	int		i;
@@ -76,28 +86,9 @@ int	remove_redirections(char **tab, char *type, t_redirections *redir)
 		else if (tmp && type[i] != SIMPLE_Q && type[i] != DOUBLE_Q
 			&& funct_counter == redir->counter)
 			return (add_rest(tab, type, i, redir));
-		if (redir->list)
-			ft_lstadd_back(&redir->list, ft_lstnew(ft_strdup_protect(tab[i]), type[i]));
-		else
-			redir->list = ft_lstnew(ft_strdup_protect(tab[i]), type[i]);
+		how_list_add(tab, type, redir, i);
 	}
 	return (add_rest(tab, type, i, redir));
-}
-
-void	redo_path_and_name(t_cmd_and_opt *cmd)
-{
-	free(cmd->command_name);
-	free(cmd->command_path);
-	if (cmd->path_unset == 0 && !ft_getenv("PATH"))
-	{
-		cmd->command_name = create_path(cmd->opt_ty_tb.tab[0], 0);
-		cmd->command_path = ft_cpy(cmd->command_name, 0);
-	}
-	else
-	{
-		cmd->command_name = ft_strdup_protect(cmd->opt_ty_tb.tab[0]);
-		cmd->command_path = create_path(cmd->opt_ty_tb.tab[0], 1);
-	}
 }
 
 int	search_out_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,

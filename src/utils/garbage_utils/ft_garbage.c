@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:28:15 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/03 21:24:23 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:24:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,20 @@ void	garbage_add(void *pointer)
 		garbage->head = new;
 		garbage->tail = new;
 	}
-	garbage->tail->next = new;
-	garbage->tail = garbage->tail->next;
+	else
+	{
+		garbage->tail->next = new;
+		garbage->tail = garbage->tail->next;
+	}
 	garbage->len_of_lst++;
 //	ft_printf(2, "j'ajoute l'adresse %p\n", garbage->tail->pointer);
 }
 
-// Doit etre call dans les secu malloc
+// Doit etre call dans les secu ft_malloc
 void	free_garbage(void)
 {
 	t_garbage				*garbage;
 	t_garbage_lst			*save;
-	t_garbage_lst			*temp;
-	t_garbage_lst_triple	*t_save;
-	t_garbage_lst_triple	*t_temp;
 	int				i;
 
 	i = -1;
@@ -78,22 +78,9 @@ void	free_garbage(void)
 			free(save->pointer);
 			save->pointer = NULL;
 		}
-		temp = save->next;
+		garbage->head = save->next;
 		free(save);
-		save = temp;
-	}
-	i = -1;
-	t_save = garbage->head_triple; 
-	while (++i < garbage->len_of_lst_triple)
-	{
-		if (t_save->pointer)
-		{
-			free(t_save->pointer);
-			t_save->pointer = NULL;
-		}
-		t_temp = t_save->next;
-		free(t_save);
-		t_save = t_temp;
+		save = garbage->head;
 	}
 }
 
@@ -105,4 +92,5 @@ void	add_d_t_garbage(void **double_array, int len)
 	i = -1;
 	while (++i < len)
 		garbage_add((void *)double_array[i]);
+	garbage_add((void *)double_array);
 }

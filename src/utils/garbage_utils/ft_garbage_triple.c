@@ -6,17 +6,17 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:04:18 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 20:25:15 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
+/* 
 t_garbage_lst_triple	*new_elmt_triple(void **pointer_to)
 {
 	t_garbage_lst_triple	*new;
 
-	new = malloc(sizeof(t_garbage_lst_triple));
+	new = ft_malloc(sizeof(t_garbage_lst_triple));
 	if (!new)
 		malloc_failure();
 	if (!pointer_to)
@@ -28,7 +28,7 @@ t_garbage_lst_triple	*new_elmt_triple(void **pointer_to)
 }
 
 // Doit etre call quand nouvelle allocation
-void	garbage_add_triple(void **pointer)
+void	//garbage_add_triple(void **pointer)
 {
 	t_garbage				*garbage;
 	t_garbage_lst_triple	*new;
@@ -44,3 +44,4 @@ void	garbage_add_triple(void **pointer)
 	garbage->tail_triple = garbage->tail_triple->next;
 	garbage->len_of_lst_triple++;
 }
+ */

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 21:14:25 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_char_until_limit(char *str, int lim)
 	b = 0;
 	if (lim < 0)
 		b = 1;
-	new_one = malloc((lim + b + 1) * sizeof(char));
+	new_one = ft_malloc((lim + b + 1) * sizeof(char));
 	if (!new_one)
 		return (NULL);
 	idx = 0;
@@ -72,9 +72,9 @@ char	*ft_join(char *s1, char *s2)
 	if (!s2)
 		return (s1);
 	s1_len = ft_len(s1);
-	new_str = malloc((s1_len + ft_len(s2) + 1) * sizeof(char));
+	new_str = ft_malloc((s1_len + ft_len(s2) + 1) * sizeof(char));
 	if (!new_str)
-		return (NULL);
+		return (malloc_failure(), NULL);
 	idx_count = -1;
 	while (++idx_count < s1_len)
 		new_str[idx_count] = s1[idx_count];
@@ -82,7 +82,7 @@ char	*ft_join(char *s1, char *s2)
 	while (++idx_count < ft_len(s2))
 		new_str[idx_count + s1_len] = s2[idx_count];
 	new_str[idx_count + s1_len] = '\0';
-	garbage_add((void *)new_str);
+	////garbage_add((void *)new_str);
 	return (new_str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:44:09 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*build_username_prompt(char *username)
 				build_color(GREEN, ")", true));
 	}
 	else
-		shlvl_value = ft_strdup_protect("");
+		shlvl_value = ft_strdup("");
 	if (!shlvl_value)
 		return (malloc_failure(), NULL);
 	username = build_color(BLUE_1, ft_join_strdup(username, "@minishell42"), 0);
@@ -58,19 +58,19 @@ char	*err_code_char(void)
 	char	*tmp;
 
 	if (g_error_code == 130)
-		tmp = ft_strdup_protect("SIGINT");
+		tmp = ft_strdup("SIGINT");
 	else if (g_error_code == 131)
-		tmp = ft_strdup_protect("SIGQUIT");
+		tmp = ft_strdup("SIGQUIT");
 	else if (g_error_code == 139)
-		tmp = ft_strdup_protect("SIGSEGV");
+		tmp = ft_strdup("SIGSEGV");
 	else if (g_error_code == 143)
-		tmp = ft_strdup_protect("SIGTERM");
+		tmp = ft_strdup("SIGTERM");
 	else
 	{
 		tmp = ft_itoa(g_error_code);
 		if (!tmp)
 			return (malloc_failure(), NULL);
-		garbage_add((void *)tmp);
+		//garbage_add((void *)tmp);
 	}
 	return (tmp);
 }

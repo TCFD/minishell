@@ -6,11 +6,12 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 23:12:32 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 20:56:30 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:15:33 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "../../includes/minishell.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -21,7 +22,7 @@ char	*ft_strdup(const char *s)
 	end = 0;
 	while (s[end])
 		end++ ;
-	tab = malloc(end + 1);
+	tab = ft_malloc(end + 1);
 	if (!tab)
 		return (NULL);
 	i = 0;

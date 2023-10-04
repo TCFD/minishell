@@ -6,11 +6,12 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:27:28 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/26 14:53:41 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:21:49 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "../../includes/minishell.h"
 
 int	size_integer(unsigned int integer)
 {
@@ -49,7 +50,7 @@ int	write_hexa(char *base, unsigned int integer, t_buff *buff_struct)
 	}
 	if (len_integer == 1 || len_integer == 2)
 		len_integer++ ;
-	hexa = malloc(len_integer * sizeof(char));
+	hexa = ft_malloc(len_integer * sizeof(char));
 	if (!hexa)
 		return (0);
 	idx = 0;
@@ -89,7 +90,7 @@ int	write_addr(void *pointeur, char *base, t_buff *buff_struct)
 	if ((long long int)pointeur == -1)
 		return (write_str("0xffffffffffffffff", buff_struct));
 	recupaddr = (long long unsigned int)pointeur;
-	tab = malloc((size_malloc(size_str(base), recupaddr) + 1) * sizeof(char));
+	tab = ft_malloc((size_malloc(size_str(base), recupaddr) + 1) * sizeof(char));
 	if (!tab)
 		return (0);
 	count = 0;

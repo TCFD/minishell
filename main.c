@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:31:50 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,13 @@ char	**alloc_env(char **env)
 
 	idx = 0;
 	
-	env_out = malloc((d_len(env) + 1) * sizeof(char *));
+	env_out = ft_malloc((d_len(env) + 1) * sizeof(char *));
 	if (!env_out)
 		return (ft_exit(EXIT_FAILURE, true), NULL);
-	garbage_add_triple((void **)env_out);
-	/* char *str1 = ft_strdup_protect("test1");
-	garbage_add((void **)&str1);
-	char *str2 = ft_strdup_protect("test2");
-	garbage_add((void **)&str2); */
+	//garbage_add((void *)env_out);
 	while (env[idx])
 	{
-		env_out[idx] = ft_strdup_protect(env[idx]);
-		//garbage_add((void **)&env_out[idx]);
+		env_out[idx] = ft_strdup(env[idx]);
 		idx++ ;
 	}
 	env_out[idx] = NULL;
@@ -73,7 +68,7 @@ int	main(int ac, char **ag, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");
-	update_username(ft_strdup_protect(user));
+	update_username(ft_strdup(user));
 //	free(user);
 	initialise_home_path();
 	run_minishell();

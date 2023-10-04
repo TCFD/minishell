@@ -6,11 +6,12 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:53:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 20:55:05 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:21:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../../includes/minishell.h"
 
 /////// NEW BUFF STATIC ****
 void	new_buff_static(char **static_buff, int idx_null_cara)
@@ -34,7 +35,7 @@ char	*output_result(char **static_buff, int idx_null_cara)
 	char	*final_result;
 	int		idx_start;
 
-	final_result = malloc((idx_null_cara + 2) * sizeof(char));
+	final_result = ft_malloc((idx_null_cara + 2) * sizeof(char));
 	if (!final_result)
 		return (NULL);
 	idx_start = 0;
@@ -56,7 +57,7 @@ char	*read_fd(int fd, int *verification, char **static_buff)
 	char	*cpy_tmp;
 	int		result_read;
 
-	buff_tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buff_tmp = ft_malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff_tmp)
 		return (NULL);
 	result_read = read(fd, buff_tmp, BUFFER_SIZE);

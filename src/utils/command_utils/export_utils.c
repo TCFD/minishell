@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:39:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ void	export_var(char *var, bool update_g, char **env)
 				" identifiant non valable\n", var));
 	if (!ft_strchr(var, '='))
 		return ;
-	split_name = ft_split_protect(var, '=');
+	split_name = ft_split(var, '=');
 	idx_var = ft_getenv_int(split_name[0]);
 	if (idx_var != -1)
 	{
 		////free(env[idx_var]);
-		env[idx_var] = ft_strdup_protect(var);
+		env[idx_var] = ft_strdup(var);
 		if (!env[idx_var])
 			return (free_d_array(split_name), malloc_failure());
 		update_env(env);
 	}
 	else
-		update_env(double_a_realloc(env, ft_strdup_protect(var)));
+		update_env(double_a_realloc(env, ft_strdup(var)));
 	free_d_array(split_name);
 	if (update_g == true)
 		update_err_code(0);

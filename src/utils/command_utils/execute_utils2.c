@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:42:15 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 20:56:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*read_bytes(int *fd)
 	buffer[bytes_read - 1] = '\0';
 	close(fd[0]);
 	close(fd[1]);
-	return (ft_strdup_protect(buffer));
+	return (ft_strdup(buffer));
 }
 
 char	*get_execve_return(t_cmd_and_opt *cmdopt)

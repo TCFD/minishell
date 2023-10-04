@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 21:27:04 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 	if ('~' == f[0])
 	{
 		is_malloc = true;
-		f = ft_join(ft_strdup_protect(get_home_path()), ft_strdup_protect(f + 1));
+		f = ft_join(ft_strdup(get_home_path()), ft_strdup(f + 1));
 		file = opendir(f);
 	}
 	else
@@ -59,7 +59,7 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 	closedir(file);
 	if (is_malloc == true)
 		return (f);
-	return (ft_strdup_protect(f));
+	return (ft_strdup(f));
 }
 
 void	cd_remake(t_cmd_and_opt *cmdopt)

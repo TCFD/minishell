@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/03 21:16:30 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_exit(t_cmd_and_opt *cmdopt)
 				"\n"), update_err_code(1));
 	}
 	if (cmdopt->opt_ty_tb.tab[1])
-		ipt = ft_strdup_protect(cmdopt->opt_ty_tb.tab[1]);
+		ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
 	if (!cmdopt->is_child)
 	{
 		free_cmdopt(cmdopt);
@@ -100,7 +100,7 @@ void	exit_prg(char *code_err)
 		if (code_err && code_err[0] == '+'
 			&& (code_err[1] >= 48 && code_err[1] <= 57))
 		{
-			tmp = ft_strdup_protect(code_err + 1);
+			tmp = ft_strdup(code_err + 1);
 			//free(code_err);
 			code_err = tmp;
 		}

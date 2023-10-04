@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 17:35:49 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:21:03 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	cmd_exist(t_cmd_and_opt *cmdopt)
 {
-	cmdopt->opt_ty_tb.tab[0] = ft_strdup_protect(cmdopt->command_name);
+	cmdopt->opt_ty_tb.tab[0] = ft_strdup(cmdopt->command_name);
 	if (!cmdopt->opt_ty_tb.tab[0])
 		return (free_cmdopt(cmdopt), malloc_failure(), 0);
 	if (!go_to_cmd(cmdopt))
