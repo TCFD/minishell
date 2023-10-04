@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_minishell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:48:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:14:28 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 19:18:07 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	loop_it(t_cmd_and_opt *cmdopt, char *input, int i)
 	if (input[i])
 	{
 		if (input[i] == '#')
-			return (check_to_add_history(input), (void)ft_printf(2, "\n"));
+			return (check_to_add_history(input));
 		create_command(input, cmdopt);
 		minishell_call = check_if_input_minishell(cmdopt, input);
 		if (minishell_call < 0)

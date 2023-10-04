@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 18:24:33 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:01:51 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	update_err_code_exit(char *origin_code, int code_err)
 	char	*str;
 
 	str = ft_itoa(code_err);
-	if (!str)
-		return (ft_exit(EXIT_FAILURE, true));
 	if (ft_strncmp(str, origin_code, ft_len(origin_code)) != 0)
 	{
 		ft_printf(2, "Minishell: exit: %s : numeric argument required.\n",
