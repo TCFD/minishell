@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:20:45 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 14:13:17 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:57:14 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ void	init_pipex(t_pipe *pipe_s, t_cmd_and_opt *cmdopt)
 	pipe_s->nb_of_forks = pipe_s->nb_of_pipes + 1;
 	malloc_pipes(pipe_s);
 	init_sub_cmdopt(pipe_s, cmdopt);
-	free_cmdopt(cmdopt);
 	init_pipes(pipe_s);
 }

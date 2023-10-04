@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:46:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:55:02 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	*err_code_char(void)
 		tmp = ft_itoa(g_error_code);
 		if (!tmp)
 			return (malloc_failure(), NULL);
-		//garbage_add((void *)tmp);
 	}
 	return (tmp);
 }

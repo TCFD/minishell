@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:09:34 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_pwd_for_pwd(void)
 			ft_strdup(current_dir));
 	current_dir = ft_malloc(1024);
 	if (getcwd(current_dir, 1024) == NULL)
-		return (free(current_dir), update_err_code(0),
+		return (update_err_code(0),
 			ft_strdup(last_one));
 	update_err_code(0);
 	last_one = ft_cpy(current_dir, 0);
@@ -62,5 +62,4 @@ void	print_pwd(void)
 	if (pwd_print == NULL)
 		pwd_print = get_pwd_path();
 	ft_printf(STDOUT_FILENO, "%s\n", pwd_print);
-	free(pwd_print);
 }

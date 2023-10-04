@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:41:13 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:55:18 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*get_char_until_limit(char *str, int lim)
 		idx++;
 	}
 	new_one[idx] = '\0';
-	//free(str);
 	return (new_one);
 }
 
@@ -82,15 +81,5 @@ char	*ft_join(char *s1, char *s2)
 	while (++idx_count < ft_len(s2))
 		new_str[idx_count + s1_len] = s2[idx_count];
 	new_str[idx_count + s1_len] = '\0';
-	////garbage_add((void *)new_str);
 	return (new_str);
 }
-
-/*void	add_cmd_to_history_and_run(int check, t_cmd_and_opt *cmdopt,
-		char *input, int i)
-{
-	if (check == 1)
-		return (check_to_add_history(input));
-	return (loop_it(cmdopt, input, i));
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:46:03 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:57:10 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ char	*get_brut_cmd_result(char *cmd)
 	verif_env_and_path(&cmdopt);
 	create_command(cmd, &cmdopt);
 	cmdopt.opt_ty_tb.tab[0] = ft_strdup(cmdopt.command_path);
-	if (!cmdopt.opt_ty_tb.tab[0])
-		return (free_cmdopt(&cmdopt), malloc_failure(), NULL);
 	result = get_execve_return(&cmdopt);
-	free_cmdopt(&cmdopt);
 	return (result);
 }
 

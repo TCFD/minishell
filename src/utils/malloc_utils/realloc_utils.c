@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 19:56:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:55:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ char	**double_a_realloc(char **array, char *new_elmt)
 	if (array != NULL)
 		len = d_len(array);
 	new_one = ft_malloc((len + 2) * sizeof(char *));
-	//garbage_add((void *)new_one);
-	if (!new_one)
-	{
-		free_d_array(array);
-		return (NULL);
-	}
 	idx = -1;
 	while (++idx < len)
 		new_one[idx] = ft_strdup(array[idx]);

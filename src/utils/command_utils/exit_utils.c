@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:57:37 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	check_exit(t_cmd_and_opt *cmdopt)
 		ipt = ft_strdup(cmdopt->opt_ty_tb.tab[1]);
 	if (!cmdopt->is_child)
 	{
-		free_cmdopt(cmdopt);
 		exit_prg(ipt);
 		ft_exit(g_error_code, true);
 	}

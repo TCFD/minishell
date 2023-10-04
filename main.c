@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:08:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	run_minishell(void)
 	minishell(input, &cmdopt, prompt);
 	rl_clear_history();
 	env_var_minus_one("SHLVL");
-	free_cmdopt(&cmdopt);
 }
 
 char	**alloc_env(char **env)
@@ -41,7 +40,6 @@ char	**alloc_env(char **env)
 	env_out = ft_malloc((d_len(env) + 1) * sizeof(char *));
 	if (!env_out)
 		return (ft_exit(EXIT_FAILURE, true), NULL);
-	//garbage_add((void *)env_out);
 	while (env[idx])
 	{
 		env_out[idx] = ft_strdup(env[idx]);
@@ -69,7 +67,6 @@ int	main(int ac, char **ag, char **env)
 	update_env(alloc_env(env));
 	user = get_brut_cmd_result("/bin/whoami");
 	update_username(ft_strdup(user));
-//	free(user);
 	initialise_home_path();
 	run_minishell();
 	if (get_fix_env_detection() == 1)

@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:27:28 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:21:49 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:00:39 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	write_addr(void *pointeur, char *base, t_buff *buff_struct)
 	if ((long long int)pointeur == -1)
 		return (write_str("0xffffffffffffffff", buff_struct));
 	recupaddr = (long long unsigned int)pointeur;
-	tab = ft_malloc((size_malloc(size_str(base), recupaddr) + 1) * sizeof(char));
+	tab = malloc((size_malloc(size_str(base), recupaddr) + 1) * sizeof(char));
 	if (!tab)
 		return (0);
 	count = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/02 16:27:46 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:57:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ int	execve_child(t_cmd_and_opt *cmdopt, pid_t *pid)
 			== -1)
 			ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : %s\n",
 				cmdopt->command_name, strerror(errno));
-		free_everything(cmdopt, true);
-		exit(errno);
+		ft_exit(errno, true);
 	}
 	return (0);
 }
@@ -93,8 +92,7 @@ int	find_command(t_cmd_and_opt *cmdopt)
 	else if (!ft_strchr(cmdopt->command_path, '/'))
 		return (ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : "
 				"command not found\n", cmdopt->command_name),
-			change_underscore_value(cmdopt, false), free_cmdopt(cmdopt),
-			update_err_code(127), 0);
+			change_underscore_value(cmdopt, false), update_err_code(127), 0);
 	else
 		if (!run_execve(cmdopt))
 			return (-1);
@@ -110,9 +108,9 @@ int	execute_command(t_cmd_and_opt *cmdopt)
 	if (!cmdopt->command_name)
 		return (1);
 	if (search_in_redirections(cmdopt, &redirections, &redir_in_bool) == 0)
-		return (free_cmdopt(cmdopt), 1);
+		return (1);
 	if (search_out_redirections(cmdopt, &redirections, &redir_out_bool) == 0)
-		return (free_cmdopt(cmdopt), 1);
+		return (1);
 	if (is_there_a_command(cmdopt->opt_ty_tb))
 	{
 		if (!cmd_exist(cmdopt))

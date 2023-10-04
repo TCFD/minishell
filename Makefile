@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/03 21:34:07 by rciaze           ###   ########.fr        #
+#    Updated: 2023/10/04 17:01:00 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,6 @@ SRCS 			=	main.c									\
 					$(PIPEX)pipex_utils.c					\
 					$(PIPEX)pipex.c							\
 					$(GARBAGE)ft_garbage.c					\
-					$(GARBAGE)garbage_func.c				\
 					$(GARBAGE)ft_garbage_triple.c
 # Couleurs
 BOLD		=	"\033[1m"

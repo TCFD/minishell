@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:02 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:55:09 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	bf_prd(char *str, int d, char *color)
 	color_strdup = ft_strdup(color);
 	idx_str = 0;
 	write(1, color_strdup, ft_strlen(color));
-	//free(color_strdup);
 	while (str[idx_str])
 	{
 		idx = 0;

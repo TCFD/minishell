@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 16:46:38 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	**list_to_d_tab(t_list *list)
 	tab = ft_calloc(size + 1, sizeof(char *));
 	if (!tab)
 		return (malloc_failure(), NULL);
-	//garbage_add((void *)tab);
 	i = 0;
 	while (list)
 	{
