@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 18:23:05 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:15:25 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 // IS PATH UNSET
 char	*is_path_unset(char *command_name, int imd_return)
 {
 	char	**path_split;
 	char	*env_path;
-	char	*path;
+	char	*path[2];
 	char	*path2;
 	int		idx;
 
 	env_path = ft_getenv("PATH");
+	path[1]  = ft_join_strdup(get_pwd_path(), "/");
 	if (!env_path && imd_return)
-		return (command_name);
+		return (ft_join_no_strdup(path[1], ft_strdup(command_name)));
 	if (env_path)
 		path_split = ft_split(env_path, ':');
 	idx = -1;
 	while (++idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
-		path2 = ft_join(path, ft_strdup(command_name));
+		path[0] = ft_join(ft_strdup(path_split[idx]), ft_strdup("/"));
+		path2 = ft_join(path[0], ft_strdup(command_name));
 		if (access(path2, F_OK | X_OK) == 0)
 			return (path2);
 	}

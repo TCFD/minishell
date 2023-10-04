@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 16:57:30 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:48:27 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	execve_child(t_cmd_and_opt *cmdopt, pid_t *pid)
 			== -1)
 			ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : %s\n",
 				cmdopt->command_name, strerror(errno));
-		ft_exit(errno, true);
+		ft_exit(errno, false);
 	}
 	return (0);
 }
@@ -89,10 +89,10 @@ int	find_command(t_cmd_and_opt *cmdopt)
 		print_pwd();
 	else if (cmp(cmdopt->command_name, "exit"))
 		check_exit(cmdopt);
-	else if (!ft_strchr(cmdopt->command_path, '/'))
-		return (ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : "
-				"command not found\n", cmdopt->command_name),
-			change_underscore_value(cmdopt, false), update_err_code(127), 0);
+	//else if (!ft_strchr(cmdopt->command_path, '/'))
+	//	return (ft_printf(2, "Minishell : \001\e[31m\002%s\001\e[0m\002 : "
+	//			"command not found\n", cmdopt->command_name),
+	//		change_underscore_value(cmdopt, false), update_err_code(127), 0);
 	else
 		if (!run_execve(cmdopt))
 			return (-1);
