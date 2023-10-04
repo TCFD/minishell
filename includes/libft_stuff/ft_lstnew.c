@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:03:18 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:23:42 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_list	*ft_lstnew(char *content, char type)
 	str = ft_calloc(sizeof(t_list), 1);
 	if (!str)
 		return (NULL);
-	//garbage_add((void *)str);
 	if (!content[0])
 		str->content = NULL;
 	else

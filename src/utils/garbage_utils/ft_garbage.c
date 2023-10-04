@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_garbage.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:28:15 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/04 17:02:52 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:22:55 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	garbage_add(void *pointer)
 		garbage->tail = garbage->tail->next;
 	}
 	garbage->len_of_lst++;
-	//ft_printf(2, "j'ajoute l'adresse %p\n", garbage->tail->pointer);
 }
 
 // Doit etre call dans les secu ft_malloc
@@ -66,11 +65,11 @@ void	free_garbage(void)
 {
 	t_garbage				*garbage;
 	t_garbage_lst			*save;
-	int				i;
+	int						i;
 
 	i = -1;
 	garbage = get_garbage();
-	save = garbage->head; 
+	save = garbage->head;
 	while (++i < garbage->len_of_lst)
 	{
 		if (save->pointer)
@@ -79,7 +78,6 @@ void	free_garbage(void)
 			save->pointer = NULL;
 		}
 		garbage->head = save->next;
-		//ft_printf(2, "je free l'adresse %p\n", save);
 		free(save);
 		save = garbage->head;
 	}

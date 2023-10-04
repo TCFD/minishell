@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:15:06 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:55:21 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	rebuild_env(void)
 	export_var(pwd, true, get_env());
 	export_var("SHLVL=0", true, get_env());
 	export_var("_=/usr/bin/env", true, get_env());
+	export_var("PATH=:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
+		":/bin", true, get_env());
 	return ;
 }
 

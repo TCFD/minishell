@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:16:08 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:23:05 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ char	*is_path_unset(char *command_name, int imd_return)
 		return (command_name);
 	if (env_path)
 		path_split = ft_split(env_path, ':');
-	else
-		path_split = ft_split
-			(ft_strdup("/bin/usr:/bin:/usr/sbin/:/sbin"), ':');
 	idx = -1;
 	while (++idx < d_len(path_split))
 	{
@@ -56,8 +53,8 @@ int	does_command_path_valid(char *cmd)
 	idx = 0;
 	while (idx < d_len(path_split))
 	{
-		path = ft_join(ft_strdup(path_split[idx]), 
-			ft_strdup("/"));
+		path = ft_join(ft_strdup(path_split[idx]),
+				ft_strdup("/"));
 		path2 = ft_join(path, ft_strdup(cmd));
 		if (access(path2, F_OK | X_OK) == 0)
 			return (1);

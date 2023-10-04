@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:18:27 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:23:49 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,13 +180,12 @@ t_garbage		*start_garbage(void);
 t_garbage_lst	*new_elmt(void *pointer_to);
 t_garbage		*get_garbage(void);
 
-
 /* 
 	
 	[---------| void * |---------]
 
 */
-void	*ft_malloc(size_t size);
+void			*ft_malloc(size_t size);
 /* 
 	
 	[---------| char ** |---------]
@@ -197,7 +196,7 @@ char			**list_to_d_tab(t_list *list);
 char			**double_a_realloc(char **array, char *new_elmt);
 char			**ft_d_strdup(char **tab);
 char			**get_env(void);
-
+char			**ft_d_strdup(char **tab);
 /* 
 	
 	[---------| char * |---------]

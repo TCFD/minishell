@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
+#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/04 17:12:39 by rciaze           ###   ########.fr        #
+#    Updated: 2023/10/04 18:24:53 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,6 +112,7 @@ $(NAME) : $(OBJ)
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
 	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
+	@clear
 
 clean :
 	@$(CLEANF)

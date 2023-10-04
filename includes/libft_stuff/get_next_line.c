@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:50:17 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:23:38 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,5 @@ char	*ft_cpy(const char *what_to_cpy, int possible_to_free)
 		count++ ;
 	}
 	cpy_out[count] = '\0';
-	//garbage_add(cpy_out);
 	return (cpy_out);
 }

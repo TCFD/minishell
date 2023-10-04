@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 19:01:53 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:15:40 by rciaze           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   export_utils.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: tboldrin <tboldrin@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/07/03 19:01:53 by wolf			  #+#	#+#			 */
+/*   Updated: 2023/10/04 18:19:36 by tboldrin		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
@@ -57,21 +57,51 @@ void	export_var(char *var, bool update_g, char **env)
 		update_err_code(0);
 }
 
+void	sort(char **argv)
+{
+	int		i;
+	char	*temp;
+	int		must_continue;
+
+	must_continue = 1;
+	while (must_continue)
+	{
+		must_continue = 0;
+		i = 1;
+		while (argv[i + 1])
+		{
+			if (ft_strncmp(argv[i], argv[i + 1],
+					ft_len(argv[i]) + ft_len(argv[i + 1])) > 0)
+			{
+				temp = argv[i];
+				argv[i] = argv[i + 1];
+				argv[i + 1] = temp;
+				must_continue = 1;
+			}
+			i++;
+		}
+	}
+}
+
+void	sort_export(char **env)
+{
+	int		sub_idx;
+
+	sort(env);
+	sub_idx = -1;
+	while (env[++sub_idx])
+		ft_printf(STDOUT_FILENO, "%sdeclare -x %s%s\n", NC, env[sub_idx], NC);
+}
+
 // EXPORT ALL VAR
 void	export_all_var(t_cmd_and_opt *cmdopt)
 {
-	char	**env;
 	int		idx;
-	int		sub_idx;
 
 	idx = 0;
-	sub_idx = -1;
 	if (!cmdopt->opt_ty_tb.tab[1])
 	{
-		env = get_env();
-		while (env[++sub_idx])
-			ft_printf(STDOUT_FILENO, "%sdeclare -x %s%s\n", NC,
-				env[sub_idx], NC);
+		sort_export(ft_d_strdup(get_env()));
 		return ((void)update_err_code(0));
 	}
 	while (cmdopt->opt_ty_tb.tab[++idx])

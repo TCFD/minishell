@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_completion_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:25:31 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:23:15 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*check_env_variables(char *input, int end)
 	if (!ft_strncmp(value, "$?", ft_strlen(value)))
 	{
 		return_value = ft_itoa(g_error_code);
-		//garbage_add((void *)return_value);
 		return (return_value);
 	}
 	return_value = ft_strdup(ft_getenv(value + 1));

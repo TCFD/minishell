@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:45:37 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:08:24 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 18:24:30 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_minishell(void)
 	init_cmdopt(&cmdopt);
 	verif_env_and_path(&cmdopt);
 	env_var_plus_one("SHLVL");
-	//one_time_animation_start();
+	one_time_animation_start();
 	prompt = display_user_prompt((char *)get_username());
 	input = readline(prompt);
 	minishell(input, &cmdopt, prompt);
@@ -36,7 +36,6 @@ char	**alloc_env(char **env)
 	int		idx;
 
 	idx = 0;
-	
 	env_out = ft_malloc((d_len(env) + 1) * sizeof(char *));
 	if (!env_out)
 		return (ft_exit(EXIT_FAILURE, true), NULL);
