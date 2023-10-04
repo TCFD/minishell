@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:27:33 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:18:27 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,16 +300,13 @@ void			env_var_plus_one(char *env_var);
 void			env_var_minus_one(char *env_var);
 void			update_env(char **new_value);
 void			update_env_detection(int new_value);
-void			free_env_singleton(void);
 void			update_sign_ctrl(int value);
 void			update_last_sign(int value);
 void			update_pwd(char *new_value);
 void			update_env_pwd(char *new_value);
 void			update_env_oldpwd(char *new_value);
 void			update_username(const char *newValue);
-void			free_last_value(void);
 void			update_home_path(char *new_value);
-void			free_str(char **str);
 void			one_time_animation_start(void);
 void			one_time_animation_end(void);
 void			add_cmd_to_history_and_run(t_cmd_and_opt *cmdopt,

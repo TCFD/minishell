@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:18:58 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 14:27:46 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:14:42 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ void	ft_exit_pipex(int code, bool msg)
 	if (msg)
 		ft_printf(STDOUT_FILENO, "exit\n");
 	update_pwd(NULL);
-	//free(get_env_pwd());
-	//free(get_env_oldpwd());
-	//free(get_home_path());
-	//free(get_username());
-	//free_prompt_last_entry();
-	//free_env_singleton();
 	free_garbage();
-	//free_pipe(pipe_s);
 	exit(code);
 }

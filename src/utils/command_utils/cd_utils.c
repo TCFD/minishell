@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:58:08 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:21:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*special_cara_cd(char *cd_arg)
 		return (get_env_var("OLDPWD="));
 	return (cd_arg);
 }
-// peut-etre cd_arg a free
 
 char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 {
@@ -49,8 +48,6 @@ char	*get_opendir_value(t_cmd_and_opt *cmdopt, bool is_malloc, DIR *file)
 	}
 	else
 		file = opendir(f);
-	if (file == NULL && is_malloc == true)
-		free(f);
 	if (file == NULL)
 		return ((void)ft_printf(2, "Minishell: cd: %s\n",
 				"No such file or directory"),
@@ -82,9 +79,9 @@ void	cd_remake(t_cmd_and_opt *cmdopt)
 	write_env_oldpwd(join_by_value("OLDPWD=", pwd_path));
 	if (chdir(f) == -1)
 		return ((void)ft_printf(2, "Minishell: cd : \001\e[31m\002%s\001\e[0m"
-				"\002: %s\n", f, strerror(errno)), update_err_code(1), free(f));
+				"\002: %s\n", f, strerror(errno)), update_err_code(1));
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-		return ((void)update_err_code((int)errno), perror("getcwd"), free(f));
+		return ((void)update_err_code((int)errno), perror("getcwd"));
 	write_env_pwd(join_by_value("PWD=", current_dir));
 	return ;
 }

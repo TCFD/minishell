@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 21:23:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 21:28:11 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:20:54 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	update_env_pwd(char *new_value)
 
 	count++ ;
 	singleton = get_singleton_instance();
-//	if (count > 1 && singleton->env_pwd != NULL)
-//		free(singleton->env_pwd);
 	singleton->env_pwd = new_value;
 }
 
@@ -31,8 +29,6 @@ void	update_env_oldpwd(char *new_value)
 
 	count++ ;
 	singleton = get_singleton_instance();
-//	if (count > 1 && singleton->env_oldpwd != NULL)
-//		free(singleton->env_oldpwd);
 	singleton->env_oldpwd = new_value;
 }
 

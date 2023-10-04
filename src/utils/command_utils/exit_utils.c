@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:41:50 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 16:57:37 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:23:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	if_code(char *ipt)
 	}
 	else
 		g_error_code = ft_atoi(ipt);
-	//free(ipt);
-	//free(str);
 }
 
 void	check_exit(t_cmd_and_opt *cmdopt)
@@ -60,13 +58,7 @@ void	ft_exit(int code, bool msg)
 		//one_time_animation_end();
 	}
 	update_pwd(NULL);
-	//free(get_env_pwd());
-	//free(get_env_oldpwd());
-	//free(get_home_path());
-	//free(get_username());
-	free_prompt_last_entry();
 	free_garbage();
-	//free_env_singleton();
 	exit(code);
 }
 
@@ -86,7 +78,6 @@ void	update_err_code_exit(char *origin_code, int code_err)
 	code_err = code_err % 256;
 	errno = code_err;
 	update_err_code(code_err);
-	//free(str);
 	ft_exit(code_err, true);
 }
 
@@ -100,7 +91,6 @@ void	exit_prg(char *code_err)
 			&& (code_err[1] >= 48 && code_err[1] <= 57))
 		{
 			tmp = ft_strdup(code_err + 1);
-			//free(code_err);
 			code_err = tmp;
 		}
 		update_err_code_exit(code_err, ft_atoi(code_err));

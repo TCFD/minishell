@@ -6,7 +6,7 @@
 #    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/04 17:01:00 by rciaze           ###   ########.fr        #
+#    Updated: 2023/10/04 17:12:39 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ SRCS 			=	main.c									\
 					$(DESIGN_PATTERN)design_p_garbage.c		\
 					$(GLOBAL)errno_management.c				\
 					$(MALLOC_UTILS)free_utils.c				\
-					$(MALLOC_UTILS)free_utils2.c			\
 					$(MALLOC_UTILS)realloc_utils.c			\
 					$(COMMAND_UTILS)shlvl_utils.c			\
 					$(COMMAND_UTILS)underscore_value.c		\

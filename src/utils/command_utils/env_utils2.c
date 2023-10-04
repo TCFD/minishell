@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 12:20:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:15:06 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_env_var(char *var_name)
 		{
 			split_one = ft_split(env[idx], '=');
 			final = ft_strdup(split_one[1]);
-			return (free_d_array(split_one), final);
+			return (final);
 		}
 		idx++ ;
 	}

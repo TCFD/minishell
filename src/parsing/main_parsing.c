@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:35:02 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 16:36:42 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:27:46 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,9 @@ void	parse_that_shit(char *tmp, t_cmd_and_opt *cmdopt)
 	cmdopt->opt_ty_tb.tab = ft_calloc(ft_lstsize(list), sizeof(char *));
 	if (!cmdopt->opt_ty_tb.tab)
 		return (malloc_failure());
-	//garbage_add((void *)cmdopt->opt_ty_tb.tab);
 	cmdopt->opt_ty_tb.type = ft_calloc(ft_lstsize(list), sizeof(char));
 	if (!cmdopt->opt_ty_tb.type)
 		return (malloc_failure());
-	//garbage_add((void *)cmdopt->opt_ty_tb.type);
 	fill_cmdopt(cmdopt, temp_list);
 }
 

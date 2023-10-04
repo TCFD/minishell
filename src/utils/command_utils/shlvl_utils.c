@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:54:52 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:23:47 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:25:06 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	env_var_plus_one(char *env_var)
 	shlvl = ft_itoa(value + 1);
 	if (!shlvl)
 		return ;
-	//garbage_add((void *)shlvl);
 	join_it = ft_join(ft_join(ft_strdup(env_var), ft_strdup("=")), shlvl);
 	export_var(join_it, true, get_env());
 }
@@ -45,9 +44,6 @@ void	env_var_minus_one(char *env_var)
 	shlvl = ft_itoa(value);
 	if (!shlvl)
 		return ;
-	//garbage_add((void *)shlvl);
 	join_it = ft_join(ft_join(ft_strdup(env_var), ft_strdup("=")), shlvl);
-	if (!join_it)
-		return (malloc_failure());
 	export_var(join_it, false, get_env());
 }

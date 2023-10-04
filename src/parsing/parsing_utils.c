@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:16:08 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	does_command_path_valid(char *cmd)
 			return (1);
 		idx++ ;
 	}
-	free_d_array(path_split);
 	return (0);
 }
 

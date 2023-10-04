@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:32:34 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:27:31 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fill_cmdopt(t_cmd_and_opt *cmdopt, t_list *temp_list)
 	{
 		cmdopt->opt_ty_tb.tab[i] = ft_strdup(temp_list->content);
 		if (!cmdopt->opt_ty_tb.tab[i])
-			return (free(cmdopt->opt_ty_tb.type), malloc_failure());
+			return (malloc_failure());
 		cmdopt->opt_ty_tb.type[i] = temp_list->type;
 		temp_list = temp_list->next;
 		i++;

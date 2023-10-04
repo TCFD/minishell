@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:56:59 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:14 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:22:03 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*join_by_value(char *var_name, char *value)
 {
 	char	*tmp;
 
-	tmp = ft_join(ft_strdup(var_name), ft_strdup(value));
+	tmp = ft_join_strdup(var_name, value);
 	return (tmp);
 }
 

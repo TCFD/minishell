@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:04:45 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:09:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:24:50 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ char	*get_pwd(void)
 	last_one = get_pwd_path();
 	current_dir = get_env_var("PWD=");
 	if (current_dir != NULL)
-		return (update_pwd(ft_strdup(current_dir))
-			, current_dir);
+		return (update_pwd(ft_strdup(current_dir)), current_dir);
 	current_dir = ft_malloc(1024);
-	//garbage_add((void *)current_dir);
 	if (getcwd(current_dir, 1024) == NULL)
-		return (free(current_dir),
-			ft_strdup(last_one));
+		return (ft_strdup(last_one));
 	update_err_code(0);
 	last_one = ft_cpy(current_dir, 0);
-	//garbage_add((void *)last_one);
 	update_pwd(last_one);
 	return (current_dir);
 }
@@ -42,7 +38,7 @@ char	*get_pwd_for_pwd(void)
 	last_one = get_pwd_path();
 	current_dir = get_env_var("PWD=");
 	if (current_dir != NULL)
-		return ((update_err_code(0)), update_pwd(current_dir),
+		return ((update_err_code(0)), update_pwd(current_dir), 
 			ft_strdup(current_dir));
 	current_dir = ft_malloc(1024);
 	if (getcwd(current_dir, 1024) == NULL)

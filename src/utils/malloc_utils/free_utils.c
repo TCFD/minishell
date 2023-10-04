@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   free_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 14:13:56 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 16:57:41 by rciaze           ###   ########.fr       */
+/*   Created: 2023/09/10 16:46:34 by wolf              #+#    #+#             */
+/*   Updated: 2023/10/04 17:12:27 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	free_d_int(int **elmt, int len)
+void	malloc_failure(void)
 {
-	int	idx;
-
-	idx = 0;
-	if (elmt != NULL)
-	{
-		while (idx < len)
-			idx++ ;
-	}
+	perror("Critical error: (ft_malloc probably failed)");
+	ft_exit(EXIT_FAILURE, true);
 }
 
-void	free_d_array(char **str)
+void	*ft_malloc(size_t size)
 {
-	int	idx;
-	int	len;
+	void	*ptr;
 
-	len = d_len(str);
-	if (str == NULL)
-		return ;
-	idx = 0;
-	while (str[idx] && idx < len)
-		idx++ ;
+	ptr = malloc(size);
+	if (!ptr)
+		malloc_failure();
+	garbage_add(ptr);
+	return (ptr);
 }
-

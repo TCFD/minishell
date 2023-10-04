@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_username.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolf <wolf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:58:54 by wolf              #+#    #+#             */
-/*   Updated: 2023/09/14 16:23:20 by wolf             ###   ########.fr       */
+/*   Updated: 2023/10/04 17:18:24 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	update_username(const char *newValue)
 	t_singleton	*singleton;
 
 	singleton = get_singleton_instance();
-	if (singleton->username != NULL)
-		free(singleton->username);
 	singleton->username = (char *)newValue;
 }
 
@@ -42,16 +40,4 @@ char	*get_username(void)
 
 	singleton = get_singleton_instance();
 	return (singleton->username);
-}
-
-void	free_last_value(void)
-{
-	t_singleton	*singleton;
-
-	singleton = get_singleton_instance();
-	if (singleton->username != NULL)
-	{
-		free(singleton->username);
-		singleton->username = NULL;
-	}
 }

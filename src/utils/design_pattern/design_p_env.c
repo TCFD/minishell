@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_p_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:55:00 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/03 16:31:53 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:14:52 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,4 @@ char	**get_env(void)
 
 	singleton = get_singleton_instance();
 	return (singleton->env);
-}
-
-void	free_env_singleton(void)
-{
-	t_singleton	*singleton;
-
-	singleton = get_singleton_instance();
-	if (singleton->env != NULL)
-	{
-		free_d_array(singleton->env);
-		singleton->env = NULL;
-	}
 }

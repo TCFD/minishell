@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:39 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/04 14:18:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:13:42 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	replace_dollar_2(t_dollar *dollar, char **content, t_list **list)
 	if (ft_strchr(*content, '$')
 		&& find_first_non_valid(ft_strchr(*content, '$'), 1) != 1)
 		*content = replace_dollar(dollar->what_case, *content, dollar->i, list);
-	if (*content[0] == '\0')
-		free_str(content);
 	return (1);
 }
 
