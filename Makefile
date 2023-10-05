@@ -6,7 +6,7 @@
 #    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/04 18:27:17 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/10/04 20:06:21 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,6 @@ SRCS 			=	main.c									\
 					$(PIPEX)pipex_utils.c					\
 					$(PIPEX)pipex.c							\
 					$(GARBAGE)ft_garbage.c					\
-					$(GARBAGE)ft_garbage_triple.c
 # Couleurs
 BOLD		=	"\033[1m"
 RESET		=	"\033[0m"
