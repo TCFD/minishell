@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:48:48 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/09/29 18:18:26 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:10:20 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_atoi(const char *nptr)
+long long int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	res;
-	int	s;
+	long long int	i;
+	long long int	res;
+	long long int	s;
 
 	i = 0;
 	if (!nptr)

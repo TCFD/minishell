@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 12:26:28 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/04 16:54:34 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/05 18:05:59 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,13 @@ int	init_redir(t_redirections	*redir, t_cmd_and_opt *cmdopt,
 int	search_in_redirections(t_cmd_and_opt *cmdopt, t_redirections *redir,
 	bool *redir_bool)
 {
-	int	save;
-
 	if (init_redir(redir, cmdopt, redir_bool))
 		return (1);
 	g_error_code = 0;
-	save = g_error_code;
 	if (remove_in_redirections(cmdopt->opt_ty_tb.tab,
 			cmdopt->opt_ty_tb.type, redir, -1) == 0)
-	{
-		g_error_code = save;
 		return (0);
-	}
 	cmdopt->opt_ty_tb.tab = list_to_d_tab(redir->list);
 	redo_path_and_name(cmdopt);
-	g_error_code = save;
 	return (1);
 }

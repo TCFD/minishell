@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:10:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/04 14:20:48 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/05 18:12:01 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,49 @@
 #include "libft.h"
 #include "../../includes/minishell.h"
 
-char	*fill_it(int size, int sign, int n)
-{
-	int		i;
-	int		first_pos;
-	char	*tab;
-
-	tab = ft_malloc((size + sign + 1) * sizeof(char));
-	i = 0;
-	if (sign == 1)
-	{
-		tab[i] = '-';
-		i++ ;
-	}
-	while ((i - sign) < size)
-	{
-		if ((i - sign) + 1 != size)
-			first_pos = ft_power(10, size - ((i - sign) + 1));
-		else
-			first_pos = 1;
-		tab[i] = '0' + (n / first_pos);
-		n -= (n / first_pos) * first_pos;
-		i++ ;
-	}
-	tab[i] = '\0';
-	return (tab);
-}
-
-char	*ft_itoa(int n)
+int	how_many_digits(long long int n)
 {
 	int	i;
-	int	sign;
-	int	nsave;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
+	i = 0;
 	if (n == 0)
-		return (ft_strdup("0"));
-	sign = 0;
+		i = 1;
 	if (n < 0)
 	{
-		sign = 1;
-		n *= -1;
+		i++;
+		n = -n;
 	}
-	nsave = n;
-	i = 0;
-	while (n >= 1)
+	while (n > 0)
 	{
-		i++ ;
-		n /= 10;
+		i++;
+		n = n / 10;
 	}
-	return (fill_it(i, sign, nsave));
+	return (i);
+}
+
+char	*ft_itoa(long long int n)
+{
+	int		boolean;
+	char	*str;
+	int		i;
+
+	if (n == -9223372036854775807 - 1)
+		return (ft_strdup("-9223372036854775808"));
+	boolean = 0;
+	i = how_many_digits(n) - 1;
+	str = ft_malloc((i + 1) * sizeof(char));
+	str[i + 1] = '\0';
+	if (n < 0)
+	{
+		str[0] = '-';
+		boolean = 1;
+		n = -n;
+	}
+	while (i >= boolean)
+	{
+		str[i] = (char)(n % 10 + 48);
+		n = n / 10;
+		i--;
+	}
+	return (str);
 }

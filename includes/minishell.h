@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:11:36 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 18:23:49 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:11:30 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ void			update_err_code_pipe(int code_err, bool exit_pipe);
 void			write_env_oldpwd(char *oldpwd);
 void			write_env_pwd(char *pwd);
 void			ft_exit(int code, bool msg);
-void			update_err_code_exit(char *origin_code, int code_err);
+void			update_err_code_exit(char *origin_code, long long int code_err);
 void			exit_prg(char *code_err);
 void			export_var(char *var, bool update_g, char **env);
 void			export_all_var(t_cmd_and_opt *cmdopt);

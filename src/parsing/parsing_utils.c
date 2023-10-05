@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 19:20:09 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/05 18:06:22 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*is_path_unset(char *command_name, int imd_return)
 	char	*path2;
 	int		idx;
 
+	path_split = NULL;
 	env_path = ft_getenv("PATH");
 	path[1]  = ft_join_strdup(get_pwd_path(), "/");
 	if (!env_path && imd_return)
