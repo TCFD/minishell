@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:10:57 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/05 18:12:01 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/06 14:39:20 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_itoa(long long int n)
 		return (ft_strdup("-9223372036854775808"));
 	boolean = 0;
 	i = how_many_digits(n) - 1;
-	str = ft_malloc((i + 1) * sizeof(char));
+	str = ft_malloc((i + 2) * sizeof(char));
 	str[i + 1] = '\0';
 	if (n < 0)
 	{

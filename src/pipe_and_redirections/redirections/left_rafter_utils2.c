@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:23 by rciaze            #+#    #+#             */
-/*   Updated: 2023/10/04 16:49:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/06 15:42:57 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,6 @@ void	temp_heredoc(char *str, char **random_adress)
 int	redirect_input(char **tab, int *stdin_save, int *filefd,
 	char **random_adress)
 {
-	*stdin_save = dup(STDIN_FILENO);
-	if (*stdin_save == -1)
-		return (perror("Failed to save stdin"), 1);
 	if (ft_strnstr(tab[0], D_L_RAFTER, ft_strlen(tab[0])))
 	{
 		temp_heredoc(tab[1], random_adress);
@@ -87,8 +84,11 @@ int	redirect_input(char **tab, int *stdin_save, int *filefd,
 	else
 		*filefd = open(tab[1], O_RDONLY, 0666);
 	if (*filefd == -1)
-		return (update_err_code(errno),
+		return (close(*stdin_save), update_err_code(errno),
 			(void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
+	*stdin_save = dup(STDIN_FILENO);
+	if (*stdin_save == -1)
+		return (perror("Failed to save stdin"), 1);
 	if (dup2(*filefd, STDIN_FILENO) == -1)
 		return (perror("Failed to redirect stdin"), 1);
 	return (0);

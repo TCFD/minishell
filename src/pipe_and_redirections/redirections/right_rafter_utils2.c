@@ -6,7 +6,7 @@
 /*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:37:54 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 16:46:38 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/06 15:43:06 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	redirect_output(char **tab, int *stdout_save, int *filefd, int which_case)
 {
-	*stdout_save = dup(STDOUT_FILENO);
-	if (*stdout_save == -1)
-		return (perror("Failed to save stdout"), 1);
 	if (which_case == 1)
 		*filefd = open(tab[1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	else
@@ -24,6 +21,9 @@ int	redirect_output(char **tab, int *stdout_save, int *filefd, int which_case)
 	if (*filefd == -1)
 		return (update_err_code(errno),
 			(void)ft_printf(2, "Minishell : %s: ", tab[1]), perror(""), 1);
+	*stdout_save = dup(STDOUT_FILENO);
+	if (*stdout_save == -1)
+		return (perror("Failed to save stdout"), 1);
 	if (dup2(*filefd, STDOUT_FILENO) == -1)
 		return (perror("Failed to redirect stdout"), 1);
 	return (0);
