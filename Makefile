@@ -6,7 +6,7 @@
 #    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/04 20:06:21 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/10/06 15:49:36 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ ALL_H_FILES		=	$(INCLUDE)/minishell.h					\
 					$(INCLUDE)/pipex.h
 
 SRCS 			=	main.c									\
-					malloc_fail_version_beta.c				\
 					$(SRC)start_init.c						\
 					$(SRC)run_minishell.c					\
 					$(SRC)run_minishell2.c					\
@@ -48,6 +47,7 @@ SRCS 			=	main.c									\
 					$(UTILS)prompt_utils2.c					\
 					$(UTILS)init_utils.c					\
 					$(UTILS)others_utils.c					\
+					$(UTILS)all_join_utils.c				\
 					$(DESIGN_PATTERN)design_p_username.c	\
 					$(DESIGN_PATTERN)design_p_home_path.c	\
 					$(DESIGN_PATTERN)design_p_env.c			\
@@ -111,7 +111,7 @@ $(NAME) : $(OBJ)
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
 	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
-	@clear
+#	@clear
 
 clean :
 	@$(CLEANF)

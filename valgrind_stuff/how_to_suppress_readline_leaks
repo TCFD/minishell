@@ -1,3 +1,0 @@
-
-lancer la commande valgrind avec l'ajout de l'option
---suppressions=test.supp
