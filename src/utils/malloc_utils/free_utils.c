@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils2.c                                      :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:46:34 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/04 17:12:27 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:03:29 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	malloc_failure(void)
 {
-	perror("Critical error: (ft_malloc probably failed)");
+	perror("Critical error: (malloc probably failed): ");
 	ft_exit(EXIT_FAILURE, true);
 }
 

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:49:13 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/05 18:06:22 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:01:12 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 // IS PATH UNSET
 char	*is_path_unset(char *command_name, int imd_return)
@@ -24,7 +23,7 @@ char	*is_path_unset(char *command_name, int imd_return)
 
 	path_split = NULL;
 	env_path = ft_getenv("PATH");
-	path[1]  = ft_join_strdup(get_pwd_path(), "/");
+	path[1] = ft_join_strdup(get_pwd_path(), "/");
 	if (!env_path && imd_return)
 		return (ft_join_no_strdup(path[1], ft_strdup(command_name)));
 	if (env_path)

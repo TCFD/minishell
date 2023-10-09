@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 14:39:15 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/05 18:09:54 by rciaze           ###   ########.fr       */
+/*   Updated: 2023/10/09 16:02:24 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void				*ft_calloc(size_t nmeb, size_t size);
 char				*ft_itoa(long long int n);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strdup(const char *s);
-char				*ft_strnstr(const char *big, const char *little, size_t len);
+char				*ft_strnstr(const char *big, \
+						const char *little, size_t len);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
@@ -75,7 +76,8 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 t_list				*ft_lstnew(char *content, char type);
 t_list				*ft_lstlast(t_list *lst);
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), \
+						void (*del)(void *));
 int					ft_len(char *str);
 int					null_cara_found(char *static_buff);
 void				new_buff_static(char **static_buff, int idx_null_cara);

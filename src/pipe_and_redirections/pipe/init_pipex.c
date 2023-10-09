@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 22:20:45 by zbp15             #+#    #+#             */
-/*   Updated: 2023/10/04 18:56:14 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:59:57 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	init_pipes(t_pipe *pipe_s)
 	{
 		pipe_s->pipe_fd[i] = ft_calloc(sizeof(int), 2);
 		if (pipe(pipe_s->pipe_fd[i]) < 0)
-			return (ft_printf(STDERR_FILENO, "Minishell: pipe error\n"),
+			return (ft_printf(STDERR_FILENO, "Minishell: pipe error" \
+					" (that's alot of pipes buddy)\n"), perror(""),
 				ft_exit(errno, true));
 	}
 }

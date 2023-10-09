@@ -6,7 +6,7 @@
 /*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 13:44:30 by tboldrin          #+#    #+#             */
-/*   Updated: 2023/10/02 15:33:21 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:49:51 by tboldrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	exit_code(int code)
 	if (pid == 0)
 		ft_exit(code, false);
 	waitpid(pid, &status, 0);
-	if (WEXITSTATUS(status))
+	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (0);
 }
