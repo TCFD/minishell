@@ -6,7 +6,7 @@
 #    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/06 15:49:36 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/10/09 16:17:10 by tboldrin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,7 @@ $(NAME) : $(OBJ)
 	@echo $(LIGHT_GREEN)	Libft done.$(RESET)
 	@$(CC) $(CFLAGS) $(OBJ) libft.a $(PFLAGES) -o $(NAME)
 	@echo $(BOLD)$(LIGHT_GREEN)$(NAME) is created !$(RESET)
-#	@clear
+	@clear
 
 clean :
 	@$(CLEANF)
