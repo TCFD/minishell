@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+         #
+#    By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 09:28:24 by rciaze            #+#    #+#              #
-#    Updated: 2023/10/09 16:17:10 by tboldrin         ###   ########.fr        #
+#    Updated: 2023/10/12 15:24:57 by rciaze           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	minishell
 CFLAGS			=	-Wall -Wextra -Werror -g3 
 PFLAGES			=	-lreadline
-CC				=	gcc 
+CC				=	cc 
 CLEANF 			=	@(find . -name "*.o" -type f -delete)
 OBJ 			=	$(addprefix obj/,${SRCS:.c=.o})
 

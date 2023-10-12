@@ -3,7 +3,7 @@ NC=\033[0m
 
 NAME = libft.a
 FLAGS = -Wall -Wextra -Werror -g3 
-CC = gcc
+CC = cc
 
 SRCS := $(wildcard *.c)
 OBJS := $(SRCS:.c=.o)

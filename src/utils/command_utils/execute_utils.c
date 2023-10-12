@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tboldrin <tboldrin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rciaze <rciaze@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 15:57:10 by wolf              #+#    #+#             */
-/*   Updated: 2023/10/09 16:01:02 by tboldrin         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:25:12 by rciaze           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	run_execve(t_cmd_and_opt *cmdopt)
 	pid_t		pid;
 
 	errno = 0;
+	pid = 0;
 	signal(SIGQUIT, sig_handler);
 	if (!cmdopt->is_child)
 	{
